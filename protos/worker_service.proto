@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package mapreduce;
+
+option cc_generic_services = true;
+
+
+
+message ReplyMsg {
+  bool ok = 1;
+  string msg = 2;
+}
+
+message BeatMsg {
+  enum WorkerState {
+    UNKNOWN = 0;
+    INIT = 1;
+    IDLE = 2;
+    WORKING = 3;
+    CLOSE = 4;
+  }
+  WorkerState state = 1;
+  ReplyMsg reply = 2;
+}
+
+service WorkerService {
+  rpc Beat(google.protobuf.Empty) returns (BeatMsg) {}
+}
