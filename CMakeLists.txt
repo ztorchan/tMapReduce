@@ -5,8 +5,12 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug)
 endif()
 
-add_subdirectory(${CMAKE_SOURCE_DIR}/third-party/brpc)
 add_subdirectory(${CMAKE_SOURCE_DIR}/third-party/gflags)
+add_subdirectory(${CMAKE_SOURCE_DIR}/third-party/brpc)
+
+include_directories(${CMAKE_BINARY_DIR}/third-party/incubator-brpc/output/include/)
+include_directories(${CMAKE_BINARY_DIR}/third-party/gflags/include/)
+include_directories(${CMAKE_SOURCE_DIR}/include/)
 
 include(FindProtobuf)
 file(GLOB_RECURSE PROTO_FILE_LIST ${CMAKE_SOURCE_DIR}/protos/*.proto)
@@ -19,13 +23,6 @@ foreach(PROTO_FILE ${PROTO_FILE_LIST})
     COMMAND ${PROTOBUF_PROTOC_EXECUTABLE} -I${CMAKE_SOURCE_DIR}/protos/ --cpp_out=${PROTO_OUT_DIR} ${PROTO_FILE}
   )
 endforeach()
-
-message("${CMAKE_SOURCE_DIR}")
-message("${CMAKE_BINARY_DIR}")
-
-include_directories(${CMAKE_BINARY_DIR}/third-party/incubator-brpc/output/include/)
-include_directories(${CMAKE_BINARY_DIR}/third-party/gflags/include/)
-include_directories(${CMAKE_SOURCE_DIR}/include/)
 
 add_library(master STATIC src/master.cc)
 add_library(worker STATIC src/worker.cc)

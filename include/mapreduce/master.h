@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <unordered_map>
+#include <map>
 #include <queue>
 #include <string>
 #include <atomic>
@@ -38,6 +39,9 @@ private:
   const std::string address_;
   brpc::Channel channel_;
   WorkerService_Stub* stub_;
+
+  uint32_t cur_job_id_;
+  uint32_t cur_subjob_id_;
 };
 
 class Master {
@@ -51,7 +55,8 @@ public:
   Status init();
   Status Register(std::string address, uint32_t* slaver_id);
   Status Launch(const std::string& name, const std::string& type, 
-                const int& map_worker_num, const int& reduce_worker_num);
+                const int& map_worker_num, const int& reduce_worker_num,
+                MapKVs& map_lvs, uint32_t* job_id);
 
   friend class MasterServiceImpl;
   friend class JobDistributor;
@@ -64,8 +69,11 @@ private:
   std::atomic_uint32_t slaver_seq_num_;
   std::atomic_uint32_t job_seq_num_;
 
-  std::unordered_map<uint32_t, Slaver*> slavers_;
-  std::queue<Job*> jobs_queue_;
+  std::unordered_map<uint32_t, Job*> jobs_;
+  std::queue<uint32_t> map_queue_;
+  std::queue<uint32_t> reduce_queue;
+  std::
+  std::map<uint32_t, Slaver*> slavers_;
 
   std::mutex slavers_mutex_;
   std::mutex jobs_mutex_;
@@ -106,6 +114,40 @@ public:
 
   void operator()(){
     // TODO: Distribute jobs
+    uint32_t cur_slaver_id = 0;   // the last slaver assigned successfully
+    std::map<uint32_t, Slaver*>& slavers = master_->slavers_;
+    std::queue<Job*>& jobs = master_->jobs_queue_;
+    brpc::Controller cntl;
+    while(true) {
+      std::unique_lock<std::mutex> lck(master_->slavers_mutex_);
+      std::unique_lock<std::mutex> lck(master_->jobs_mutex_);
+      master_->jobs_cv_.wait(lck, [&] { return !slavers.empty() && !jobs.empty(); });
+      
+      for(auto it = slavers.find(cur_slaver_id); ; ) {
+        if(it->second->state_ == WorkerState::IDLE) {
+          Job* job = jobs.front();
+          Slaver* slaver = it->second;
+          WorkerService_Stub* stub = slaver->stub_;
+          MapJob map_job;
+          map_job.set_name(job->name_);
+          map_job.set_job_id(job->id_);
+          map_job.set_sub_job_id(job->subjobs_)
+
+          cntl.Reset();
+
+
+          break;
+        }
+        ++it;
+        if(it == slavers.end()) {
+          it = slavers.begin();
+        }
+        if(it->first == cur_slaver_id) {
+          break;
+        }
+      }
+
+    }
   }
 private:
   Master* const master_;
@@ -121,13 +163,12 @@ public:
 
   void operator()(){
     brpc::Controller cntl;
-    BeatMsg response;
+    WorkerReplyMsg response;
     while(true) {
       for(auto& [_, slaver] : master_->slavers_) {
-        // TODO: beat
         cntl.Reset();
-        WorkerService_Stub* stub_ = slaver->stub_;
-        stub_->Beat(&cntl, NULL, &response, NULL);
+        WorkerService_Stub* stub = slaver->stub_;
+        stub->Beat(&cntl, NULL, &response, NULL);
         if(cntl.Failed()) {
           slaver->state_ = SlaverState::UNKNOWN;
         } else {
