@@ -38,4 +38,5 @@ message LaunchReply {
 service MasterService {
   rpc Register(RegisterInfo) returns (RegisterReply) {}
   rpc Launch(Job) returns (LaunchReply) {}
+  // TODO: Map result and Reduce result
 }

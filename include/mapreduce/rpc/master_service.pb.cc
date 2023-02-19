@@ -7,6 +7,7 @@
 
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/stubs/port.h>
+#include <google/protobuf/stubs/once.h>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/wire_format_lite_inl.h>
 #include <google/protobuf/descriptor.h>
@@ -18,11 +19,6 @@
 #include "third_party/protobuf/version.h"
 #endif
 // @@protoc_insertion_point(includes)
-
-namespace protobuf_master_5fservice_2eproto {
-extern PROTOBUF_INTERNAL_EXPORT_protobuf_master_5fservice_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Job_KV;
-extern PROTOBUF_INTERNAL_EXPORT_protobuf_master_5fservice_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_MasterReplyMsg;
-}  // namespace protobuf_master_5fservice_2eproto
 namespace mapreduce {
 class MasterReplyMsgDefaultTypeInternal {
  public:
@@ -56,9 +52,14 @@ class LaunchReplyDefaultTypeInternal {
 } _LaunchReply_default_instance_;
 }  // namespace mapreduce
 namespace protobuf_master_5fservice_2eproto {
-static void InitDefaultsMasterReplyMsg() {
+void InitDefaultsMasterReplyMsgImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   {
     void* ptr = &::mapreduce::_MasterReplyMsg_default_instance_;
     new (ptr) ::mapreduce::MasterReplyMsg();
@@ -67,12 +68,19 @@ static void InitDefaultsMasterReplyMsg() {
   ::mapreduce::MasterReplyMsg::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<0> scc_info_MasterReplyMsg =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsMasterReplyMsg}, {}};
+void InitDefaultsMasterReplyMsg() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsMasterReplyMsgImpl);
+}
 
-static void InitDefaultsRegisterInfo() {
+void InitDefaultsRegisterInfoImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   {
     void* ptr = &::mapreduce::_RegisterInfo_default_instance_;
     new (ptr) ::mapreduce::RegisterInfo();
@@ -81,12 +89,19 @@ static void InitDefaultsRegisterInfo() {
   ::mapreduce::RegisterInfo::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<0> scc_info_RegisterInfo =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsRegisterInfo}, {}};
+void InitDefaultsRegisterInfo() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsRegisterInfoImpl);
+}
 
-static void InitDefaultsJob_KV() {
+void InitDefaultsJob_KVImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   {
     void* ptr = &::mapreduce::_Job_KV_default_instance_;
     new (ptr) ::mapreduce::Job_KV();
@@ -95,12 +110,20 @@ static void InitDefaultsJob_KV() {
   ::mapreduce::Job_KV::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<0> scc_info_Job_KV =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsJob_KV}, {}};
+void InitDefaultsJob_KV() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsJob_KVImpl);
+}
 
-static void InitDefaultsJob() {
+void InitDefaultsJobImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  protobuf_master_5fservice_2eproto::InitDefaultsJob_KV();
   {
     void* ptr = &::mapreduce::_Job_default_instance_;
     new (ptr) ::mapreduce::Job();
@@ -109,13 +132,20 @@ static void InitDefaultsJob() {
   ::mapreduce::Job::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<1> scc_info_Job =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsJob}, {
-      &protobuf_master_5fservice_2eproto::scc_info_Job_KV.base,}};
+void InitDefaultsJob() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsJobImpl);
+}
 
-static void InitDefaultsRegisterReply() {
+void InitDefaultsRegisterReplyImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  protobuf_master_5fservice_2eproto::InitDefaultsMasterReplyMsg();
   {
     void* ptr = &::mapreduce::_RegisterReply_default_instance_;
     new (ptr) ::mapreduce::RegisterReply();
@@ -124,13 +154,20 @@ static void InitDefaultsRegisterReply() {
   ::mapreduce::RegisterReply::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<1> scc_info_RegisterReply =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsRegisterReply}, {
-      &protobuf_master_5fservice_2eproto::scc_info_MasterReplyMsg.base,}};
+void InitDefaultsRegisterReply() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsRegisterReplyImpl);
+}
 
-static void InitDefaultsLaunchReply() {
+void InitDefaultsLaunchReplyImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  protobuf_master_5fservice_2eproto::InitDefaultsMasterReplyMsg();
   {
     void* ptr = &::mapreduce::_LaunchReply_default_instance_;
     new (ptr) ::mapreduce::LaunchReply();
@@ -139,17 +176,9 @@ static void InitDefaultsLaunchReply() {
   ::mapreduce::LaunchReply::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<1> scc_info_LaunchReply =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsLaunchReply}, {
-      &protobuf_master_5fservice_2eproto::scc_info_MasterReplyMsg.base,}};
-
-void InitDefaults() {
-  ::google::protobuf::internal::InitSCC(&scc_info_MasterReplyMsg.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_RegisterInfo.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_Job_KV.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_Job.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_RegisterReply.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_LaunchReply.base);
+void InitDefaultsLaunchReply() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsLaunchReplyImpl);
 }
 
 ::google::protobuf::Metadata file_level_metadata[6];
@@ -221,14 +250,15 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
 
 void protobuf_AssignDescriptors() {
   AddDescriptors();
+  ::google::protobuf::MessageFactory* factory = NULL;
   AssignDescriptors(
-      "master_service.proto", schemas, file_default_instances, TableStruct::offsets,
+      "master_service.proto", schemas, file_default_instances, TableStruct::offsets, factory,
       file_level_metadata, NULL, file_level_service_descriptors);
 }
 
 void protobuf_AssignDescriptorsOnce() {
-  static ::google::protobuf::internal::once_flag once;
-  ::google::protobuf::internal::call_once(once, protobuf_AssignDescriptors);
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &protobuf_AssignDescriptors);
 }
 
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
@@ -262,8 +292,8 @@ void AddDescriptorsImpl() {
 }
 
 void AddDescriptors() {
-  static ::google::protobuf::internal::once_flag once;
-  ::google::protobuf::internal::call_once(once, AddDescriptorsImpl);
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &AddDescriptorsImpl);
 }
 // Force AddDescriptors() to be called at dynamic initialization time.
 struct StaticDescriptorInitializer {
@@ -285,14 +315,16 @@ const int MasterReplyMsg::kMsgFieldNumber;
 
 MasterReplyMsg::MasterReplyMsg()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_master_5fservice_2eproto::scc_info_MasterReplyMsg.base);
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_master_5fservice_2eproto::InitDefaultsMasterReplyMsg();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:mapreduce.MasterReplyMsg)
 }
 MasterReplyMsg::MasterReplyMsg(const MasterReplyMsg& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL) {
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   msg_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.msg().size() > 0) {
@@ -305,6 +337,7 @@ MasterReplyMsg::MasterReplyMsg(const MasterReplyMsg& from)
 void MasterReplyMsg::SharedCtor() {
   msg_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ok_ = false;
+  _cached_size_ = 0;
 }
 
 MasterReplyMsg::~MasterReplyMsg() {
@@ -317,7 +350,9 @@ void MasterReplyMsg::SharedDtor() {
 }
 
 void MasterReplyMsg::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* MasterReplyMsg::descriptor() {
   ::protobuf_master_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
@@ -325,10 +360,17 @@ const ::google::protobuf::Descriptor* MasterReplyMsg::descriptor() {
 }
 
 const MasterReplyMsg& MasterReplyMsg::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_master_5fservice_2eproto::scc_info_MasterReplyMsg.base);
+  ::protobuf_master_5fservice_2eproto::InitDefaultsMasterReplyMsg();
   return *internal_default_instance();
 }
 
+MasterReplyMsg* MasterReplyMsg::New(::google::protobuf::Arena* arena) const {
+  MasterReplyMsg* n = new MasterReplyMsg;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
 
 void MasterReplyMsg::Clear() {
 // @@protoc_insertion_point(message_clear_start:mapreduce.MasterReplyMsg)
@@ -347,7 +389,7 @@ bool MasterReplyMsg::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:mapreduce.MasterReplyMsg)
   for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -482,7 +524,9 @@ size_t MasterReplyMsg::ByteSizeLong() const {
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
@@ -541,10 +585,10 @@ void MasterReplyMsg::Swap(MasterReplyMsg* other) {
 }
 void MasterReplyMsg::InternalSwap(MasterReplyMsg* other) {
   using std::swap;
-  msg_.Swap(&other->msg_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
+  msg_.Swap(&other->msg_);
   swap(ok_, other->ok_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata MasterReplyMsg::GetMetadata() const {
@@ -563,14 +607,16 @@ const int RegisterInfo::kAddressFieldNumber;
 
 RegisterInfo::RegisterInfo()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_master_5fservice_2eproto::scc_info_RegisterInfo.base);
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_master_5fservice_2eproto::InitDefaultsRegisterInfo();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:mapreduce.RegisterInfo)
 }
 RegisterInfo::RegisterInfo(const RegisterInfo& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL) {
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.address().size() > 0) {
@@ -581,6 +627,7 @@ RegisterInfo::RegisterInfo(const RegisterInfo& from)
 
 void RegisterInfo::SharedCtor() {
   address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _cached_size_ = 0;
 }
 
 RegisterInfo::~RegisterInfo() {
@@ -593,7 +640,9 @@ void RegisterInfo::SharedDtor() {
 }
 
 void RegisterInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* RegisterInfo::descriptor() {
   ::protobuf_master_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
@@ -601,10 +650,17 @@ const ::google::protobuf::Descriptor* RegisterInfo::descriptor() {
 }
 
 const RegisterInfo& RegisterInfo::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_master_5fservice_2eproto::scc_info_RegisterInfo.base);
+  ::protobuf_master_5fservice_2eproto::InitDefaultsRegisterInfo();
   return *internal_default_instance();
 }
 
+RegisterInfo* RegisterInfo::New(::google::protobuf::Arena* arena) const {
+  RegisterInfo* n = new RegisterInfo;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
 
 void RegisterInfo::Clear() {
 // @@protoc_insertion_point(message_clear_start:mapreduce.RegisterInfo)
@@ -622,7 +678,7 @@ bool RegisterInfo::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:mapreduce.RegisterInfo)
   for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -728,7 +784,9 @@ size_t RegisterInfo::ByteSizeLong() const {
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
@@ -784,9 +842,9 @@ void RegisterInfo::Swap(RegisterInfo* other) {
 }
 void RegisterInfo::InternalSwap(RegisterInfo* other) {
   using std::swap;
-  address_.Swap(&other->address_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
+  address_.Swap(&other->address_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata RegisterInfo::GetMetadata() const {
@@ -806,14 +864,16 @@ const int Job_KV::kValueFieldNumber;
 
 Job_KV::Job_KV()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_master_5fservice_2eproto::scc_info_Job_KV.base);
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_master_5fservice_2eproto::InitDefaultsJob_KV();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:mapreduce.Job.KV)
 }
 Job_KV::Job_KV(const Job_KV& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL) {
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   key_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.key().size() > 0) {
@@ -829,6 +889,7 @@ Job_KV::Job_KV(const Job_KV& from)
 void Job_KV::SharedCtor() {
   key_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   value_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _cached_size_ = 0;
 }
 
 Job_KV::~Job_KV() {
@@ -842,7 +903,9 @@ void Job_KV::SharedDtor() {
 }
 
 void Job_KV::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* Job_KV::descriptor() {
   ::protobuf_master_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
@@ -850,10 +913,17 @@ const ::google::protobuf::Descriptor* Job_KV::descriptor() {
 }
 
 const Job_KV& Job_KV::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_master_5fservice_2eproto::scc_info_Job_KV.base);
+  ::protobuf_master_5fservice_2eproto::InitDefaultsJob_KV();
   return *internal_default_instance();
 }
 
+Job_KV* Job_KV::New(::google::protobuf::Arena* arena) const {
+  Job_KV* n = new Job_KV;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
 
 void Job_KV::Clear() {
 // @@protoc_insertion_point(message_clear_start:mapreduce.Job.KV)
@@ -872,7 +942,7 @@ bool Job_KV::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:mapreduce.Job.KV)
   for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -1022,7 +1092,9 @@ size_t Job_KV::ByteSizeLong() const {
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
@@ -1082,11 +1154,10 @@ void Job_KV::Swap(Job_KV* other) {
 }
 void Job_KV::InternalSwap(Job_KV* other) {
   using std::swap;
-  key_.Swap(&other->key_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  value_.Swap(&other->value_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
+  key_.Swap(&other->key_);
+  value_.Swap(&other->value_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Job_KV::GetMetadata() const {
@@ -1109,15 +1180,17 @@ const int Job::kKvsFieldNumber;
 
 Job::Job()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_master_5fservice_2eproto::scc_info_Job.base);
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_master_5fservice_2eproto::InitDefaultsJob();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:mapreduce.Job)
 }
 Job::Job(const Job& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      kvs_(from.kvs_) {
+      kvs_(from.kvs_),
+      _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.name().size() > 0) {
@@ -1139,6 +1212,7 @@ void Job::SharedCtor() {
   ::memset(&mapper_num_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&reducer_num_) -
       reinterpret_cast<char*>(&mapper_num_)) + sizeof(reducer_num_));
+  _cached_size_ = 0;
 }
 
 Job::~Job() {
@@ -1152,7 +1226,9 @@ void Job::SharedDtor() {
 }
 
 void Job::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* Job::descriptor() {
   ::protobuf_master_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
@@ -1160,10 +1236,17 @@ const ::google::protobuf::Descriptor* Job::descriptor() {
 }
 
 const Job& Job::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_master_5fservice_2eproto::scc_info_Job.base);
+  ::protobuf_master_5fservice_2eproto::InitDefaultsJob();
   return *internal_default_instance();
 }
 
+Job* Job::New(::google::protobuf::Arena* arena) const {
+  Job* n = new Job;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
 
 void Job::Clear() {
 // @@protoc_insertion_point(message_clear_start:mapreduce.Job)
@@ -1186,7 +1269,7 @@ bool Job::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:mapreduce.Job)
   for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -1254,8 +1337,7 @@ bool Job::MergePartialFromCodedStream(
       case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-                input, add_kvs()));
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(input, add_kvs()));
         } else {
           goto handle_unusual;
         }
@@ -1322,9 +1404,7 @@ void Job::SerializeWithCachedSizes(
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->kvs_size()); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      5,
-      this->kvs(static_cast<int>(i)),
-      output);
+      5, this->kvs(static_cast<int>(i)), output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -1438,7 +1518,9 @@ size_t Job::ByteSizeLong() const {
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
@@ -1505,14 +1587,13 @@ void Job::Swap(Job* other) {
 }
 void Job::InternalSwap(Job* other) {
   using std::swap;
-  CastToBase(&kvs_)->InternalSwap(CastToBase(&other->kvs_));
-  name_.Swap(&other->name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  type_.Swap(&other->type_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
+  kvs_.InternalSwap(&other->kvs_);
+  name_.Swap(&other->name_);
+  type_.Swap(&other->type_);
   swap(mapper_num_, other->mapper_num_);
   swap(reducer_num_, other->reducer_num_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Job::GetMetadata() const {
@@ -1534,14 +1615,16 @@ const int RegisterReply::kWorkerIdFieldNumber;
 
 RegisterReply::RegisterReply()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_master_5fservice_2eproto::scc_info_RegisterReply.base);
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_master_5fservice_2eproto::InitDefaultsRegisterReply();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:mapreduce.RegisterReply)
 }
 RegisterReply::RegisterReply(const RegisterReply& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL) {
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_reply()) {
     reply_ = new ::mapreduce::MasterReplyMsg(*from.reply_);
@@ -1556,6 +1639,7 @@ void RegisterReply::SharedCtor() {
   ::memset(&reply_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&worker_id_) -
       reinterpret_cast<char*>(&reply_)) + sizeof(worker_id_));
+  _cached_size_ = 0;
 }
 
 RegisterReply::~RegisterReply() {
@@ -1568,7 +1652,9 @@ void RegisterReply::SharedDtor() {
 }
 
 void RegisterReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* RegisterReply::descriptor() {
   ::protobuf_master_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
@@ -1576,10 +1662,17 @@ const ::google::protobuf::Descriptor* RegisterReply::descriptor() {
 }
 
 const RegisterReply& RegisterReply::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_master_5fservice_2eproto::scc_info_RegisterReply.base);
+  ::protobuf_master_5fservice_2eproto::InitDefaultsRegisterReply();
   return *internal_default_instance();
 }
 
+RegisterReply* RegisterReply::New(::google::protobuf::Arena* arena) const {
+  RegisterReply* n = new RegisterReply;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
 
 void RegisterReply::Clear() {
 // @@protoc_insertion_point(message_clear_start:mapreduce.RegisterReply)
@@ -1601,7 +1694,7 @@ bool RegisterReply::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:mapreduce.RegisterReply)
   for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -1660,7 +1753,7 @@ void RegisterReply::SerializeWithCachedSizes(
   // .mapreduce.MasterReplyMsg reply = 1;
   if (this->has_reply()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->_internal_reply(), output);
+      1, *this->reply_, output);
   }
 
   // uint32 worker_id = 2;
@@ -1686,7 +1779,7 @@ void RegisterReply::SerializeWithCachedSizes(
   if (this->has_reply()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, this->_internal_reply(), deterministic, target);
+        1, *this->reply_, deterministic, target);
   }
 
   // uint32 worker_id = 2;
@@ -1715,7 +1808,7 @@ size_t RegisterReply::ByteSizeLong() const {
   if (this->has_reply()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *reply_);
+        *this->reply_);
   }
 
   // uint32 worker_id = 2;
@@ -1726,7 +1819,9 @@ size_t RegisterReply::ByteSizeLong() const {
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
@@ -1787,6 +1882,7 @@ void RegisterReply::InternalSwap(RegisterReply* other) {
   swap(reply_, other->reply_);
   swap(worker_id_, other->worker_id_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata RegisterReply::GetMetadata() const {
@@ -1808,14 +1904,16 @@ const int LaunchReply::kJobIdFieldNumber;
 
 LaunchReply::LaunchReply()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_master_5fservice_2eproto::scc_info_LaunchReply.base);
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_master_5fservice_2eproto::InitDefaultsLaunchReply();
+  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:mapreduce.LaunchReply)
 }
 LaunchReply::LaunchReply(const LaunchReply& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL) {
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   if (from.has_reply()) {
     reply_ = new ::mapreduce::MasterReplyMsg(*from.reply_);
@@ -1830,6 +1928,7 @@ void LaunchReply::SharedCtor() {
   ::memset(&reply_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&job_id_) -
       reinterpret_cast<char*>(&reply_)) + sizeof(job_id_));
+  _cached_size_ = 0;
 }
 
 LaunchReply::~LaunchReply() {
@@ -1842,7 +1941,9 @@ void LaunchReply::SharedDtor() {
 }
 
 void LaunchReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* LaunchReply::descriptor() {
   ::protobuf_master_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
@@ -1850,10 +1951,17 @@ const ::google::protobuf::Descriptor* LaunchReply::descriptor() {
 }
 
 const LaunchReply& LaunchReply::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_master_5fservice_2eproto::scc_info_LaunchReply.base);
+  ::protobuf_master_5fservice_2eproto::InitDefaultsLaunchReply();
   return *internal_default_instance();
 }
 
+LaunchReply* LaunchReply::New(::google::protobuf::Arena* arena) const {
+  LaunchReply* n = new LaunchReply;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
 
 void LaunchReply::Clear() {
 // @@protoc_insertion_point(message_clear_start:mapreduce.LaunchReply)
@@ -1875,7 +1983,7 @@ bool LaunchReply::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:mapreduce.LaunchReply)
   for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -1934,7 +2042,7 @@ void LaunchReply::SerializeWithCachedSizes(
   // .mapreduce.MasterReplyMsg reply = 1;
   if (this->has_reply()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->_internal_reply(), output);
+      1, *this->reply_, output);
   }
 
   // uint32 job_id = 2;
@@ -1960,7 +2068,7 @@ void LaunchReply::SerializeWithCachedSizes(
   if (this->has_reply()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1, this->_internal_reply(), deterministic, target);
+        1, *this->reply_, deterministic, target);
   }
 
   // uint32 job_id = 2;
@@ -1989,7 +2097,7 @@ size_t LaunchReply::ByteSizeLong() const {
   if (this->has_reply()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *reply_);
+        *this->reply_);
   }
 
   // uint32 job_id = 2;
@@ -2000,7 +2108,9 @@ size_t LaunchReply::ByteSizeLong() const {
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
@@ -2061,6 +2171,7 @@ void LaunchReply::InternalSwap(LaunchReply* other) {
   swap(reply_, other->reply_);
   swap(job_id_, other->job_id_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata LaunchReply::GetMetadata() const {
@@ -2181,27 +2292,5 @@ void MasterService_Stub::Launch(::google::protobuf::RpcController* controller,
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace mapreduce
-namespace google {
-namespace protobuf {
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::mapreduce::MasterReplyMsg* Arena::CreateMaybeMessage< ::mapreduce::MasterReplyMsg >(Arena* arena) {
-  return Arena::CreateInternal< ::mapreduce::MasterReplyMsg >(arena);
-}
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::mapreduce::RegisterInfo* Arena::CreateMaybeMessage< ::mapreduce::RegisterInfo >(Arena* arena) {
-  return Arena::CreateInternal< ::mapreduce::RegisterInfo >(arena);
-}
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::mapreduce::Job_KV* Arena::CreateMaybeMessage< ::mapreduce::Job_KV >(Arena* arena) {
-  return Arena::CreateInternal< ::mapreduce::Job_KV >(arena);
-}
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::mapreduce::Job* Arena::CreateMaybeMessage< ::mapreduce::Job >(Arena* arena) {
-  return Arena::CreateInternal< ::mapreduce::Job >(arena);
-}
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::mapreduce::RegisterReply* Arena::CreateMaybeMessage< ::mapreduce::RegisterReply >(Arena* arena) {
-  return Arena::CreateInternal< ::mapreduce::RegisterReply >(arena);
-}
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::mapreduce::LaunchReply* Arena::CreateMaybeMessage< ::mapreduce::LaunchReply >(Arena* arena) {
-  return Arena::CreateInternal< ::mapreduce::LaunchReply >(arena);
-}
-}  // namespace protobuf
-}  // namespace google
 
 // @@protoc_insertion_point(global_scope)

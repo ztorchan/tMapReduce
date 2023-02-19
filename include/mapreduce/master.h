@@ -11,6 +11,7 @@
 #include <thread>
 #include <condition_variable>
 #include <chrono>
+#include <cassert>
 
 #include "brpc/channel.h"
 
@@ -70,10 +71,10 @@ private:
   std::atomic_uint32_t job_seq_num_;
 
   std::unordered_map<uint32_t, Job*> jobs_;
-  std::queue<uint32_t> map_queue_;
-  std::queue<uint32_t> reduce_queue;
-  std::
+  std::deque<uint32_t> map_queue_;
+  std::deque<uint32_t> reduce_queue_;
   std::map<uint32_t, Slaver*> slavers_;
+  std::unordered_map<uint32_t, std::pair<uint32_t, uint32_t>> slaver_to_job_;
 
   std::mutex slavers_mutex_;
   std::mutex jobs_mutex_;
@@ -114,39 +115,111 @@ public:
 
   void operator()(){
     // TODO: Distribute jobs
-    uint32_t cur_slaver_id = 0;   // the last slaver assigned successfully
+    uint32_t cur_slaver_id = UINT32_MAX;    // the last slaver assigned successfully
+    uint32_t cur_job_id = UINT32_MAX;       // current job
+    uint32_t cur_subjob_index = UINT32_MAX; 
+    bool cur_map = true;
+
     std::map<uint32_t, Slaver*>& slavers = master_->slavers_;
-    std::queue<Job*>& jobs = master_->jobs_queue_;
+    std::deque<uint32_t>& map_jobs = master_->map_queue_;
+    std::deque<uint32_t>& reduce_jobs = master_->reduce_queue_;
     brpc::Controller cntl;
+
     while(true) {
       std::unique_lock<std::mutex> lck(master_->slavers_mutex_);
       std::unique_lock<std::mutex> lck(master_->jobs_mutex_);
-      master_->jobs_cv_.wait(lck, [&] { return !slavers.empty() && !jobs.empty(); });
-      
-      for(auto it = slavers.find(cur_slaver_id); ; ) {
+      master_->jobs_cv_.wait(lck, [&] { 
+        return !slavers.empty() 
+               && (!cur_job_id != UINT32_MAX || !map_jobs.empty() || !reduce_jobs.empty()); 
+      });
+
+      // Init
+      if(cur_job_id == UINT32_MAX) {
+        if(!reduce_jobs.empty()){
+          cur_job_id = reduce_jobs.front();
+          reduce_jobs.pop_front();
+        } else {
+          cur_job_id = map_jobs.front();
+          map_jobs.pop_front();
+        }
+      }
+      if(cur_slaver_id == UINT32_MAX) {
+        cur_slaver_id = slavers.begin()->first;
+      }
+      if(cur_subjob_index == UINT32_MAX) {
+        cur_subjob_index = 0;
+      }
+
+      assert(job->stage_ == JobStage::WAIT2MAP || job->stage_ == JobStage::WAIT2REDUCE);
+      auto it = slavers.find(cur_slaver_id);
+      if(it == slavers.end()) {
+        it = slavers.begin();
+        cur_slaver_id = it->first;
+      }
+      do {
+        // find idle slaver and distribute job
         if(it->second->state_ == WorkerState::IDLE) {
-          Job* job = jobs.front();
           Slaver* slaver = it->second;
           WorkerService_Stub* stub = slaver->stub_;
-          MapJob map_job;
-          map_job.set_name(job->name_);
-          map_job.set_job_id(job->id_);
-          map_job.set_sub_job_id(job->subjobs_)
-
+          Job* job = master_->jobs_[cur_slaver_id];
+          SubJob& subjob = job->subjobs_[cur_subjob_index];
+          WorkerReplyMsg response;
           cntl.Reset();
 
+          if(job->stage_ == JobStage::WAIT2MAP) {
+            MapJob rpc_map_job;
+            rpc_map_job.set_job_id(job->id_);
+            rpc_map_job.set_sub_job_id(subjob.subjob_id_);
+            rpc_map_job.set_name(job->name_);
+            rpc_map_job.set_type(job->type_);
+            for(size_t i = 0; i < subjob.size_; i++) {
+              const MapKV& kv = job->map_kvs_[subjob.head_ + i];
+              auto rpc_kv = rpc_map_job.add_map_kvs();
+              rpc_kv->set_key(kv.first);
+              rpc_kv->set_value(kv.second);
+            }
+            stub->Map(&cntl, &rpc_map_job, &response, NULL);
+          } else if(job->stage_ == JobStage::WAIT2REDUCE) {
+            ReduceJob rpc_reduce_job;
+            rpc_reduce_job.set_job_id(job->id_);
+            rpc_reduce_job.set_sub_job_id(subjob.subjob_id_);
+            rpc_reduce_job.set_name(job->name_);
+            rpc_reduce_job.set_type(job->type_);
+            for(size_t i = 0; i < subjob.size_; i++) {
+              const ReduceKV& kv = job->reduce_kvs_[subjob.head_ + i];
+              auto rpc_kv = rpc_reduce_job.add_reduce_kvs();
+              rpc_kv->set_key(kv.first);
+              for(size_t j = 0; j < kv.second.size(); j++) {
+                rpc_kv->add_value(kv.second[j]);
+              }
+            }
+            stub->Reduce(&cntl, &rpc_reduce_job, &response, NULL);
+          }
 
-          break;
+          if(!cntl.Fail()) {
+            slaver->state_ = WorkerStateFromRPC(response.state());
+            if(slaver->state_ == WorkerState::WORKING && response.ok()) {
+              cur_slaver_id = slaver->id_;
+              subjob.worker_id_ = slaver->id_;
+              master_->slaver_to_job_[slaver->id_] = std::make_pair<uint32_t, uint32_t>(cur_job_id, cur_subjob_index);
+              while(cur_subjob_index < job->subjobs_.size() && job->subjobs_[cur_subjob_index].worker_id_ != UINT32_MAX) {
+                cur_subjob_index++;
+              }
+              if(cur_subjob_index == job->subjobs_.size()){
+                cur_job_id = UINT32_MAX;
+                cur_subjob_index = UINT32_MAX;
+              }
+              break;
+            }
+          } else {
+            slaver->state_ = WorkerState::UNKNOWN;
+          }
         }
         ++it;
         if(it == slavers.end()) {
           it = slavers.begin();
         }
-        if(it->first == cur_slaver_id) {
-          break;
-        }
-      }
-
+      } while(it->first != cur_slaver_id);
     }
   }
 private:
@@ -174,6 +247,8 @@ public:
         } else {
           Slaver->state_ = WorkerStateFromRPC(response.state());
         }
+
+        // TODO: Check fault slaver and re-distribute job
       }
       std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }

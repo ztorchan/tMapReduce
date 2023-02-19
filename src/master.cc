@@ -37,8 +37,10 @@ Master::Master(uint32_t id, std::string name, uint32_t port)
       slaver_seq_num_(0),
       job_seq_num_(0),
       jobs_(),
-      subjob_queue_(),
+      map_queue_(),
+      reduce_queue_(),
       slavers_(),
+      slaver_to_job_(),
       slavers_mutex_(),
       jobs_mutex_(),
       jobs_cv_() {
@@ -80,12 +82,14 @@ Status Master::Register(std::string waddress, uint32_t* wid) {
 Status Master::Launch(const std::string& name, const std::string& type, 
                       const int& map_worker_num, const int& reduce_worker_num, 
                       MapKVs& map_kvs, uint32_t* job_id) {
+  // TODO: Check whether job is legal
+  
   std::unique_lock<std::mutex> lck(jobs_mutex_);
   Job* new_job = new Job(new_job_id(), name, type, map_worker_num, reduce_worker_num, std::move(map_kvs));
   new_job->stage_ = JobStage::WAIT2MAP;
   new_job->Partition();
   jobs_[new_job->id_] = new_job;
-  
+  map_queue_.push_back(new_job->id_);
 
   job_id = new_job->id_;
   lck.unlock();

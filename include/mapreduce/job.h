@@ -12,6 +12,16 @@ using ReduceKV = std::pair<std::string, std::vector<std::string>>;
 using MapKVs = std::vector<MapKV>;
 using ReduceKVs = std::vector<ReduceKV>;
 
+enum JobStage {
+    INIT,
+    WAIT2MAP,
+    MAPPING,
+    MERGING,
+    WAIT2REDUCE,
+    REDUCING,
+    FINISHED
+  };
+
 class Job {
 public:
   Job(uint32_t id, std::string name, std::string type, int map_worker_num, int reduce_worker_num,
@@ -34,16 +44,6 @@ public:
   void Partition();
 
 public:
-  enum JobStage {
-    INIT,
-    WAIT2MAP,
-    MAPPING,
-    MERGING,
-    WAIT2REDUCE,
-    REDUCING,
-    FINISHED
-  };
-
   const uint32_t id_;
   const std::string name_;
   const std::string type_;
