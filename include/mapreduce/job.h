@@ -7,6 +7,8 @@
 
 namespace mapreduce{
 
+class SubJob;
+
 using MapKV = std::pair<std::string, std::string>;
 using ReduceKV = std::pair<std::string, std::vector<std::string>>;
 using MapKVs = std::vector<MapKV>;
@@ -21,7 +23,6 @@ enum class JobStage {
   };
 
 class Job {
-  class SubJob;
 public:
   Job(uint32_t id, std::string name, std::string type, int map_worker_num, int reduce_worker_num,
       MapKVs&& map_kvs) : 
@@ -66,7 +67,6 @@ public:
     worker_id_(UINT32_MAX),
     finished_(false),
     result_(nullptr) {}
-  SubJob(const SubJob&) = delete;
   ~SubJob() {}
 
   SubJob& operator=(const SubJob&) = delete;

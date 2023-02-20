@@ -62,6 +62,10 @@ public:
   friend class MasterServiceImpl;
   friend class JobDistributor;
   friend class Beater;
+  
+  static void BGDistributor(Master* master);
+
+  static void BGBeater(Master* master);
 
 private:
   const uint32_t id_;
@@ -79,8 +83,8 @@ private:
   std::mutex slavers_mutex_;
   std::mutex jobs_mutex_;
   std::condition_variable jobs_cv_;
-  std::thread* job_distributor_;        // 任务分发线程
-  std::thread* beater_;        // 心跳线程
+  // std::thread* job_distributor_;        // 任务分发线程
+  // std::thread* beater_;        // 心跳线程
 
   uint32_t new_slaver_id() { return ++slaver_seq_num_; }
   uint32_t new_job_id() { return ++job_seq_num_; }
@@ -125,12 +129,12 @@ public:
     brpc::Controller cntl;
 
     while(true) {
-      std::unique_lock<std::mutex> lck(master_->slavers_mutex_);
-      std::unique_lock<std::mutex> lck(master_->jobs_mutex_);
-      master_->jobs_cv_.wait(lck, [&] { 
+      std::unique_lock<std::mutex> jobs_lck(master_->jobs_mutex_);
+      master_->jobs_cv_.wait(jobs_lck, [&] { 
         return !slavers.empty() 
                && (!cur_job_id != UINT32_MAX || !map_jobs.empty() || !reduce_jobs.empty()); 
       });
+      std::unique_lock<std::mutex> slavers_lck(master_->slavers_mutex_);
 
       // Init
       if(cur_job_id == UINT32_MAX) {
@@ -149,7 +153,6 @@ public:
         cur_subjob_index = 0;
       }
 
-      assert(job->stage_ == JobStage::WAIT2MAP || job->stage_ == JobStage::WAIT2REDUCE);
       auto it = slavers.find(cur_slaver_id);
       if(it == slavers.end()) {
         it = slavers.begin();
@@ -165,8 +168,10 @@ public:
           WorkerReplyMsg response;
           cntl.Reset();
 
+          assert(job->stage_ == JobStage::MAPPING || job->stage_ == JobStage::REDUCING);
+
           if(job->stage_ == JobStage::MAPPING) {
-            MapJob rpc_map_job;
+            MapJobMsg rpc_map_job;
             rpc_map_job.set_job_id(job->id_);
             rpc_map_job.set_sub_job_id(subjob.subjob_id_);
             rpc_map_job.set_name(job->name_);
@@ -179,7 +184,7 @@ public:
             }
             stub->Map(&cntl, &rpc_map_job, &response, NULL);
           } else if(job->stage_ == JobStage::REDUCING) {
-            ReduceJob rpc_reduce_job;
+            ReduceJobMsg rpc_reduce_job;
             rpc_reduce_job.set_job_id(job->id_);
             rpc_reduce_job.set_sub_job_id(subjob.subjob_id_);
             rpc_reduce_job.set_name(job->name_);
@@ -195,12 +200,12 @@ public:
             stub->Reduce(&cntl, &rpc_reduce_job, &response, NULL);
           }
 
-          if(!cntl.Fail()) {
+          if(!cntl.Failed()) {
             slaver->state_ = WorkerStateFromRPC(response.state());
             if(slaver->state_ == WorkerState::WORKING && response.ok()) {
               cur_slaver_id = slaver->id_;
               subjob.worker_id_ = slaver->id_;
-              master_->slaver_to_job_[slaver->id_] = std::make_pair<uint32_t, uint32_t>(cur_job_id, cur_subjob_index);
+              master_->slaver_to_job_[slaver->id_] = std::pair<uint32_t, uint32_t>(cur_job_id, cur_subjob_index);
               while(cur_subjob_index < job->subjobs_.size() && job->subjobs_[cur_subjob_index].worker_id_ != UINT32_MAX) {
                 cur_subjob_index++;
               }
@@ -222,8 +227,8 @@ public:
     }
   }
 private:
-  Master* const master_;
-}
+  Master* master_;
+};
 
 class Beater {
 public:
@@ -242,7 +247,7 @@ public:
         WorkerService_Stub* stub = slaver->stub_;
         stub->Beat(&cntl, NULL, &response, NULL);
         if(cntl.Failed()) {
-          slaver->state_ = SlaverState::UNKNOWN;
+          slaver->state_ = WorkerState::UNKNOWN;
         } else {
           slaver->state_ = WorkerStateFromRPC(response.state());
         }
@@ -254,7 +259,7 @@ public:
             uint32_t job_id = it->second.first;
             uint32_t subjob_index = it->second.second;
             Job* job = master_->jobs_[job_id];
-            job->subjobs_[subjob_index].worker_id = UINT32_MAX;
+            job->subjobs_[subjob_index].worker_id_ = UINT32_MAX;
 
             std::unique_lock<std::mutex> lck(master_->jobs_mutex_);
             if(job->stage_ == JobStage::MAPPING) {
@@ -271,7 +276,7 @@ public:
   }
 private:
   Master* const master_;
-}
+};
 
 } // namespace mapreduce
 

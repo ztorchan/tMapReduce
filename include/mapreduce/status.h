@@ -31,7 +31,7 @@ public:
 
   Code code_;
   std::string msg_;
-}
+};
 
 }
 

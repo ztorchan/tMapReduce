@@ -1,15 +1,12 @@
 cmake_minimum_required(VERSION 3.16.0)
 project(mapduce C CXX)
 
+set(CMAKE_CXX_STANDARD 17)
+
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug)
 endif()
 
-add_subdirectory(${CMAKE_SOURCE_DIR}/third-party/gflags)
-add_subdirectory(${CMAKE_SOURCE_DIR}/third-party/brpc)
-
-include_directories(${CMAKE_BINARY_DIR}/third-party/incubator-brpc/output/include/)
-include_directories(${CMAKE_BINARY_DIR}/third-party/gflags/include/)
 include_directories(${CMAKE_SOURCE_DIR}/include/)
 
 include(FindProtobuf)
@@ -17,12 +14,16 @@ file(GLOB_RECURSE PROTO_FILE_LIST ${CMAKE_SOURCE_DIR}/protos/*.proto)
 set(PROTO_OUT_DIR ${CMAKE_SOURCE_DIR}/include/mapreduce/rpc/)
 foreach(PROTO_FILE ${PROTO_FILE_LIST})
   get_filename_component(FILE_NAME ${PROTO_FILE} NAME_WE)
-  list(APPEND PROTO_CXX "${CMAKE_BINARY_DIR}/mapreduce/rpc/${FILE_NAME}.pb.cc")
-  list(APPEND PROTO_H "${CMAKE_BINARY_DIR}/mapreduce/rpc/${FILE_NAME}.pb.h")
+  list(APPEND PROTO_CXX "${CMAKE_SOURCE_DIR}/include/mapreduce/rpc/${FILE_NAME}.pb.cc")
+  list(APPEND PROTO_H "${CMAKE_SOURCE_DIR}/include/mapreduce/rpc/${FILE_NAME}.pb.h")
   execute_process(
     COMMAND ${PROTOBUF_PROTOC_EXECUTABLE} -I${CMAKE_SOURCE_DIR}/protos/ --cpp_out=${PROTO_OUT_DIR} ${PROTO_FILE}
   )
 endforeach()
 
-add_library(master STATIC src/master.cc)
-add_library(worker STATIC src/worker.cc)
+find_package(gflags REQUIRED)
+find_library(BRPC_LIB NAMES libbrpc.a brpc)
+find_package(Threads)
+
+add_library(master STATIC src/master.cc src/job.cc src/state.cc include/mapreduce/master.h ${PROTO_CXX} ${PROTO_H})
+target_link_libraries(master ${BRPC_LIB} gflags ${CMAKE_THREAD_LIBS_INIT})
