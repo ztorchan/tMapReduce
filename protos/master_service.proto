@@ -9,11 +9,11 @@ message MasterReplyMsg {
   string msg = 2;
 }
 
-message RegisterInfo {
+message RegisterMsg {
   string address = 1;
 }
 
-message Job {
+message JobMsg {
   message KV {
     string key = 1;
     string value = 2;
@@ -25,18 +25,18 @@ message Job {
   repeated KV kvs = 5;
 }
 
-message RegisterReply {
+message RegisterReplyMsg {
   MasterReplyMsg reply = 1;
   uint32 worker_id = 2;
 }
 
-message LaunchReply {
+message LaunchReplyMsg {
   MasterReplyMsg reply = 1;
   uint32 job_id = 2;
 }
 
 service MasterService {
-  rpc Register(RegisterInfo) returns (RegisterReply) {}
-  rpc Launch(Job) returns (LaunchReply) {}
+  rpc Register(RegisterMsg) returns (RegisterReplyMsg) {}
+  rpc Launch(JobMsg) returns (LaunchReplyMsg) {}
   // TODO: Map result and Reduce result
 }

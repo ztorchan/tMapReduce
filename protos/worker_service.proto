@@ -19,7 +19,7 @@ message WorkerReplyMsg {
   WorkerState state = 3;
 }
 
-message MapJob {
+message MapJobMsg {
   message MapKV{
     string key = 1;
     string value = 2;
@@ -31,7 +31,7 @@ message MapJob {
   repeated MapKV map_kvs = 5;
 }
 
-message ReduceJob {
+message ReduceJobMsg {
   message ReduceKV{
     string key = 1;
     repeated string value = 2;
@@ -46,6 +46,6 @@ message ReduceJob {
 
 service WorkerService {
   rpc Beat(google.protobuf.Empty) returns (WorkerReplyMsg) {}
-  rpc Map(MapJob) returns (WorkerReplyMsg) {}
-  rpc Reduce(ReduceJob) returns (WorkerReplyMsg) {}
+  rpc Map(MapJobMsg) returns (WorkerReplyMsg) {}
+  rpc Reduce(ReduceJobMsg) returns (WorkerReplyMsg) {}
 }

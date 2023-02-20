@@ -5,7 +5,7 @@
 
 namespace mapreduce{
 
-enum WorkerState {
+enum class WorkerState {
   UNKNOWN = -0x1,
   INIT = 0x0,
   IDLE = 0x1,
@@ -14,7 +14,7 @@ enum WorkerState {
 };
 
 WorkerState WorkerStateFromRPC(WorkerReplyMsg_WorkerState rpc_worker_state) {
-  switch rpc_worker_state {
+  switch (rpc_worker_state) {
     case WorkerReplyMsg_WorkerState::WorkerReplyMsg_WorkerState_UNKNOWN:
       return WorkerState::UNKNOWN;
     case WorkerReplyMsg_WorkerState::WorkerReplyMsg_WorkerState_INIT:
@@ -30,7 +30,7 @@ WorkerState WorkerStateFromRPC(WorkerReplyMsg_WorkerState rpc_worker_state) {
 }
 
 WorkerReplyMsg_WorkerState WorkerStateToRPC(WorkerState worker_state) {
-  switch worker_state {
+  switch (worker_state) {
     case WorkerState::UNKNOWN:
       return WorkerReplyMsg_WorkerState::WorkerReplyMsg_WorkerState_UNKNOWN;
     case WorkerState::INIT:
@@ -42,7 +42,7 @@ WorkerReplyMsg_WorkerState WorkerStateToRPC(WorkerState worker_state) {
     case WorkerState::CLOSE:
       return WorkerReplyMsg_WorkerState::WorkerReplyMsg_WorkerState_CLOSE;
   }
-  return WorkerReplyMsg_WorkerState::BeatMsg_WorkerState_UNKNOWN;
+  return WorkerReplyMsg_WorkerState::WorkerReplyMsg_WorkerState_UNKNOWN;
 }
 
 }

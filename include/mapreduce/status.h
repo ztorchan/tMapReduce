@@ -5,7 +5,7 @@
 
 namespace mapreduce{
 
-enum Code {
+enum class Code {
     OK = 0x0,
     ERROR = 0x1,
     NOTFOUND = 0x2

@@ -16,6 +16,7 @@
 #include "brpc/channel.h"
 
 #include "mapreduce/state.h"
+#include "mapreduce/job.h"
 #include "mapreduce/rpc/master_service.pb.h"
 #include "mapreduce/rpc/worker_service.pb.h"
 
@@ -23,7 +24,6 @@
 namespace mapreduce{
 
 class Status;
-class Job;
 
 class Slaver {
 public:
@@ -92,13 +92,13 @@ public:
   virtual ~MasterServiceImpl();
 
   void Register(::google::protobuf::RpcController* controller,
-                const ::mapreduce::RegisterInfo* request,
-                ::mapreduce::RegisterReply* response,
+                const ::mapreduce::RegisterMsg* request,
+                ::mapreduce::RegisterReplyMsg* response,
                 ::google::protobuf::Closure* done) override;
 
   void Launch(::google::protobuf::RpcController* controller,
-              const ::mapreduce::Job* request,
-              ::mapreduce::LaunchReply* response,
+              const ::mapreduce::JobMsg* request,
+              ::mapreduce::LaunchReplyMsg* response,
               ::google::protobuf::Closure* done) override;
 
 private:
@@ -114,7 +114,6 @@ public:
   JobDistributor& operator=(const JobDistributor&) = delete;
 
   void operator()(){
-    // TODO: Distribute jobs
     uint32_t cur_slaver_id = UINT32_MAX;    // the last slaver assigned successfully
     uint32_t cur_job_id = UINT32_MAX;       // current job
     uint32_t cur_subjob_index = UINT32_MAX; 
@@ -166,7 +165,7 @@ public:
           WorkerReplyMsg response;
           cntl.Reset();
 
-          if(job->stage_ == JobStage::WAIT2MAP) {
+          if(job->stage_ == JobStage::MAPPING) {
             MapJob rpc_map_job;
             rpc_map_job.set_job_id(job->id_);
             rpc_map_job.set_sub_job_id(subjob.subjob_id_);
@@ -179,7 +178,7 @@ public:
               rpc_kv->set_value(kv.second);
             }
             stub->Map(&cntl, &rpc_map_job, &response, NULL);
-          } else if(job->stage_ == JobStage::WAIT2REDUCE) {
+          } else if(job->stage_ == JobStage::REDUCING) {
             ReduceJob rpc_reduce_job;
             rpc_reduce_job.set_job_id(job->id_);
             rpc_reduce_job.set_sub_job_id(subjob.subjob_id_);
@@ -245,10 +244,27 @@ public:
         if(cntl.Failed()) {
           slaver->state_ = SlaverState::UNKNOWN;
         } else {
-          Slaver->state_ = WorkerStateFromRPC(response.state());
+          slaver->state_ = WorkerStateFromRPC(response.state());
         }
 
         // TODO: Check fault slaver and re-distribute job
+        if(slaver->state_ != WorkerState::IDLE || slaver->state_ != WorkerState::WORKING) {
+          auto it = master_->slaver_to_job_.find(slaver->id_);
+          if(it != master_->slaver_to_job_.end()) {
+            uint32_t job_id = it->second.first;
+            uint32_t subjob_index = it->second.second;
+            Job* job = master_->jobs_[job_id];
+            job->subjobs_[subjob_index].worker_id = UINT32_MAX;
+
+            std::unique_lock<std::mutex> lck(master_->jobs_mutex_);
+            if(job->stage_ == JobStage::MAPPING) {
+              master_->map_queue_.push_front(job_id);
+            } else if(job->stage_ == JobStage::REDUCING) {
+              master_->reduce_queue_.push_front(job_id);
+            }
+            lck.unlock();
+          }
+        }
       }
       std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }

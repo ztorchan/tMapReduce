@@ -83,10 +83,16 @@ Status Master::Launch(const std::string& name, const std::string& type,
                       const int& map_worker_num, const int& reduce_worker_num, 
                       MapKVs& map_kvs, uint32_t* job_id) {
   // TODO: Check whether job is legal
-  
+  if(map_worker_num <= 0 || reduce_worker_num <= 0) {
+    return Status.Error("Map worker and Reduce worker must be greater than 0.");
+  }
+  if(map_kvs.size() <= 0) {
+    return Status.Error("Empty key-value.");
+  }
+
   std::unique_lock<std::mutex> lck(jobs_mutex_);
   Job* new_job = new Job(new_job_id(), name, type, map_worker_num, reduce_worker_num, std::move(map_kvs));
-  new_job->stage_ = JobStage::WAIT2MAP;
+  new_job->stage_ = JobStage::MAPPING;
   new_job->Partition();
   jobs_[new_job->id_] = new_job;
   map_queue_.push_back(new_job->id_);
@@ -106,8 +112,8 @@ MasterServiceImpl::~MasterServiceImpl() {
 }
 
 void MasterServiceImpl::Register(::google::protobuf::RpcController* controller,
-                                 const ::mapreduce::RegisterInfo* request,
-                                 ::mapreduce::RegisterReply* response,
+                                 const ::mapreduce::RegisterMsg* request,
+                                 ::mapreduce::RegisterReplyMsg* response,
                                  ::google::protobuf::Closure* done) {
   brpc::ClosureGuard done_guard(done);
   brpc::Controller* ctl = static_cast<brpc::Controller*>(controller);
@@ -128,8 +134,8 @@ void MasterServiceImpl::Register(::google::protobuf::RpcController* controller,
 }
 
 void MasterServiceImpl::Launch(::google::protobuf::RpcController* controller,
-                               const ::mapreduce::Job* request,
-                               ::mapreduce::LaunchReply* response,
+                               const ::mapreduce::JobMsg* request,
+                               ::mapreduce::LaunchReplyMsg* response,
                                ::google::protobuf::Closure* done) {
   brpc::ClosureGuard done_guard(done);
   brpc::Controller* ctl = static_cast<brpc::Controller*>(controller);

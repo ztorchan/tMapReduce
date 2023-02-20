@@ -7,7 +7,6 @@
 
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/stubs/port.h>
-#include <google/protobuf/stubs/once.h>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/wire_format_lite_inl.h>
 #include <google/protobuf/descriptor.h>
@@ -19,42 +18,42 @@
 #include "third_party/protobuf/version.h"
 #endif
 // @@protoc_insertion_point(includes)
+
+namespace protobuf_worker_5fservice_2eproto {
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_worker_5fservice_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_MapJobMsg_MapKV;
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_worker_5fservice_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_ReduceJobMsg_ReduceKV;
+}  // namespace protobuf_worker_5fservice_2eproto
 namespace mapreduce {
 class WorkerReplyMsgDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<WorkerReplyMsg>
       _instance;
 } _WorkerReplyMsg_default_instance_;
-class MapJob_MapKVDefaultTypeInternal {
+class MapJobMsg_MapKVDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<MapJob_MapKV>
+  ::google::protobuf::internal::ExplicitlyConstructed<MapJobMsg_MapKV>
       _instance;
-} _MapJob_MapKV_default_instance_;
-class MapJobDefaultTypeInternal {
+} _MapJobMsg_MapKV_default_instance_;
+class MapJobMsgDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<MapJob>
+  ::google::protobuf::internal::ExplicitlyConstructed<MapJobMsg>
       _instance;
-} _MapJob_default_instance_;
-class ReduceJob_ReduceKVDefaultTypeInternal {
+} _MapJobMsg_default_instance_;
+class ReduceJobMsg_ReduceKVDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<ReduceJob_ReduceKV>
+  ::google::protobuf::internal::ExplicitlyConstructed<ReduceJobMsg_ReduceKV>
       _instance;
-} _ReduceJob_ReduceKV_default_instance_;
-class ReduceJobDefaultTypeInternal {
+} _ReduceJobMsg_ReduceKV_default_instance_;
+class ReduceJobMsgDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<ReduceJob>
+  ::google::protobuf::internal::ExplicitlyConstructed<ReduceJobMsg>
       _instance;
-} _ReduceJob_default_instance_;
+} _ReduceJobMsg_default_instance_;
 }  // namespace mapreduce
 namespace protobuf_worker_5fservice_2eproto {
-void InitDefaultsWorkerReplyMsgImpl() {
+static void InitDefaultsWorkerReplyMsg() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   {
     void* ptr = &::mapreduce::_WorkerReplyMsg_default_instance_;
     new (ptr) ::mapreduce::WorkerReplyMsg();
@@ -63,95 +62,73 @@ void InitDefaultsWorkerReplyMsgImpl() {
   ::mapreduce::WorkerReplyMsg::InitAsDefaultInstance();
 }
 
-void InitDefaultsWorkerReplyMsg() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsWorkerReplyMsgImpl);
-}
+::google::protobuf::internal::SCCInfo<0> scc_info_WorkerReplyMsg =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsWorkerReplyMsg}, {}};
 
-void InitDefaultsMapJob_MapKVImpl() {
+static void InitDefaultsMapJobMsg_MapKV() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   {
-    void* ptr = &::mapreduce::_MapJob_MapKV_default_instance_;
-    new (ptr) ::mapreduce::MapJob_MapKV();
+    void* ptr = &::mapreduce::_MapJobMsg_MapKV_default_instance_;
+    new (ptr) ::mapreduce::MapJobMsg_MapKV();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::mapreduce::MapJob_MapKV::InitAsDefaultInstance();
+  ::mapreduce::MapJobMsg_MapKV::InitAsDefaultInstance();
 }
 
-void InitDefaultsMapJob_MapKV() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsMapJob_MapKVImpl);
-}
+::google::protobuf::internal::SCCInfo<0> scc_info_MapJobMsg_MapKV =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsMapJobMsg_MapKV}, {}};
 
-void InitDefaultsMapJobImpl() {
+static void InitDefaultsMapJobMsg() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  protobuf_worker_5fservice_2eproto::InitDefaultsMapJob_MapKV();
   {
-    void* ptr = &::mapreduce::_MapJob_default_instance_;
-    new (ptr) ::mapreduce::MapJob();
+    void* ptr = &::mapreduce::_MapJobMsg_default_instance_;
+    new (ptr) ::mapreduce::MapJobMsg();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::mapreduce::MapJob::InitAsDefaultInstance();
+  ::mapreduce::MapJobMsg::InitAsDefaultInstance();
 }
 
-void InitDefaultsMapJob() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsMapJobImpl);
-}
+::google::protobuf::internal::SCCInfo<1> scc_info_MapJobMsg =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsMapJobMsg}, {
+      &protobuf_worker_5fservice_2eproto::scc_info_MapJobMsg_MapKV.base,}};
 
-void InitDefaultsReduceJob_ReduceKVImpl() {
+static void InitDefaultsReduceJobMsg_ReduceKV() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   {
-    void* ptr = &::mapreduce::_ReduceJob_ReduceKV_default_instance_;
-    new (ptr) ::mapreduce::ReduceJob_ReduceKV();
+    void* ptr = &::mapreduce::_ReduceJobMsg_ReduceKV_default_instance_;
+    new (ptr) ::mapreduce::ReduceJobMsg_ReduceKV();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::mapreduce::ReduceJob_ReduceKV::InitAsDefaultInstance();
+  ::mapreduce::ReduceJobMsg_ReduceKV::InitAsDefaultInstance();
 }
 
-void InitDefaultsReduceJob_ReduceKV() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsReduceJob_ReduceKVImpl);
-}
+::google::protobuf::internal::SCCInfo<0> scc_info_ReduceJobMsg_ReduceKV =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsReduceJobMsg_ReduceKV}, {}};
 
-void InitDefaultsReduceJobImpl() {
+static void InitDefaultsReduceJobMsg() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
-#else
-  ::google::protobuf::internal::InitProtobufDefaults();
-#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-  protobuf_worker_5fservice_2eproto::InitDefaultsReduceJob_ReduceKV();
   {
-    void* ptr = &::mapreduce::_ReduceJob_default_instance_;
-    new (ptr) ::mapreduce::ReduceJob();
+    void* ptr = &::mapreduce::_ReduceJobMsg_default_instance_;
+    new (ptr) ::mapreduce::ReduceJobMsg();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::mapreduce::ReduceJob::InitAsDefaultInstance();
+  ::mapreduce::ReduceJobMsg::InitAsDefaultInstance();
 }
 
-void InitDefaultsReduceJob() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsReduceJobImpl);
+::google::protobuf::internal::SCCInfo<1> scc_info_ReduceJobMsg =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsReduceJobMsg}, {
+      &protobuf_worker_5fservice_2eproto::scc_info_ReduceJobMsg_ReduceKV.base,}};
+
+void InitDefaults() {
+  ::google::protobuf::internal::InitSCC(&scc_info_WorkerReplyMsg.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_MapJobMsg_MapKV.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_MapJobMsg.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_ReduceJobMsg_ReduceKV.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_ReduceJobMsg.base);
 }
 
 ::google::protobuf::Metadata file_level_metadata[5];
@@ -168,67 +145,66 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::WorkerReplyMsg, msg_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::WorkerReplyMsg, state_),
   ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJob_MapKV, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJobMsg_MapKV, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJob_MapKV, key_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJob_MapKV, value_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJobMsg_MapKV, key_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJobMsg_MapKV, value_),
   ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJob, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJobMsg, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJob, job_id_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJob, sub_job_id_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJob, name_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJob, type_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJob, map_kvs_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJobMsg, job_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJobMsg, sub_job_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJobMsg, name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJobMsg, type_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapJobMsg, map_kvs_),
   ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJob_ReduceKV, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJobMsg_ReduceKV, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJob_ReduceKV, key_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJob_ReduceKV, value_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJobMsg_ReduceKV, key_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJobMsg_ReduceKV, value_),
   ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJob, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJobMsg, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJob, job_id_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJob, sub_job_id_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJob, name_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJob, type_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJob, reduce_kvs_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJobMsg, job_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJobMsg, sub_job_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJobMsg, name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJobMsg, type_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceJobMsg, reduce_kvs_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::mapreduce::WorkerReplyMsg)},
-  { 8, -1, sizeof(::mapreduce::MapJob_MapKV)},
-  { 15, -1, sizeof(::mapreduce::MapJob)},
-  { 25, -1, sizeof(::mapreduce::ReduceJob_ReduceKV)},
-  { 32, -1, sizeof(::mapreduce::ReduceJob)},
+  { 8, -1, sizeof(::mapreduce::MapJobMsg_MapKV)},
+  { 15, -1, sizeof(::mapreduce::MapJobMsg)},
+  { 25, -1, sizeof(::mapreduce::ReduceJobMsg_ReduceKV)},
+  { 32, -1, sizeof(::mapreduce::ReduceJobMsg)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::mapreduce::_WorkerReplyMsg_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::mapreduce::_MapJob_MapKV_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::mapreduce::_MapJob_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::mapreduce::_ReduceJob_ReduceKV_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::mapreduce::_ReduceJob_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::mapreduce::_MapJobMsg_MapKV_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::mapreduce::_MapJobMsg_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::mapreduce::_ReduceJobMsg_ReduceKV_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::mapreduce::_ReduceJobMsg_default_instance_),
 };
 
 void protobuf_AssignDescriptors() {
   AddDescriptors();
-  ::google::protobuf::MessageFactory* factory = NULL;
   AssignDescriptors(
-      "worker_service.proto", schemas, file_default_instances, TableStruct::offsets, factory,
+      "worker_service.proto", schemas, file_default_instances, TableStruct::offsets,
       file_level_metadata, file_level_enum_descriptors, file_level_service_descriptors);
 }
 
 void protobuf_AssignDescriptorsOnce() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &protobuf_AssignDescriptors);
+  static ::google::protobuf::internal::once_flag once;
+  ::google::protobuf::internal::call_once(once, protobuf_AssignDescriptors);
 }
 
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
@@ -245,32 +221,32 @@ void AddDescriptorsImpl() {
       "g\022\n\n\002ok\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\0224\n\005state\030\003 \001("
       "\0162%.mapreduce.WorkerReplyMsg.WorkerState"
       "\"F\n\013WorkerState\022\013\n\007UNKNOWN\020\000\022\010\n\004INIT\020\001\022\010"
-      "\n\004IDLE\020\002\022\013\n\007WORKING\020\003\022\t\n\005CLOSE\020\004\"\227\001\n\006Map"
-      "Job\022\016\n\006job_id\030\001 \001(\r\022\022\n\nsub_job_id\030\002 \001(\r\022"
-      "\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\022(\n\007map_kvs\030\005"
-      " \003(\0132\027.mapreduce.MapJob.MapKV\032#\n\005MapKV\022\013"
-      "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\246\001\n\tReduceJob"
-      "\022\016\n\006job_id\030\001 \001(\r\022\022\n\nsub_job_id\030\002 \001(\r\022\014\n\004"
-      "name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\0221\n\nreduce_kvs\030\005"
-      " \003(\0132\035.mapreduce.ReduceJob.ReduceKV\032&\n\010R"
-      "educeKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \003(\t2\300\001\n\r"
-      "WorkerService\022;\n\004Beat\022\026.google.protobuf."
-      "Empty\032\031.mapreduce.WorkerReplyMsg\"\000\0225\n\003Ma"
-      "p\022\021.mapreduce.MapJob\032\031.mapreduce.WorkerR"
-      "eplyMsg\"\000\022;\n\006Reduce\022\024.mapreduce.ReduceJo"
-      "b\032\031.mapreduce.WorkerReplyMsg\"\000B\003\200\001\001b\006pro"
-      "to3"
+      "\n\004IDLE\020\002\022\013\n\007WORKING\020\003\022\t\n\005CLOSE\020\004\"\235\001\n\tMap"
+      "JobMsg\022\016\n\006job_id\030\001 \001(\r\022\022\n\nsub_job_id\030\002 \001"
+      "(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\022+\n\007map_kv"
+      "s\030\005 \003(\0132\032.mapreduce.MapJobMsg.MapKV\032#\n\005M"
+      "apKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\254\001\n\014Red"
+      "uceJobMsg\022\016\n\006job_id\030\001 \001(\r\022\022\n\nsub_job_id\030"
+      "\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\0224\n\nred"
+      "uce_kvs\030\005 \003(\0132 .mapreduce.ReduceJobMsg.R"
+      "educeKV\032&\n\010ReduceKV\022\013\n\003key\030\001 \001(\t\022\r\n\005valu"
+      "e\030\002 \003(\t2\306\001\n\rWorkerService\022;\n\004Beat\022\026.goog"
+      "le.protobuf.Empty\032\031.mapreduce.WorkerRepl"
+      "yMsg\"\000\0228\n\003Map\022\024.mapreduce.MapJobMsg\032\031.ma"
+      "preduce.WorkerReplyMsg\"\000\022>\n\006Reduce\022\027.map"
+      "reduce.ReduceJobMsg\032\031.mapreduce.WorkerRe"
+      "plyMsg\"\000B\003\200\001\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 763);
+      descriptor, 781);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "worker_service.proto", &protobuf_RegisterTypes);
   ::protobuf_google_2fprotobuf_2fempty_2eproto::AddDescriptors();
 }
 
 void AddDescriptors() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &AddDescriptorsImpl);
+  static ::google::protobuf::internal::once_flag once;
+  ::google::protobuf::internal::call_once(once, AddDescriptorsImpl);
 }
 // Force AddDescriptors() to be called at dynamic initialization time.
 struct StaticDescriptorInitializer {
@@ -320,16 +296,14 @@ const int WorkerReplyMsg::kStateFieldNumber;
 
 WorkerReplyMsg::WorkerReplyMsg()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_worker_5fservice_2eproto::InitDefaultsWorkerReplyMsg();
-  }
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_worker_5fservice_2eproto::scc_info_WorkerReplyMsg.base);
   SharedCtor();
   // @@protoc_insertion_point(constructor:mapreduce.WorkerReplyMsg)
 }
 WorkerReplyMsg::WorkerReplyMsg(const WorkerReplyMsg& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      _cached_size_(0) {
+      _internal_metadata_(NULL) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   msg_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.msg().size() > 0) {
@@ -346,7 +320,6 @@ void WorkerReplyMsg::SharedCtor() {
   ::memset(&ok_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&state_) -
       reinterpret_cast<char*>(&ok_)) + sizeof(state_));
-  _cached_size_ = 0;
 }
 
 WorkerReplyMsg::~WorkerReplyMsg() {
@@ -359,9 +332,7 @@ void WorkerReplyMsg::SharedDtor() {
 }
 
 void WorkerReplyMsg::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  _cached_size_.Set(size);
 }
 const ::google::protobuf::Descriptor* WorkerReplyMsg::descriptor() {
   ::protobuf_worker_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
@@ -369,17 +340,10 @@ const ::google::protobuf::Descriptor* WorkerReplyMsg::descriptor() {
 }
 
 const WorkerReplyMsg& WorkerReplyMsg::default_instance() {
-  ::protobuf_worker_5fservice_2eproto::InitDefaultsWorkerReplyMsg();
+  ::google::protobuf::internal::InitSCC(&protobuf_worker_5fservice_2eproto::scc_info_WorkerReplyMsg.base);
   return *internal_default_instance();
 }
 
-WorkerReplyMsg* WorkerReplyMsg::New(::google::protobuf::Arena* arena) const {
-  WorkerReplyMsg* n = new WorkerReplyMsg;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
 void WorkerReplyMsg::Clear() {
 // @@protoc_insertion_point(message_clear_start:mapreduce.WorkerReplyMsg)
@@ -400,7 +364,7 @@ bool WorkerReplyMsg::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:mapreduce.WorkerReplyMsg)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -568,9 +532,7 @@ size_t WorkerReplyMsg::ByteSizeLong() const {
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
@@ -632,11 +594,11 @@ void WorkerReplyMsg::Swap(WorkerReplyMsg* other) {
 }
 void WorkerReplyMsg::InternalSwap(WorkerReplyMsg* other) {
   using std::swap;
-  msg_.Swap(&other->msg_);
+  msg_.Swap(&other->msg_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
   swap(ok_, other->ok_);
   swap(state_, other->state_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata WorkerReplyMsg::GetMetadata() const {
@@ -647,25 +609,23 @@ void WorkerReplyMsg::InternalSwap(WorkerReplyMsg* other) {
 
 // ===================================================================
 
-void MapJob_MapKV::InitAsDefaultInstance() {
+void MapJobMsg_MapKV::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int MapJob_MapKV::kKeyFieldNumber;
-const int MapJob_MapKV::kValueFieldNumber;
+const int MapJobMsg_MapKV::kKeyFieldNumber;
+const int MapJobMsg_MapKV::kValueFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-MapJob_MapKV::MapJob_MapKV()
+MapJobMsg_MapKV::MapJobMsg_MapKV()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_worker_5fservice_2eproto::InitDefaultsMapJob_MapKV();
-  }
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_worker_5fservice_2eproto::scc_info_MapJobMsg_MapKV.base);
   SharedCtor();
-  // @@protoc_insertion_point(constructor:mapreduce.MapJob.MapKV)
+  // @@protoc_insertion_point(constructor:mapreduce.MapJobMsg.MapKV)
 }
-MapJob_MapKV::MapJob_MapKV(const MapJob_MapKV& from)
+MapJobMsg_MapKV::MapJobMsg_MapKV(const MapJobMsg_MapKV& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      _cached_size_(0) {
+      _internal_metadata_(NULL) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   key_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.key().size() > 0) {
@@ -675,50 +635,40 @@ MapJob_MapKV::MapJob_MapKV(const MapJob_MapKV& from)
   if (from.value().size() > 0) {
     value_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.value_);
   }
-  // @@protoc_insertion_point(copy_constructor:mapreduce.MapJob.MapKV)
+  // @@protoc_insertion_point(copy_constructor:mapreduce.MapJobMsg.MapKV)
 }
 
-void MapJob_MapKV::SharedCtor() {
+void MapJobMsg_MapKV::SharedCtor() {
   key_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   value_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _cached_size_ = 0;
 }
 
-MapJob_MapKV::~MapJob_MapKV() {
-  // @@protoc_insertion_point(destructor:mapreduce.MapJob.MapKV)
+MapJobMsg_MapKV::~MapJobMsg_MapKV() {
+  // @@protoc_insertion_point(destructor:mapreduce.MapJobMsg.MapKV)
   SharedDtor();
 }
 
-void MapJob_MapKV::SharedDtor() {
+void MapJobMsg_MapKV::SharedDtor() {
   key_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   value_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-void MapJob_MapKV::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+void MapJobMsg_MapKV::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* MapJob_MapKV::descriptor() {
+const ::google::protobuf::Descriptor* MapJobMsg_MapKV::descriptor() {
   ::protobuf_worker_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_worker_5fservice_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
-const MapJob_MapKV& MapJob_MapKV::default_instance() {
-  ::protobuf_worker_5fservice_2eproto::InitDefaultsMapJob_MapKV();
+const MapJobMsg_MapKV& MapJobMsg_MapKV::default_instance() {
+  ::google::protobuf::internal::InitSCC(&protobuf_worker_5fservice_2eproto::scc_info_MapJobMsg_MapKV.base);
   return *internal_default_instance();
 }
 
-MapJob_MapKV* MapJob_MapKV::New(::google::protobuf::Arena* arena) const {
-  MapJob_MapKV* n = new MapJob_MapKV;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
-void MapJob_MapKV::Clear() {
-// @@protoc_insertion_point(message_clear_start:mapreduce.MapJob.MapKV)
+void MapJobMsg_MapKV::Clear() {
+// @@protoc_insertion_point(message_clear_start:mapreduce.MapJobMsg.MapKV)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -728,13 +678,13 @@ void MapJob_MapKV::Clear() {
   _internal_metadata_.Clear();
 }
 
-bool MapJob_MapKV::MergePartialFromCodedStream(
+bool MapJobMsg_MapKV::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:mapreduce.MapJob.MapKV)
+  // @@protoc_insertion_point(parse_start:mapreduce.MapJobMsg.MapKV)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -747,7 +697,7 @@ bool MapJob_MapKV::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->key().data(), static_cast<int>(this->key().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "mapreduce.MapJob.MapKV.key"));
+            "mapreduce.MapJobMsg.MapKV.key"));
         } else {
           goto handle_unusual;
         }
@@ -763,7 +713,7 @@ bool MapJob_MapKV::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->value().data(), static_cast<int>(this->value().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "mapreduce.MapJob.MapKV.value"));
+            "mapreduce.MapJobMsg.MapKV.value"));
         } else {
           goto handle_unusual;
         }
@@ -782,17 +732,17 @@ bool MapJob_MapKV::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:mapreduce.MapJob.MapKV)
+  // @@protoc_insertion_point(parse_success:mapreduce.MapJobMsg.MapKV)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:mapreduce.MapJob.MapKV)
+  // @@protoc_insertion_point(parse_failure:mapreduce.MapJobMsg.MapKV)
   return false;
 #undef DO_
 }
 
-void MapJob_MapKV::SerializeWithCachedSizes(
+void MapJobMsg_MapKV::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:mapreduce.MapJob.MapKV)
+  // @@protoc_insertion_point(serialize_start:mapreduce.MapJobMsg.MapKV)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -801,7 +751,7 @@ void MapJob_MapKV::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->key().data(), static_cast<int>(this->key().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.MapJob.MapKV.key");
+      "mapreduce.MapJobMsg.MapKV.key");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->key(), output);
   }
@@ -811,7 +761,7 @@ void MapJob_MapKV::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->value().data(), static_cast<int>(this->value().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.MapJob.MapKV.value");
+      "mapreduce.MapJobMsg.MapKV.value");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->value(), output);
   }
@@ -820,13 +770,13 @@ void MapJob_MapKV::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
   }
-  // @@protoc_insertion_point(serialize_end:mapreduce.MapJob.MapKV)
+  // @@protoc_insertion_point(serialize_end:mapreduce.MapJobMsg.MapKV)
 }
 
-::google::protobuf::uint8* MapJob_MapKV::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* MapJobMsg_MapKV::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:mapreduce.MapJob.MapKV)
+  // @@protoc_insertion_point(serialize_to_array_start:mapreduce.MapJobMsg.MapKV)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -835,7 +785,7 @@ void MapJob_MapKV::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->key().data(), static_cast<int>(this->key().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.MapJob.MapKV.key");
+      "mapreduce.MapJobMsg.MapKV.key");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->key(), target);
@@ -846,7 +796,7 @@ void MapJob_MapKV::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->value().data(), static_cast<int>(this->value().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.MapJob.MapKV.value");
+      "mapreduce.MapJobMsg.MapKV.value");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->value(), target);
@@ -856,12 +806,12 @@ void MapJob_MapKV::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:mapreduce.MapJob.MapKV)
+  // @@protoc_insertion_point(serialize_to_array_end:mapreduce.MapJobMsg.MapKV)
   return target;
 }
 
-size_t MapJob_MapKV::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:mapreduce.MapJob.MapKV)
+size_t MapJobMsg_MapKV::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:mapreduce.MapJobMsg.MapKV)
   size_t total_size = 0;
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -884,29 +834,27 @@ size_t MapJob_MapKV::ByteSizeLong() const {
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
-void MapJob_MapKV::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:mapreduce.MapJob.MapKV)
+void MapJobMsg_MapKV::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:mapreduce.MapJobMsg.MapKV)
   GOOGLE_DCHECK_NE(&from, this);
-  const MapJob_MapKV* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const MapJob_MapKV>(
+  const MapJobMsg_MapKV* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const MapJobMsg_MapKV>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mapreduce.MapJob.MapKV)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mapreduce.MapJobMsg.MapKV)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:mapreduce.MapJob.MapKV)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:mapreduce.MapJobMsg.MapKV)
     MergeFrom(*source);
   }
 }
 
-void MapJob_MapKV::MergeFrom(const MapJob_MapKV& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:mapreduce.MapJob.MapKV)
+void MapJobMsg_MapKV::MergeFrom(const MapJobMsg_MapKV& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:mapreduce.MapJobMsg.MapKV)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -922,37 +870,38 @@ void MapJob_MapKV::MergeFrom(const MapJob_MapKV& from) {
   }
 }
 
-void MapJob_MapKV::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:mapreduce.MapJob.MapKV)
+void MapJobMsg_MapKV::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:mapreduce.MapJobMsg.MapKV)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void MapJob_MapKV::CopyFrom(const MapJob_MapKV& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:mapreduce.MapJob.MapKV)
+void MapJobMsg_MapKV::CopyFrom(const MapJobMsg_MapKV& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:mapreduce.MapJobMsg.MapKV)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool MapJob_MapKV::IsInitialized() const {
+bool MapJobMsg_MapKV::IsInitialized() const {
   return true;
 }
 
-void MapJob_MapKV::Swap(MapJob_MapKV* other) {
+void MapJobMsg_MapKV::Swap(MapJobMsg_MapKV* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void MapJob_MapKV::InternalSwap(MapJob_MapKV* other) {
+void MapJobMsg_MapKV::InternalSwap(MapJobMsg_MapKV* other) {
   using std::swap;
-  key_.Swap(&other->key_);
-  value_.Swap(&other->value_);
+  key_.Swap(&other->key_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  value_.Swap(&other->value_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata MapJob_MapKV::GetMetadata() const {
+::google::protobuf::Metadata MapJobMsg_MapKV::GetMetadata() const {
   protobuf_worker_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_worker_5fservice_2eproto::file_level_metadata[kIndexInFileMessages];
 }
@@ -960,29 +909,27 @@ void MapJob_MapKV::InternalSwap(MapJob_MapKV* other) {
 
 // ===================================================================
 
-void MapJob::InitAsDefaultInstance() {
+void MapJobMsg::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int MapJob::kJobIdFieldNumber;
-const int MapJob::kSubJobIdFieldNumber;
-const int MapJob::kNameFieldNumber;
-const int MapJob::kTypeFieldNumber;
-const int MapJob::kMapKvsFieldNumber;
+const int MapJobMsg::kJobIdFieldNumber;
+const int MapJobMsg::kSubJobIdFieldNumber;
+const int MapJobMsg::kNameFieldNumber;
+const int MapJobMsg::kTypeFieldNumber;
+const int MapJobMsg::kMapKvsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-MapJob::MapJob()
+MapJobMsg::MapJobMsg()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_worker_5fservice_2eproto::InitDefaultsMapJob();
-  }
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_worker_5fservice_2eproto::scc_info_MapJobMsg.base);
   SharedCtor();
-  // @@protoc_insertion_point(constructor:mapreduce.MapJob)
+  // @@protoc_insertion_point(constructor:mapreduce.MapJobMsg)
 }
-MapJob::MapJob(const MapJob& from)
+MapJobMsg::MapJobMsg(const MapJobMsg& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      map_kvs_(from.map_kvs_),
-      _cached_size_(0) {
+      map_kvs_(from.map_kvs_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.name().size() > 0) {
@@ -995,53 +942,43 @@ MapJob::MapJob(const MapJob& from)
   ::memcpy(&job_id_, &from.job_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&sub_job_id_) -
     reinterpret_cast<char*>(&job_id_)) + sizeof(sub_job_id_));
-  // @@protoc_insertion_point(copy_constructor:mapreduce.MapJob)
+  // @@protoc_insertion_point(copy_constructor:mapreduce.MapJobMsg)
 }
 
-void MapJob::SharedCtor() {
+void MapJobMsg::SharedCtor() {
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&job_id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&sub_job_id_) -
       reinterpret_cast<char*>(&job_id_)) + sizeof(sub_job_id_));
-  _cached_size_ = 0;
 }
 
-MapJob::~MapJob() {
-  // @@protoc_insertion_point(destructor:mapreduce.MapJob)
+MapJobMsg::~MapJobMsg() {
+  // @@protoc_insertion_point(destructor:mapreduce.MapJobMsg)
   SharedDtor();
 }
 
-void MapJob::SharedDtor() {
+void MapJobMsg::SharedDtor() {
   name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   type_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-void MapJob::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+void MapJobMsg::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* MapJob::descriptor() {
+const ::google::protobuf::Descriptor* MapJobMsg::descriptor() {
   ::protobuf_worker_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_worker_5fservice_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
-const MapJob& MapJob::default_instance() {
-  ::protobuf_worker_5fservice_2eproto::InitDefaultsMapJob();
+const MapJobMsg& MapJobMsg::default_instance() {
+  ::google::protobuf::internal::InitSCC(&protobuf_worker_5fservice_2eproto::scc_info_MapJobMsg.base);
   return *internal_default_instance();
 }
 
-MapJob* MapJob::New(::google::protobuf::Arena* arena) const {
-  MapJob* n = new MapJob;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
-void MapJob::Clear() {
-// @@protoc_insertion_point(message_clear_start:mapreduce.MapJob)
+void MapJobMsg::Clear() {
+// @@protoc_insertion_point(message_clear_start:mapreduce.MapJobMsg)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1055,13 +992,13 @@ void MapJob::Clear() {
   _internal_metadata_.Clear();
 }
 
-bool MapJob::MergePartialFromCodedStream(
+bool MapJobMsg::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:mapreduce.MapJob)
+  // @@protoc_insertion_point(parse_start:mapreduce.MapJobMsg)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -1102,7 +1039,7 @@ bool MapJob::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->name().data(), static_cast<int>(this->name().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "mapreduce.MapJob.name"));
+            "mapreduce.MapJobMsg.name"));
         } else {
           goto handle_unusual;
         }
@@ -1118,18 +1055,19 @@ bool MapJob::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->type().data(), static_cast<int>(this->type().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "mapreduce.MapJob.type"));
+            "mapreduce.MapJobMsg.type"));
         } else {
           goto handle_unusual;
         }
         break;
       }
 
-      // repeated .mapreduce.MapJob.MapKV map_kvs = 5;
+      // repeated .mapreduce.MapJobMsg.MapKV map_kvs = 5;
       case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(input, add_map_kvs()));
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+                input, add_map_kvs()));
         } else {
           goto handle_unusual;
         }
@@ -1148,17 +1086,17 @@ bool MapJob::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:mapreduce.MapJob)
+  // @@protoc_insertion_point(parse_success:mapreduce.MapJobMsg)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:mapreduce.MapJob)
+  // @@protoc_insertion_point(parse_failure:mapreduce.MapJobMsg)
   return false;
 #undef DO_
 }
 
-void MapJob::SerializeWithCachedSizes(
+void MapJobMsg::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:mapreduce.MapJob)
+  // @@protoc_insertion_point(serialize_start:mapreduce.MapJobMsg)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1177,7 +1115,7 @@ void MapJob::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), static_cast<int>(this->name().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.MapJob.name");
+      "mapreduce.MapJobMsg.name");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->name(), output);
   }
@@ -1187,29 +1125,31 @@ void MapJob::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->type().data(), static_cast<int>(this->type().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.MapJob.type");
+      "mapreduce.MapJobMsg.type");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->type(), output);
   }
 
-  // repeated .mapreduce.MapJob.MapKV map_kvs = 5;
+  // repeated .mapreduce.MapJobMsg.MapKV map_kvs = 5;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->map_kvs_size()); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      5, this->map_kvs(static_cast<int>(i)), output);
+      5,
+      this->map_kvs(static_cast<int>(i)),
+      output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
   }
-  // @@protoc_insertion_point(serialize_end:mapreduce.MapJob)
+  // @@protoc_insertion_point(serialize_end:mapreduce.MapJobMsg)
 }
 
-::google::protobuf::uint8* MapJob::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* MapJobMsg::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:mapreduce.MapJob)
+  // @@protoc_insertion_point(serialize_to_array_start:mapreduce.MapJobMsg)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1228,7 +1168,7 @@ void MapJob::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), static_cast<int>(this->name().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.MapJob.name");
+      "mapreduce.MapJobMsg.name");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->name(), target);
@@ -1239,13 +1179,13 @@ void MapJob::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->type().data(), static_cast<int>(this->type().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.MapJob.type");
+      "mapreduce.MapJobMsg.type");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         4, this->type(), target);
   }
 
-  // repeated .mapreduce.MapJob.MapKV map_kvs = 5;
+  // repeated .mapreduce.MapJobMsg.MapKV map_kvs = 5;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->map_kvs_size()); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
@@ -1257,12 +1197,12 @@ void MapJob::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:mapreduce.MapJob)
+  // @@protoc_insertion_point(serialize_to_array_end:mapreduce.MapJobMsg)
   return target;
 }
 
-size_t MapJob::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:mapreduce.MapJob)
+size_t MapJobMsg::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:mapreduce.MapJobMsg)
   size_t total_size = 0;
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -1270,7 +1210,7 @@ size_t MapJob::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  // repeated .mapreduce.MapJob.MapKV map_kvs = 5;
+  // repeated .mapreduce.MapJobMsg.MapKV map_kvs = 5;
   {
     unsigned int count = static_cast<unsigned int>(this->map_kvs_size());
     total_size += 1UL * count;
@@ -1310,29 +1250,27 @@ size_t MapJob::ByteSizeLong() const {
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
-void MapJob::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:mapreduce.MapJob)
+void MapJobMsg::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:mapreduce.MapJobMsg)
   GOOGLE_DCHECK_NE(&from, this);
-  const MapJob* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const MapJob>(
+  const MapJobMsg* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const MapJobMsg>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mapreduce.MapJob)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mapreduce.MapJobMsg)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:mapreduce.MapJob)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:mapreduce.MapJobMsg)
     MergeFrom(*source);
   }
 }
 
-void MapJob::MergeFrom(const MapJob& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:mapreduce.MapJob)
+void MapJobMsg::MergeFrom(const MapJobMsg& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:mapreduce.MapJobMsg)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -1355,40 +1293,41 @@ void MapJob::MergeFrom(const MapJob& from) {
   }
 }
 
-void MapJob::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:mapreduce.MapJob)
+void MapJobMsg::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:mapreduce.MapJobMsg)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void MapJob::CopyFrom(const MapJob& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:mapreduce.MapJob)
+void MapJobMsg::CopyFrom(const MapJobMsg& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:mapreduce.MapJobMsg)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool MapJob::IsInitialized() const {
+bool MapJobMsg::IsInitialized() const {
   return true;
 }
 
-void MapJob::Swap(MapJob* other) {
+void MapJobMsg::Swap(MapJobMsg* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void MapJob::InternalSwap(MapJob* other) {
+void MapJobMsg::InternalSwap(MapJobMsg* other) {
   using std::swap;
-  map_kvs_.InternalSwap(&other->map_kvs_);
-  name_.Swap(&other->name_);
-  type_.Swap(&other->type_);
+  CastToBase(&map_kvs_)->InternalSwap(CastToBase(&other->map_kvs_));
+  name_.Swap(&other->name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  type_.Swap(&other->type_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
   swap(job_id_, other->job_id_);
   swap(sub_job_id_, other->sub_job_id_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata MapJob::GetMetadata() const {
+::google::protobuf::Metadata MapJobMsg::GetMetadata() const {
   protobuf_worker_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_worker_5fservice_2eproto::file_level_metadata[kIndexInFileMessages];
 }
@@ -1396,73 +1335,61 @@ void MapJob::InternalSwap(MapJob* other) {
 
 // ===================================================================
 
-void ReduceJob_ReduceKV::InitAsDefaultInstance() {
+void ReduceJobMsg_ReduceKV::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int ReduceJob_ReduceKV::kKeyFieldNumber;
-const int ReduceJob_ReduceKV::kValueFieldNumber;
+const int ReduceJobMsg_ReduceKV::kKeyFieldNumber;
+const int ReduceJobMsg_ReduceKV::kValueFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-ReduceJob_ReduceKV::ReduceJob_ReduceKV()
+ReduceJobMsg_ReduceKV::ReduceJobMsg_ReduceKV()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_worker_5fservice_2eproto::InitDefaultsReduceJob_ReduceKV();
-  }
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_worker_5fservice_2eproto::scc_info_ReduceJobMsg_ReduceKV.base);
   SharedCtor();
-  // @@protoc_insertion_point(constructor:mapreduce.ReduceJob.ReduceKV)
+  // @@protoc_insertion_point(constructor:mapreduce.ReduceJobMsg.ReduceKV)
 }
-ReduceJob_ReduceKV::ReduceJob_ReduceKV(const ReduceJob_ReduceKV& from)
+ReduceJobMsg_ReduceKV::ReduceJobMsg_ReduceKV(const ReduceJobMsg_ReduceKV& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      value_(from.value_),
-      _cached_size_(0) {
+      value_(from.value_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   key_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.key().size() > 0) {
     key_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.key_);
   }
-  // @@protoc_insertion_point(copy_constructor:mapreduce.ReduceJob.ReduceKV)
+  // @@protoc_insertion_point(copy_constructor:mapreduce.ReduceJobMsg.ReduceKV)
 }
 
-void ReduceJob_ReduceKV::SharedCtor() {
+void ReduceJobMsg_ReduceKV::SharedCtor() {
   key_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _cached_size_ = 0;
 }
 
-ReduceJob_ReduceKV::~ReduceJob_ReduceKV() {
-  // @@protoc_insertion_point(destructor:mapreduce.ReduceJob.ReduceKV)
+ReduceJobMsg_ReduceKV::~ReduceJobMsg_ReduceKV() {
+  // @@protoc_insertion_point(destructor:mapreduce.ReduceJobMsg.ReduceKV)
   SharedDtor();
 }
 
-void ReduceJob_ReduceKV::SharedDtor() {
+void ReduceJobMsg_ReduceKV::SharedDtor() {
   key_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-void ReduceJob_ReduceKV::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+void ReduceJobMsg_ReduceKV::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* ReduceJob_ReduceKV::descriptor() {
+const ::google::protobuf::Descriptor* ReduceJobMsg_ReduceKV::descriptor() {
   ::protobuf_worker_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_worker_5fservice_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
-const ReduceJob_ReduceKV& ReduceJob_ReduceKV::default_instance() {
-  ::protobuf_worker_5fservice_2eproto::InitDefaultsReduceJob_ReduceKV();
+const ReduceJobMsg_ReduceKV& ReduceJobMsg_ReduceKV::default_instance() {
+  ::google::protobuf::internal::InitSCC(&protobuf_worker_5fservice_2eproto::scc_info_ReduceJobMsg_ReduceKV.base);
   return *internal_default_instance();
 }
 
-ReduceJob_ReduceKV* ReduceJob_ReduceKV::New(::google::protobuf::Arena* arena) const {
-  ReduceJob_ReduceKV* n = new ReduceJob_ReduceKV;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
-void ReduceJob_ReduceKV::Clear() {
-// @@protoc_insertion_point(message_clear_start:mapreduce.ReduceJob.ReduceKV)
+void ReduceJobMsg_ReduceKV::Clear() {
+// @@protoc_insertion_point(message_clear_start:mapreduce.ReduceJobMsg.ReduceKV)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1472,13 +1399,13 @@ void ReduceJob_ReduceKV::Clear() {
   _internal_metadata_.Clear();
 }
 
-bool ReduceJob_ReduceKV::MergePartialFromCodedStream(
+bool ReduceJobMsg_ReduceKV::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:mapreduce.ReduceJob.ReduceKV)
+  // @@protoc_insertion_point(parse_start:mapreduce.ReduceJobMsg.ReduceKV)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -1491,7 +1418,7 @@ bool ReduceJob_ReduceKV::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->key().data(), static_cast<int>(this->key().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "mapreduce.ReduceJob.ReduceKV.key"));
+            "mapreduce.ReduceJobMsg.ReduceKV.key"));
         } else {
           goto handle_unusual;
         }
@@ -1508,7 +1435,7 @@ bool ReduceJob_ReduceKV::MergePartialFromCodedStream(
             this->value(this->value_size() - 1).data(),
             static_cast<int>(this->value(this->value_size() - 1).length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "mapreduce.ReduceJob.ReduceKV.value"));
+            "mapreduce.ReduceJobMsg.ReduceKV.value"));
         } else {
           goto handle_unusual;
         }
@@ -1527,17 +1454,17 @@ bool ReduceJob_ReduceKV::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:mapreduce.ReduceJob.ReduceKV)
+  // @@protoc_insertion_point(parse_success:mapreduce.ReduceJobMsg.ReduceKV)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:mapreduce.ReduceJob.ReduceKV)
+  // @@protoc_insertion_point(parse_failure:mapreduce.ReduceJobMsg.ReduceKV)
   return false;
 #undef DO_
 }
 
-void ReduceJob_ReduceKV::SerializeWithCachedSizes(
+void ReduceJobMsg_ReduceKV::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:mapreduce.ReduceJob.ReduceKV)
+  // @@protoc_insertion_point(serialize_start:mapreduce.ReduceJobMsg.ReduceKV)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1546,7 +1473,7 @@ void ReduceJob_ReduceKV::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->key().data(), static_cast<int>(this->key().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.ReduceJob.ReduceKV.key");
+      "mapreduce.ReduceJobMsg.ReduceKV.key");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->key(), output);
   }
@@ -1556,7 +1483,7 @@ void ReduceJob_ReduceKV::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->value(i).data(), static_cast<int>(this->value(i).length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.ReduceJob.ReduceKV.value");
+      "mapreduce.ReduceJobMsg.ReduceKV.value");
     ::google::protobuf::internal::WireFormatLite::WriteString(
       2, this->value(i), output);
   }
@@ -1565,13 +1492,13 @@ void ReduceJob_ReduceKV::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
   }
-  // @@protoc_insertion_point(serialize_end:mapreduce.ReduceJob.ReduceKV)
+  // @@protoc_insertion_point(serialize_end:mapreduce.ReduceJobMsg.ReduceKV)
 }
 
-::google::protobuf::uint8* ReduceJob_ReduceKV::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* ReduceJobMsg_ReduceKV::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:mapreduce.ReduceJob.ReduceKV)
+  // @@protoc_insertion_point(serialize_to_array_start:mapreduce.ReduceJobMsg.ReduceKV)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1580,7 +1507,7 @@ void ReduceJob_ReduceKV::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->key().data(), static_cast<int>(this->key().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.ReduceJob.ReduceKV.key");
+      "mapreduce.ReduceJobMsg.ReduceKV.key");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->key(), target);
@@ -1591,7 +1518,7 @@ void ReduceJob_ReduceKV::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->value(i).data(), static_cast<int>(this->value(i).length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.ReduceJob.ReduceKV.value");
+      "mapreduce.ReduceJobMsg.ReduceKV.value");
     target = ::google::protobuf::internal::WireFormatLite::
       WriteStringToArray(2, this->value(i), target);
   }
@@ -1600,12 +1527,12 @@ void ReduceJob_ReduceKV::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:mapreduce.ReduceJob.ReduceKV)
+  // @@protoc_insertion_point(serialize_to_array_end:mapreduce.ReduceJobMsg.ReduceKV)
   return target;
 }
 
-size_t ReduceJob_ReduceKV::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:mapreduce.ReduceJob.ReduceKV)
+size_t ReduceJobMsg_ReduceKV::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:mapreduce.ReduceJobMsg.ReduceKV)
   size_t total_size = 0;
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -1629,29 +1556,27 @@ size_t ReduceJob_ReduceKV::ByteSizeLong() const {
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
-void ReduceJob_ReduceKV::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:mapreduce.ReduceJob.ReduceKV)
+void ReduceJobMsg_ReduceKV::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:mapreduce.ReduceJobMsg.ReduceKV)
   GOOGLE_DCHECK_NE(&from, this);
-  const ReduceJob_ReduceKV* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const ReduceJob_ReduceKV>(
+  const ReduceJobMsg_ReduceKV* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const ReduceJobMsg_ReduceKV>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mapreduce.ReduceJob.ReduceKV)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mapreduce.ReduceJobMsg.ReduceKV)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:mapreduce.ReduceJob.ReduceKV)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:mapreduce.ReduceJobMsg.ReduceKV)
     MergeFrom(*source);
   }
 }
 
-void ReduceJob_ReduceKV::MergeFrom(const ReduceJob_ReduceKV& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:mapreduce.ReduceJob.ReduceKV)
+void ReduceJobMsg_ReduceKV::MergeFrom(const ReduceJobMsg_ReduceKV& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:mapreduce.ReduceJobMsg.ReduceKV)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -1664,37 +1589,37 @@ void ReduceJob_ReduceKV::MergeFrom(const ReduceJob_ReduceKV& from) {
   }
 }
 
-void ReduceJob_ReduceKV::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:mapreduce.ReduceJob.ReduceKV)
+void ReduceJobMsg_ReduceKV::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:mapreduce.ReduceJobMsg.ReduceKV)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void ReduceJob_ReduceKV::CopyFrom(const ReduceJob_ReduceKV& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:mapreduce.ReduceJob.ReduceKV)
+void ReduceJobMsg_ReduceKV::CopyFrom(const ReduceJobMsg_ReduceKV& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:mapreduce.ReduceJobMsg.ReduceKV)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ReduceJob_ReduceKV::IsInitialized() const {
+bool ReduceJobMsg_ReduceKV::IsInitialized() const {
   return true;
 }
 
-void ReduceJob_ReduceKV::Swap(ReduceJob_ReduceKV* other) {
+void ReduceJobMsg_ReduceKV::Swap(ReduceJobMsg_ReduceKV* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void ReduceJob_ReduceKV::InternalSwap(ReduceJob_ReduceKV* other) {
+void ReduceJobMsg_ReduceKV::InternalSwap(ReduceJobMsg_ReduceKV* other) {
   using std::swap;
-  value_.InternalSwap(&other->value_);
-  key_.Swap(&other->key_);
+  value_.InternalSwap(CastToBase(&other->value_));
+  key_.Swap(&other->key_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata ReduceJob_ReduceKV::GetMetadata() const {
+::google::protobuf::Metadata ReduceJobMsg_ReduceKV::GetMetadata() const {
   protobuf_worker_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_worker_5fservice_2eproto::file_level_metadata[kIndexInFileMessages];
 }
@@ -1702,29 +1627,27 @@ void ReduceJob_ReduceKV::InternalSwap(ReduceJob_ReduceKV* other) {
 
 // ===================================================================
 
-void ReduceJob::InitAsDefaultInstance() {
+void ReduceJobMsg::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int ReduceJob::kJobIdFieldNumber;
-const int ReduceJob::kSubJobIdFieldNumber;
-const int ReduceJob::kNameFieldNumber;
-const int ReduceJob::kTypeFieldNumber;
-const int ReduceJob::kReduceKvsFieldNumber;
+const int ReduceJobMsg::kJobIdFieldNumber;
+const int ReduceJobMsg::kSubJobIdFieldNumber;
+const int ReduceJobMsg::kNameFieldNumber;
+const int ReduceJobMsg::kTypeFieldNumber;
+const int ReduceJobMsg::kReduceKvsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-ReduceJob::ReduceJob()
+ReduceJobMsg::ReduceJobMsg()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_worker_5fservice_2eproto::InitDefaultsReduceJob();
-  }
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_worker_5fservice_2eproto::scc_info_ReduceJobMsg.base);
   SharedCtor();
-  // @@protoc_insertion_point(constructor:mapreduce.ReduceJob)
+  // @@protoc_insertion_point(constructor:mapreduce.ReduceJobMsg)
 }
-ReduceJob::ReduceJob(const ReduceJob& from)
+ReduceJobMsg::ReduceJobMsg(const ReduceJobMsg& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
-      reduce_kvs_(from.reduce_kvs_),
-      _cached_size_(0) {
+      reduce_kvs_(from.reduce_kvs_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.name().size() > 0) {
@@ -1737,53 +1660,43 @@ ReduceJob::ReduceJob(const ReduceJob& from)
   ::memcpy(&job_id_, &from.job_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&sub_job_id_) -
     reinterpret_cast<char*>(&job_id_)) + sizeof(sub_job_id_));
-  // @@protoc_insertion_point(copy_constructor:mapreduce.ReduceJob)
+  // @@protoc_insertion_point(copy_constructor:mapreduce.ReduceJobMsg)
 }
 
-void ReduceJob::SharedCtor() {
+void ReduceJobMsg::SharedCtor() {
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&job_id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&sub_job_id_) -
       reinterpret_cast<char*>(&job_id_)) + sizeof(sub_job_id_));
-  _cached_size_ = 0;
 }
 
-ReduceJob::~ReduceJob() {
-  // @@protoc_insertion_point(destructor:mapreduce.ReduceJob)
+ReduceJobMsg::~ReduceJobMsg() {
+  // @@protoc_insertion_point(destructor:mapreduce.ReduceJobMsg)
   SharedDtor();
 }
 
-void ReduceJob::SharedDtor() {
+void ReduceJobMsg::SharedDtor() {
   name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   type_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-void ReduceJob::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+void ReduceJobMsg::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* ReduceJob::descriptor() {
+const ::google::protobuf::Descriptor* ReduceJobMsg::descriptor() {
   ::protobuf_worker_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_worker_5fservice_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
-const ReduceJob& ReduceJob::default_instance() {
-  ::protobuf_worker_5fservice_2eproto::InitDefaultsReduceJob();
+const ReduceJobMsg& ReduceJobMsg::default_instance() {
+  ::google::protobuf::internal::InitSCC(&protobuf_worker_5fservice_2eproto::scc_info_ReduceJobMsg.base);
   return *internal_default_instance();
 }
 
-ReduceJob* ReduceJob::New(::google::protobuf::Arena* arena) const {
-  ReduceJob* n = new ReduceJob;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
 
-void ReduceJob::Clear() {
-// @@protoc_insertion_point(message_clear_start:mapreduce.ReduceJob)
+void ReduceJobMsg::Clear() {
+// @@protoc_insertion_point(message_clear_start:mapreduce.ReduceJobMsg)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1797,13 +1710,13 @@ void ReduceJob::Clear() {
   _internal_metadata_.Clear();
 }
 
-bool ReduceJob::MergePartialFromCodedStream(
+bool ReduceJobMsg::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:mapreduce.ReduceJob)
+  // @@protoc_insertion_point(parse_start:mapreduce.ReduceJobMsg)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -1844,7 +1757,7 @@ bool ReduceJob::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->name().data(), static_cast<int>(this->name().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "mapreduce.ReduceJob.name"));
+            "mapreduce.ReduceJobMsg.name"));
         } else {
           goto handle_unusual;
         }
@@ -1860,18 +1773,19 @@ bool ReduceJob::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->type().data(), static_cast<int>(this->type().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "mapreduce.ReduceJob.type"));
+            "mapreduce.ReduceJobMsg.type"));
         } else {
           goto handle_unusual;
         }
         break;
       }
 
-      // repeated .mapreduce.ReduceJob.ReduceKV reduce_kvs = 5;
+      // repeated .mapreduce.ReduceJobMsg.ReduceKV reduce_kvs = 5;
       case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(input, add_reduce_kvs()));
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+                input, add_reduce_kvs()));
         } else {
           goto handle_unusual;
         }
@@ -1890,17 +1804,17 @@ bool ReduceJob::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:mapreduce.ReduceJob)
+  // @@protoc_insertion_point(parse_success:mapreduce.ReduceJobMsg)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:mapreduce.ReduceJob)
+  // @@protoc_insertion_point(parse_failure:mapreduce.ReduceJobMsg)
   return false;
 #undef DO_
 }
 
-void ReduceJob::SerializeWithCachedSizes(
+void ReduceJobMsg::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:mapreduce.ReduceJob)
+  // @@protoc_insertion_point(serialize_start:mapreduce.ReduceJobMsg)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1919,7 +1833,7 @@ void ReduceJob::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), static_cast<int>(this->name().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.ReduceJob.name");
+      "mapreduce.ReduceJobMsg.name");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->name(), output);
   }
@@ -1929,29 +1843,31 @@ void ReduceJob::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->type().data(), static_cast<int>(this->type().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.ReduceJob.type");
+      "mapreduce.ReduceJobMsg.type");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->type(), output);
   }
 
-  // repeated .mapreduce.ReduceJob.ReduceKV reduce_kvs = 5;
+  // repeated .mapreduce.ReduceJobMsg.ReduceKV reduce_kvs = 5;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->reduce_kvs_size()); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      5, this->reduce_kvs(static_cast<int>(i)), output);
+      5,
+      this->reduce_kvs(static_cast<int>(i)),
+      output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
   }
-  // @@protoc_insertion_point(serialize_end:mapreduce.ReduceJob)
+  // @@protoc_insertion_point(serialize_end:mapreduce.ReduceJobMsg)
 }
 
-::google::protobuf::uint8* ReduceJob::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* ReduceJobMsg::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:mapreduce.ReduceJob)
+  // @@protoc_insertion_point(serialize_to_array_start:mapreduce.ReduceJobMsg)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1970,7 +1886,7 @@ void ReduceJob::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), static_cast<int>(this->name().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.ReduceJob.name");
+      "mapreduce.ReduceJobMsg.name");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->name(), target);
@@ -1981,13 +1897,13 @@ void ReduceJob::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->type().data(), static_cast<int>(this->type().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.ReduceJob.type");
+      "mapreduce.ReduceJobMsg.type");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         4, this->type(), target);
   }
 
-  // repeated .mapreduce.ReduceJob.ReduceKV reduce_kvs = 5;
+  // repeated .mapreduce.ReduceJobMsg.ReduceKV reduce_kvs = 5;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->reduce_kvs_size()); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
@@ -1999,12 +1915,12 @@ void ReduceJob::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:mapreduce.ReduceJob)
+  // @@protoc_insertion_point(serialize_to_array_end:mapreduce.ReduceJobMsg)
   return target;
 }
 
-size_t ReduceJob::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:mapreduce.ReduceJob)
+size_t ReduceJobMsg::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:mapreduce.ReduceJobMsg)
   size_t total_size = 0;
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -2012,7 +1928,7 @@ size_t ReduceJob::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  // repeated .mapreduce.ReduceJob.ReduceKV reduce_kvs = 5;
+  // repeated .mapreduce.ReduceJobMsg.ReduceKV reduce_kvs = 5;
   {
     unsigned int count = static_cast<unsigned int>(this->reduce_kvs_size());
     total_size += 1UL * count;
@@ -2052,29 +1968,27 @@ size_t ReduceJob::ByteSizeLong() const {
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  SetCachedSize(cached_size);
   return total_size;
 }
 
-void ReduceJob::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:mapreduce.ReduceJob)
+void ReduceJobMsg::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:mapreduce.ReduceJobMsg)
   GOOGLE_DCHECK_NE(&from, this);
-  const ReduceJob* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const ReduceJob>(
+  const ReduceJobMsg* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const ReduceJobMsg>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mapreduce.ReduceJob)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mapreduce.ReduceJobMsg)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:mapreduce.ReduceJob)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:mapreduce.ReduceJobMsg)
     MergeFrom(*source);
   }
 }
 
-void ReduceJob::MergeFrom(const ReduceJob& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:mapreduce.ReduceJob)
+void ReduceJobMsg::MergeFrom(const ReduceJobMsg& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:mapreduce.ReduceJobMsg)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -2097,40 +2011,41 @@ void ReduceJob::MergeFrom(const ReduceJob& from) {
   }
 }
 
-void ReduceJob::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:mapreduce.ReduceJob)
+void ReduceJobMsg::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:mapreduce.ReduceJobMsg)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void ReduceJob::CopyFrom(const ReduceJob& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:mapreduce.ReduceJob)
+void ReduceJobMsg::CopyFrom(const ReduceJobMsg& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:mapreduce.ReduceJobMsg)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ReduceJob::IsInitialized() const {
+bool ReduceJobMsg::IsInitialized() const {
   return true;
 }
 
-void ReduceJob::Swap(ReduceJob* other) {
+void ReduceJobMsg::Swap(ReduceJobMsg* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void ReduceJob::InternalSwap(ReduceJob* other) {
+void ReduceJobMsg::InternalSwap(ReduceJobMsg* other) {
   using std::swap;
-  reduce_kvs_.InternalSwap(&other->reduce_kvs_);
-  name_.Swap(&other->name_);
-  type_.Swap(&other->type_);
+  CastToBase(&reduce_kvs_)->InternalSwap(CastToBase(&other->reduce_kvs_));
+  name_.Swap(&other->name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  type_.Swap(&other->type_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
   swap(job_id_, other->job_id_);
   swap(sub_job_id_, other->sub_job_id_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata ReduceJob::GetMetadata() const {
+::google::protobuf::Metadata ReduceJobMsg::GetMetadata() const {
   protobuf_worker_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_worker_5fservice_2eproto::file_level_metadata[kIndexInFileMessages];
 }
@@ -2158,7 +2073,7 @@ void WorkerService::Beat(::google::protobuf::RpcController* controller,
 }
 
 void WorkerService::Map(::google::protobuf::RpcController* controller,
-                         const ::mapreduce::MapJob*,
+                         const ::mapreduce::MapJobMsg*,
                          ::mapreduce::WorkerReplyMsg*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method Map() not implemented.");
@@ -2166,7 +2081,7 @@ void WorkerService::Map(::google::protobuf::RpcController* controller,
 }
 
 void WorkerService::Reduce(::google::protobuf::RpcController* controller,
-                         const ::mapreduce::ReduceJob*,
+                         const ::mapreduce::ReduceJobMsg*,
                          ::mapreduce::WorkerReplyMsg*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method Reduce() not implemented.");
@@ -2188,13 +2103,13 @@ void WorkerService::CallMethod(const ::google::protobuf::MethodDescriptor* metho
       break;
     case 1:
       Map(controller,
-             ::google::protobuf::down_cast<const ::mapreduce::MapJob*>(request),
+             ::google::protobuf::down_cast<const ::mapreduce::MapJobMsg*>(request),
              ::google::protobuf::down_cast< ::mapreduce::WorkerReplyMsg*>(response),
              done);
       break;
     case 2:
       Reduce(controller,
-             ::google::protobuf::down_cast<const ::mapreduce::ReduceJob*>(request),
+             ::google::protobuf::down_cast<const ::mapreduce::ReduceJobMsg*>(request),
              ::google::protobuf::down_cast< ::mapreduce::WorkerReplyMsg*>(response),
              done);
       break;
@@ -2211,9 +2126,9 @@ const ::google::protobuf::Message& WorkerService::GetRequestPrototype(
     case 0:
       return ::google::protobuf::Empty::default_instance();
     case 1:
-      return ::mapreduce::MapJob::default_instance();
+      return ::mapreduce::MapJobMsg::default_instance();
     case 2:
-      return ::mapreduce::ReduceJob::default_instance();
+      return ::mapreduce::ReduceJobMsg::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *::google::protobuf::MessageFactory::generated_factory()
@@ -2257,14 +2172,14 @@ void WorkerService_Stub::Beat(::google::protobuf::RpcController* controller,
                        controller, request, response, done);
 }
 void WorkerService_Stub::Map(::google::protobuf::RpcController* controller,
-                              const ::mapreduce::MapJob* request,
+                              const ::mapreduce::MapJobMsg* request,
                               ::mapreduce::WorkerReplyMsg* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(1),
                        controller, request, response, done);
 }
 void WorkerService_Stub::Reduce(::google::protobuf::RpcController* controller,
-                              const ::mapreduce::ReduceJob* request,
+                              const ::mapreduce::ReduceJobMsg* request,
                               ::mapreduce::WorkerReplyMsg* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(2),
@@ -2273,5 +2188,24 @@ void WorkerService_Stub::Reduce(::google::protobuf::RpcController* controller,
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace mapreduce
+namespace google {
+namespace protobuf {
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::mapreduce::WorkerReplyMsg* Arena::CreateMaybeMessage< ::mapreduce::WorkerReplyMsg >(Arena* arena) {
+  return Arena::CreateInternal< ::mapreduce::WorkerReplyMsg >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::mapreduce::MapJobMsg_MapKV* Arena::CreateMaybeMessage< ::mapreduce::MapJobMsg_MapKV >(Arena* arena) {
+  return Arena::CreateInternal< ::mapreduce::MapJobMsg_MapKV >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::mapreduce::MapJobMsg* Arena::CreateMaybeMessage< ::mapreduce::MapJobMsg >(Arena* arena) {
+  return Arena::CreateInternal< ::mapreduce::MapJobMsg >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::mapreduce::ReduceJobMsg_ReduceKV* Arena::CreateMaybeMessage< ::mapreduce::ReduceJobMsg_ReduceKV >(Arena* arena) {
+  return Arena::CreateInternal< ::mapreduce::ReduceJobMsg_ReduceKV >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::mapreduce::ReduceJobMsg* Arena::CreateMaybeMessage< ::mapreduce::ReduceJobMsg >(Arena* arena) {
+  return Arena::CreateInternal< ::mapreduce::ReduceJobMsg >(arena);
+}
+}  // namespace protobuf
+}  // namespace google
 
 // @@protoc_insertion_point(global_scope)
