@@ -7,8 +7,6 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug)
 endif()
 
-include_directories(${CMAKE_SOURCE_DIR}/include/)
-
 include(FindProtobuf)
 file(GLOB_RECURSE PROTO_FILE_LIST ${CMAKE_SOURCE_DIR}/protos/*.proto)
 set(PROTO_OUT_DIR ${CMAKE_SOURCE_DIR}/include/mapreduce/rpc/)
@@ -21,9 +19,37 @@ foreach(PROTO_FILE ${PROTO_FILE_LIST})
   )
 endforeach()
 
-find_package(gflags REQUIRED)
-find_library(BRPC_LIB NAMES libbrpc.a brpc)
-find_package(Threads)
+include_directories(${CMAKE_SOURCE_DIR}/include/)
 
-add_library(master STATIC src/master.cc src/job.cc src/state.cc include/mapreduce/master.h ${PROTO_CXX} ${PROTO_H})
-target_link_libraries(master ${BRPC_LIB} gflags ${CMAKE_THREAD_LIBS_INIT})
+find_package(gflags REQUIRED)
+find_package(OpenSSL)
+find_package(Threads)
+find_library(BRPC_LIB NAMES libbrpc.a brpc)
+find_library(LEVELDB_LIB NAMES leveldb)
+
+set(LIBMASTER_SRC 
+  src/master.cc
+  src/job.cc
+  src/state.cc
+  include/mapreduce/rpc/master_service.pb.cc
+  include/mapreduce/rpc/master_service.pb.h
+  include/mapreduce/rpc/worker_service.pb.cc
+  include/mapreduce/rpc/worker_service.pb.h
+)
+
+set(DEPENDENCIES
+  ${BRPC_LIB}
+  ${PROTOBUF_LIBRARIES}
+  ${OPENSSL_SSL_LIBRARY}
+  ${OPENSSL_CRYPTO_LIBRARY}
+  ${LEVELDB_LIB}
+  ${CMAKE_THREAD_LIBS_INIT}
+  gflags
+  dl
+)
+
+add_library(master STATIC ${LIBMASTER_SRC})
+
+add_executable(master_server server/master_server.cc)
+add_dependencies(master_server master)
+target_link_libraries(master_server master ${DEPENDENCIES})

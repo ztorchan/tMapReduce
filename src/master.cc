@@ -2,6 +2,8 @@
 #include <utility>
 #include <algorithm>
 
+#include <butil/logging.h>
+
 #include "mapreduce/master.h"
 #include "mapreduce/status.h"
 #include "mapreduce/job.h"
@@ -43,13 +45,24 @@ Master::Master(uint32_t id, std::string name, uint32_t port)
       slaver_to_job_(),
       slavers_mutex_(),
       jobs_mutex_(),
-      jobs_cv_() {
+      jobs_cv_(),
+      end_(false) {
   std::thread job_distributor(Master::BGDistributor, this);
   job_distributor.detach();
   std::thread beater(Master::BGBeater, this);
   beater.detach();
 }
 
+Master::~Master() {
+  for(auto& [_, slaver] : slavers_) {
+    delete slaver;
+    slaver = nullptr;
+  }
+  for(auto& [_, job] : jobs_) {
+    delete job;
+    job = nullptr;
+  }
+}
 
 Status Master::Register(std::string address, uint32_t* slaver_id) {
   Slaver* s = new Slaver(new_slaver_id(), address);
@@ -110,12 +123,17 @@ void Master::BGDistributor(Master* master) {
   std::deque<uint32_t>& reduce_jobs = master->reduce_queue_;
   brpc::Controller cntl;
 
-  while(true) {
+  while(!master->end_) {
     std::unique_lock<std::mutex> jobs_lck(master->jobs_mutex_);
     master->jobs_cv_.wait(jobs_lck, [&] { 
-      return !slavers.empty() 
-              && (!cur_job_id != UINT32_MAX || !map_jobs.empty() || !reduce_jobs.empty()); 
+      return (!slavers.empty() && (!cur_job_id != UINT32_MAX || !map_jobs.empty() || !reduce_jobs.empty())) 
+             || master->end_; 
     });
+    if(master->end_) { 
+      jobs_lck.unlock();
+      break;
+    }
+
     std::unique_lock<std::mutex> slavers_lck(master->slavers_mutex_);
 
     // Init
@@ -207,12 +225,13 @@ void Master::BGDistributor(Master* master) {
       }
     } while(it->first != cur_slaver_id);
   }
+  LOG(INFO) << "JobDistributor Stop";
 }
 
 void Master::BGBeater(Master* master) {
   brpc::Controller cntl;
   WorkerReplyMsg response;
-  while(true) {
+  while(!master->end_) {
     for(auto& [_, slaver] : master->slavers_) {
       cntl.Reset();
       WorkerService_Stub* stub = slaver->stub_;
@@ -244,6 +263,7 @@ void Master::BGBeater(Master* master) {
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
   }
+  LOG(INFO) << "Beater Stop";
 }
 
 MasterServiceImpl::MasterServiceImpl(uint32_t id, std::string name, uint32_t port) 
