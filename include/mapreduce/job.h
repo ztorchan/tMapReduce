@@ -3,7 +3,10 @@
 
 #include <string>
 #include <vector>
+#include <mutex>
+#include <atomic>
 #include <cstdint>
+#include <memory>
 
 namespace mapreduce{
 
@@ -34,7 +37,9 @@ public:
       stage_(JobStage::INIT),
       map_kvs_(std::forward<MapKVs>(map_kvs)),
       reduce_kvs_(),
-      subjobs_() {}
+      unfinished_job_num_(0),
+      subjobs_(),
+      mtx_() {}
   Job(const Job&) = delete;
   ~Job() {}
 
@@ -42,6 +47,8 @@ public:
 
   // Partition job in several subjobs which will be sent to worker
   void Partition();
+
+  void Merge();
 
 public:
   const uint32_t id_;
@@ -51,10 +58,13 @@ public:
   const int reduce_worker_num_ = 0;
 
   JobStage stage_;
-  std::vector<std::pair<std::string, std::string>> map_kvs_;
-  std::vector<std::pair<std::string, std::vector<std::string>>> reduce_kvs_;
+  MapKVs map_kvs_;
+  ReduceKVs reduce_kvs_;
   
+  uint32_t unfinished_job_num_;
   std::vector<SubJob> subjobs_;
+
+  std::mutex mtx_;
 };
 
 class SubJob {
@@ -67,7 +77,16 @@ public:
     worker_id_(UINT32_MAX),
     finished_(false),
     result_(nullptr) {}
-  ~SubJob() {}
+
+  ~SubJob() {
+    if(result_ != nullptr) {
+      if(job_ptr_->stage_ == JobStage::REDUCING)
+        delete reinterpret_cast<std::vector<std::pair<std::string, std::string>>*>(result_);
+      else if(job_ptr_->stage_ == JobStage::FINISHED)
+        delete reinterpret_cast<std::vector<std::string>*>(result_);
+      result_ = nullptr;
+    }
+  }
 
   SubJob& operator=(const SubJob&) = delete;
 

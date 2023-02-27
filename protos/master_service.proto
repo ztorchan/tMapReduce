@@ -4,11 +4,6 @@ package mapreduce;
 
 option cc_generic_services = true;
 
-message MasterReplyMsg {
-  bool ok = 1;
-  string msg = 2;
-}
-
 message RegisterMsg {
   string address = 1;
 }
@@ -25,6 +20,29 @@ message JobMsg {
   repeated KV kvs = 5;
 }
 
+message MapResultMsg {
+  message KV {
+    string key = 1;
+    string value = 2;
+  }
+  uint32 job_id = 1;
+  uint32 sub_job_id = 2;
+  uint32 worker_id = 3;
+  repeated KV map_result = 4;
+}
+
+message ReduceResultMsg {
+  uint32 job_id = 1;
+  uint32 sub_job_id = 2;
+  uint32 worker_id = 3;
+  repeated string reduce_result = 4;
+}
+
+message MasterReplyMsg {
+  bool ok = 1;
+  string msg = 2;
+}
+
 message RegisterReplyMsg {
   MasterReplyMsg reply = 1;
   uint32 worker_id = 2;
@@ -39,4 +57,6 @@ service MasterService {
   rpc Register(RegisterMsg) returns (RegisterReplyMsg) {}
   rpc Launch(JobMsg) returns (LaunchReplyMsg) {}
   // TODO: Map result and Reduce result
+  rpc CompleteMap(MapResultMsg) returns (MasterReplyMsg) {}
+  rpc CompleteReduce(ReduceResultMsg) returns (MasterReplyMsg) {}
 }

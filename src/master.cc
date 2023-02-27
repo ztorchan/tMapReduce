@@ -41,16 +41,21 @@ Master::Master(uint32_t id, std::string name, uint32_t port)
       jobs_(),
       map_queue_(),
       reduce_queue_(),
+      merge_queue_(),
       slavers_(),
       slaver_to_job_(),
       slavers_mutex_(),
       jobs_mutex_(),
+      merge_mutex_(),
       jobs_cv_(),
+      merge_cv_(),
       end_(false) {
   std::thread job_distributor(Master::BGDistributor, this);
   job_distributor.detach();
   std::thread beater(Master::BGBeater, this);
   beater.detach();
+  std::thread merger(Master::BGMerger, this);
+  merger.detach();
 }
 
 Master::~Master() {
@@ -89,9 +94,9 @@ Status Master::Register(std::string address, uint32_t* slaver_id) {
 }
 
 Status Master::Launch(const std::string& name, const std::string& type, 
-                      const int& map_worker_num, const int& reduce_worker_num, 
+                      int map_worker_num, int reduce_worker_num, 
                       MapKVs& map_kvs, uint32_t* job_id) {
-  // TODO: Check whether job is legal
+  // Check whether job is legal
   if(map_worker_num <= 0 || reduce_worker_num <= 0) {
     return Status::Error("Map worker and Reduce worker must be greater than 0.");
   }
@@ -112,7 +117,51 @@ Status Master::Launch(const std::string& name, const std::string& type,
   return Status::Ok("");
 }
 
+Status Master::CompleteMap(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id,
+                           std::vector<std::pair<std::string, std::string>>& map_result) {
+  // Check Job exists
+  if(jobs_.find(job_id) == jobs_.end()) {
+    return Status::Error("Job does not exist.");
+  }
+
+  Job* job = jobs_[job_id];
+  std::unique_lock<std::mutex> lck(job->mtx_);
+  // Check job state
+  if(job->stage_ != JobStage::MAPPING) {
+    return Status::Error("Job is not in MAPPING stage.");
+  }
+  // Check subjob id is legal 
+  if(job->subjobs_.size() <= subjob_id) {
+    return Status::Error("Subjob id is not legal");
+  }
+  // Check subjob has being distributed to the worker
+  if(job->subjobs_[subjob_id].worker_id_ != worker_id) {
+    return Status::Error("Subjob has not distributed to this worker.");
+  }
+  if(job->subjobs_[subjob_id].finished_ != false) {
+    return Status::Error("SUbjob has been finished.");
+  }
+  
+  job->subjobs_[subjob_id].result_ 
+    = reinterpret_cast<void*>(new std::vector<std::pair<std::string, std::string>>(std::move(map_result)));
+  job->subjobs_[subjob_id].finished_ = true;
+  job->unfinished_job_num_--;
+
+  if(job->unfinished_job_num_ == 0) {
+    job->stage_ = JobStage::MERGING;
+    merge_queue_.push_back(job_id);
+    merge_cv_.notify_all();
+  }
+  return Status::Ok("");
+}
+
+Status Master::CompleteReduce() {
+  return Status::Ok("");
+}
+
 void Master::BGDistributor(Master* master) {
+  LOG(INFO) << "Distributor Start";
+
   uint32_t cur_slaver_id = UINT32_MAX;    // the last slaver assigned successfully
   uint32_t cur_job_id = UINT32_MAX;       // current job
   uint32_t cur_subjob_index = UINT32_MAX; 
@@ -225,10 +274,12 @@ void Master::BGDistributor(Master* master) {
       }
     } while(it->first != cur_slaver_id);
   }
-  LOG(INFO) << "JobDistributor Stop";
+  LOG(INFO) << "Distributor Stop";
 }
 
 void Master::BGBeater(Master* master) {
+  LOG(INFO) << "Beater Start";
+
   brpc::Controller cntl;
   WorkerReplyMsg response;
   while(!master->end_) {
@@ -264,6 +315,27 @@ void Master::BGBeater(Master* master) {
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
   }
   LOG(INFO) << "Beater Stop";
+}
+
+void Master::BGMerger(Master* master) {
+  LOG(INFO) << "Merger Start";
+  std::deque<uint32_t>& merge_queue = master->merge_queue_;
+  while(!master->end_) {
+    std::unique_lock<std::mutex> merge_lck(master->merge_mutex_);
+    master->merge_cv_.wait(merge_lck, [&] {
+      return !merge_queue.empty() || master->end_;
+    });
+    if(master->end_)
+      break;
+    uint32_t job_id = merge_queue.front();
+    Job* job = master->jobs_[job_id];
+    assert(job->stage_ == JobStage::MERGING);
+    job->Merge();
+    job->stage_ = JobStage::REDUCING;
+    job->Partition();
+    master->reduce_queue_.push_back(job_id);
+  }
+  LOG(INFO) << "Merger Stop";
 }
 
 MasterServiceImpl::MasterServiceImpl(uint32_t id, std::string name, uint32_t port) 
@@ -324,6 +396,37 @@ void MasterServiceImpl::Launch(::google::protobuf::RpcController* controller,
   }
 
   return ;
+}
+
+void MasterServiceImpl::CompleteMap(::google::protobuf::RpcController* controller,
+                                    const ::mapreduce::MapResultMsg* request,
+                                    ::mapreduce::MasterReplyMsg* response,
+                                    ::google::protobuf::Closure* done) {
+  brpc::ClosureGuard done_guard(done);
+  brpc::Controller* ctl = static_cast<brpc::Controller*>(controller);
+
+  std::vector<std::pair<std::string, std::string>> map_result;
+  for(int i = 0; i < request->map_result_size(); ++i) {
+    const auto& kv = request->map_result(i);
+    map_result.emplace_back(kv.key(), kv.value());
+  }
+  Status s = master_->CompleteMap(request->job_id(), request->sub_job_id(), request->worker_id(), map_result);
+  if(s.ok()) {
+    response->set_ok(true);
+    response->set_msg(std::move(s.msg_));
+  } else {
+    response->set_ok(false);
+    response->set_msg(std::move(s.msg_)); 
+  }
+  
+  return ;
+}
+
+void MasterServiceImpl::CompleteReduce(::google::protobuf::RpcController* controller,
+                                       const ::mapreduce::ReduceResultMsg* request,
+                                       ::mapreduce::MasterReplyMsg* response,
+                                       ::google::protobuf::Closure* done) {
+  return;
 }
 
 

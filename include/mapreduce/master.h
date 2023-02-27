@@ -56,8 +56,11 @@ public:
   Status init();
   Status Register(std::string address, uint32_t* slaver_id);
   Status Launch(const std::string& name, const std::string& type, 
-                const int& map_worker_num, const int& reduce_worker_num,
-                MapKVs& map_lvs, uint32_t* job_id);
+                int map_worker_num, int reduce_worker_num,
+                MapKVs& map_kvs, uint32_t* job_id);
+  Status CompleteMap(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id,
+                     std::vector<std::pair<std::string, std::string>>& map_result);
+  Status CompleteReduce();
 
   friend class MasterServiceImpl;
   friend class JobDistributor;
@@ -67,9 +70,12 @@ public:
 
   static void BGBeater(Master* master);
 
+  static void BGMerger(Master* master); // TODO: BackGround Merger
+
   void end() { 
     end_ = true; 
     jobs_cv_.notify_all();
+    merge_cv_.notify_all();
   }
 
 private:
@@ -82,12 +88,15 @@ private:
   std::unordered_map<uint32_t, Job*> jobs_;
   std::deque<uint32_t> map_queue_;
   std::deque<uint32_t> reduce_queue_;
+  std::deque<uint32_t> merge_queue_;
   std::map<uint32_t, Slaver*> slavers_;
   std::unordered_map<uint32_t, std::pair<uint32_t, uint32_t>> slaver_to_job_;
 
   std::mutex slavers_mutex_;
   std::mutex jobs_mutex_;
+  std::mutex merge_mutex_;
   std::condition_variable jobs_cv_;
+  std::condition_variable merge_cv_;
 
   bool end_;
 
@@ -109,6 +118,16 @@ public:
               const ::mapreduce::JobMsg* request,
               ::mapreduce::LaunchReplyMsg* response,
               ::google::protobuf::Closure* done) override;
+  
+  void CompleteMap(::google::protobuf::RpcController* controller,
+                   const ::mapreduce::MapResultMsg* request,
+                   ::mapreduce::MasterReplyMsg* response,
+                   ::google::protobuf::Closure* done) override;
+  
+  void CompleteReduce(::google::protobuf::RpcController* controller,
+                      const ::mapreduce::ReduceResultMsg* request,
+                      ::mapreduce::MasterReplyMsg* response,
+                      ::google::protobuf::Closure* done) override;
   
   void end() { master_->end(); }
 
