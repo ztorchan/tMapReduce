@@ -241,28 +241,28 @@ void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\024worker_service.proto\022\tmapreduce\032\033googl"
-      "e/protobuf/empty.proto\"\247\001\n\016WorkerReplyMs"
+      "e/protobuf/empty.proto\"\265\001\n\016WorkerReplyMs"
       "g\022\n\n\002ok\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\0224\n\005state\030\003 \001("
       "\0162%.mapreduce.WorkerReplyMsg.WorkerState"
-      "\"F\n\013WorkerState\022\013\n\007UNKNOWN\020\000\022\010\n\004INIT\020\001\022\010"
-      "\n\004IDLE\020\002\022\013\n\007WORKING\020\003\022\t\n\005CLOSE\020\004\"\235\001\n\tMap"
-      "JobMsg\022\016\n\006job_id\030\001 \001(\r\022\022\n\nsub_job_id\030\002 \001"
-      "(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\022+\n\007map_kv"
-      "s\030\005 \003(\0132\032.mapreduce.MapJobMsg.MapKV\032#\n\005M"
-      "apKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\254\001\n\014Red"
-      "uceJobMsg\022\016\n\006job_id\030\001 \001(\r\022\022\n\nsub_job_id\030"
-      "\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\0224\n\nred"
-      "uce_kvs\030\005 \003(\0132 .mapreduce.ReduceJobMsg.R"
-      "educeKV\032&\n\010ReduceKV\022\013\n\003key\030\001 \001(\t\022\r\n\005valu"
-      "e\030\002 \003(\t2\306\001\n\rWorkerService\022;\n\004Beat\022\026.goog"
-      "le.protobuf.Empty\032\031.mapreduce.WorkerRepl"
-      "yMsg\"\000\0228\n\003Map\022\024.mapreduce.MapJobMsg\032\031.ma"
-      "preduce.WorkerReplyMsg\"\000\022>\n\006Reduce\022\027.map"
-      "reduce.ReduceJobMsg\032\031.mapreduce.WorkerRe"
-      "plyMsg\"\000B\003\200\001\001b\006proto3"
+      "\"T\n\013WorkerState\022\013\n\007UNKNOWN\020\000\022\010\n\004INIT\020\001\022\010"
+      "\n\004IDLE\020\002\022\013\n\007MAPPING\020\003\022\014\n\010REDUCING\020\004\022\t\n\005C"
+      "LOSE\020\005\"\235\001\n\tMapJobMsg\022\016\n\006job_id\030\001 \001(\r\022\022\n\n"
+      "sub_job_id\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004"
+      " \001(\t\022+\n\007map_kvs\030\005 \003(\0132\032.mapreduce.MapJob"
+      "Msg.MapKV\032#\n\005MapKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value"
+      "\030\002 \001(\t\"\254\001\n\014ReduceJobMsg\022\016\n\006job_id\030\001 \001(\r\022"
+      "\022\n\nsub_job_id\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004typ"
+      "e\030\004 \001(\t\0224\n\nreduce_kvs\030\005 \003(\0132 .mapreduce."
+      "ReduceJobMsg.ReduceKV\032&\n\010ReduceKV\022\013\n\003key"
+      "\030\001 \001(\t\022\r\n\005value\030\002 \003(\t2\306\001\n\rWorkerService\022"
+      ";\n\004Beat\022\026.google.protobuf.Empty\032\031.mapred"
+      "uce.WorkerReplyMsg\"\000\0228\n\003Map\022\024.mapreduce."
+      "MapJobMsg\032\031.mapreduce.WorkerReplyMsg\"\000\022>"
+      "\n\006Reduce\022\027.mapreduce.ReduceJobMsg\032\031.mapr"
+      "educe.WorkerReplyMsg\"\000B\003\200\001\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 781);
+      descriptor, 795);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "worker_service.proto", &protobuf_RegisterTypes);
   ::protobuf_google_2fprotobuf_2fempty_2eproto::AddDescriptors();
@@ -291,6 +291,7 @@ bool WorkerReplyMsg_WorkerState_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
@@ -301,7 +302,8 @@ bool WorkerReplyMsg_WorkerState_IsValid(int value) {
 const WorkerReplyMsg_WorkerState WorkerReplyMsg::UNKNOWN;
 const WorkerReplyMsg_WorkerState WorkerReplyMsg::INIT;
 const WorkerReplyMsg_WorkerState WorkerReplyMsg::IDLE;
-const WorkerReplyMsg_WorkerState WorkerReplyMsg::WORKING;
+const WorkerReplyMsg_WorkerState WorkerReplyMsg::MAPPING;
+const WorkerReplyMsg_WorkerState WorkerReplyMsg::REDUCING;
 const WorkerReplyMsg_WorkerState WorkerReplyMsg::CLOSE;
 const WorkerReplyMsg_WorkerState WorkerReplyMsg::WorkerState_MIN;
 const WorkerReplyMsg_WorkerState WorkerReplyMsg::WorkerState_MAX;

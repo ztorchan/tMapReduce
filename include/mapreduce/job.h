@@ -19,9 +19,13 @@ using ReduceKVs = std::vector<ReduceKV>;
 
 enum class JobStage {
     INIT,
+    WAIT2MAP,
     MAPPING,
+    WAIT2MERGE,
     MERGING,
+    WAIT2REDUCE,
     REDUCING,
+    WAIT2FINISH,
     FINISHED
   };
 
@@ -37,6 +41,7 @@ public:
       stage_(JobStage::INIT),
       map_kvs_(std::forward<MapKVs>(map_kvs)),
       reduce_kvs_(),
+      results_(),
       unfinished_job_num_(0),
       subjobs_(),
       mtx_() {}
@@ -48,7 +53,11 @@ public:
   // Partition job in several subjobs which will be sent to worker
   void Partition();
 
+  // Merge map result
   void Merge();
+
+  // Finish job
+  void Finish();
 
 public:
   const uint32_t id_;
@@ -60,6 +69,7 @@ public:
   JobStage stage_;
   MapKVs map_kvs_;
   ReduceKVs reduce_kvs_;
+  std::vector<std::string> results_;
   
   uint32_t unfinished_job_num_;
   std::vector<SubJob> subjobs_;
@@ -69,9 +79,10 @@ public:
 
 class SubJob {
 public:
-  SubJob(Job* job_ptr, const uint32_t subjob_id, const uint32_t head, const uint32_t size) :
+  SubJob(Job* job_ptr, const uint32_t subjob_id, const uint32_t head, const uint32_t size, bool is_map) :
     job_ptr_(job_ptr),
     subjob_id_(subjob_id),
+    is_map_(is_map),
     head_(head),
     size_(size),
     worker_id_(UINT32_MAX),
@@ -80,9 +91,9 @@ public:
 
   ~SubJob() {
     if(result_ != nullptr) {
-      if(job_ptr_->stage_ == JobStage::REDUCING)
+      if(is_map_)
         delete reinterpret_cast<std::vector<std::pair<std::string, std::string>>*>(result_);
-      else if(job_ptr_->stage_ == JobStage::FINISHED)
+      else
         delete reinterpret_cast<std::vector<std::string>*>(result_);
       result_ = nullptr;
     }
@@ -93,6 +104,8 @@ public:
 public:
   Job* job_ptr_;
   uint32_t subjob_id_;
+  bool is_map_;
+
   uint32_t head_;
   uint32_t size_;
 

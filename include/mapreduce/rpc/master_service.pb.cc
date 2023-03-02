@@ -326,6 +326,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::RegisterReplyMsg, reply_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::RegisterReplyMsg, worker_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::RegisterReplyMsg, master_id_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::LaunchReplyMsg, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -343,7 +344,7 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 39, -1, sizeof(::mapreduce::ReduceResultMsg)},
   { 48, -1, sizeof(::mapreduce::MasterReplyMsg)},
   { 55, -1, sizeof(::mapreduce::RegisterReplyMsg)},
-  { 62, -1, sizeof(::mapreduce::LaunchReplyMsg)},
+  { 63, -1, sizeof(::mapreduce::LaunchReplyMsg)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -392,22 +393,22 @@ void AddDescriptorsImpl() {
       "ue\030\002 \001(\t\"_\n\017ReduceResultMsg\022\016\n\006job_id\030\001 "
       "\001(\r\022\022\n\nsub_job_id\030\002 \001(\r\022\021\n\tworker_id\030\003 \001"
       "(\r\022\025\n\rreduce_result\030\004 \003(\t\")\n\016MasterReply"
-      "Msg\022\n\n\002ok\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\"O\n\020Register"
+      "Msg\022\n\n\002ok\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\"b\n\020Register"
       "ReplyMsg\022(\n\005reply\030\001 \001(\0132\031.mapreduce.Mast"
-      "erReplyMsg\022\021\n\tworker_id\030\002 \001(\r\"J\n\016LaunchR"
-      "eplyMsg\022(\n\005reply\030\001 \001(\0132\031.mapreduce.Maste"
-      "rReplyMsg\022\016\n\006job_id\030\002 \001(\r2\234\002\n\rMasterServ"
-      "ice\022A\n\010Register\022\026.mapreduce.RegisterMsg\032"
-      "\033.mapreduce.RegisterReplyMsg\"\000\0228\n\006Launch"
-      "\022\021.mapreduce.JobMsg\032\031.mapreduce.LaunchRe"
-      "plyMsg\"\000\022C\n\013CompleteMap\022\027.mapreduce.MapR"
-      "esultMsg\032\031.mapreduce.MasterReplyMsg\"\000\022I\n"
-      "\016CompleteReduce\022\032.mapreduce.ReduceResult"
-      "Msg\032\031.mapreduce.MasterReplyMsg\"\000B\003\200\001\001b\006p"
-      "roto3"
+      "erReplyMsg\022\021\n\tworker_id\030\002 \001(\r\022\021\n\tmaster_"
+      "id\030\003 \001(\r\"J\n\016LaunchReplyMsg\022(\n\005reply\030\001 \001("
+      "\0132\031.mapreduce.MasterReplyMsg\022\016\n\006job_id\030\002"
+      " \001(\r2\234\002\n\rMasterService\022A\n\010Register\022\026.map"
+      "reduce.RegisterMsg\032\033.mapreduce.RegisterR"
+      "eplyMsg\"\000\0228\n\006Launch\022\021.mapreduce.JobMsg\032\031"
+      ".mapreduce.LaunchReplyMsg\"\000\022C\n\013CompleteM"
+      "ap\022\027.mapreduce.MapResultMsg\032\031.mapreduce."
+      "MasterReplyMsg\"\000\022I\n\016CompleteReduce\022\032.map"
+      "reduce.ReduceResultMsg\032\031.mapreduce.Maste"
+      "rReplyMsg\"\000B\003\200\001\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 965);
+      descriptor, 984);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "master_service.proto", &protobuf_RegisterTypes);
 }
@@ -2769,6 +2770,7 @@ void RegisterReplyMsg::InitAsDefaultInstance() {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int RegisterReplyMsg::kReplyFieldNumber;
 const int RegisterReplyMsg::kWorkerIdFieldNumber;
+const int RegisterReplyMsg::kMasterIdFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RegisterReplyMsg::RegisterReplyMsg()
@@ -2789,14 +2791,16 @@ RegisterReplyMsg::RegisterReplyMsg(const RegisterReplyMsg& from)
   } else {
     reply_ = NULL;
   }
-  worker_id_ = from.worker_id_;
+  ::memcpy(&worker_id_, &from.worker_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&master_id_) -
+    reinterpret_cast<char*>(&worker_id_)) + sizeof(master_id_));
   // @@protoc_insertion_point(copy_constructor:mapreduce.RegisterReplyMsg)
 }
 
 void RegisterReplyMsg::SharedCtor() {
   ::memset(&reply_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&worker_id_) -
-      reinterpret_cast<char*>(&reply_)) + sizeof(worker_id_));
+      reinterpret_cast<char*>(&master_id_) -
+      reinterpret_cast<char*>(&reply_)) + sizeof(master_id_));
   _cached_size_ = 0;
 }
 
@@ -2842,7 +2846,9 @@ void RegisterReplyMsg::Clear() {
     delete reply_;
   }
   reply_ = NULL;
-  worker_id_ = 0u;
+  ::memset(&worker_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&master_id_) -
+      reinterpret_cast<char*>(&worker_id_)) + sizeof(master_id_));
   _internal_metadata_.Clear();
 }
 
@@ -2876,6 +2882,20 @@ bool RegisterReplyMsg::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &worker_id_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 master_id = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &master_id_)));
         } else {
           goto handle_unusual;
         }
@@ -2919,6 +2939,11 @@ void RegisterReplyMsg::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->worker_id(), output);
   }
 
+  // uint32 master_id = 3;
+  if (this->master_id() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->master_id(), output);
+  }
+
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
@@ -2943,6 +2968,11 @@ void RegisterReplyMsg::SerializeWithCachedSizes(
   // uint32 worker_id = 2;
   if (this->worker_id() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->worker_id(), target);
+  }
+
+  // uint32 master_id = 3;
+  if (this->master_id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->master_id(), target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -2974,6 +3004,13 @@ size_t RegisterReplyMsg::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
         this->worker_id());
+  }
+
+  // uint32 master_id = 3;
+  if (this->master_id() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->master_id());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -3011,6 +3048,9 @@ void RegisterReplyMsg::MergeFrom(const RegisterReplyMsg& from) {
   if (from.worker_id() != 0) {
     set_worker_id(from.worker_id());
   }
+  if (from.master_id() != 0) {
+    set_master_id(from.master_id());
+  }
 }
 
 void RegisterReplyMsg::CopyFrom(const ::google::protobuf::Message& from) {
@@ -3039,6 +3079,7 @@ void RegisterReplyMsg::InternalSwap(RegisterReplyMsg* other) {
   using std::swap;
   swap(reply_, other->reply_);
   swap(worker_id_, other->worker_id_);
+  swap(master_id_, other->master_id_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);
 }

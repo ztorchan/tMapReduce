@@ -1083,12 +1083,19 @@ class RegisterReplyMsg : public ::google::protobuf::Message /* @@protoc_insertio
   ::google::protobuf::uint32 worker_id() const;
   void set_worker_id(::google::protobuf::uint32 value);
 
+  // uint32 master_id = 3;
+  void clear_master_id();
+  static const int kMasterIdFieldNumber = 3;
+  ::google::protobuf::uint32 master_id() const;
+  void set_master_id(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:mapreduce.RegisterReplyMsg)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::mapreduce::MasterReplyMsg* reply_;
   ::google::protobuf::uint32 worker_id_;
+  ::google::protobuf::uint32 master_id_;
   mutable int _cached_size_;
   friend struct ::protobuf_master_5fservice_2eproto::TableStruct;
   friend void ::protobuf_master_5fservice_2eproto::InitDefaultsRegisterReplyMsgImpl();
@@ -2065,6 +2072,20 @@ inline void RegisterReplyMsg::set_worker_id(::google::protobuf::uint32 value) {
   
   worker_id_ = value;
   // @@protoc_insertion_point(field_set:mapreduce.RegisterReplyMsg.worker_id)
+}
+
+// uint32 master_id = 3;
+inline void RegisterReplyMsg::clear_master_id() {
+  master_id_ = 0u;
+}
+inline ::google::protobuf::uint32 RegisterReplyMsg::master_id() const {
+  // @@protoc_insertion_point(field_get:mapreduce.RegisterReplyMsg.master_id)
+  return master_id_;
+}
+inline void RegisterReplyMsg::set_master_id(::google::protobuf::uint32 value) {
+  
+  master_id_ = value;
+  // @@protoc_insertion_point(field_set:mapreduce.RegisterReplyMsg.master_id)
 }
 
 // -------------------------------------------------------------------

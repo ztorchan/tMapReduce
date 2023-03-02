@@ -6,25 +6,25 @@
 namespace mapreduce {
 
 void Job::Partition() {
-  assert(stage_ == JobStage::MAPPING || stage_ == JobStage::REDUCING);
+  assert(stage_ == JobStage::WAIT2MAP || stage_ == JobStage::WAIT2REDUCE);
   subjobs_.clear();
   uint32_t subjob_seq_num = 0;
-  if(stage_ == JobStage::MAPPING) {
+  if(stage_ == JobStage::WAIT2MAP) {
     subjobs_.reserve(map_worker_num_ + 1);
     uint32_t base_kvs_per_worker = map_kvs_.size() / map_worker_num_;
     uint32_t rest_kvs = map_kvs_.size() % map_worker_num_;
     for(uint32_t head = 0; head < map_kvs_.size(); ) {
       uint32_t size = (rest_kvs-- > 0 ? base_kvs_per_worker + 1 : base_kvs_per_worker);
-      subjobs_.emplace_back(this, subjob_seq_num++, head, size);
+      subjobs_.emplace_back(this, subjob_seq_num++, head, size, true);
       head += size; 
     }
-  } else if (stage_ == JobStage::REDUCING) {
+  } else if (stage_ == JobStage::WAIT2REDUCE) {
     subjobs_.reserve(reduce_worker_num_ + 1);
     uint32_t base_kvs_per_worker = reduce_kvs_.size() / reduce_worker_num_;
     uint32_t rest_kvs = reduce_kvs_.size() % reduce_worker_num_;
     for(uint32_t head = 0; head < reduce_kvs_.size(); ) {
       uint32_t size = (rest_kvs-- > 0 ? base_kvs_per_worker + 1 : base_kvs_per_worker);
-      subjobs_.emplace_back(this, subjob_seq_num++, head, size);
+      subjobs_.emplace_back(this, subjob_seq_num++, head, size, false);
       head += size; 
     }
   }
@@ -32,7 +32,8 @@ void Job::Partition() {
 }
 
 void Job::Merge() {
-  assert(stage_ == JobStage::MERGING);
+  assert(stage_ == JobStage::WAIT2MERGE);
+  stage_ = JobStage::MERGING;
   size_t total_size = 0;
   std::map<std::string, ReduceKV> tmp_map;
   for(const SubJob& subjob : subjobs_) {
@@ -47,6 +48,16 @@ void Job::Merge() {
   }
   for(auto& [_, kv] : tmp_map) {
     reduce_kvs_.push_back(std::move(kv));
+  }
+}
+
+void Job::Finish() {
+  assert(stage_ == JobStage::WAIT2FINISH);
+  size_t total_size = 0;
+  for(const SubJob& subjob : subjobs_) {
+    std::vector<std::string>* reduce_result = 
+      reinterpret_cast<std::vector<std::string>*>(subjob.result_);
+    results_.insert(results_.end(), reduce_result->begin(), reduce_result->end());
   }
 }
 

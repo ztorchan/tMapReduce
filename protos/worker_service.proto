@@ -11,8 +11,9 @@ message WorkerReplyMsg {
     UNKNOWN = 0;
     INIT = 1;
     IDLE = 2;
-    WORKING = 3;
-    CLOSE = 4;
+    MAPPING = 3;
+    REDUCING = 4;
+    CLOSE = 5;
   }
   bool ok = 1;
   string msg = 2;

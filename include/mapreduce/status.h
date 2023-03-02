@@ -1,5 +1,5 @@
-#ifndef MAPREDUCE_INCLUDE_STATUS_H
-#define MAPREDUCE_INCLUDE_STATUS_H
+#ifndef _MAPREDUCE_STATUS_H
+#define _MAPREDUCE_STATUS_H
 
 #include <string>
 

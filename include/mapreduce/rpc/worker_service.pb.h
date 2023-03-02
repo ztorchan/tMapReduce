@@ -86,8 +86,9 @@ enum WorkerReplyMsg_WorkerState {
   WorkerReplyMsg_WorkerState_UNKNOWN = 0,
   WorkerReplyMsg_WorkerState_INIT = 1,
   WorkerReplyMsg_WorkerState_IDLE = 2,
-  WorkerReplyMsg_WorkerState_WORKING = 3,
-  WorkerReplyMsg_WorkerState_CLOSE = 4,
+  WorkerReplyMsg_WorkerState_MAPPING = 3,
+  WorkerReplyMsg_WorkerState_REDUCING = 4,
+  WorkerReplyMsg_WorkerState_CLOSE = 5,
   WorkerReplyMsg_WorkerState_WorkerReplyMsg_WorkerState_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   WorkerReplyMsg_WorkerState_WorkerReplyMsg_WorkerState_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
@@ -195,8 +196,10 @@ class WorkerReplyMsg : public ::google::protobuf::Message /* @@protoc_insertion_
     WorkerReplyMsg_WorkerState_INIT;
   static const WorkerState IDLE =
     WorkerReplyMsg_WorkerState_IDLE;
-  static const WorkerState WORKING =
-    WorkerReplyMsg_WorkerState_WORKING;
+  static const WorkerState MAPPING =
+    WorkerReplyMsg_WorkerState_MAPPING;
+  static const WorkerState REDUCING =
+    WorkerReplyMsg_WorkerState_REDUCING;
   static const WorkerState CLOSE =
     WorkerReplyMsg_WorkerState_CLOSE;
   static inline bool WorkerState_IsValid(int value) {

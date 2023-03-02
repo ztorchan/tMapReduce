@@ -39,9 +39,9 @@ Master::Master(uint32_t id, std::string name, uint32_t port)
       slaver_seq_num_(0),
       job_seq_num_(0),
       jobs_(),
-      map_queue_(),
-      reduce_queue_(),
+      distribute_queue_(),
       merge_queue_(),
+      finish_set_(),
       slavers_(),
       slaver_to_job_(),
       slavers_mutex_(),
@@ -104,12 +104,14 @@ Status Master::Launch(const std::string& name, const std::string& type,
     return Status::Error("Empty key-value.");
   }
 
-  std::unique_lock<std::mutex> lck(jobs_mutex_);
   Job* new_job = new Job(new_job_id(), name, type, map_worker_num, reduce_worker_num, std::move(map_kvs));
-  new_job->stage_ = JobStage::MAPPING;
+  new_job->stage_ = JobStage::WAIT2MAP;
   new_job->Partition();
+  std::unique_lock<std::mutex> lck(jobs_mutex_);
   jobs_[new_job->id_] = new_job;
-  map_queue_.push_back(new_job->id_);
+  for(size_t i = 0; i < new_job->subjobs_.size(); i++) {
+    distribute_queue_.emplace_back(new_job->id_, i);
+  }
 
   *job_id = new_job->id_;
   lck.unlock();
@@ -145,17 +147,54 @@ Status Master::CompleteMap(uint32_t job_id, uint32_t subjob_id, uint32_t worker_
   job->subjobs_[subjob_id].result_ 
     = reinterpret_cast<void*>(new std::vector<std::pair<std::string, std::string>>(std::move(map_result)));
   job->subjobs_[subjob_id].finished_ = true;
+  slaver_to_job_.erase(worker_id);
   job->unfinished_job_num_--;
 
   if(job->unfinished_job_num_ == 0) {
-    job->stage_ = JobStage::MERGING;
+    job->stage_ = JobStage::WAIT2MERGE;
     merge_queue_.push_back(job_id);
     merge_cv_.notify_all();
   }
   return Status::Ok("");
 }
 
-Status Master::CompleteReduce() {
+Status Master::CompleteReduce(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id,
+                              std::vector<std::string>& reduce_result) {
+  // Check Job exists
+  if(jobs_.find(job_id) == jobs_.end()) {
+    return Status::Error("Job does not exist.");
+  }
+
+  Job* job = jobs_[job_id];
+  std::unique_lock<std::mutex> lck(job->mtx_);
+  // Check job state
+  if(job->stage_ != JobStage::REDUCING) {
+    return Status::Error("Job is not in MAPPING stage.");
+  }
+  // Check subjob id is legal 
+  if(job->subjobs_.size() <= subjob_id) {
+    return Status::Error("Subjob id is not legal");
+  }
+  // Check subjob has being distributed to the worker
+  if(job->subjobs_[subjob_id].worker_id_ != worker_id) {
+    return Status::Error("Subjob has not distributed to this worker.");
+  }
+  if(job->subjobs_[subjob_id].finished_ != false) {
+    return Status::Error("Subjob has been finished.");
+  }
+
+  job->subjobs_[subjob_id].result_
+    = reinterpret_cast<void*>(new std::vector<std::string>(std::move(reduce_result)));
+  job->subjobs_[subjob_id].finished_ = true;
+  slaver_to_job_.erase(worker_id);
+  job->unfinished_job_num_--;
+
+  if(job->unfinished_job_num_ == 0) {
+    job->stage_ = JobStage::WAIT2FINISH;
+    job->Finish();
+    job->stage_ = JobStage::FINISHED;
+    finish_set_.insert(job_id);
+  }
   return Status::Ok("");
 }
 
@@ -163,44 +202,22 @@ void Master::BGDistributor(Master* master) {
   LOG(INFO) << "Distributor Start";
 
   uint32_t cur_slaver_id = UINT32_MAX;    // the last slaver assigned successfully
-  uint32_t cur_job_id = UINT32_MAX;       // current job
-  uint32_t cur_subjob_index = UINT32_MAX; 
-  bool cur_map = true;
 
   std::map<uint32_t, Slaver*>& slavers = master->slavers_;
-  std::deque<uint32_t>& map_jobs = master->map_queue_;
-  std::deque<uint32_t>& reduce_jobs = master->reduce_queue_;
+  std::deque<std::pair<uint32_t, uint32_t>>& distribute_jobs = master->distribute_queue_;
   brpc::Controller cntl;
 
   while(!master->end_) {
     std::unique_lock<std::mutex> jobs_lck(master->jobs_mutex_);
     master->jobs_cv_.wait(jobs_lck, [&] { 
-      return (!slavers.empty() && (!cur_job_id != UINT32_MAX || !map_jobs.empty() || !reduce_jobs.empty())) 
+      return (!slavers.empty() && !distribute_jobs.empty()) 
              || master->end_; 
     });
     if(master->end_) { 
-      jobs_lck.unlock();
       break;
     }
 
     std::unique_lock<std::mutex> slavers_lck(master->slavers_mutex_);
-
-    // Init
-    if(cur_job_id == UINT32_MAX) {
-      if(!reduce_jobs.empty()){
-        cur_job_id = reduce_jobs.front();
-        reduce_jobs.pop_front();
-      } else {
-        cur_job_id = map_jobs.front();
-        map_jobs.pop_front();
-      }
-    }
-    if(cur_slaver_id == UINT32_MAX) {
-      cur_slaver_id = slavers.begin()->first;
-    }
-    if(cur_subjob_index == UINT32_MAX) {
-      cur_subjob_index = 0;
-    }
 
     auto it = slavers.find(cur_slaver_id);
     if(it == slavers.end()) {
@@ -212,12 +229,19 @@ void Master::BGDistributor(Master* master) {
       if(it->second->state_ == WorkerState::IDLE) {
         Slaver* slaver = it->second;
         WorkerService_Stub* stub = slaver->stub_;
-        Job* job = master->jobs_[cur_slaver_id];
-        SubJob& subjob = job->subjobs_[cur_subjob_index];
         WorkerReplyMsg response;
         cntl.Reset();
 
-        assert(job->stage_ == JobStage::MAPPING || job->stage_ == JobStage::REDUCING);
+        // Get subjob
+        uint32_t job_id = distribute_jobs.front().first;
+        uint32_t subjob_id = distribute_jobs.front().second;
+        Job* job = master->jobs_[job_id];
+        SubJob& subjob = job->subjobs_[subjob_id];
+        if(job->stage_ == JobStage::WAIT2MAP) {
+          job->stage_ == JobStage::MAPPING;
+        } else if(job->stage_ == JobStage::WAIT2REDUCE) {
+          job->stage_ == JobStage::REDUCING;
+        }
 
         if(job->stage_ == JobStage::MAPPING) {
           MapJobMsg rpc_map_job;
@@ -251,17 +275,13 @@ void Master::BGDistributor(Master* master) {
 
         if(!cntl.Failed()) {
           slaver->state_ = WorkerStateFromRPC(response.state());
-          if(slaver->state_ == WorkerState::WORKING && response.ok()) {
+          if((slaver->state_ == WorkerState::MAPPING || slaver->state_ == WorkerState::REDUCING) && response.ok()) {
+            // Successfully distributed subjob, change job state
+            std::unique_lock<std::mutex> lck(job->mtx_);
             cur_slaver_id = slaver->id_;
             subjob.worker_id_ = slaver->id_;
-            master->slaver_to_job_[slaver->id_] = std::pair<uint32_t, uint32_t>(cur_job_id, cur_subjob_index);
-            while(cur_subjob_index < job->subjobs_.size() && job->subjobs_[cur_subjob_index].worker_id_ != UINT32_MAX) {
-              cur_subjob_index++;
-            }
-            if(cur_subjob_index == job->subjobs_.size()){
-              cur_job_id = UINT32_MAX;
-              cur_subjob_index = UINT32_MAX;
-            }
+            master->slaver_to_job_[slaver->id_] = std::pair<uint32_t, uint32_t>(job_id, subjob_id);
+            distribute_jobs.pop_front();
             break;
           }
         } else {
@@ -293,22 +313,18 @@ void Master::BGBeater(Master* master) {
         slaver->state_ = WorkerStateFromRPC(response.state());
       }
 
-      // TODO: Check fault slaver and re-distribute job
-      if(slaver->state_ != WorkerState::IDLE || slaver->state_ != WorkerState::WORKING) {
+      // Check fault slaver and re-distribute job
+      if(slaver->state_ != WorkerState::IDLE || slaver->state_ != WorkerState::MAPPING || slaver->state_ != WorkerState::REDUCING) {
         auto it = master->slaver_to_job_.find(slaver->id_);
         if(it != master->slaver_to_job_.end()) {
           uint32_t job_id = it->second.first;
-          uint32_t subjob_index = it->second.second;
+          uint32_t subjob_id = it->second.second;
           Job* job = master->jobs_[job_id];
-          job->subjobs_[subjob_index].worker_id_ = UINT32_MAX;
+          std::unique_lock<std::mutex> job_lck(job->mtx_);
+          job->subjobs_[subjob_id].worker_id_ = UINT32_MAX;
 
-          std::unique_lock<std::mutex> lck(master->jobs_mutex_);
-          if(job->stage_ == JobStage::MAPPING) {
-            master->map_queue_.push_front(job_id);
-          } else if(job->stage_ == JobStage::REDUCING) {
-            master->reduce_queue_.push_front(job_id);
-          }
-          lck.unlock();
+          std::unique_lock<std::mutex> jobs_lck(master->jobs_mutex_);
+          master->distribute_queue_.emplace_front(job_id, subjob_id);
         }
       }
     }
@@ -329,11 +345,20 @@ void Master::BGMerger(Master* master) {
       break;
     uint32_t job_id = merge_queue.front();
     Job* job = master->jobs_[job_id];
-    assert(job->stage_ == JobStage::MERGING);
+    assert(job->stage_ == JobStage::WAIT2MERGE);
     job->Merge();
-    job->stage_ = JobStage::REDUCING;
-    job->Partition();
-    master->reduce_queue_.push_back(job_id);
+
+    if(job->reduce_kvs_.size() == 0) {
+      // if empty reduce kvs, job finish
+      job->stage_ = JobStage::FINISHED;
+      master->finish_set_.insert(job->id_);
+    } else {
+      job->stage_ = JobStage::WAIT2REDUCE;
+      job->Partition();
+      for(size_t i = 0; i < job->reduce_kvs_.size(); i++) {
+        master->distribute_queue_.emplace_back(job_id, i);
+      }
+    }
   }
   LOG(INFO) << "Merger Stop";
 }
@@ -358,6 +383,7 @@ void MasterServiceImpl::Register(::google::protobuf::RpcController* controller,
   Status s = master_->Register(worker_address, &worker_id);
   if(s.ok()) {
     response->set_worker_id(worker_id);
+    response->set_master_id(master_->id_);
     response->mutable_reply()->set_ok(true);
     response->mutable_reply()->set_msg(std::move(s.msg_));
   } else {
@@ -426,6 +452,23 @@ void MasterServiceImpl::CompleteReduce(::google::protobuf::RpcController* contro
                                        const ::mapreduce::ReduceResultMsg* request,
                                        ::mapreduce::MasterReplyMsg* response,
                                        ::google::protobuf::Closure* done) {
+  brpc::ClosureGuard done_guard(done);
+  brpc::Controller* ctl = static_cast<brpc::Controller*>(controller);
+
+  std::vector<std::string> reduce_result;
+  for(int i = 0; i < request->reduce_result_size(); ++i) {
+    reduce_result.emplace_back(request->reduce_result(i));
+  }
+
+  Status s = master_->CompleteReduce(request->job_id(), request->sub_job_id(), request->worker_id(), reduce_result);
+  if(s.ok()) {
+    response->set_ok(true);
+    response->set_msg(std::move(s.msg_));
+  } else {
+    response->set_ok(false);
+    response->set_msg(std::move(s.msg_));
+  }
+
   return;
 }
 

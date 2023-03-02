@@ -1,5 +1,5 @@
-#ifndef MAPREDUCE_INCLUDE_MASTER_H
-#define MAPREDUCE_INCLUDE_MASTER_H
+#ifndef _MAPREDUCE_MASTER_H
+#define _MAPREDUCE_MASTER_H
 
 #include <cstdint>
 #include <unordered_map>
@@ -31,8 +31,6 @@ public:
   ~Slaver() {}
 
   friend class Master;
-  friend class JobDistributor;
-  friend class Beater;
 
 private:
   WorkerState state_;
@@ -60,7 +58,8 @@ public:
                 MapKVs& map_kvs, uint32_t* job_id);
   Status CompleteMap(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id,
                      std::vector<std::pair<std::string, std::string>>& map_result);
-  Status CompleteReduce();
+  Status CompleteReduce(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id,
+                        std::vector<std::string>& reduce_result);
 
   friend class MasterServiceImpl;
   friend class JobDistributor;
@@ -86,9 +85,9 @@ private:
   std::atomic_uint32_t job_seq_num_;
 
   std::unordered_map<uint32_t, Job*> jobs_;
-  std::deque<uint32_t> map_queue_;
-  std::deque<uint32_t> reduce_queue_;
+  std::deque<std::pair<uint32_t, uint32_t>> distribute_queue_; 
   std::deque<uint32_t> merge_queue_;
+  std::unordered_set<uint32_t> finish_set_;
   std::map<uint32_t, Slaver*> slavers_;
   std::unordered_map<uint32_t, std::pair<uint32_t, uint32_t>> slaver_to_job_;
 

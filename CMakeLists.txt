@@ -37,6 +37,16 @@ set(LIBMASTER_SRC
   include/mapreduce/rpc/worker_service.pb.h
 )
 
+set(LIBWORKER_SRC 
+  src/worker.cc
+  src/job.cc
+  src/state.cc
+  include/mapreduce/rpc/master_service.pb.cc
+  include/mapreduce/rpc/master_service.pb.h
+  include/mapreduce/rpc/worker_service.pb.cc
+  include/mapreduce/rpc/worker_service.pb.h
+)
+
 set(DEPENDENCIES
   ${BRPC_LIB}
   ${PROTOBUF_LIBRARIES}
@@ -49,7 +59,6 @@ set(DEPENDENCIES
 )
 
 add_library(master STATIC ${LIBMASTER_SRC})
-
 add_executable(master_server server/master_server.cc)
 add_dependencies(master_server master)
 target_link_libraries(master_server master ${DEPENDENCIES})
