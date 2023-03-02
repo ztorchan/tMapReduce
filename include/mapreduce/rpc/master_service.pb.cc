@@ -302,6 +302,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapResultMsg, job_id_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapResultMsg, sub_job_id_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapResultMsg, worker_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapResultMsg, state_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MapResultMsg, map_result_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceResultMsg, _internal_metadata_),
@@ -311,6 +312,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceResultMsg, job_id_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceResultMsg, sub_job_id_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceResultMsg, worker_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceResultMsg, state_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::ReduceResultMsg, reduce_result_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::mapreduce::MasterReplyMsg, _internal_metadata_),
@@ -341,10 +343,10 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 13, -1, sizeof(::mapreduce::JobMsg)},
   { 23, -1, sizeof(::mapreduce::MapResultMsg_KV)},
   { 30, -1, sizeof(::mapreduce::MapResultMsg)},
-  { 39, -1, sizeof(::mapreduce::ReduceResultMsg)},
-  { 48, -1, sizeof(::mapreduce::MasterReplyMsg)},
-  { 55, -1, sizeof(::mapreduce::RegisterReplyMsg)},
-  { 63, -1, sizeof(::mapreduce::LaunchReplyMsg)},
+  { 40, -1, sizeof(::mapreduce::ReduceResultMsg)},
+  { 50, -1, sizeof(::mapreduce::MasterReplyMsg)},
+  { 57, -1, sizeof(::mapreduce::RegisterReplyMsg)},
+  { 65, -1, sizeof(::mapreduce::LaunchReplyMsg)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -381,36 +383,39 @@ void protobuf_RegisterTypes(const ::std::string&) {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-      "\n\024master_service.proto\022\tmapreduce\"\036\n\013Reg"
-      "isterMsg\022\017\n\007address\030\001 \001(\t\"\222\001\n\006JobMsg\022\014\n\004"
-      "name\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022\022\n\nmapper_num\030\003"
-      " \001(\r\022\023\n\013reducer_num\030\004 \001(\r\022!\n\003kvs\030\005 \003(\0132\024"
-      ".mapreduce.JobMsg.KV\032 \n\002KV\022\013\n\003key\030\001 \001(\t\022"
-      "\r\n\005value\030\002 \001(\t\"\227\001\n\014MapResultMsg\022\016\n\006job_i"
-      "d\030\001 \001(\r\022\022\n\nsub_job_id\030\002 \001(\r\022\021\n\tworker_id"
-      "\030\003 \001(\r\022.\n\nmap_result\030\004 \003(\0132\032.mapreduce.M"
-      "apResultMsg.KV\032 \n\002KV\022\013\n\003key\030\001 \001(\t\022\r\n\005val"
-      "ue\030\002 \001(\t\"_\n\017ReduceResultMsg\022\016\n\006job_id\030\001 "
-      "\001(\r\022\022\n\nsub_job_id\030\002 \001(\r\022\021\n\tworker_id\030\003 \001"
-      "(\r\022\025\n\rreduce_result\030\004 \003(\t\")\n\016MasterReply"
-      "Msg\022\n\n\002ok\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\"b\n\020Register"
-      "ReplyMsg\022(\n\005reply\030\001 \001(\0132\031.mapreduce.Mast"
-      "erReplyMsg\022\021\n\tworker_id\030\002 \001(\r\022\021\n\tmaster_"
-      "id\030\003 \001(\r\"J\n\016LaunchReplyMsg\022(\n\005reply\030\001 \001("
-      "\0132\031.mapreduce.MasterReplyMsg\022\016\n\006job_id\030\002"
-      " \001(\r2\234\002\n\rMasterService\022A\n\010Register\022\026.map"
-      "reduce.RegisterMsg\032\033.mapreduce.RegisterR"
-      "eplyMsg\"\000\0228\n\006Launch\022\021.mapreduce.JobMsg\032\031"
-      ".mapreduce.LaunchReplyMsg\"\000\022C\n\013CompleteM"
-      "ap\022\027.mapreduce.MapResultMsg\032\031.mapreduce."
-      "MasterReplyMsg\"\000\022I\n\016CompleteReduce\022\032.map"
-      "reduce.ReduceResultMsg\032\031.mapreduce.Maste"
-      "rReplyMsg\"\000B\003\200\001\001b\006proto3"
+      "\n\024master_service.proto\022\tmapreduce\032\013state"
+      ".proto\"\036\n\013RegisterMsg\022\017\n\007address\030\001 \001(\t\"\222"
+      "\001\n\006JobMsg\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022\022\n"
+      "\nmapper_num\030\003 \001(\r\022\023\n\013reducer_num\030\004 \001(\r\022!"
+      "\n\003kvs\030\005 \003(\0132\024.mapreduce.JobMsg.KV\032 \n\002KV\022"
+      "\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\276\001\n\014MapResul"
+      "tMsg\022\016\n\006job_id\030\001 \001(\r\022\022\n\nsub_job_id\030\002 \001(\r"
+      "\022\021\n\tworker_id\030\003 \001(\r\022%\n\005state\030\004 \001(\0162\026.map"
+      "reduce.WorkerState\022.\n\nmap_result\030\005 \003(\0132\032"
+      ".mapreduce.MapResultMsg.KV\032 \n\002KV\022\013\n\003key\030"
+      "\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\206\001\n\017ReduceResultMsg"
+      "\022\016\n\006job_id\030\001 \001(\r\022\022\n\nsub_job_id\030\002 \001(\r\022\021\n\t"
+      "worker_id\030\003 \001(\r\022%\n\005state\030\004 \001(\0162\026.mapredu"
+      "ce.WorkerState\022\025\n\rreduce_result\030\005 \003(\t\")\n"
+      "\016MasterReplyMsg\022\n\n\002ok\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t"
+      "\"b\n\020RegisterReplyMsg\022(\n\005reply\030\001 \001(\0132\031.ma"
+      "preduce.MasterReplyMsg\022\021\n\tworker_id\030\002 \001("
+      "\r\022\021\n\tmaster_id\030\003 \001(\r\"J\n\016LaunchReplyMsg\022("
+      "\n\005reply\030\001 \001(\0132\031.mapreduce.MasterReplyMsg"
+      "\022\016\n\006job_id\030\002 \001(\r2\234\002\n\rMasterService\022A\n\010Re"
+      "gister\022\026.mapreduce.RegisterMsg\032\033.mapredu"
+      "ce.RegisterReplyMsg\"\000\0228\n\006Launch\022\021.mapred"
+      "uce.JobMsg\032\031.mapreduce.LaunchReplyMsg\"\000\022"
+      "C\n\013CompleteMap\022\027.mapreduce.MapResultMsg\032"
+      "\031.mapreduce.MasterReplyMsg\"\000\022I\n\016Complete"
+      "Reduce\022\032.mapreduce.ReduceResultMsg\032\031.map"
+      "reduce.MasterReplyMsg\"\000B\003\200\001\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 984);
+      descriptor, 1076);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "master_service.proto", &protobuf_RegisterTypes);
+  ::protobuf_state_2eproto::AddDescriptors();
 }
 
 void AddDescriptors() {
@@ -1752,6 +1757,7 @@ void MapResultMsg::InitAsDefaultInstance() {
 const int MapResultMsg::kJobIdFieldNumber;
 const int MapResultMsg::kSubJobIdFieldNumber;
 const int MapResultMsg::kWorkerIdFieldNumber;
+const int MapResultMsg::kStateFieldNumber;
 const int MapResultMsg::kMapResultFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -1770,15 +1776,15 @@ MapResultMsg::MapResultMsg(const MapResultMsg& from)
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&job_id_, &from.job_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&worker_id_) -
-    reinterpret_cast<char*>(&job_id_)) + sizeof(worker_id_));
+    static_cast<size_t>(reinterpret_cast<char*>(&state_) -
+    reinterpret_cast<char*>(&job_id_)) + sizeof(state_));
   // @@protoc_insertion_point(copy_constructor:mapreduce.MapResultMsg)
 }
 
 void MapResultMsg::SharedCtor() {
   ::memset(&job_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&worker_id_) -
-      reinterpret_cast<char*>(&job_id_)) + sizeof(worker_id_));
+      reinterpret_cast<char*>(&state_) -
+      reinterpret_cast<char*>(&job_id_)) + sizeof(state_));
   _cached_size_ = 0;
 }
 
@@ -1821,8 +1827,8 @@ void MapResultMsg::Clear() {
 
   map_result_.Clear();
   ::memset(&job_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&worker_id_) -
-      reinterpret_cast<char*>(&job_id_)) + sizeof(worker_id_));
+      reinterpret_cast<char*>(&state_) -
+      reinterpret_cast<char*>(&job_id_)) + sizeof(state_));
   _internal_metadata_.Clear();
 }
 
@@ -1878,10 +1884,25 @@ bool MapResultMsg::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .mapreduce.MapResultMsg.KV map_result = 4;
+      // .mapreduce.WorkerState state = 4;
       case 4: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(32u /* 32 & 0xFF */)) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_state(static_cast< ::mapreduce::WorkerState >(value));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated .mapreduce.MapResultMsg.KV map_result = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(input, add_map_result()));
         } else {
           goto handle_unusual;
@@ -1930,11 +1951,17 @@ void MapResultMsg::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->worker_id(), output);
   }
 
-  // repeated .mapreduce.MapResultMsg.KV map_result = 4;
+  // .mapreduce.WorkerState state = 4;
+  if (this->state() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      4, this->state(), output);
+  }
+
+  // repeated .mapreduce.MapResultMsg.KV map_result = 5;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->map_result_size()); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->map_result(static_cast<int>(i)), output);
+      5, this->map_result(static_cast<int>(i)), output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -1966,12 +1993,18 @@ void MapResultMsg::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->worker_id(), target);
   }
 
-  // repeated .mapreduce.MapResultMsg.KV map_result = 4;
+  // .mapreduce.WorkerState state = 4;
+  if (this->state() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      4, this->state(), target);
+  }
+
+  // repeated .mapreduce.MapResultMsg.KV map_result = 5;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->map_result_size()); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        4, this->map_result(static_cast<int>(i)), deterministic, target);
+        5, this->map_result(static_cast<int>(i)), deterministic, target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -1991,7 +2024,7 @@ size_t MapResultMsg::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  // repeated .mapreduce.MapResultMsg.KV map_result = 4;
+  // repeated .mapreduce.MapResultMsg.KV map_result = 5;
   {
     unsigned int count = static_cast<unsigned int>(this->map_result_size());
     total_size += 1UL * count;
@@ -2021,6 +2054,12 @@ size_t MapResultMsg::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
         this->worker_id());
+  }
+
+  // .mapreduce.WorkerState state = 4;
+  if (this->state() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->state());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -2062,6 +2101,9 @@ void MapResultMsg::MergeFrom(const MapResultMsg& from) {
   if (from.worker_id() != 0) {
     set_worker_id(from.worker_id());
   }
+  if (from.state() != 0) {
+    set_state(from.state());
+  }
 }
 
 void MapResultMsg::CopyFrom(const ::google::protobuf::Message& from) {
@@ -2092,6 +2134,7 @@ void MapResultMsg::InternalSwap(MapResultMsg* other) {
   swap(job_id_, other->job_id_);
   swap(sub_job_id_, other->sub_job_id_);
   swap(worker_id_, other->worker_id_);
+  swap(state_, other->state_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);
 }
@@ -2110,6 +2153,7 @@ void ReduceResultMsg::InitAsDefaultInstance() {
 const int ReduceResultMsg::kJobIdFieldNumber;
 const int ReduceResultMsg::kSubJobIdFieldNumber;
 const int ReduceResultMsg::kWorkerIdFieldNumber;
+const int ReduceResultMsg::kStateFieldNumber;
 const int ReduceResultMsg::kReduceResultFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -2128,15 +2172,15 @@ ReduceResultMsg::ReduceResultMsg(const ReduceResultMsg& from)
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&job_id_, &from.job_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&worker_id_) -
-    reinterpret_cast<char*>(&job_id_)) + sizeof(worker_id_));
+    static_cast<size_t>(reinterpret_cast<char*>(&state_) -
+    reinterpret_cast<char*>(&job_id_)) + sizeof(state_));
   // @@protoc_insertion_point(copy_constructor:mapreduce.ReduceResultMsg)
 }
 
 void ReduceResultMsg::SharedCtor() {
   ::memset(&job_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&worker_id_) -
-      reinterpret_cast<char*>(&job_id_)) + sizeof(worker_id_));
+      reinterpret_cast<char*>(&state_) -
+      reinterpret_cast<char*>(&job_id_)) + sizeof(state_));
   _cached_size_ = 0;
 }
 
@@ -2179,8 +2223,8 @@ void ReduceResultMsg::Clear() {
 
   reduce_result_.Clear();
   ::memset(&job_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&worker_id_) -
-      reinterpret_cast<char*>(&job_id_)) + sizeof(worker_id_));
+      reinterpret_cast<char*>(&state_) -
+      reinterpret_cast<char*>(&job_id_)) + sizeof(state_));
   _internal_metadata_.Clear();
 }
 
@@ -2236,10 +2280,25 @@ bool ReduceResultMsg::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated string reduce_result = 4;
+      // .mapreduce.WorkerState state = 4;
       case 4: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(32u /* 32 & 0xFF */)) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_state(static_cast< ::mapreduce::WorkerState >(value));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated string reduce_result = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->add_reduce_result()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -2294,14 +2353,20 @@ void ReduceResultMsg::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->worker_id(), output);
   }
 
-  // repeated string reduce_result = 4;
+  // .mapreduce.WorkerState state = 4;
+  if (this->state() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      4, this->state(), output);
+  }
+
+  // repeated string reduce_result = 5;
   for (int i = 0, n = this->reduce_result_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->reduce_result(i).data(), static_cast<int>(this->reduce_result(i).length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "mapreduce.ReduceResultMsg.reduce_result");
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      4, this->reduce_result(i), output);
+      5, this->reduce_result(i), output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -2333,14 +2398,20 @@ void ReduceResultMsg::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->worker_id(), target);
   }
 
-  // repeated string reduce_result = 4;
+  // .mapreduce.WorkerState state = 4;
+  if (this->state() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      4, this->state(), target);
+  }
+
+  // repeated string reduce_result = 5;
   for (int i = 0, n = this->reduce_result_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->reduce_result(i).data(), static_cast<int>(this->reduce_result(i).length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "mapreduce.ReduceResultMsg.reduce_result");
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteStringToArray(4, this->reduce_result(i), target);
+      WriteStringToArray(5, this->reduce_result(i), target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -2360,7 +2431,7 @@ size_t ReduceResultMsg::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  // repeated string reduce_result = 4;
+  // repeated string reduce_result = 5;
   total_size += 1 *
       ::google::protobuf::internal::FromIntSize(this->reduce_result_size());
   for (int i = 0, n = this->reduce_result_size(); i < n; i++) {
@@ -2387,6 +2458,12 @@ size_t ReduceResultMsg::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
         this->worker_id());
+  }
+
+  // .mapreduce.WorkerState state = 4;
+  if (this->state() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->state());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -2428,6 +2505,9 @@ void ReduceResultMsg::MergeFrom(const ReduceResultMsg& from) {
   if (from.worker_id() != 0) {
     set_worker_id(from.worker_id());
   }
+  if (from.state() != 0) {
+    set_state(from.state());
+  }
 }
 
 void ReduceResultMsg::CopyFrom(const ::google::protobuf::Message& from) {
@@ -2458,6 +2538,7 @@ void ReduceResultMsg::InternalSwap(ReduceResultMsg* other) {
   swap(job_id_, other->job_id_);
   swap(sub_job_id_, other->sub_job_id_);
   swap(worker_id_, other->worker_id_);
+  swap(state_, other->state_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);
 }

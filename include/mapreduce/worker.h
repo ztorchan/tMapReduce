@@ -7,7 +7,7 @@
 
 #include "brpc/channel.h"
 
-#include "mapreduce/state.h"
+#include "mapreduce/rpc/state.pb.h"
 #include "mapreduce/rpc/worker_service.pb.h"
 #include "mapreduce/rpc/master_service.pb.h"
 

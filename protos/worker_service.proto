@@ -1,20 +1,13 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
+import "state.proto";
 
 package mapreduce;
 
 option cc_generic_services = true;
 
 message WorkerReplyMsg {
-  enum WorkerState {
-    UNKNOWN = 0;
-    INIT = 1;
-    IDLE = 2;
-    MAPPING = 3;
-    REDUCING = 4;
-    CLOSE = 5;
-  }
   bool ok = 1;
   string msg = 2;
   WorkerState state = 3;

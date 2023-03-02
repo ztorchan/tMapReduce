@@ -30,6 +30,7 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/service.h>
 #include <google/protobuf/unknown_field_set.h>
+#include "state.pb.h"
 // @@protoc_insertion_point(includes)
 
 namespace protobuf_master_5fservice_2eproto {
@@ -692,10 +693,10 @@ class MapResultMsg : public ::google::protobuf::Message /* @@protoc_insertion_po
 
   // accessors -------------------------------------------------------
 
-  // repeated .mapreduce.MapResultMsg.KV map_result = 4;
+  // repeated .mapreduce.MapResultMsg.KV map_result = 5;
   int map_result_size() const;
   void clear_map_result();
-  static const int kMapResultFieldNumber = 4;
+  static const int kMapResultFieldNumber = 5;
   const ::mapreduce::MapResultMsg_KV& map_result(int index) const;
   ::mapreduce::MapResultMsg_KV* mutable_map_result(int index);
   ::mapreduce::MapResultMsg_KV* add_map_result();
@@ -722,6 +723,12 @@ class MapResultMsg : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::google::protobuf::uint32 worker_id() const;
   void set_worker_id(::google::protobuf::uint32 value);
 
+  // .mapreduce.WorkerState state = 4;
+  void clear_state();
+  static const int kStateFieldNumber = 4;
+  ::mapreduce::WorkerState state() const;
+  void set_state(::mapreduce::WorkerState value);
+
   // @@protoc_insertion_point(class_scope:mapreduce.MapResultMsg)
  private:
 
@@ -730,6 +737,7 @@ class MapResultMsg : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::google::protobuf::uint32 job_id_;
   ::google::protobuf::uint32 sub_job_id_;
   ::google::protobuf::uint32 worker_id_;
+  int state_;
   mutable int _cached_size_;
   friend struct ::protobuf_master_5fservice_2eproto::TableStruct;
   friend void ::protobuf_master_5fservice_2eproto::InitDefaultsMapResultMsgImpl();
@@ -818,10 +826,10 @@ class ReduceResultMsg : public ::google::protobuf::Message /* @@protoc_insertion
 
   // accessors -------------------------------------------------------
 
-  // repeated string reduce_result = 4;
+  // repeated string reduce_result = 5;
   int reduce_result_size() const;
   void clear_reduce_result();
-  static const int kReduceResultFieldNumber = 4;
+  static const int kReduceResultFieldNumber = 5;
   const ::std::string& reduce_result(int index) const;
   ::std::string* mutable_reduce_result(int index);
   void set_reduce_result(int index, const ::std::string& value);
@@ -858,6 +866,12 @@ class ReduceResultMsg : public ::google::protobuf::Message /* @@protoc_insertion
   ::google::protobuf::uint32 worker_id() const;
   void set_worker_id(::google::protobuf::uint32 value);
 
+  // .mapreduce.WorkerState state = 4;
+  void clear_state();
+  static const int kStateFieldNumber = 4;
+  ::mapreduce::WorkerState state() const;
+  void set_state(::mapreduce::WorkerState value);
+
   // @@protoc_insertion_point(class_scope:mapreduce.ReduceResultMsg)
  private:
 
@@ -866,6 +880,7 @@ class ReduceResultMsg : public ::google::protobuf::Message /* @@protoc_insertion
   ::google::protobuf::uint32 job_id_;
   ::google::protobuf::uint32 sub_job_id_;
   ::google::protobuf::uint32 worker_id_;
+  int state_;
   mutable int _cached_size_;
   friend struct ::protobuf_master_5fservice_2eproto::TableStruct;
   friend void ::protobuf_master_5fservice_2eproto::InitDefaultsReduceResultMsgImpl();
@@ -1790,7 +1805,21 @@ inline void MapResultMsg::set_worker_id(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:mapreduce.MapResultMsg.worker_id)
 }
 
-// repeated .mapreduce.MapResultMsg.KV map_result = 4;
+// .mapreduce.WorkerState state = 4;
+inline void MapResultMsg::clear_state() {
+  state_ = 0;
+}
+inline ::mapreduce::WorkerState MapResultMsg::state() const {
+  // @@protoc_insertion_point(field_get:mapreduce.MapResultMsg.state)
+  return static_cast< ::mapreduce::WorkerState >(state_);
+}
+inline void MapResultMsg::set_state(::mapreduce::WorkerState value) {
+  
+  state_ = value;
+  // @@protoc_insertion_point(field_set:mapreduce.MapResultMsg.state)
+}
+
+// repeated .mapreduce.MapResultMsg.KV map_result = 5;
 inline int MapResultMsg::map_result_size() const {
   return map_result_.size();
 }
@@ -1866,7 +1895,21 @@ inline void ReduceResultMsg::set_worker_id(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:mapreduce.ReduceResultMsg.worker_id)
 }
 
-// repeated string reduce_result = 4;
+// .mapreduce.WorkerState state = 4;
+inline void ReduceResultMsg::clear_state() {
+  state_ = 0;
+}
+inline ::mapreduce::WorkerState ReduceResultMsg::state() const {
+  // @@protoc_insertion_point(field_get:mapreduce.ReduceResultMsg.state)
+  return static_cast< ::mapreduce::WorkerState >(state_);
+}
+inline void ReduceResultMsg::set_state(::mapreduce::WorkerState value) {
+  
+  state_ = value;
+  // @@protoc_insertion_point(field_set:mapreduce.ReduceResultMsg.state)
+}
+
+// repeated string reduce_result = 5;
 inline int ReduceResultMsg::reduce_result_size() const {
   return reduce_result_.size();
 }

@@ -119,7 +119,7 @@ Status Master::Launch(const std::string& name, const std::string& type,
   return Status::Ok("");
 }
 
-Status Master::CompleteMap(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id,
+Status Master::CompleteMap(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id, WorkerState worker_state,
                            std::vector<std::pair<std::string, std::string>>& map_result) {
   // Check Job exists
   if(jobs_.find(job_id) == jobs_.end()) {
@@ -148,6 +148,7 @@ Status Master::CompleteMap(uint32_t job_id, uint32_t subjob_id, uint32_t worker_
     = reinterpret_cast<void*>(new std::vector<std::pair<std::string, std::string>>(std::move(map_result)));
   job->subjobs_[subjob_id].finished_ = true;
   slaver_to_job_.erase(worker_id);
+  slavers_[worker_id]->state_ = worker_state;
   job->unfinished_job_num_--;
 
   if(job->unfinished_job_num_ == 0) {
@@ -158,7 +159,7 @@ Status Master::CompleteMap(uint32_t job_id, uint32_t subjob_id, uint32_t worker_
   return Status::Ok("");
 }
 
-Status Master::CompleteReduce(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id,
+Status Master::CompleteReduce(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id, WorkerState worker_state,
                               std::vector<std::string>& reduce_result) {
   // Check Job exists
   if(jobs_.find(job_id) == jobs_.end()) {
@@ -187,6 +188,7 @@ Status Master::CompleteReduce(uint32_t job_id, uint32_t subjob_id, uint32_t work
     = reinterpret_cast<void*>(new std::vector<std::string>(std::move(reduce_result)));
   job->subjobs_[subjob_id].finished_ = true;
   slaver_to_job_.erase(worker_id);
+  slavers_[worker_id]->state_ = worker_state;
   job->unfinished_job_num_--;
 
   if(job->unfinished_job_num_ == 0) {
@@ -274,7 +276,7 @@ void Master::BGDistributor(Master* master) {
         }
 
         if(!cntl.Failed()) {
-          slaver->state_ = WorkerStateFromRPC(response.state());
+          slaver->state_ = response.state();
           if((slaver->state_ == WorkerState::MAPPING || slaver->state_ == WorkerState::REDUCING) && response.ok()) {
             // Successfully distributed subjob, change job state
             std::unique_lock<std::mutex> lck(job->mtx_);
@@ -310,7 +312,7 @@ void Master::BGBeater(Master* master) {
       if(cntl.Failed()) {
         slaver->state_ = WorkerState::UNKNOWN;
       } else {
-        slaver->state_ = WorkerStateFromRPC(response.state());
+        slaver->state_ = response.state();
       }
 
       // Check fault slaver and re-distribute job
@@ -436,7 +438,8 @@ void MasterServiceImpl::CompleteMap(::google::protobuf::RpcController* controlle
     const auto& kv = request->map_result(i);
     map_result.emplace_back(kv.key(), kv.value());
   }
-  Status s = master_->CompleteMap(request->job_id(), request->sub_job_id(), request->worker_id(), map_result);
+  Status s = master_->CompleteMap(request->job_id(), request->sub_job_id(), request->worker_id(), 
+                                  request->state(), map_result);
   if(s.ok()) {
     response->set_ok(true);
     response->set_msg(std::move(s.msg_));
@@ -460,7 +463,8 @@ void MasterServiceImpl::CompleteReduce(::google::protobuf::RpcController* contro
     reduce_result.emplace_back(request->reduce_result(i));
   }
 
-  Status s = master_->CompleteReduce(request->job_id(), request->sub_job_id(), request->worker_id(), reduce_result);
+  Status s = master_->CompleteReduce(request->job_id(), request->sub_job_id(), request->worker_id(), 
+                                     request->state(), reduce_result);
   if(s.ok()) {
     response->set_ok(true);
     response->set_msg(std::move(s.msg_));

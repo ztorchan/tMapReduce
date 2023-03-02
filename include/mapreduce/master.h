@@ -15,8 +15,8 @@
 
 #include "brpc/channel.h"
 
-#include "mapreduce/state.h"
 #include "mapreduce/job.h"
+#include "mapreduce/rpc/state.pb.h"
 #include "mapreduce/rpc/master_service.pb.h"
 #include "mapreduce/rpc/worker_service.pb.h"
 
@@ -56,9 +56,9 @@ public:
   Status Launch(const std::string& name, const std::string& type, 
                 int map_worker_num, int reduce_worker_num,
                 MapKVs& map_kvs, uint32_t* job_id);
-  Status CompleteMap(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id,
+  Status CompleteMap(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id, WorkerState worker_state,
                      std::vector<std::pair<std::string, std::string>>& map_result);
-  Status CompleteReduce(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id,
+  Status CompleteReduce(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id, WorkerState worker_state,
                         std::vector<std::string>& reduce_result);
 
   friend class MasterServiceImpl;

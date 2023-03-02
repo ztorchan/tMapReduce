@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "state.proto";
+
 package mapreduce;
 
 option cc_generic_services = true;
@@ -28,14 +30,16 @@ message MapResultMsg {
   uint32 job_id = 1;
   uint32 sub_job_id = 2;
   uint32 worker_id = 3;
-  repeated KV map_result = 4;
+  WorkerState state = 4;
+  repeated KV map_result = 5;
 }
 
 message ReduceResultMsg {
   uint32 job_id = 1;
   uint32 sub_job_id = 2;
   uint32 worker_id = 3;
-  repeated string reduce_result = 4;
+  WorkerState state = 4;
+  repeated string reduce_result = 5;
 }
 
 message MasterReplyMsg {

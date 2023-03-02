@@ -30,21 +30,8 @@ find_library(LEVELDB_LIB NAMES leveldb)
 set(LIBMASTER_SRC 
   src/master.cc
   src/job.cc
-  src/state.cc
-  include/mapreduce/rpc/master_service.pb.cc
-  include/mapreduce/rpc/master_service.pb.h
-  include/mapreduce/rpc/worker_service.pb.cc
-  include/mapreduce/rpc/worker_service.pb.h
-)
-
-set(LIBWORKER_SRC 
-  src/worker.cc
-  src/job.cc
-  src/state.cc
-  include/mapreduce/rpc/master_service.pb.cc
-  include/mapreduce/rpc/master_service.pb.h
-  include/mapreduce/rpc/worker_service.pb.cc
-  include/mapreduce/rpc/worker_service.pb.h
+  ${PROTO_CXX}
+  ${PROTO_H}
 )
 
 set(DEPENDENCIES

@@ -155,7 +155,6 @@ void InitDefaultsReduceJobMsg() {
 }
 
 ::google::protobuf::Metadata file_level_metadata[5];
-const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[1];
 const ::google::protobuf::ServiceDescriptor* file_level_service_descriptors[1];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
@@ -223,7 +222,7 @@ void protobuf_AssignDescriptors() {
   ::google::protobuf::MessageFactory* factory = NULL;
   AssignDescriptors(
       "worker_service.proto", schemas, file_default_instances, TableStruct::offsets, factory,
-      file_level_metadata, file_level_enum_descriptors, file_level_service_descriptors);
+      file_level_metadata, NULL, file_level_service_descriptors);
 }
 
 void protobuf_AssignDescriptorsOnce() {
@@ -241,31 +240,30 @@ void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\024worker_service.proto\022\tmapreduce\032\033googl"
-      "e/protobuf/empty.proto\"\265\001\n\016WorkerReplyMs"
-      "g\022\n\n\002ok\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\0224\n\005state\030\003 \001("
-      "\0162%.mapreduce.WorkerReplyMsg.WorkerState"
-      "\"T\n\013WorkerState\022\013\n\007UNKNOWN\020\000\022\010\n\004INIT\020\001\022\010"
-      "\n\004IDLE\020\002\022\013\n\007MAPPING\020\003\022\014\n\010REDUCING\020\004\022\t\n\005C"
-      "LOSE\020\005\"\235\001\n\tMapJobMsg\022\016\n\006job_id\030\001 \001(\r\022\022\n\n"
-      "sub_job_id\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004"
-      " \001(\t\022+\n\007map_kvs\030\005 \003(\0132\032.mapreduce.MapJob"
-      "Msg.MapKV\032#\n\005MapKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value"
-      "\030\002 \001(\t\"\254\001\n\014ReduceJobMsg\022\016\n\006job_id\030\001 \001(\r\022"
-      "\022\n\nsub_job_id\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004typ"
-      "e\030\004 \001(\t\0224\n\nreduce_kvs\030\005 \003(\0132 .mapreduce."
-      "ReduceJobMsg.ReduceKV\032&\n\010ReduceKV\022\013\n\003key"
-      "\030\001 \001(\t\022\r\n\005value\030\002 \003(\t2\306\001\n\rWorkerService\022"
-      ";\n\004Beat\022\026.google.protobuf.Empty\032\031.mapred"
-      "uce.WorkerReplyMsg\"\000\0228\n\003Map\022\024.mapreduce."
-      "MapJobMsg\032\031.mapreduce.WorkerReplyMsg\"\000\022>"
-      "\n\006Reduce\022\027.mapreduce.ReduceJobMsg\032\031.mapr"
-      "educe.WorkerReplyMsg\"\000B\003\200\001\001b\006proto3"
+      "e/protobuf/empty.proto\032\013state.proto\"P\n\016W"
+      "orkerReplyMsg\022\n\n\002ok\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\022%"
+      "\n\005state\030\003 \001(\0162\026.mapreduce.WorkerState\"\235\001"
+      "\n\tMapJobMsg\022\016\n\006job_id\030\001 \001(\r\022\022\n\nsub_job_i"
+      "d\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\022+\n\007m"
+      "ap_kvs\030\005 \003(\0132\032.mapreduce.MapJobMsg.MapKV"
+      "\032#\n\005MapKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\254\001"
+      "\n\014ReduceJobMsg\022\016\n\006job_id\030\001 \001(\r\022\022\n\nsub_jo"
+      "b_id\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\0224"
+      "\n\nreduce_kvs\030\005 \003(\0132 .mapreduce.ReduceJob"
+      "Msg.ReduceKV\032&\n\010ReduceKV\022\013\n\003key\030\001 \001(\t\022\r\n"
+      "\005value\030\002 \003(\t2\306\001\n\rWorkerService\022;\n\004Beat\022\026"
+      ".google.protobuf.Empty\032\031.mapreduce.Worke"
+      "rReplyMsg\"\000\0228\n\003Map\022\024.mapreduce.MapJobMsg"
+      "\032\031.mapreduce.WorkerReplyMsg\"\000\022>\n\006Reduce\022"
+      "\027.mapreduce.ReduceJobMsg\032\031.mapreduce.Wor"
+      "kerReplyMsg\"\000B\003\200\001\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 795);
+      descriptor, 706);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "worker_service.proto", &protobuf_RegisterTypes);
   ::protobuf_google_2fprotobuf_2fempty_2eproto::AddDescriptors();
+  ::protobuf_state_2eproto::AddDescriptors();
 }
 
 void AddDescriptors() {
@@ -280,35 +278,6 @@ struct StaticDescriptorInitializer {
 } static_descriptor_initializer;
 }  // namespace protobuf_worker_5fservice_2eproto
 namespace mapreduce {
-const ::google::protobuf::EnumDescriptor* WorkerReplyMsg_WorkerState_descriptor() {
-  protobuf_worker_5fservice_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_worker_5fservice_2eproto::file_level_enum_descriptors[0];
-}
-bool WorkerReplyMsg_WorkerState_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-      return true;
-    default:
-      return false;
-  }
-}
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const WorkerReplyMsg_WorkerState WorkerReplyMsg::UNKNOWN;
-const WorkerReplyMsg_WorkerState WorkerReplyMsg::INIT;
-const WorkerReplyMsg_WorkerState WorkerReplyMsg::IDLE;
-const WorkerReplyMsg_WorkerState WorkerReplyMsg::MAPPING;
-const WorkerReplyMsg_WorkerState WorkerReplyMsg::REDUCING;
-const WorkerReplyMsg_WorkerState WorkerReplyMsg::CLOSE;
-const WorkerReplyMsg_WorkerState WorkerReplyMsg::WorkerState_MIN;
-const WorkerReplyMsg_WorkerState WorkerReplyMsg::WorkerState_MAX;
-const int WorkerReplyMsg::WorkerState_ARRAYSIZE;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 // ===================================================================
 
@@ -436,7 +405,7 @@ bool WorkerReplyMsg::MergePartialFromCodedStream(
         break;
       }
 
-      // .mapreduce.WorkerReplyMsg.WorkerState state = 3;
+      // .mapreduce.WorkerState state = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
@@ -444,7 +413,7 @@ bool WorkerReplyMsg::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_state(static_cast< ::mapreduce::WorkerReplyMsg_WorkerState >(value));
+          set_state(static_cast< ::mapreduce::WorkerState >(value));
         } else {
           goto handle_unusual;
         }
@@ -492,7 +461,7 @@ void WorkerReplyMsg::SerializeWithCachedSizes(
       2, this->msg(), output);
   }
 
-  // .mapreduce.WorkerReplyMsg.WorkerState state = 3;
+  // .mapreduce.WorkerState state = 3;
   if (this->state() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       3, this->state(), output);
@@ -528,7 +497,7 @@ void WorkerReplyMsg::SerializeWithCachedSizes(
         2, this->msg(), target);
   }
 
-  // .mapreduce.WorkerReplyMsg.WorkerState state = 3;
+  // .mapreduce.WorkerState state = 3;
   if (this->state() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       3, this->state(), target);
@@ -563,7 +532,7 @@ size_t WorkerReplyMsg::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  // .mapreduce.WorkerReplyMsg.WorkerState state = 3;
+  // .mapreduce.WorkerState state = 3;
   if (this->state() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->state());

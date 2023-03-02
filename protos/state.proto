@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package mapreduce;
+
+option cc_generic_services = true;
+
+enum WorkerState {
+  UNKNOWN = 0;
+  INIT = 1;
+  IDLE = 2;
+  MAPPING = 3;
+  REDUCING = 4;
+  CLOSE = 5;
+}

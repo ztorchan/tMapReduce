@@ -28,10 +28,10 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
-#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/service.h>
 #include <google/protobuf/unknown_field_set.h>
 #include <google/protobuf/empty.pb.h>
+#include "state.pb.h"
 // @@protoc_insertion_point(includes)
 
 namespace protobuf_worker_5fservice_2eproto {
@@ -82,31 +82,6 @@ extern WorkerReplyMsgDefaultTypeInternal _WorkerReplyMsg_default_instance_;
 }  // namespace mapreduce
 namespace mapreduce {
 
-enum WorkerReplyMsg_WorkerState {
-  WorkerReplyMsg_WorkerState_UNKNOWN = 0,
-  WorkerReplyMsg_WorkerState_INIT = 1,
-  WorkerReplyMsg_WorkerState_IDLE = 2,
-  WorkerReplyMsg_WorkerState_MAPPING = 3,
-  WorkerReplyMsg_WorkerState_REDUCING = 4,
-  WorkerReplyMsg_WorkerState_CLOSE = 5,
-  WorkerReplyMsg_WorkerState_WorkerReplyMsg_WorkerState_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
-  WorkerReplyMsg_WorkerState_WorkerReplyMsg_WorkerState_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
-};
-bool WorkerReplyMsg_WorkerState_IsValid(int value);
-const WorkerReplyMsg_WorkerState WorkerReplyMsg_WorkerState_WorkerState_MIN = WorkerReplyMsg_WorkerState_UNKNOWN;
-const WorkerReplyMsg_WorkerState WorkerReplyMsg_WorkerState_WorkerState_MAX = WorkerReplyMsg_WorkerState_CLOSE;
-const int WorkerReplyMsg_WorkerState_WorkerState_ARRAYSIZE = WorkerReplyMsg_WorkerState_WorkerState_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* WorkerReplyMsg_WorkerState_descriptor();
-inline const ::std::string& WorkerReplyMsg_WorkerState_Name(WorkerReplyMsg_WorkerState value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    WorkerReplyMsg_WorkerState_descriptor(), value);
-}
-inline bool WorkerReplyMsg_WorkerState_Parse(
-    const ::std::string& name, WorkerReplyMsg_WorkerState* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<WorkerReplyMsg_WorkerState>(
-    WorkerReplyMsg_WorkerState_descriptor(), name, value);
-}
 // ===================================================================
 
 class WorkerReplyMsg : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:mapreduce.WorkerReplyMsg) */ {
@@ -189,40 +164,6 @@ class WorkerReplyMsg : public ::google::protobuf::Message /* @@protoc_insertion_
 
   // nested types ----------------------------------------------------
 
-  typedef WorkerReplyMsg_WorkerState WorkerState;
-  static const WorkerState UNKNOWN =
-    WorkerReplyMsg_WorkerState_UNKNOWN;
-  static const WorkerState INIT =
-    WorkerReplyMsg_WorkerState_INIT;
-  static const WorkerState IDLE =
-    WorkerReplyMsg_WorkerState_IDLE;
-  static const WorkerState MAPPING =
-    WorkerReplyMsg_WorkerState_MAPPING;
-  static const WorkerState REDUCING =
-    WorkerReplyMsg_WorkerState_REDUCING;
-  static const WorkerState CLOSE =
-    WorkerReplyMsg_WorkerState_CLOSE;
-  static inline bool WorkerState_IsValid(int value) {
-    return WorkerReplyMsg_WorkerState_IsValid(value);
-  }
-  static const WorkerState WorkerState_MIN =
-    WorkerReplyMsg_WorkerState_WorkerState_MIN;
-  static const WorkerState WorkerState_MAX =
-    WorkerReplyMsg_WorkerState_WorkerState_MAX;
-  static const int WorkerState_ARRAYSIZE =
-    WorkerReplyMsg_WorkerState_WorkerState_ARRAYSIZE;
-  static inline const ::google::protobuf::EnumDescriptor*
-  WorkerState_descriptor() {
-    return WorkerReplyMsg_WorkerState_descriptor();
-  }
-  static inline const ::std::string& WorkerState_Name(WorkerState value) {
-    return WorkerReplyMsg_WorkerState_Name(value);
-  }
-  static inline bool WorkerState_Parse(const ::std::string& name,
-      WorkerState* value) {
-    return WorkerReplyMsg_WorkerState_Parse(name, value);
-  }
-
   // accessors -------------------------------------------------------
 
   // string msg = 2;
@@ -245,11 +186,11 @@ class WorkerReplyMsg : public ::google::protobuf::Message /* @@protoc_insertion_
   bool ok() const;
   void set_ok(bool value);
 
-  // .mapreduce.WorkerReplyMsg.WorkerState state = 3;
+  // .mapreduce.WorkerState state = 3;
   void clear_state();
   static const int kStateFieldNumber = 3;
-  ::mapreduce::WorkerReplyMsg_WorkerState state() const;
-  void set_state(::mapreduce::WorkerReplyMsg_WorkerState value);
+  ::mapreduce::WorkerState state() const;
+  void set_state(::mapreduce::WorkerState value);
 
   // @@protoc_insertion_point(class_scope:mapreduce.WorkerReplyMsg)
  private:
@@ -969,15 +910,15 @@ inline void WorkerReplyMsg::set_allocated_msg(::std::string* msg) {
   // @@protoc_insertion_point(field_set_allocated:mapreduce.WorkerReplyMsg.msg)
 }
 
-// .mapreduce.WorkerReplyMsg.WorkerState state = 3;
+// .mapreduce.WorkerState state = 3;
 inline void WorkerReplyMsg::clear_state() {
   state_ = 0;
 }
-inline ::mapreduce::WorkerReplyMsg_WorkerState WorkerReplyMsg::state() const {
+inline ::mapreduce::WorkerState WorkerReplyMsg::state() const {
   // @@protoc_insertion_point(field_get:mapreduce.WorkerReplyMsg.state)
-  return static_cast< ::mapreduce::WorkerReplyMsg_WorkerState >(state_);
+  return static_cast< ::mapreduce::WorkerState >(state_);
 }
-inline void WorkerReplyMsg::set_state(::mapreduce::WorkerReplyMsg_WorkerState value) {
+inline void WorkerReplyMsg::set_state(::mapreduce::WorkerState value) {
   
   state_ = value;
   // @@protoc_insertion_point(field_set:mapreduce.WorkerReplyMsg.state)
@@ -1570,18 +1511,6 @@ ReduceJobMsg::reduce_kvs() const {
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace mapreduce
-
-namespace google {
-namespace protobuf {
-
-template <> struct is_proto_enum< ::mapreduce::WorkerReplyMsg_WorkerState> : ::google::protobuf::internal::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::mapreduce::WorkerReplyMsg_WorkerState>() {
-  return ::mapreduce::WorkerReplyMsg_WorkerState_descriptor();
-}
-
-}  // namespace protobuf
-}  // namespace google
 
 // @@protoc_insertion_point(global_scope)
 
