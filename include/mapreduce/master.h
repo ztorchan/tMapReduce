@@ -27,8 +27,8 @@ class Status;
 
 class Slaver {
 public:
-  Slaver(uint32_t id, std::string address);
-  ~Slaver() {}
+  Slaver(uint32_t id, std::string address, uint32_t prot);
+  ~Slaver();
 
   friend class Master;
 
@@ -36,6 +36,7 @@ private:
   WorkerState state_;
   const uint32_t id_;
   const std::string address_;
+  const uint32_t port_;
   brpc::Channel channel_;
   WorkerService_Stub* stub_;
 
@@ -51,8 +52,7 @@ public:
   Master(const Master&) = delete;
   Master& operator=(const Master&) = delete;
 
-  Status init();
-  Status Register(std::string address, uint32_t* slaver_id);
+  Status Register(std::string address, uint32_t port, uint32_t* slaver_id);
   Status Launch(const std::string& name, const std::string& type, 
                 int map_worker_num, int reduce_worker_num,
                 MapKVs& map_kvs, uint32_t* job_id);
@@ -62,14 +62,12 @@ public:
                         std::vector<std::string>& reduce_result);
 
   friend class MasterServiceImpl;
-  friend class JobDistributor;
-  friend class Beater;
   
   static void BGDistributor(Master* master);
 
   static void BGBeater(Master* master);
 
-  static void BGMerger(Master* master); // TODO: BackGround Merger
+  static void BGMerger(Master* master);
 
   void end() { 
     end_ = true; 

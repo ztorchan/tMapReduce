@@ -11,9 +11,10 @@
 
 namespace mapreduce {
 
-Slaver::Slaver(uint32_t id, std::string address) 
+Slaver::Slaver(uint32_t id, std::string address, uint32_t port) 
     : id_(id),
       address_(address),
+      port_(port),
       channel_(),
       stub_(nullptr),
       state_(WorkerState::INIT),
@@ -23,12 +24,16 @@ Slaver::Slaver(uint32_t id, std::string address)
   options.protocol = "baidu_std";
   options.timeout_ms = 1000;
   options.max_retry = 3;
-  if(channel_.Init(address_.c_str(), &options) != 0) {
+  if(channel_.Init(address_.c_str(), port_, &options) != 0) {
     state_ = WorkerState::UNKNOWN;
     return;
   }
-  
   stub_ = new WorkerService_Stub(&channel_);
+}
+
+Slaver::~Slaver() {
+  if(stub_ != nullptr)
+    delete stub_;
 }
 
 
@@ -69,8 +74,8 @@ Master::~Master() {
   }
 }
 
-Status Master::Register(std::string address, uint32_t* slaver_id) {
-  Slaver* s = new Slaver(new_slaver_id(), address);
+Status Master::Register(std::string address, uint32_t port, uint32_t* slaver_id) {
+  Slaver* s = new Slaver(new_slaver_id(), address, port);
   if(s->state_ != WorkerState::INIT){
     delete s;
     return Status::Error("Register Failed: slaver initial failed.");
@@ -381,8 +386,7 @@ void MasterServiceImpl::Register(::google::protobuf::RpcController* controller,
   brpc::Controller* ctl = static_cast<brpc::Controller*>(controller);
 
   uint32_t worker_id;
-  std::string worker_address = request->address();
-  Status s = master_->Register(worker_address, &worker_id);
+  Status s = master_->Register(request->address(), request->port(), &worker_id);
   if(s.ok()) {
     response->set_worker_id(worker_id);
     response->set_master_id(master_->id_);
