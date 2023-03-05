@@ -100,7 +100,7 @@ Status Master::Register(std::string address, uint32_t port, uint32_t* slaver_id)
 
 Status Master::Launch(const std::string& name, const std::string& type, 
                       int map_worker_num, int reduce_worker_num, 
-                      MapKVs& map_kvs, uint32_t* job_id) {
+                      MapIns& map_kvs, uint32_t* job_id) {
   // Check whether job is legal
   if(map_worker_num <= 0 || reduce_worker_num <= 0) {
     return Status::Error("Map worker and Reduce worker must be greater than 0.");
@@ -125,7 +125,7 @@ Status Master::Launch(const std::string& name, const std::string& type,
 }
 
 Status Master::CompleteMap(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id, WorkerState worker_state,
-                           std::vector<std::pair<std::string, std::string>>& map_result) {
+                           MapOuts& map_result) {
   // Check Job exists
   if(jobs_.find(job_id) == jobs_.end()) {
     return Status::Error("Job does not exist.");
@@ -150,7 +150,7 @@ Status Master::CompleteMap(uint32_t job_id, uint32_t subjob_id, uint32_t worker_
   }
   
   job->subjobs_[subjob_id].result_ 
-    = reinterpret_cast<void*>(new std::vector<std::pair<std::string, std::string>>(std::move(map_result)));
+    = reinterpret_cast<void*>(new MapOuts(std::move(map_result)));
   job->subjobs_[subjob_id].finished_ = true;
   slaver_to_job_.erase(worker_id);
   slavers_[worker_id]->state_ = worker_state;
@@ -165,7 +165,7 @@ Status Master::CompleteMap(uint32_t job_id, uint32_t subjob_id, uint32_t worker_
 }
 
 Status Master::CompleteReduce(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id, WorkerState worker_state,
-                              std::vector<std::string>& reduce_result) {
+                              ReduceOuts& reduce_result) {
   // Check Job exists
   if(jobs_.find(job_id) == jobs_.end()) {
     return Status::Error("Job does not exist.");
@@ -190,7 +190,7 @@ Status Master::CompleteReduce(uint32_t job_id, uint32_t subjob_id, uint32_t work
   }
 
   job->subjobs_[subjob_id].result_
-    = reinterpret_cast<void*>(new std::vector<std::string>(std::move(reduce_result)));
+    = reinterpret_cast<void*>(new ReduceOuts(std::move(reduce_result)));
   job->subjobs_[subjob_id].finished_ = true;
   slaver_to_job_.erase(worker_id);
   slavers_[worker_id]->state_ = worker_state;
@@ -253,11 +253,11 @@ void Master::BGDistributor(Master* master) {
         if(job->stage_ == JobStage::MAPPING) {
           MapJobMsg rpc_map_job;
           rpc_map_job.set_job_id(job->id_);
-          rpc_map_job.set_sub_job_id(subjob.subjob_id_);
+          rpc_map_job.set_subjob_id(subjob.subjob_id_);
           rpc_map_job.set_name(job->name_);
           rpc_map_job.set_type(job->type_);
           for(size_t i = 0; i < subjob.size_; i++) {
-            const MapKV& kv = job->map_kvs_[subjob.head_ + i];
+            const MapIn& kv = job->map_kvs_[subjob.head_ + i];
             auto rpc_kv = rpc_map_job.add_map_kvs();
             rpc_kv->set_key(kv.first);
             rpc_kv->set_value(kv.second);
@@ -266,11 +266,11 @@ void Master::BGDistributor(Master* master) {
         } else if(job->stage_ == JobStage::REDUCING) {
           ReduceJobMsg rpc_reduce_job;
           rpc_reduce_job.set_job_id(job->id_);
-          rpc_reduce_job.set_sub_job_id(subjob.subjob_id_);
+          rpc_reduce_job.set_subjob_id(subjob.subjob_id_);
           rpc_reduce_job.set_name(job->name_);
           rpc_reduce_job.set_type(job->type_);
           for(size_t i = 0; i < subjob.size_; i++) {
-            const ReduceKV& kv = job->reduce_kvs_[subjob.head_ + i];
+            const ReduceIn& kv = job->reduce_kvs_[subjob.head_ + i];
             auto rpc_kv = rpc_reduce_job.add_reduce_kvs();
             rpc_kv->set_key(kv.first);
             for(size_t j = 0; j < kv.second.size(); j++) {
@@ -408,12 +408,12 @@ void MasterServiceImpl::Launch(::google::protobuf::RpcController* controller,
   brpc::Controller* ctl = static_cast<brpc::Controller*>(controller);
   
   uint32_t job_id;
-  MapKVs map_kvs;
+  MapIns map_kvs;
   for(int i = 0; i < request->kvs_size(); ++i) {
     const JobMsg_KV& kv = request->kvs(i);
     map_kvs.emplace_back(kv.key(), kv.value());
   }
-  std::sort(map_kvs.begin(), map_kvs.end(), [](const MapKV& lhs, const MapKV& rhs) -> bool {
+  std::sort(map_kvs.begin(), map_kvs.end(), [](const MapIn& lhs, const MapIn& rhs) -> bool {
     return lhs.first < rhs.first;
   });
 
@@ -437,7 +437,7 @@ void MasterServiceImpl::CompleteMap(::google::protobuf::RpcController* controlle
   brpc::ClosureGuard done_guard(done);
   brpc::Controller* ctl = static_cast<brpc::Controller*>(controller);
 
-  std::vector<std::pair<std::string, std::string>> map_result;
+  MapOuts map_result;
   for(int i = 0; i < request->map_result_size(); ++i) {
     const auto& kv = request->map_result(i);
     map_result.emplace_back(kv.key(), kv.value());
@@ -462,7 +462,7 @@ void MasterServiceImpl::CompleteReduce(::google::protobuf::RpcController* contro
   brpc::ClosureGuard done_guard(done);
   brpc::Controller* ctl = static_cast<brpc::Controller*>(controller);
 
-  std::vector<std::string> reduce_result;
+  ReduceOuts reduce_result;
   for(int i = 0; i < request->reduce_result_size(); ++i) {
     reduce_result.emplace_back(request->reduce_result(i));
   }

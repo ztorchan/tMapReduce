@@ -37,6 +37,7 @@ set(LIBMASTER_SRC
 set(LIBWORKER_SRC 
   src/worker.cc
   src/job.cc
+  src/wrapper.cc
   ${PROTO_CXX}
   ${PROTO_H}
 )

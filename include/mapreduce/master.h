@@ -55,11 +55,11 @@ public:
   Status Register(std::string address, uint32_t port, uint32_t* slaver_id);
   Status Launch(const std::string& name, const std::string& type, 
                 int map_worker_num, int reduce_worker_num,
-                MapKVs& map_kvs, uint32_t* job_id);
+                MapIns& map_kvs, uint32_t* job_id);
   Status CompleteMap(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id, WorkerState worker_state,
-                     std::vector<std::pair<std::string, std::string>>& map_result);
+                     MapOuts& map_result);
   Status CompleteReduce(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id, WorkerState worker_state,
-                        std::vector<std::string>& reduce_result);
+                        ReduceOuts& reduce_result);
 
   friend class MasterServiceImpl;
   

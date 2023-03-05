@@ -19,7 +19,7 @@ message MapJobMsg {
     string value = 2;
   }
   uint32 job_id = 1;
-  uint32 sub_job_id = 2;
+  uint32 subjob_id = 2;
   string name = 3;
   string type = 4;
   repeated MapKV map_kvs = 5;
@@ -31,7 +31,7 @@ message ReduceJobMsg {
     repeated string value = 2;
   }
   uint32 job_id = 1;
-  uint32 sub_job_id = 2;
+  uint32 subjob_id = 2;
   string name = 3;
   string type = 4;
   repeated ReduceKV reduce_kvs = 5;

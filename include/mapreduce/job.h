@@ -12,10 +12,14 @@ namespace mapreduce{
 
 class SubJob;
 
-using MapKV = std::pair<std::string, std::string>;
-using ReduceKV = std::pair<std::string, std::vector<std::string>>;
-using MapKVs = std::vector<MapKV>;
-using ReduceKVs = std::vector<ReduceKV>;
+using MapIn = std::pair<std::string, std::string>;
+using MapOut = std::vector<std::pair<std::string, std::string>>;
+using ReduceIn = std::pair<std::string, std::vector<std::string>>;
+using ReduceOut = std::vector<std::string>;
+using MapIns = std::vector<MapIn>;
+using MapOuts = MapOut;
+using ReduceIns = std::vector<ReduceIn>;
+using ReduceOuts = ReduceOut;
 
 enum class JobStage {
     INIT,
@@ -32,14 +36,14 @@ enum class JobStage {
 class Job {
 public:
   Job(uint32_t id, std::string name, std::string type, int map_worker_num, int reduce_worker_num,
-      MapKVs&& map_kvs) : 
+      MapIns&& map_kvs) : 
       id_(id),
       name_(name),
       type_(type),
       map_worker_num_(map_worker_num),
       reduce_worker_num_(reduce_worker_num),
       stage_(JobStage::INIT),
-      map_kvs_(std::forward<MapKVs>(map_kvs)),
+      map_kvs_(std::forward<MapIns>(map_kvs)),
       reduce_kvs_(),
       results_(),
       unfinished_job_num_(0),
@@ -67,9 +71,9 @@ public:
   const int reduce_worker_num_ = 0;
 
   JobStage stage_;
-  MapKVs map_kvs_;
-  ReduceKVs reduce_kvs_;
-  std::vector<std::string> results_;
+  MapIns map_kvs_;
+  ReduceIns reduce_kvs_;
+  ReduceOuts results_;
   
   uint32_t unfinished_job_num_;
   std::vector<SubJob> subjobs_;
@@ -92,9 +96,9 @@ public:
   ~SubJob() {
     if(result_ != nullptr) {
       if(is_map_)
-        delete reinterpret_cast<std::vector<std::pair<std::string, std::string>>*>(result_);
+        delete reinterpret_cast<MapOuts*>(result_);
       else
-        delete reinterpret_cast<std::vector<std::string>*>(result_);
+        delete reinterpret_cast<ReduceOuts*>(result_);
       result_ = nullptr;
     }
   }

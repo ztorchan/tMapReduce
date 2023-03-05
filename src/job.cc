@@ -1,5 +1,6 @@
 #include <cassert>
 #include <map>
+#include <algorithm>
 
 #include "mapreduce/job.h"
 
@@ -35,13 +36,12 @@ void Job::Merge() {
   assert(stage_ == JobStage::WAIT2MERGE);
   stage_ = JobStage::MERGING;
   size_t total_size = 0;
-  std::map<std::string, ReduceKV> tmp_map;
+  std::map<std::string, ReduceIn> tmp_map;
   for(const SubJob& subjob : subjobs_) {
-    std::vector<std::pair<std::string, std::string>>* map_result = 
-      reinterpret_cast<std::vector<std::pair<std::string, std::string>>*>(subjob.result_);
+    MapOuts* map_result = reinterpret_cast<MapOuts*>(subjob.result_);
     for(auto& [key, value] : *map_result) {
       if(tmp_map.find(key) == tmp_map.end()) {
-        tmp_map[key] = ReduceKV(key, std::vector<std::string>());
+        tmp_map[key] = ReduceIn(key, std::vector<std::string>());
       }
       tmp_map[key].second.push_back(std::move(value));
     }
@@ -49,6 +49,9 @@ void Job::Merge() {
   for(auto& [_, kv] : tmp_map) {
     reduce_kvs_.push_back(std::move(kv));
   }
+  std::sort(reduce_kvs_.begin(), reduce_kvs_.end(), [](const ReduceIn& lhs, const ReduceIn& rhs) -> bool {
+    return lhs.first < rhs.first;
+  });
 }
 
 void Job::Finish() {

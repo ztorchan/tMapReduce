@@ -64,5 +64,5 @@ service MasterService {
   rpc Launch(JobMsg) returns (LaunchReplyMsg) {}
   rpc CompleteMap(MapResultMsg) returns (MasterReplyMsg) {}
   rpc CompleteReduce(ReduceResultMsg) returns (MasterReplyMsg) {}
-  // TODO: Get result and check job stage
+  // TODO: Get result, check job stage and deny subjob
 }

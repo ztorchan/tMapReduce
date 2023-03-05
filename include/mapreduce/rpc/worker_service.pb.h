@@ -457,11 +457,11 @@ class MapJobMsg : public ::google::protobuf::Message /* @@protoc_insertion_point
   ::google::protobuf::uint32 job_id() const;
   void set_job_id(::google::protobuf::uint32 value);
 
-  // uint32 sub_job_id = 2;
-  void clear_sub_job_id();
-  static const int kSubJobIdFieldNumber = 2;
-  ::google::protobuf::uint32 sub_job_id() const;
-  void set_sub_job_id(::google::protobuf::uint32 value);
+  // uint32 subjob_id = 2;
+  void clear_subjob_id();
+  static const int kSubjobIdFieldNumber = 2;
+  ::google::protobuf::uint32 subjob_id() const;
+  void set_subjob_id(::google::protobuf::uint32 value);
 
   // @@protoc_insertion_point(class_scope:mapreduce.MapJobMsg)
  private:
@@ -471,7 +471,7 @@ class MapJobMsg : public ::google::protobuf::Message /* @@protoc_insertion_point
   ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::internal::ArenaStringPtr type_;
   ::google::protobuf::uint32 job_id_;
-  ::google::protobuf::uint32 sub_job_id_;
+  ::google::protobuf::uint32 subjob_id_;
   mutable int _cached_size_;
   friend struct ::protobuf_worker_5fservice_2eproto::TableStruct;
   friend void ::protobuf_worker_5fservice_2eproto::InitDefaultsMapJobMsgImpl();
@@ -738,11 +738,11 @@ class ReduceJobMsg : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::google::protobuf::uint32 job_id() const;
   void set_job_id(::google::protobuf::uint32 value);
 
-  // uint32 sub_job_id = 2;
-  void clear_sub_job_id();
-  static const int kSubJobIdFieldNumber = 2;
-  ::google::protobuf::uint32 sub_job_id() const;
-  void set_sub_job_id(::google::protobuf::uint32 value);
+  // uint32 subjob_id = 2;
+  void clear_subjob_id();
+  static const int kSubjobIdFieldNumber = 2;
+  ::google::protobuf::uint32 subjob_id() const;
+  void set_subjob_id(::google::protobuf::uint32 value);
 
   // @@protoc_insertion_point(class_scope:mapreduce.ReduceJobMsg)
  private:
@@ -752,7 +752,7 @@ class ReduceJobMsg : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::internal::ArenaStringPtr type_;
   ::google::protobuf::uint32 job_id_;
-  ::google::protobuf::uint32 sub_job_id_;
+  ::google::protobuf::uint32 subjob_id_;
   mutable int _cached_size_;
   friend struct ::protobuf_worker_5fservice_2eproto::TableStruct;
   friend void ::protobuf_worker_5fservice_2eproto::InitDefaultsReduceJobMsgImpl();
@@ -1052,18 +1052,18 @@ inline void MapJobMsg::set_job_id(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:mapreduce.MapJobMsg.job_id)
 }
 
-// uint32 sub_job_id = 2;
-inline void MapJobMsg::clear_sub_job_id() {
-  sub_job_id_ = 0u;
+// uint32 subjob_id = 2;
+inline void MapJobMsg::clear_subjob_id() {
+  subjob_id_ = 0u;
 }
-inline ::google::protobuf::uint32 MapJobMsg::sub_job_id() const {
-  // @@protoc_insertion_point(field_get:mapreduce.MapJobMsg.sub_job_id)
-  return sub_job_id_;
+inline ::google::protobuf::uint32 MapJobMsg::subjob_id() const {
+  // @@protoc_insertion_point(field_get:mapreduce.MapJobMsg.subjob_id)
+  return subjob_id_;
 }
-inline void MapJobMsg::set_sub_job_id(::google::protobuf::uint32 value) {
+inline void MapJobMsg::set_subjob_id(::google::protobuf::uint32 value) {
   
-  sub_job_id_ = value;
-  // @@protoc_insertion_point(field_set:mapreduce.MapJobMsg.sub_job_id)
+  subjob_id_ = value;
+  // @@protoc_insertion_point(field_set:mapreduce.MapJobMsg.subjob_id)
 }
 
 // string name = 3;
@@ -1346,18 +1346,18 @@ inline void ReduceJobMsg::set_job_id(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:mapreduce.ReduceJobMsg.job_id)
 }
 
-// uint32 sub_job_id = 2;
-inline void ReduceJobMsg::clear_sub_job_id() {
-  sub_job_id_ = 0u;
+// uint32 subjob_id = 2;
+inline void ReduceJobMsg::clear_subjob_id() {
+  subjob_id_ = 0u;
 }
-inline ::google::protobuf::uint32 ReduceJobMsg::sub_job_id() const {
-  // @@protoc_insertion_point(field_get:mapreduce.ReduceJobMsg.sub_job_id)
-  return sub_job_id_;
+inline ::google::protobuf::uint32 ReduceJobMsg::subjob_id() const {
+  // @@protoc_insertion_point(field_get:mapreduce.ReduceJobMsg.subjob_id)
+  return subjob_id_;
 }
-inline void ReduceJobMsg::set_sub_job_id(::google::protobuf::uint32 value) {
+inline void ReduceJobMsg::set_subjob_id(::google::protobuf::uint32 value) {
   
-  sub_job_id_ = value;
-  // @@protoc_insertion_point(field_set:mapreduce.ReduceJobMsg.sub_job_id)
+  subjob_id_ = value;
+  // @@protoc_insertion_point(field_set:mapreduce.ReduceJobMsg.subjob_id)
 }
 
 // string name = 3;
