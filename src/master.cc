@@ -78,7 +78,7 @@ Status Master::Register(std::string address, uint32_t port, uint32_t* slaver_id)
   Slaver* s = new Slaver(new_slaver_id(), address, port);
   if(s->state_ != WorkerState::INIT){
     delete s;
-    return Status::Error("Register Failed: slaver initial failed.");
+    return Status::Error("Slaver initial failed.");
   }
   WorkerService_Stub* stub = s->stub_;
   
@@ -86,9 +86,9 @@ Status Master::Register(std::string address, uint32_t port, uint32_t* slaver_id)
   google::protobuf::Empty request;
   WorkerReplyMsg response;
   stub->Beat(&ctl, &request, &response, NULL);
-  if (!ctl.Failed()) {
+  if (ctl.Failed()) {
     delete s;
-    return Status::Error("Register Failed: beat slaver failed.");
+    return Status::Error("Beat slaver failed.");
   }
 
   s->state_ = WorkerState::IDLE;
@@ -308,12 +308,13 @@ void Master::BGBeater(Master* master) {
   LOG(INFO) << "Beater Start";
 
   brpc::Controller cntl;
+  google::protobuf::Empty request;
   WorkerReplyMsg response;
   while(!master->end_) {
     for(auto& [_, slaver] : master->slavers_) {
       cntl.Reset();
       WorkerService_Stub* stub = slaver->stub_;
-      stub->Beat(&cntl, NULL, &response, NULL);
+      stub->Beat(&cntl, &request, &response, NULL);
       if(cntl.Failed()) {
         slaver->state_ = WorkerState::UNKNOWN;
       } else {
@@ -391,10 +392,18 @@ void MasterServiceImpl::Register(::google::protobuf::RpcController* controller,
     response->set_worker_id(worker_id);
     response->set_master_id(master_->id_);
     response->mutable_reply()->set_ok(true);
-    response->mutable_reply()->set_msg(std::move(s.msg_));
+    response->mutable_reply()->set_msg(s.msg_);
+    LOG(INFO) << "Worker register successfully: "
+              << "[Worker Id] " << worker_id << ", "
+              << "[Worker address] " << request->address() << ", "
+              << "[Worker Port] " << request->port();
   } else {
     response->mutable_reply()->set_ok(false);
     response->mutable_reply()->set_msg(std::move(s.msg_));
+    LOG(ERROR) << "Failed to register worker"
+               << "[address: " << request->address() << ", "
+               << "port: " << request->port() << "]"
+               << ": " << s.msg_;
   }
 
   return ;
@@ -442,7 +451,7 @@ void MasterServiceImpl::CompleteMap(::google::protobuf::RpcController* controlle
     const auto& kv = request->map_result(i);
     map_result.emplace_back(kv.key(), kv.value());
   }
-  Status s = master_->CompleteMap(request->job_id(), request->sub_job_id(), request->worker_id(), 
+  Status s = master_->CompleteMap(request->job_id(), request->subjob_id(), request->worker_id(), 
                                   request->state(), map_result);
   if(s.ok()) {
     response->set_ok(true);
@@ -467,7 +476,7 @@ void MasterServiceImpl::CompleteReduce(::google::protobuf::RpcController* contro
     reduce_result.emplace_back(request->reduce_result(i));
   }
 
-  Status s = master_->CompleteReduce(request->job_id(), request->sub_job_id(), request->worker_id(), 
+  Status s = master_->CompleteReduce(request->job_id(), request->subjob_id(), request->worker_id(), 
                                      request->state(), reduce_result);
   if(s.ok()) {
     response->set_ok(true);

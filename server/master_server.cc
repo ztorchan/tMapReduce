@@ -2,11 +2,13 @@
 #include <gflags/gflags.h>
 #include <butil/logging.h>
 
-#include <mapreduce/master.h>
+#include "mapreduce/master.h"
+#include "mapreduce/validator.h"
 
 DEFINE_uint64(id, 0, "Master ID");
 DEFINE_string(name, "", "Master name");
 DEFINE_uint64(port, 9023, "Master RPC port.");
+DEFINE_validator(port, &mapreduce::ValidatePort);
 
 int main(int argc, char* argv[]) {
   gflags::ParseCommandLineFlags(&argc, &argv, true);

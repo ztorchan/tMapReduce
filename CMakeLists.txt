@@ -51,14 +51,15 @@ set(DEPENDENCIES
   ${CMAKE_THREAD_LIBS_INIT}
   gflags
   dl
+  stdc++fs
 )
 
 add_library(master STATIC ${LIBMASTER_SRC})
-add_executable(master_server server/master_server.cc)
+add_executable(master_server server/master_server.cc server/validator.cc)
 add_dependencies(master_server master)
 target_link_libraries(master_server master ${DEPENDENCIES})
 
 add_library(worker STATIC ${LIBWORKER_SRC})
-add_executable(worker_server server/worker_server.cc)
+add_executable(worker_server server/worker_server.cc server/validator.cc)
 add_dependencies(worker_server worker)
 target_link_libraries(worker_server worker ${DEPENDENCIES})

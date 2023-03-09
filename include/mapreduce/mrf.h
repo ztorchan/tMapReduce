@@ -6,8 +6,8 @@
 
 #include "mapreduce/job.h"
 
-MapOut Map(MapIn);
+mapreduce::MapOut Map(const mapreduce::MapIn&);
 
-ReduceOut Reduce(ReduceIn);
+mapreduce::ReduceOut Reduce(const mapreduce::ReduceIn&);
 
 #endif

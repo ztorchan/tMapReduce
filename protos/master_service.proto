@@ -45,7 +45,7 @@ message MapResultMsg {
     string value = 2;
   }
   uint32 job_id = 1;
-  uint32 sub_job_id = 2;
+  uint32 subjob_id = 2;
   uint32 worker_id = 3;
   WorkerState state = 4;
   repeated KV map_result = 5;
@@ -53,7 +53,7 @@ message MapResultMsg {
 
 message ReduceResultMsg {
   uint32 job_id = 1;
-  uint32 sub_job_id = 2;
+  uint32 subjob_id = 2;
   uint32 worker_id = 3;
   WorkerState state = 4;
   repeated string reduce_result = 5;

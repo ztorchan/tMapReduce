@@ -26,11 +26,14 @@ public:
   Worker& operator=(const Worker&) = delete;
 
   Status Register(std::string master_address, uint32_t master_port);
-  Status Map(uint32_t job_id, uint32_t subjob_id, std::string job_name,
+  Status PrepareMap(uint32_t job_id, uint32_t subjob_id, std::string job_name,
              std::string job_type, MapIns& map_kvs);
-  Status Reduce(uint32_t job_id, uint32_t subjob_id, std::string job_name,
+  Status PrepareReduce(uint32_t job_id, uint32_t subjob_id, std::string job_name,
                 std::string job_type, ReduceIns& reduce_kvs);
-
+  void end() { 
+    end_ = true;
+    job_cv_.notify_all();
+  }
   friend class WorkerServiceImpl;
 
   static void BGExecutor(Worker* worker);
@@ -40,13 +43,13 @@ private:
   const std::string name_;
   const std::string address_;
   const uint32_t port_;
-  const std::string mrf_path_;
+  std::string mrf_path_;
 
   uint32_t  master_id_;
   std::string master_address_;
   uint32_t master_port_;
   brpc::Channel channel_;
-  MasterService_Stub* stub_;
+  MasterService_Stub* master_stub_;
   
   WorkerState state_;
   std::string cur_type_;
@@ -86,7 +89,7 @@ public:
               const ::mapreduce::ReduceJobMsg* request,
               ::mapreduce::WorkerReplyMsg* response,
               ::google::protobuf::Closure* done) override;
-
+  void end() { worker_->end(); }
 private:
   Worker* const worker_;
 };
