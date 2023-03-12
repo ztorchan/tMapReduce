@@ -27,7 +27,7 @@ class Status;
 
 class Slaver {
 public:
-  Slaver(uint32_t id, std::string address, uint32_t prot);
+  Slaver(uint32_t id, std::string name, std::string address, uint32_t prot);
   ~Slaver();
 
   friend class Master;
@@ -35,6 +35,7 @@ public:
 private:
   WorkerState state_;
   const uint32_t id_;
+  const std::string name_;
   const std::string address_;
   const uint32_t port_;
   brpc::Channel channel_;
@@ -52,7 +53,7 @@ public:
   Master(const Master&) = delete;
   Master& operator=(const Master&) = delete;
 
-  Status Register(std::string address, uint32_t port, uint32_t* slaver_id);
+  Status Register(std::string name, std::string address, uint32_t port, uint32_t* slaver_id);
   Status Launch(const std::string& name, const std::string& type, 
                 int map_worker_num, int reduce_worker_num,
                 MapIns& map_kvs, uint32_t* job_id);
@@ -60,6 +61,7 @@ public:
                      MapOuts& map_result);
   Status CompleteReduce(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id, WorkerState worker_state,
                         ReduceOuts& reduce_result);
+  Status GetResult(uint32_t job_id, ReduceOuts* result);
 
   friend class MasterServiceImpl;
   
@@ -125,6 +127,11 @@ public:
                       const ::mapreduce::ReduceResultMsg* request,
                       ::mapreduce::MasterReplyMsg* response,
                       ::google::protobuf::Closure* done) override;
+  
+  void GetResult(::google::protobuf::RpcController* controller,
+                 const ::mapreduce::GetResultMsg* request,
+                 ::mapreduce::GetResultReplyMsg* response,
+                 ::google::protobuf::Closure* done) override;
   
   void end() { master_->end(); }
 

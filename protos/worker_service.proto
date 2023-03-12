@@ -40,6 +40,7 @@ message ReduceJobMsg {
 
 service WorkerService {
   rpc Beat(google.protobuf.Empty) returns (WorkerReplyMsg) {}
-  rpc Map(MapJobMsg) returns (WorkerReplyMsg) {}
-  rpc Reduce(ReduceJobMsg) returns (WorkerReplyMsg) {}
+  rpc PrepareMap(MapJobMsg) returns (WorkerReplyMsg) {}
+  rpc PrepareReduce(ReduceJobMsg) returns (WorkerReplyMsg) {}
+  rpc Start(google.protobuf.Empty) returns (WorkerReplyMsg) {}
 }

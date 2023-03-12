@@ -10,6 +10,7 @@ namespace mapreduce{
 bool ValidateIPv4(const char* flagname, const std::string& ipv4_address);
 bool ValidatePort(const char* flagname, google::uint64 port);
 bool ValidateDirectory(const char* flagname, const std::string& path);
+bool ValidateDirectoryOrEmpty(const char* flagname, const std::string& path);
 
 }
 

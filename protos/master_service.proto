@@ -12,7 +12,7 @@ message MasterReplyMsg {
 }
 
 message RegisterMsg {
-  string address = 1;
+  string name = 1;
   uint32 port = 2;
 }
 
@@ -59,10 +59,20 @@ message ReduceResultMsg {
   repeated string reduce_result = 5;
 }
 
+message GetResultMsg {
+  uint32 job_id = 1;
+}
+
+message GetResultReplyMsg {
+  MasterReplyMsg reply = 1;
+  repeated string results = 2;
+}
+
 service MasterService {
   rpc Register(RegisterMsg) returns (RegisterReplyMsg) {}
   rpc Launch(JobMsg) returns (LaunchReplyMsg) {}
   rpc CompleteMap(MapResultMsg) returns (MasterReplyMsg) {}
   rpc CompleteReduce(ReduceResultMsg) returns (MasterReplyMsg) {}
   // TODO: Get result, check job stage and deny subjob
+  rpc GetResult(GetResultMsg) returns (GetResultReplyMsg) {}
 }

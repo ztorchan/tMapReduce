@@ -776,12 +776,16 @@ class WorkerService : public ::google::protobuf::Service {
                        const ::google::protobuf::Empty* request,
                        ::mapreduce::WorkerReplyMsg* response,
                        ::google::protobuf::Closure* done);
-  virtual void Map(::google::protobuf::RpcController* controller,
+  virtual void PrepareMap(::google::protobuf::RpcController* controller,
                        const ::mapreduce::MapJobMsg* request,
                        ::mapreduce::WorkerReplyMsg* response,
                        ::google::protobuf::Closure* done);
-  virtual void Reduce(::google::protobuf::RpcController* controller,
+  virtual void PrepareReduce(::google::protobuf::RpcController* controller,
                        const ::mapreduce::ReduceJobMsg* request,
+                       ::mapreduce::WorkerReplyMsg* response,
+                       ::google::protobuf::Closure* done);
+  virtual void Start(::google::protobuf::RpcController* controller,
+                       const ::google::protobuf::Empty* request,
                        ::mapreduce::WorkerReplyMsg* response,
                        ::google::protobuf::Closure* done);
 
@@ -817,12 +821,16 @@ class WorkerService_Stub : public WorkerService {
                        const ::google::protobuf::Empty* request,
                        ::mapreduce::WorkerReplyMsg* response,
                        ::google::protobuf::Closure* done);
-  void Map(::google::protobuf::RpcController* controller,
+  void PrepareMap(::google::protobuf::RpcController* controller,
                        const ::mapreduce::MapJobMsg* request,
                        ::mapreduce::WorkerReplyMsg* response,
                        ::google::protobuf::Closure* done);
-  void Reduce(::google::protobuf::RpcController* controller,
+  void PrepareReduce(::google::protobuf::RpcController* controller,
                        const ::mapreduce::ReduceJobMsg* request,
+                       ::mapreduce::WorkerReplyMsg* response,
+                       ::google::protobuf::Closure* done);
+  void Start(::google::protobuf::RpcController* controller,
+                       const ::google::protobuf::Empty* request,
                        ::mapreduce::WorkerReplyMsg* response,
                        ::google::protobuf::Closure* done);
  private:

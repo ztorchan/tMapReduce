@@ -6,6 +6,9 @@ set(CMAKE_CXX_STANDARD 17)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug)
 endif()
+if(NOT CMAKE_INSTALL_PREFIX)
+  set(CMAKE_INSTALL_PREFIX /usr/local)
+endif()
 
 include(FindProtobuf)
 file(GLOB_RECURSE PROTO_FILE_LIST ${CMAKE_SOURCE_DIR}/protos/*.proto)
@@ -54,12 +57,21 @@ set(DEPENDENCIES
   stdc++fs
 )
 
-add_library(master STATIC ${LIBMASTER_SRC})
-add_executable(master_server server/master_server.cc server/validator.cc)
-add_dependencies(master_server master)
-target_link_libraries(master_server master ${DEPENDENCIES})
+add_library(mrmaster STATIC ${LIBMASTER_SRC})
+add_executable(mr_master_server server/master_server.cc server/validator.cc)
+add_dependencies(mr_master_server mrmaster)
+target_link_libraries(mr_master_server mrmaster ${DEPENDENCIES})
 
-add_library(worker STATIC ${LIBWORKER_SRC})
-add_executable(worker_server server/worker_server.cc server/validator.cc)
-add_dependencies(worker_server worker)
-target_link_libraries(worker_server worker ${DEPENDENCIES})
+add_library(mrworker STATIC ${LIBWORKER_SRC})
+add_executable(mr_worker_server server/worker_server.cc server/validator.cc)
+add_dependencies(mr_worker_server mrworker)
+target_link_libraries(mr_worker_server mrworker ${DEPENDENCIES})
+
+install(
+  TARGETS mrmaster mrworker mr_master_server mr_worker_server
+  RUNTIME DESTINATION bin
+  ARCHIVE DESTINATION lib64
+)
+install(
+  DIRECTORY include/mapreduce DESTINATION include/
+)

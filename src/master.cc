@@ -8,11 +8,11 @@
 #include "mapreduce/status.h"
 #include "mapreduce/job.h"
 
-
 namespace mapreduce {
 
-Slaver::Slaver(uint32_t id, std::string address, uint32_t port) 
+Slaver::Slaver(uint32_t id, std::string name, std::string address, uint32_t port) 
     : id_(id),
+      name_(name),
       address_(address),
       port_(port),
       channel_(),
@@ -74,8 +74,8 @@ Master::~Master() {
   }
 }
 
-Status Master::Register(std::string address, uint32_t port, uint32_t* slaver_id) {
-  Slaver* s = new Slaver(new_slaver_id(), address, port);
+Status Master::Register(std::string name, std::string address, uint32_t port, uint32_t* slaver_id) {
+  Slaver* s = new Slaver(new_slaver_id(), name, address, port);
   if(s->state_ != WorkerState::INIT){
     delete s;
     return Status::Error("Slaver initial failed.");
@@ -175,7 +175,7 @@ Status Master::CompleteReduce(uint32_t job_id, uint32_t subjob_id, uint32_t work
   std::unique_lock<std::mutex> lck(job->mtx_);
   // Check job state
   if(job->stage_ != JobStage::REDUCING) {
-    return Status::Error("Job is not in MAPPING stage.");
+    return Status::Error("Job is not in REDUCING stage.");
   }
   // Check subjob id is legal 
   if(job->subjobs_.size() <= subjob_id) {
@@ -202,6 +202,19 @@ Status Master::CompleteReduce(uint32_t job_id, uint32_t subjob_id, uint32_t work
     job->stage_ = JobStage::FINISHED;
     finish_set_.insert(job_id);
   }
+  return Status::Ok("");
+}
+
+Status Master::GetResult(uint32_t job_id, ReduceOuts* result) {
+  auto job_iter = jobs_.find(job_id);
+  if(job_iter == jobs_.end()) {
+    return Status::Error("Not such job");
+  }
+  Job* job = jobs_[job_id];
+  if(job->stage_ != JobStage::FINISHED) {
+    return Status::Error("Job is unfinished.");
+  }
+  *result = job->results_;
   return Status::Ok("");
 }
 
@@ -245,9 +258,9 @@ void Master::BGDistributor(Master* master) {
         Job* job = master->jobs_[job_id];
         SubJob& subjob = job->subjobs_[subjob_id];
         if(job->stage_ == JobStage::WAIT2MAP) {
-          job->stage_ == JobStage::MAPPING;
+          job->stage_ = JobStage::MAPPING;
         } else if(job->stage_ == JobStage::WAIT2REDUCE) {
-          job->stage_ == JobStage::REDUCING;
+          job->stage_ = JobStage::REDUCING;
         }
 
         if(job->stage_ == JobStage::MAPPING) {
@@ -262,7 +275,7 @@ void Master::BGDistributor(Master* master) {
             rpc_kv->set_key(kv.first);
             rpc_kv->set_value(kv.second);
           }
-          stub->Map(&cntl, &rpc_map_job, &response, NULL);
+          stub->PrepareMap(&cntl, &rpc_map_job, &response, NULL);
         } else if(job->stage_ == JobStage::REDUCING) {
           ReduceJobMsg rpc_reduce_job;
           rpc_reduce_job.set_job_id(job->id_);
@@ -277,7 +290,7 @@ void Master::BGDistributor(Master* master) {
               rpc_kv->add_value(kv.second[j]);
             }
           }
-          stub->Reduce(&cntl, &rpc_reduce_job, &response, NULL);
+          stub->PrepareReduce(&cntl, &rpc_reduce_job, &response, NULL);
         }
 
         if(!cntl.Failed()) {
@@ -289,10 +302,20 @@ void Master::BGDistributor(Master* master) {
             subjob.worker_id_ = slaver->id_;
             master->slaver_to_job_[slaver->id_] = std::pair<uint32_t, uint32_t>(job_id, subjob_id);
             distribute_jobs.pop_front();
+            LOG(INFO) << "Successfully distributed subjob: "
+                      << "[Job Id]" << job_id << ", "
+                      << "[Subjob Id]" << subjob_id << ", "
+                      << "[Name]" << job->name_ << ", "
+                      << "[Type]" << job->type_ << ", "
+                      << "[Size]" << subjob.size_ << ", "
+                      << "[Stage]" << (job->stage_ == JobStage::MAPPING ? "map" : "reduce") << ", "
+                      << "[Worker Id]" << slaver->id_ << ".";
             break;
           }
+          LOG(INFO) << "Failed to distributed subjob: " << response.msg();
         } else {
           slaver->state_ = WorkerState::UNKNOWN;
+          LOG(INFO) << "Failed to distributed subjob: failed to connect worker " << slaver->id_ << ".";
         }
       }
       ++it;
@@ -317,12 +340,19 @@ void Master::BGBeater(Master* master) {
       stub->Beat(&cntl, &request, &response, NULL);
       if(cntl.Failed()) {
         slaver->state_ = WorkerState::UNKNOWN;
+        LOG(INFO) << "Failed to beat worker " << slaver->id_ << ".";
       } else {
         slaver->state_ = response.state();
+        if(slaver->state_ == WorkerState::IDLE){
+          master->jobs_cv_.notify_all();
+        }
       }
 
+      LOG(INFO) << "Worker " << slaver->id_ << " state: " << slaver->state_;
+
       // Check fault slaver and re-distribute job
-      if(slaver->state_ != WorkerState::IDLE || slaver->state_ != WorkerState::MAPPING || slaver->state_ != WorkerState::REDUCING) {
+      if(slaver->state_ != WorkerState::IDLE && slaver->state_ != WorkerState::MAPPING && slaver->state_ != WorkerState::REDUCING) {
+        LOG(INFO) << "Worker " << slaver->id_ << "state: " << slaver->state_;
         auto it = master->slaver_to_job_.find(slaver->id_);
         if(it != master->slaver_to_job_.end()) {
           uint32_t job_id = it->second.first;
@@ -333,6 +363,9 @@ void Master::BGBeater(Master* master) {
 
           std::unique_lock<std::mutex> jobs_lck(master->jobs_mutex_);
           master->distribute_queue_.emplace_front(job_id, subjob_id);
+          master->slaver_to_job_.erase(slaver->id_);
+          master->jobs_cv_.notify_all();
+          LOG(INFO) << "Re-distribute job: [Job Id]" << job_id << ", [Subjob Id]" << subjob_id << ".";
         }
       }
     }
@@ -352,6 +385,7 @@ void Master::BGMerger(Master* master) {
     if(master->end_)
       break;
     uint32_t job_id = merge_queue.front();
+    merge_queue.pop_front();
     Job* job = master->jobs_[job_id];
     assert(job->stage_ == JobStage::WAIT2MERGE);
     job->Merge();
@@ -363,9 +397,10 @@ void Master::BGMerger(Master* master) {
     } else {
       job->stage_ = JobStage::WAIT2REDUCE;
       job->Partition();
-      for(size_t i = 0; i < job->reduce_kvs_.size(); i++) {
+      for(size_t i = 0; i < job->subjobs_.size(); i++) {
         master->distribute_queue_.emplace_back(job_id, i);
       }
+      master->jobs_cv_.notify_all();
     }
   }
   LOG(INFO) << "Merger Stop";
@@ -387,22 +422,25 @@ void MasterServiceImpl::Register(::google::protobuf::RpcController* controller,
   brpc::Controller* ctl = static_cast<brpc::Controller*>(controller);
 
   uint32_t worker_id;
-  Status s = master_->Register(request->address(), request->port(), &worker_id);
+  std::string worker_address = butil::ip2str(ctl->remote_side().ip).c_str();
+  Status s = master_->Register(request->name(), worker_address, request->port(), &worker_id);
   if(s.ok()) {
     response->set_worker_id(worker_id);
     response->set_master_id(master_->id_);
     response->mutable_reply()->set_ok(true);
     response->mutable_reply()->set_msg(s.msg_);
     LOG(INFO) << "Worker register successfully: "
-              << "[Worker Id] " << worker_id << ", "
-              << "[Worker address] " << request->address() << ", "
-              << "[Worker Port] " << request->port();
+              << "[Worker Id]" << worker_id << ", "
+              << "[Worker Name]" << request->name() << ", "
+              << "[Worker Address]" << worker_address << ", "
+              << "[Worker Port]" << request->port();
   } else {
     response->mutable_reply()->set_ok(false);
-    response->mutable_reply()->set_msg(std::move(s.msg_));
+    response->mutable_reply()->set_msg(s.msg_);
     LOG(ERROR) << "Failed to register worker"
-               << "[address: " << request->address() << ", "
-               << "port: " << request->port() << "]"
+               << "[Name: " << request->name() << ", "
+               << "Address: " << worker_address << ", "
+               << "Port: " << request->port() << "]"
                << ": " << s.msg_;
   }
 
@@ -431,9 +469,17 @@ void MasterServiceImpl::Launch(::google::protobuf::RpcController* controller,
     response->set_job_id(job_id);
     response->mutable_reply()->set_ok(true);
     response->mutable_reply()->set_msg(std::move(s.msg_));
+    LOG(INFO) << "Launch job from [" << ctl->remote_side() << "]. "
+              << "[Id]" << job_id << ", "
+              << "[Name]" << request->name() << ", "
+              << "[Type]" << request->type() << ", "
+              << "[Mapper Num]" << request->mapper_num() << ", "
+              << "[Reducer Num]" << request->reducer_num() << ", "
+              << "[Size]" << request->kvs_size() << ".";
   } else {
     response->mutable_reply()->set_ok(false);
-    response->mutable_reply()->set_msg(std::move(s.msg_));
+    response->mutable_reply()->set_msg(s.msg_);
+    LOG(INFO) << "Failed to launch job: " << s.msg_;
   }
 
   return ;
@@ -455,10 +501,16 @@ void MasterServiceImpl::CompleteMap(::google::protobuf::RpcController* controlle
                                   request->state(), map_result);
   if(s.ok()) {
     response->set_ok(true);
-    response->set_msg(std::move(s.msg_));
+    response->set_msg(s.msg_);
+    LOG(INFO) << "Receive map result: "
+              << "[Job Id]" << request->job_id() << ", "
+              << "[Subjob Id]" << request->subjob_id() << ", "
+              << "[Worker Id]" << request->worker_id() << ", "
+              << "[Result Size]" << request->map_result_size() << ".";
   } else {
     response->set_ok(false);
-    response->set_msg(std::move(s.msg_)); 
+    response->set_msg(s.msg_); 
+    LOG(INFO) << "Failed to receive map result: " << s.msg_;
   }
   
   return ;
@@ -480,15 +532,37 @@ void MasterServiceImpl::CompleteReduce(::google::protobuf::RpcController* contro
                                      request->state(), reduce_result);
   if(s.ok()) {
     response->set_ok(true);
-    response->set_msg(std::move(s.msg_));
+    response->set_msg(s.msg_);
+    LOG(INFO) << "Receive reduce result: "
+              << "[Job Id]" << request->job_id() << ", "
+              << "[Subjob Id]" << request->subjob_id() << ", "
+              << "[Worker Id]" << request->worker_id() << ", "
+              << "[Result Size]" << request->reduce_result_size() << ".";
   } else {
     response->set_ok(false);
-    response->set_msg(std::move(s.msg_));
+    response->set_msg(s.msg_);
+    LOG(INFO) << "Failed to receive reduce result: " << s.msg_;
   }
 
   return;
 }
 
+void MasterServiceImpl::GetResult(::google::protobuf::RpcController* controller,
+                                  const ::mapreduce::GetResultMsg* request,
+                                  ::mapreduce::GetResultReplyMsg* response,
+                                  ::google::protobuf::Closure* done) {
+  brpc::ClosureGuard done_guard(done);
+  brpc::Controller* ctl = static_cast<brpc::Controller*>(controller);
+
+  ReduceOuts result;
+  Status s = master_->GetResult(request->job_id(), &result);
+  for(std::string& s :result) {
+    response->add_results(std::move(s));
+  }
+  response->mutable_reply()->set_ok(s.ok());
+  response->mutable_reply()->set_msg(s.msg_);
+  return ;
+}
 
 }
 

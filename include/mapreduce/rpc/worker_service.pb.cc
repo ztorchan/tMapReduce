@@ -251,15 +251,17 @@ void AddDescriptorsImpl() {
       "id\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\0224\n\n"
       "reduce_kvs\030\005 \003(\0132 .mapreduce.ReduceJobMs"
       "g.ReduceKV\032&\n\010ReduceKV\022\013\n\003key\030\001 \001(\t\022\r\n\005v"
-      "alue\030\002 \003(\t2\306\001\n\rWorkerService\022;\n\004Beat\022\026.g"
+      "alue\030\002 \003(\t2\222\002\n\rWorkerService\022;\n\004Beat\022\026.g"
       "oogle.protobuf.Empty\032\031.mapreduce.WorkerR"
-      "eplyMsg\"\000\0228\n\003Map\022\024.mapreduce.MapJobMsg\032\031"
-      ".mapreduce.WorkerReplyMsg\"\000\022>\n\006Reduce\022\027."
-      "mapreduce.ReduceJobMsg\032\031.mapreduce.Worke"
-      "rReplyMsg\"\000B\003\200\001\001b\006proto3"
+      "eplyMsg\"\000\022\?\n\nPrepareMap\022\024.mapreduce.MapJ"
+      "obMsg\032\031.mapreduce.WorkerReplyMsg\"\000\022E\n\rPr"
+      "epareReduce\022\027.mapreduce.ReduceJobMsg\032\031.m"
+      "apreduce.WorkerReplyMsg\"\000\022<\n\005Start\022\026.goo"
+      "gle.protobuf.Empty\032\031.mapreduce.WorkerRep"
+      "lyMsg\"\000B\003\200\001\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 704);
+      descriptor, 780);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "worker_service.proto", &protobuf_RegisterTypes);
   ::protobuf_google_2fprotobuf_2fempty_2eproto::AddDescriptors();
@@ -2128,19 +2130,27 @@ void WorkerService::Beat(::google::protobuf::RpcController* controller,
   done->Run();
 }
 
-void WorkerService::Map(::google::protobuf::RpcController* controller,
+void WorkerService::PrepareMap(::google::protobuf::RpcController* controller,
                          const ::mapreduce::MapJobMsg*,
                          ::mapreduce::WorkerReplyMsg*,
                          ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method Map() not implemented.");
+  controller->SetFailed("Method PrepareMap() not implemented.");
   done->Run();
 }
 
-void WorkerService::Reduce(::google::protobuf::RpcController* controller,
+void WorkerService::PrepareReduce(::google::protobuf::RpcController* controller,
                          const ::mapreduce::ReduceJobMsg*,
                          ::mapreduce::WorkerReplyMsg*,
                          ::google::protobuf::Closure* done) {
-  controller->SetFailed("Method Reduce() not implemented.");
+  controller->SetFailed("Method PrepareReduce() not implemented.");
+  done->Run();
+}
+
+void WorkerService::Start(::google::protobuf::RpcController* controller,
+                         const ::google::protobuf::Empty*,
+                         ::mapreduce::WorkerReplyMsg*,
+                         ::google::protobuf::Closure* done) {
+  controller->SetFailed("Method Start() not implemented.");
   done->Run();
 }
 
@@ -2158,14 +2168,20 @@ void WorkerService::CallMethod(const ::google::protobuf::MethodDescriptor* metho
              done);
       break;
     case 1:
-      Map(controller,
+      PrepareMap(controller,
              ::google::protobuf::down_cast<const ::mapreduce::MapJobMsg*>(request),
              ::google::protobuf::down_cast< ::mapreduce::WorkerReplyMsg*>(response),
              done);
       break;
     case 2:
-      Reduce(controller,
+      PrepareReduce(controller,
              ::google::protobuf::down_cast<const ::mapreduce::ReduceJobMsg*>(request),
+             ::google::protobuf::down_cast< ::mapreduce::WorkerReplyMsg*>(response),
+             done);
+      break;
+    case 3:
+      Start(controller,
+             ::google::protobuf::down_cast<const ::google::protobuf::Empty*>(request),
              ::google::protobuf::down_cast< ::mapreduce::WorkerReplyMsg*>(response),
              done);
       break;
@@ -2185,6 +2201,8 @@ const ::google::protobuf::Message& WorkerService::GetRequestPrototype(
       return ::mapreduce::MapJobMsg::default_instance();
     case 2:
       return ::mapreduce::ReduceJobMsg::default_instance();
+    case 3:
+      return ::google::protobuf::Empty::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *::google::protobuf::MessageFactory::generated_factory()
@@ -2201,6 +2219,8 @@ const ::google::protobuf::Message& WorkerService::GetResponsePrototype(
     case 1:
       return ::mapreduce::WorkerReplyMsg::default_instance();
     case 2:
+      return ::mapreduce::WorkerReplyMsg::default_instance();
+    case 3:
       return ::mapreduce::WorkerReplyMsg::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
@@ -2227,18 +2247,25 @@ void WorkerService_Stub::Beat(::google::protobuf::RpcController* controller,
   channel_->CallMethod(descriptor()->method(0),
                        controller, request, response, done);
 }
-void WorkerService_Stub::Map(::google::protobuf::RpcController* controller,
+void WorkerService_Stub::PrepareMap(::google::protobuf::RpcController* controller,
                               const ::mapreduce::MapJobMsg* request,
                               ::mapreduce::WorkerReplyMsg* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(1),
                        controller, request, response, done);
 }
-void WorkerService_Stub::Reduce(::google::protobuf::RpcController* controller,
+void WorkerService_Stub::PrepareReduce(::google::protobuf::RpcController* controller,
                               const ::mapreduce::ReduceJobMsg* request,
                               ::mapreduce::WorkerReplyMsg* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(2),
+                       controller, request, response, done);
+}
+void WorkerService_Stub::Start(::google::protobuf::RpcController* controller,
+                              const ::google::protobuf::Empty* request,
+                              ::mapreduce::WorkerReplyMsg* response,
+                              ::google::protobuf::Closure* done) {
+  channel_->CallMethod(descriptor()->method(3),
                        controller, request, response, done);
 }
 

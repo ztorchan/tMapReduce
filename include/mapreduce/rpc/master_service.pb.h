@@ -38,7 +38,7 @@ namespace protobuf_master_5fservice_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[9];
+  static const ::google::protobuf::internal::ParseTable schema[11];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -62,6 +62,10 @@ void InitDefaultsMapResultMsgImpl();
 void InitDefaultsMapResultMsg();
 void InitDefaultsReduceResultMsgImpl();
 void InitDefaultsReduceResultMsg();
+void InitDefaultsGetResultMsgImpl();
+void InitDefaultsGetResultMsg();
+void InitDefaultsGetResultReplyMsgImpl();
+void InitDefaultsGetResultReplyMsg();
 inline void InitDefaults() {
   InitDefaultsMasterReplyMsg();
   InitDefaultsRegisterMsg();
@@ -72,9 +76,17 @@ inline void InitDefaults() {
   InitDefaultsMapResultMsg_KV();
   InitDefaultsMapResultMsg();
   InitDefaultsReduceResultMsg();
+  InitDefaultsGetResultMsg();
+  InitDefaultsGetResultReplyMsg();
 }
 }  // namespace protobuf_master_5fservice_2eproto
 namespace mapreduce {
+class GetResultMsg;
+class GetResultMsgDefaultTypeInternal;
+extern GetResultMsgDefaultTypeInternal _GetResultMsg_default_instance_;
+class GetResultReplyMsg;
+class GetResultReplyMsgDefaultTypeInternal;
+extern GetResultReplyMsgDefaultTypeInternal _GetResultReplyMsg_default_instance_;
 class JobMsg;
 class JobMsgDefaultTypeInternal;
 extern JobMsgDefaultTypeInternal _JobMsg_default_instance_;
@@ -303,19 +315,19 @@ class RegisterMsg : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   // accessors -------------------------------------------------------
 
-  // string address = 1;
-  void clear_address();
-  static const int kAddressFieldNumber = 1;
-  const ::std::string& address() const;
-  void set_address(const ::std::string& value);
+  // string name = 1;
+  void clear_name();
+  static const int kNameFieldNumber = 1;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
   #if LANG_CXX11
-  void set_address(::std::string&& value);
+  void set_name(::std::string&& value);
   #endif
-  void set_address(const char* value);
-  void set_address(const char* value, size_t size);
-  ::std::string* mutable_address();
-  ::std::string* release_address();
-  void set_allocated_address(::std::string* address);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
 
   // uint32 port = 2;
   void clear_port();
@@ -327,7 +339,7 @@ class RegisterMsg : public ::google::protobuf::Message /* @@protoc_insertion_poi
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr address_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::uint32 port_;
   mutable int _cached_size_;
   friend struct ::protobuf_master_5fservice_2eproto::TableStruct;
@@ -1231,6 +1243,230 @@ class ReduceResultMsg : public ::google::protobuf::Message /* @@protoc_insertion
   friend struct ::protobuf_master_5fservice_2eproto::TableStruct;
   friend void ::protobuf_master_5fservice_2eproto::InitDefaultsReduceResultMsgImpl();
 };
+// -------------------------------------------------------------------
+
+class GetResultMsg : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:mapreduce.GetResultMsg) */ {
+ public:
+  GetResultMsg();
+  virtual ~GetResultMsg();
+
+  GetResultMsg(const GetResultMsg& from);
+
+  inline GetResultMsg& operator=(const GetResultMsg& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  GetResultMsg(GetResultMsg&& from) noexcept
+    : GetResultMsg() {
+    *this = ::std::move(from);
+  }
+
+  inline GetResultMsg& operator=(GetResultMsg&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const GetResultMsg& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetResultMsg* internal_default_instance() {
+    return reinterpret_cast<const GetResultMsg*>(
+               &_GetResultMsg_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    9;
+
+  void Swap(GetResultMsg* other);
+  friend void swap(GetResultMsg& a, GetResultMsg& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetResultMsg* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  GetResultMsg* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const GetResultMsg& from);
+  void MergeFrom(const GetResultMsg& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(GetResultMsg* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // uint32 job_id = 1;
+  void clear_job_id();
+  static const int kJobIdFieldNumber = 1;
+  ::google::protobuf::uint32 job_id() const;
+  void set_job_id(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:mapreduce.GetResultMsg)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint32 job_id_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_master_5fservice_2eproto::TableStruct;
+  friend void ::protobuf_master_5fservice_2eproto::InitDefaultsGetResultMsgImpl();
+};
+// -------------------------------------------------------------------
+
+class GetResultReplyMsg : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:mapreduce.GetResultReplyMsg) */ {
+ public:
+  GetResultReplyMsg();
+  virtual ~GetResultReplyMsg();
+
+  GetResultReplyMsg(const GetResultReplyMsg& from);
+
+  inline GetResultReplyMsg& operator=(const GetResultReplyMsg& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  GetResultReplyMsg(GetResultReplyMsg&& from) noexcept
+    : GetResultReplyMsg() {
+    *this = ::std::move(from);
+  }
+
+  inline GetResultReplyMsg& operator=(GetResultReplyMsg&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const GetResultReplyMsg& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetResultReplyMsg* internal_default_instance() {
+    return reinterpret_cast<const GetResultReplyMsg*>(
+               &_GetResultReplyMsg_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    10;
+
+  void Swap(GetResultReplyMsg* other);
+  friend void swap(GetResultReplyMsg& a, GetResultReplyMsg& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetResultReplyMsg* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  GetResultReplyMsg* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const GetResultReplyMsg& from);
+  void MergeFrom(const GetResultReplyMsg& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(GetResultReplyMsg* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated string results = 2;
+  int results_size() const;
+  void clear_results();
+  static const int kResultsFieldNumber = 2;
+  const ::std::string& results(int index) const;
+  ::std::string* mutable_results(int index);
+  void set_results(int index, const ::std::string& value);
+  #if LANG_CXX11
+  void set_results(int index, ::std::string&& value);
+  #endif
+  void set_results(int index, const char* value);
+  void set_results(int index, const char* value, size_t size);
+  ::std::string* add_results();
+  void add_results(const ::std::string& value);
+  #if LANG_CXX11
+  void add_results(::std::string&& value);
+  #endif
+  void add_results(const char* value);
+  void add_results(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& results() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_results();
+
+  // .mapreduce.MasterReplyMsg reply = 1;
+  bool has_reply() const;
+  void clear_reply();
+  static const int kReplyFieldNumber = 1;
+  const ::mapreduce::MasterReplyMsg& reply() const;
+  ::mapreduce::MasterReplyMsg* release_reply();
+  ::mapreduce::MasterReplyMsg* mutable_reply();
+  void set_allocated_reply(::mapreduce::MasterReplyMsg* reply);
+
+  // @@protoc_insertion_point(class_scope:mapreduce.GetResultReplyMsg)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> results_;
+  ::mapreduce::MasterReplyMsg* reply_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_master_5fservice_2eproto::TableStruct;
+  friend void ::protobuf_master_5fservice_2eproto::InitDefaultsGetResultReplyMsgImpl();
+};
 // ===================================================================
 
 class MasterService_Stub;
@@ -1261,6 +1497,10 @@ class MasterService : public ::google::protobuf::Service {
   virtual void CompleteReduce(::google::protobuf::RpcController* controller,
                        const ::mapreduce::ReduceResultMsg* request,
                        ::mapreduce::MasterReplyMsg* response,
+                       ::google::protobuf::Closure* done);
+  virtual void GetResult(::google::protobuf::RpcController* controller,
+                       const ::mapreduce::GetResultMsg* request,
+                       ::mapreduce::GetResultReplyMsg* response,
                        ::google::protobuf::Closure* done);
 
   // implements Service ----------------------------------------------
@@ -1306,6 +1546,10 @@ class MasterService_Stub : public MasterService {
   void CompleteReduce(::google::protobuf::RpcController* controller,
                        const ::mapreduce::ReduceResultMsg* request,
                        ::mapreduce::MasterReplyMsg* response,
+                       ::google::protobuf::Closure* done);
+  void GetResult(::google::protobuf::RpcController* controller,
+                       const ::mapreduce::GetResultMsg* request,
+                       ::mapreduce::GetResultReplyMsg* response,
                        ::google::protobuf::Closure* done);
  private:
   ::google::protobuf::RpcChannel* channel_;
@@ -1396,57 +1640,57 @@ inline void MasterReplyMsg::set_allocated_msg(::std::string* msg) {
 
 // RegisterMsg
 
-// string address = 1;
-inline void RegisterMsg::clear_address() {
-  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// string name = 1;
+inline void RegisterMsg::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& RegisterMsg::address() const {
-  // @@protoc_insertion_point(field_get:mapreduce.RegisterMsg.address)
-  return address_.GetNoArena();
+inline const ::std::string& RegisterMsg::name() const {
+  // @@protoc_insertion_point(field_get:mapreduce.RegisterMsg.name)
+  return name_.GetNoArena();
 }
-inline void RegisterMsg::set_address(const ::std::string& value) {
+inline void RegisterMsg::set_name(const ::std::string& value) {
   
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:mapreduce.RegisterMsg.address)
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:mapreduce.RegisterMsg.name)
 }
 #if LANG_CXX11
-inline void RegisterMsg::set_address(::std::string&& value) {
+inline void RegisterMsg::set_name(::std::string&& value) {
   
-  address_.SetNoArena(
+  name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:mapreduce.RegisterMsg.address)
+  // @@protoc_insertion_point(field_set_rvalue:mapreduce.RegisterMsg.name)
 }
 #endif
-inline void RegisterMsg::set_address(const char* value) {
+inline void RegisterMsg::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:mapreduce.RegisterMsg.address)
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:mapreduce.RegisterMsg.name)
 }
-inline void RegisterMsg::set_address(const char* value, size_t size) {
+inline void RegisterMsg::set_name(const char* value, size_t size) {
   
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:mapreduce.RegisterMsg.address)
+  // @@protoc_insertion_point(field_set_pointer:mapreduce.RegisterMsg.name)
 }
-inline ::std::string* RegisterMsg::mutable_address() {
+inline ::std::string* RegisterMsg::mutable_name() {
   
-  // @@protoc_insertion_point(field_mutable:mapreduce.RegisterMsg.address)
-  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:mapreduce.RegisterMsg.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* RegisterMsg::release_address() {
-  // @@protoc_insertion_point(field_release:mapreduce.RegisterMsg.address)
+inline ::std::string* RegisterMsg::release_name() {
+  // @@protoc_insertion_point(field_release:mapreduce.RegisterMsg.name)
   
-  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void RegisterMsg::set_allocated_address(::std::string* address) {
-  if (address != NULL) {
+inline void RegisterMsg::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
     
   } else {
     
   }
-  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
-  // @@protoc_insertion_point(field_set_allocated:mapreduce.RegisterMsg.address)
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:mapreduce.RegisterMsg.name)
 }
 
 // uint32 port = 2;
@@ -2220,9 +2464,154 @@ ReduceResultMsg::mutable_reduce_result() {
   return &reduce_result_;
 }
 
+// -------------------------------------------------------------------
+
+// GetResultMsg
+
+// uint32 job_id = 1;
+inline void GetResultMsg::clear_job_id() {
+  job_id_ = 0u;
+}
+inline ::google::protobuf::uint32 GetResultMsg::job_id() const {
+  // @@protoc_insertion_point(field_get:mapreduce.GetResultMsg.job_id)
+  return job_id_;
+}
+inline void GetResultMsg::set_job_id(::google::protobuf::uint32 value) {
+  
+  job_id_ = value;
+  // @@protoc_insertion_point(field_set:mapreduce.GetResultMsg.job_id)
+}
+
+// -------------------------------------------------------------------
+
+// GetResultReplyMsg
+
+// .mapreduce.MasterReplyMsg reply = 1;
+inline bool GetResultReplyMsg::has_reply() const {
+  return this != internal_default_instance() && reply_ != NULL;
+}
+inline void GetResultReplyMsg::clear_reply() {
+  if (GetArenaNoVirtual() == NULL && reply_ != NULL) {
+    delete reply_;
+  }
+  reply_ = NULL;
+}
+inline const ::mapreduce::MasterReplyMsg& GetResultReplyMsg::reply() const {
+  const ::mapreduce::MasterReplyMsg* p = reply_;
+  // @@protoc_insertion_point(field_get:mapreduce.GetResultReplyMsg.reply)
+  return p != NULL ? *p : *reinterpret_cast<const ::mapreduce::MasterReplyMsg*>(
+      &::mapreduce::_MasterReplyMsg_default_instance_);
+}
+inline ::mapreduce::MasterReplyMsg* GetResultReplyMsg::release_reply() {
+  // @@protoc_insertion_point(field_release:mapreduce.GetResultReplyMsg.reply)
+  
+  ::mapreduce::MasterReplyMsg* temp = reply_;
+  reply_ = NULL;
+  return temp;
+}
+inline ::mapreduce::MasterReplyMsg* GetResultReplyMsg::mutable_reply() {
+  
+  if (reply_ == NULL) {
+    reply_ = new ::mapreduce::MasterReplyMsg;
+  }
+  // @@protoc_insertion_point(field_mutable:mapreduce.GetResultReplyMsg.reply)
+  return reply_;
+}
+inline void GetResultReplyMsg::set_allocated_reply(::mapreduce::MasterReplyMsg* reply) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete reply_;
+  }
+  if (reply) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      reply = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, reply, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  reply_ = reply;
+  // @@protoc_insertion_point(field_set_allocated:mapreduce.GetResultReplyMsg.reply)
+}
+
+// repeated string results = 2;
+inline int GetResultReplyMsg::results_size() const {
+  return results_.size();
+}
+inline void GetResultReplyMsg::clear_results() {
+  results_.Clear();
+}
+inline const ::std::string& GetResultReplyMsg::results(int index) const {
+  // @@protoc_insertion_point(field_get:mapreduce.GetResultReplyMsg.results)
+  return results_.Get(index);
+}
+inline ::std::string* GetResultReplyMsg::mutable_results(int index) {
+  // @@protoc_insertion_point(field_mutable:mapreduce.GetResultReplyMsg.results)
+  return results_.Mutable(index);
+}
+inline void GetResultReplyMsg::set_results(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:mapreduce.GetResultReplyMsg.results)
+  results_.Mutable(index)->assign(value);
+}
+#if LANG_CXX11
+inline void GetResultReplyMsg::set_results(int index, ::std::string&& value) {
+  // @@protoc_insertion_point(field_set:mapreduce.GetResultReplyMsg.results)
+  results_.Mutable(index)->assign(std::move(value));
+}
+#endif
+inline void GetResultReplyMsg::set_results(int index, const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  results_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:mapreduce.GetResultReplyMsg.results)
+}
+inline void GetResultReplyMsg::set_results(int index, const char* value, size_t size) {
+  results_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:mapreduce.GetResultReplyMsg.results)
+}
+inline ::std::string* GetResultReplyMsg::add_results() {
+  // @@protoc_insertion_point(field_add_mutable:mapreduce.GetResultReplyMsg.results)
+  return results_.Add();
+}
+inline void GetResultReplyMsg::add_results(const ::std::string& value) {
+  results_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:mapreduce.GetResultReplyMsg.results)
+}
+#if LANG_CXX11
+inline void GetResultReplyMsg::add_results(::std::string&& value) {
+  results_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:mapreduce.GetResultReplyMsg.results)
+}
+#endif
+inline void GetResultReplyMsg::add_results(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  results_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:mapreduce.GetResultReplyMsg.results)
+}
+inline void GetResultReplyMsg::add_results(const char* value, size_t size) {
+  results_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:mapreduce.GetResultReplyMsg.results)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+GetResultReplyMsg::results() const {
+  // @@protoc_insertion_point(field_list:mapreduce.GetResultReplyMsg.results)
+  return results_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+GetResultReplyMsg::mutable_results() {
+  // @@protoc_insertion_point(field_mutable_list:mapreduce.GetResultReplyMsg.results)
+  return &results_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

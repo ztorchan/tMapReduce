@@ -21,4 +21,8 @@ bool ValidateDirectory(const char* flagname, const std::string& path) {
   return std::filesystem::is_directory(path);
 }
 
+bool ValidateDirectoryOrEmpty(const char* flagname, const std::string& path) {
+  return std::filesystem::is_directory(path) || path.empty();
+}
+
 }

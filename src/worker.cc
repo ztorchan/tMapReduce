@@ -9,11 +9,9 @@
 
 namespace mapreduce {
 
-Worker::Worker(std::string name, std::string address, uint32_t port, 
-               std::string mrf_path) :
+Worker::Worker(std::string name, uint32_t port, std::string mrf_path) :
     id_(UINT32_MAX),
     name_(name),
-    address_(address),
     port_(port),
     mrf_path_(mrf_path),
     master_id_(UINT32_MAX),
@@ -63,7 +61,7 @@ Status Worker::Register(std::string master_address, uint32_t master_port) {
   brpc::Controller cntl;
   RegisterMsg request;
   RegisterReplyMsg response;
-  request.set_address(address_);
+  request.set_name(name_);
   request.set_port(port_);
   stub->Register(&cntl, &request, &response, NULL);
   if(!cntl.Failed()) {
@@ -91,8 +89,9 @@ Status Worker::PrepareMap(uint32_t job_id, uint32_t subjob_id, std::string job_n
     return Status::Error("Worker is not idle.");
   }
   // Check so file exist
-  std::string so_path = mrf_path_ + cur_type_ + ".so";
+  std::string so_path = mrf_path_ + job_type + ".so";
   if(!std::filesystem::exists(so_path)) {
+    LOG(INFO) << so_path << " is not existing.";
     return Status::Error("Corresponding shared library is not existing.");
   }
 
@@ -107,8 +106,6 @@ Status Worker::PrepareMap(uint32_t job_id, uint32_t subjob_id, std::string job_n
   
   // start to map
   state_ = WorkerState::MAPPING;
-  job_cv_.notify_all();
-
   return Status::Ok("");
 }
 
@@ -120,7 +117,7 @@ Status Worker::PrepareReduce(uint32_t job_id, uint32_t subjob_id, std::string jo
   }
 
   // Check so file exist
-  std::string so_path = mrf_path_ + cur_type_ + ".so";
+  std::string so_path = mrf_path_ + job_type + ".so";
   if(!std::filesystem::exists(so_path)) {
     return Status::Error("Corresponding shared library is not existing.");
   }
@@ -131,14 +128,19 @@ Status Worker::PrepareReduce(uint32_t job_id, uint32_t subjob_id, std::string jo
   cur_subjob_id_ = subjob_id;
   cur_job_name_ = job_name;
   cur_job_type_ = job_type;
-  reduce_kvs_ = std::move(reduce_kvs_);
+  reduce_kvs_ = std::move(reduce_kvs);
   reduce_result_.clear();
   
   // start to reduce
   state_ = WorkerState::REDUCING;
-  job_cv_.notify_all();
-
   return Status::Ok("");
+}
+
+Status Worker::TryWakeupExecutor() {
+  if(state_ != WorkerState::MAPPING && state_ != WorkerState::REDUCING) {
+    return Status::Error("No job has been prepared.");
+  }
+  job_cv_.notify_all();
 }
 
 void Worker::BGExecutor(Worker* worker) {
@@ -162,11 +164,13 @@ void Worker::BGExecutor(Worker* worker) {
     }
 
     // Load so
-    std::string so_path = worker->mrf_path_ + worker->cur_type_ + ".so";
+    LOG(INFO) << "Loading corresponding so file: " << worker->cur_job_type_ << ".";
     if(worker->cur_type_ != worker->cur_job_type_) {
+      std::string so_path = worker->mrf_path_ + worker->cur_job_type_ + ".so";
       mrf_handle = dlopen(so_path.c_str(), RTLD_NOW);
       if(!mrf_handle) {
         // TODO : load failed, notify master
+        LOG(INFO) << "Failed to load so file: " << so_path << ".";
         continue;
       }
       dlerror();
@@ -189,7 +193,11 @@ void Worker::BGExecutor(Worker* worker) {
       }
 
       map_f(input_keys, input_values, map_kvs.size(),
-            output_keys, output_values, &output_size);
+            &output_keys, &output_values, &output_size);
+      
+      LOG(INFO) << "Finish map job: " 
+                << "[Job id]" << worker->cur_job_id_ << ", " 
+                << "[Subjob id]" << worker->cur_subjob_id_ << ".";
 
       // commit result
       cntl.Reset();
@@ -201,8 +209,8 @@ void Worker::BGExecutor(Worker* worker) {
       request.set_state(WorkerState::IDLE);
       for(uint32_t i = 0; i < output_size; i++) {
         auto kv_ptr = request.add_map_result();
-        kv_ptr->set_key(output_keys[i]);
-        kv_ptr->set_value(output_values[i]);
+        kv_ptr->set_key(std::string(output_keys[i]));
+        kv_ptr->set_value(std::string(output_values[i]));
       }
       worker->master_stub_->CompleteMap(&cntl, &request, &response, NULL);
       worker->state_ = WorkerState::IDLE;  // TODO : process failed commit
@@ -243,7 +251,11 @@ void Worker::BGExecutor(Worker* worker) {
       }
 
       reduce_f(input_keys, input_values, sizes, reduce_kvs.size(),
-               output_values, &output_size);
+               &output_values, &output_size);
+
+      LOG(INFO) << "Finish reduce job: " 
+                << "[Job id]" << worker->cur_job_id_ << ", " 
+                << "[Subjob id]" << worker->cur_subjob_id_ << ".";
       
       // commit result
       cntl.Reset();
@@ -254,9 +266,10 @@ void Worker::BGExecutor(Worker* worker) {
       request.set_worker_id(worker->id_);
       request.set_state(WorkerState::IDLE);
       for(uint32_t i = 0; i < output_size; i++) {
-        request.add_reduce_result(output_values[i]);
+        request.add_reduce_result(std::string(output_values[i]));
       }
       worker->master_stub_->CompleteReduce(&cntl, &request, &response, NULL);
+      worker->state_ = WorkerState::IDLE;
 
       // release mem
       for(uint32_t i = 0; i < output_size; i++) {
@@ -271,10 +284,9 @@ void Worker::BGExecutor(Worker* worker) {
   }
 }
 
-WorkerServiceImpl::WorkerServiceImpl(std::string name, std::string address, uint32_t port,
-                                     std::string mrf_path) :
+WorkerServiceImpl::WorkerServiceImpl(std::string name, uint32_t port, std::string mrf_path) :
     WorkerService(),
-    worker_(new Worker(name, address, port, mrf_path)) {}
+    worker_(new Worker(name, port, mrf_path)) {}
 
 WorkerServiceImpl::~WorkerServiceImpl() {
   delete worker_;
@@ -303,12 +315,10 @@ void WorkerServiceImpl::Beat(::google::protobuf::RpcController* controller,
   response->set_msg("");
   response->set_state(worker_->state_);
 
-  LOG(INFO) << "Beat from master.";
-
   return ;
 }
 
-void WorkerServiceImpl::Map(::google::protobuf::RpcController* controller,
+void WorkerServiceImpl::PrepareMap(::google::protobuf::RpcController* controller,
                             const ::mapreduce::MapJobMsg* request,
                             ::mapreduce::WorkerReplyMsg* response,
                             ::google::protobuf::Closure* done) {
@@ -319,7 +329,8 @@ void WorkerServiceImpl::Map(::google::protobuf::RpcController* controller,
             << "[Job Id] " << request->job_id() << ", "
             << "[Subjob Id] " << request->subjob_id() << ", "
             << "[Job Name] " << request->name() << ", "
-            << "[Job Type] " << request->type();
+            << "[Job Type] " << request->type() << ", "
+            << "[Size]" << request->map_kvs_size() << ".";
 
   MapIns map_kvs;
   for(int i = 0; i < request->map_kvs_size(); i++) {
@@ -340,7 +351,7 @@ void WorkerServiceImpl::Map(::google::protobuf::RpcController* controller,
   return ;
 }
 
-void WorkerServiceImpl::Reduce(::google::protobuf::RpcController* controller,
+void WorkerServiceImpl::PrepareReduce(::google::protobuf::RpcController* controller,
                                const ::mapreduce::ReduceJobMsg* request,
                                ::mapreduce::WorkerReplyMsg* response,
                                ::google::protobuf::Closure* done) {
@@ -351,7 +362,8 @@ void WorkerServiceImpl::Reduce(::google::protobuf::RpcController* controller,
             << "[Job Id] " << request->job_id() << ", "
             << "[Subjob Id] " << request->subjob_id() << ", "
             << "[Job Name] " << request->name() << ", "
-            << "[Job Type] " << request->type();
+            << "[Job Type] " << request->type() << ", "
+            << "[Size]" << request->reduce_kvs_size() << ".";
 
   ReduceIns reduce_kvs;
   for(int i = 0; i < request->reduce_kvs_size(); i++) {
@@ -375,6 +387,26 @@ void WorkerServiceImpl::Reduce(::google::protobuf::RpcController* controller,
     LOG(ERROR) << "Failed to prepare reduce job: " << s.msg_;
   }
   return ;
+}
+
+void WorkerServiceImpl::Start(::google::protobuf::RpcController* controller,
+                              const ::google::protobuf::Empty* request,
+                              ::mapreduce::WorkerReplyMsg* response,
+                              ::google::protobuf::Closure* done) {
+  brpc::ClosureGuard done_guard(done);
+  brpc::Controller* ctl = static_cast<brpc::Controller*>(controller);
+
+  Status s = worker_->TryWakeupExecutor();
+  response->set_ok(s.ok());
+  response->set_msg(s.msg_);
+  response->set_state(worker_->state_);
+
+  if(s.ok()) {
+    LOG(INFO) << "Successfully start job.";
+  } else {
+    LOG(ERROR) << "Failed to start job: " << s.msg_;
+  }
+  return ;     
 }
 
 }
