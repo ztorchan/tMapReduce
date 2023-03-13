@@ -48,13 +48,13 @@ void protobuf_RegisterTypes(const ::std::string&) {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-      "\n\013state.proto\022\tmapreduce*T\n\013WorkerState\022"
-      "\013\n\007UNKNOWN\020\000\022\010\n\004INIT\020\001\022\010\n\004IDLE\020\002\022\013\n\007MAPP"
-      "ING\020\003\022\014\n\010REDUCING\020\004\022\t\n\005CLOSE\020\005B\003\200\001\001b\006pro"
-      "to3"
+      "\n\013state.proto\022\tmapreduce*s\n\013WorkerState\022"
+      "\013\n\007UNKNOWN\020\000\022\010\n\004INIT\020\001\022\010\n\004IDLE\020\002\022\014\n\010WAIT"
+      "2MAP\020\003\022\013\n\007MAPPING\020\004\022\017\n\013WAIT2REDUCE\020\005\022\014\n\010"
+      "REDUCING\020\006\022\t\n\005CLOSE\020\007B\003\200\001\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 123);
+      descriptor, 154);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "state.proto", &protobuf_RegisterTypes);
 }
@@ -83,6 +83,8 @@ bool WorkerState_IsValid(int value) {
     case 3:
     case 4:
     case 5:
+    case 6:
+    case 7:
       return true;
     default:
       return false;

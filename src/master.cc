@@ -295,7 +295,7 @@ void Master::BGDistributor(Master* master) {
 
         if(!cntl.Failed()) {
           slaver->state_ = response.state();
-          if((slaver->state_ == WorkerState::MAPPING || slaver->state_ == WorkerState::REDUCING) && response.ok()) {
+          if(response.ok()) {
             // Successfully distributed subjob, change job state
             std::unique_lock<std::mutex> lck(job->mtx_);
             cur_slaver_id = slaver->id_;
@@ -310,6 +310,11 @@ void Master::BGDistributor(Master* master) {
                       << "[Size]" << subjob.size_ << ", "
                       << "[Stage]" << (job->stage_ == JobStage::MAPPING ? "map" : "reduce") << ", "
                       << "[Worker Id]" << slaver->id_ << ".";
+            // Try to start job
+            google::protobuf::Empty start_request;
+            WorkerReplyMsg start_response;
+            cntl.Reset();
+            stub->Start(&cntl, &start_request, &start_response, NULL);
             break;
           }
           LOG(INFO) << "Failed to distributed subjob: " << response.msg();
@@ -331,28 +336,32 @@ void Master::BGBeater(Master* master) {
   LOG(INFO) << "Beater Start";
 
   brpc::Controller cntl;
-  google::protobuf::Empty request;
-  WorkerReplyMsg response;
+  google::protobuf::Empty beat_request;
+  WorkerReplyMsg beat_response;
   while(!master->end_) {
     for(auto& [_, slaver] : master->slavers_) {
       cntl.Reset();
       WorkerService_Stub* stub = slaver->stub_;
-      stub->Beat(&cntl, &request, &response, NULL);
+      stub->Beat(&cntl, &beat_request, &beat_response, NULL);
       if(cntl.Failed()) {
         slaver->state_ = WorkerState::UNKNOWN;
         LOG(INFO) << "Failed to beat worker " << slaver->id_ << ".";
       } else {
-        slaver->state_ = response.state();
+        slaver->state_ = beat_response.state();
         if(slaver->state_ == WorkerState::IDLE){
           master->jobs_cv_.notify_all();
+        } else if(slaver->state_ == WorkerState::WAIT2MAP || slaver->state_ == WorkerState::WAIT2REDUCE) {
+          google::protobuf::Empty start_request;
+          WorkerReplyMsg start_response;
+          cntl.Reset();
+          stub->Start(&cntl, &start_request, &start_response, NULL);
         }
       }
 
       LOG(INFO) << "Worker " << slaver->id_ << " state: " << slaver->state_;
 
       // Check fault slaver and re-distribute job
-      if(slaver->state_ != WorkerState::IDLE && slaver->state_ != WorkerState::MAPPING && slaver->state_ != WorkerState::REDUCING) {
-        LOG(INFO) << "Worker " << slaver->id_ << "state: " << slaver->state_;
+      if(slaver->state_ == WorkerState::UNKNOWN || slaver->state_ == WorkerState::CLOSE) {
         auto it = master->slaver_to_job_.find(slaver->id_);
         if(it != master->slaver_to_job_.end()) {
           uint32_t job_id = it->second.first;

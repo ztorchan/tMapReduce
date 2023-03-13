@@ -105,7 +105,7 @@ Status Worker::PrepareMap(uint32_t job_id, uint32_t subjob_id, std::string job_n
   map_result_.clear();
   
   // start to map
-  state_ = WorkerState::MAPPING;
+  state_ = WorkerState::WAIT2MAP;
   return Status::Ok("");
 }
 
@@ -132,18 +132,28 @@ Status Worker::PrepareReduce(uint32_t job_id, uint32_t subjob_id, std::string jo
   reduce_result_.clear();
   
   // start to reduce
-  state_ = WorkerState::REDUCING;
+  state_ = WorkerState::WAIT2REDUCE;
   return Status::Ok("");
 }
 
 Status Worker::TryWakeupExecutor() {
-  if(state_ != WorkerState::MAPPING && state_ != WorkerState::REDUCING) {
+  if(state_ == WorkerState::MAPPING || state_ == WorkerState::REDUCING) {
+    return Status::Ok("Job has already been started.");
+  }
+  if(state_ != WorkerState::WAIT2MAP && state_ != WorkerState::WAIT2REDUCE) {
     return Status::Error("No job has been prepared.");
   }
+  if(state_ == WorkerState::WAIT2MAP) {
+    state_ = WorkerState::MAPPING;
+  } else {
+    state_ = WorkerState::REDUCING;
+  }
   job_cv_.notify_all();
+  return Status::Ok("Job started.");
 }
 
 void Worker::BGExecutor(Worker* worker) {
+  LOG(INFO) << "Executor Start.";
   MapIns& map_kvs = worker->map_kvs_;
   MapOuts& map_result = worker->map_result_;
   ReduceIns& reduce_kvs = worker->reduce_kvs_;
@@ -282,6 +292,7 @@ void Worker::BGExecutor(Worker* worker) {
       delete []output_values;
     }
   }
+  LOG(INFO) << "Executor Stop.";
 }
 
 WorkerServiceImpl::WorkerServiceImpl(std::string name, uint32_t port, std::string mrf_path) :
@@ -301,7 +312,7 @@ Status WorkerServiceImpl::Register(std::string master_address, uint32_t master_p
   } else {
     LOG(INFO) << "Register failed: " << s.msg_ ;
   }
-  return  s;
+  return s;
 }
 
 void WorkerServiceImpl::Beat(::google::protobuf::RpcController* controller,
@@ -402,7 +413,7 @@ void WorkerServiceImpl::Start(::google::protobuf::RpcController* controller,
   response->set_state(worker_->state_);
 
   if(s.ok()) {
-    LOG(INFO) << "Successfully start job.";
+    LOG(INFO) << s.msg_;
   } else {
     LOG(ERROR) << "Failed to start job: " << s.msg_;
   }

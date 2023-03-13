@@ -52,9 +52,11 @@ enum WorkerState {
   UNKNOWN = 0,
   INIT = 1,
   IDLE = 2,
-  MAPPING = 3,
-  REDUCING = 4,
-  CLOSE = 5,
+  WAIT2MAP = 3,
+  MAPPING = 4,
+  WAIT2REDUCE = 5,
+  REDUCING = 6,
+  CLOSE = 7,
   WorkerState_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   WorkerState_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
