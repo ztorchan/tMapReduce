@@ -7,15 +7,15 @@
   本项目依赖于`brpc`进行网络通信，并通过`gflags`进行必要信息的初始化。通过执行以下步骤安装依赖  
   1. 安装基本依赖
   - Centos
-    ```
+    ``` bash
     $ sudo yum install protobuf-devel protobuf-compiler openssl-devel leveldb-devel gflags-devel -y
     ```
   - Ubuntu
-    ```
+    ``` bash
     $ sudo apt install libprotobuf-dev openssl libleveldb-dev libgflags-dev -y
     ```
   1. 安装`brpc`
-      ```
+      ``` bash
       $ git clone https://github.com/apache/brpc.git
       $ mkdir build && cd build
       $ cmake -DWITH_DEBUG_SYMBOLS=OFF ..
@@ -25,14 +25,14 @@
   ### 编译
   编译使用CMake，要求编译器至少支持C++17。本人使用工具版本：CMake3.16.0，GNU 8.5.0。  
   通过以下步骤编译安装
-  ```
+  ``` bash
   $ mkdir build && cd build
   $ cmake -DCMAKE_BUILD_TYPE=Release ..
   $ make
   $ make install
   ```
   安装完成后，将有文件
-  ```
+  ``` bash
   /usr/local/bin/mr_master_server  # master服务的可执行文件
   /usr/local/bin/mr_worker_server  # worker服务的可执行文件
   /usr/local/lib64/libmrmaster.a   # master相关的静态链接库（编译客户端需要用到）
@@ -42,7 +42,7 @@
 
 ## 测试
   `./example`目录下放置了用于测试的word_count示例，编译如下：
-  ```
+  ```bash
   # 编译得到客户端client和用于worker动态加载的so库
   cd ./example/word_count
   mkdir build && cd build
@@ -54,7 +54,7 @@
   cp ./libwordcount.so ~/wordcount.so
   ```
   在单机上做测试，开启三个终端，分别输入如下命令，运行1个master和2个worker服务：
-  ``` 
+  ``` bash
   # Terminal 1
   $ mr_master_server -port=9023
 
