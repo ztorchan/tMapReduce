@@ -6,9 +6,9 @@
 #include "mapreduce/validator.h"
 
 DEFINE_string(name, "", "Worker name. Default: empty");
-DEFINE_uint64(worker_port, 9024, "Worker RPC port. Default: 9024");
+DEFINE_uint64(worker_port, 0, "Worker RPC port. Default: 9024");
 DEFINE_string(master_address, "", "Master IPv4 address(necessary).");
-DEFINE_uint64(master_port, 9023, "Master RPC port. Default: 9023");
+DEFINE_uint64(master_port, 0, "Master RPC port. Default: 9023");
 DEFINE_string(mrf_path, "", "MapReduce function library path(necessary).");
 DEFINE_string(log_path, "","Log path. Default: empty, which means the logs will only be output as standard stream.");
 

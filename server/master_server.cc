@@ -7,7 +7,7 @@
 
 DEFINE_uint64(id, 0, "Master ID");
 DEFINE_string(name, "", "Master name");
-DEFINE_uint64(port, 9023, "Master RPC port.");
+DEFINE_uint64(port, 0, "Master RPC port.");
 DEFINE_string(log_path, "","Log path. Default: empty, which means the logs will only be output as standard stream.");
 
 DEFINE_validator(port, &mapreduce::ValidatePort);

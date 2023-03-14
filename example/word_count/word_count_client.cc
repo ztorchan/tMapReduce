@@ -4,7 +4,7 @@
 
 #include "mapreduce/master.h"
 
-std::string dir_path = "/root/src/MapReduce/example/word_count/text/";
+std::string dir_path = "../text/";
 
 int main() {
   brpc::ChannelOptions options;
@@ -40,8 +40,17 @@ int main() {
     new_kv->set_value(buf.str());
   }
 
+  uint32_t job_id;
   stub.Launch(&cntl, &launch_request, &launch_response, NULL);
-  
+  if(!cntl.Failed() && launch_response.reply().ok()) {
+    std::cout << "Successfully launch job." << std::endl;
+    job_id = launch_response.job_id();
+  } else if(cntl.Failed()) {
+    std::cout << "Failed to launch: Connection error." << std::endl;
+  } else {
+    std::cout << "Failed to launch: " << launch_response.reply().msg() << std::endl;
+  }
+
   bool finished = false;
   mapreduce::ReduceOuts results;
   while(!finished) {
@@ -51,11 +60,15 @@ int main() {
 
     cntl.Reset();
     stub.GetResult(&cntl, &results_request, &results_response, NULL);
-    if(results_response.reply().ok()) {
+    if(!cntl.Failed() && results_response.reply().ok()) {
       finished = true;
       for(int i = 0; i < results_response.results_size(); i += 2) {
         std::cout << results_response.results(i) << " : " << results_response.results(i+1) << std::endl;
       }
+    } else if(cntl.Failed()) {
+      std::cout << "Failed to get result: Connection error." << std::endl;
+    } else {
+      std::cout << "Failed to get result: " << launch_response.reply().msg() << std::endl;
     }
   }
 
