@@ -25,7 +25,7 @@
       $ make
       $ make install
       ```
-  ### Buidl
+  ### Build
   Toolchain: C++ Compiler and CMake that support C++ 17. (My own toolchain version：CMake 3.16.0，GNU 8.5.0)  
   ``` bash
   $ mkdir build && cd build
@@ -42,7 +42,7 @@
   /usr/local/include/mapreduce/    # mapreduce header directory
   ```
 
-## 测试
+## Test
   A word_count example has been placed in directory `./example`. Build it as followed:  
   ```bash
   # Build client and shared library that will be loaded by the worker
@@ -133,7 +133,7 @@
                      --port=9023             # Listening port of the master (necessary)
                      --log_path=""           # Output path of master log. If empty, it will only be output to standard output. (Default: empty)
     ```
-3. **worker服务启动**
+3. **Start worker**
     ``` bash
     mr_worker_server --name="test_worker"         # worker name (Default: empty)
                      --worker_port=9024           # Listening port of the worker (necessary)
@@ -142,7 +142,7 @@
                      --mrf_path="./mrflib/"       # so file directory path (necessary)
                      --log_path=""                # Output path of worker log. If empty, it will only be output to standard output. (Default: empty)
     ```
-4. **Client call master RPC to launch jobs.(Take word_count as an example)**
+4. **Client calls master RPC to launch jobs. (Take word_count as an example)**
     ``` C++
     #include <iostream>
     #include <fstream>
@@ -171,7 +171,7 @@
       mapreduce::JobMsg launch_request;           // Launch request
       mapreduce::LaunchReplyMsg launch_response;  // Launch response
       launch_request.set_name("test_word_count"); // Set job name 
-      launch_request.set_type("wordcount");       // Set job type (same as so name)
+      launch_request.set_type("wordcount");       // Set job type (same as so file name)
       launch_request.set_mapper_num(2);           // Set mapper number
       launch_request.set_reducer_num(2);          // Set reducer number
      
