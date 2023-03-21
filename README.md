@@ -1,13 +1,13 @@
 # tMapReduce
 
-  [中文版](https://github.com/ztorchan/tMapReduce/README_zh.md)
+  [中文版](README_zh.md)
 
   **tMapReduce** is a simple implement of MapReduce service based on C++17。It can dynamically load special pre-builded shared library through job information to achieve a mechanism similar to reflect.
   > **tMapReduce** is just an experimental project during my own study of distributed system. It will also be an experimental bed for my further study. At present, it still has many imperfections and cannot be applied to practical production. In further study, I will try to apply any technology that may be available here as an exercise, continuously improve tMapreduce and add new mechanisms for tMapreduce.
 
 ## Build && Install
   ### Dependencies
-  tMapReduce relies on `brpc` for network communication, and initializes necessary information through `gflags`. Install all dependencies by following steps
+  tMapReduce relies on **brpc** for network communication, and initializes necessary information through **gflags**. Install all dependencies by following steps
   1. Install basic dependencies
   - Centos
     ``` bash
@@ -17,7 +17,7 @@
     ``` bash
     $ sudo apt install libprotobuf-dev openssl libleveldb-dev libgflags-dev -y
     ```
-  2. Install `brpc`
+  1. Install **brpc**
       ``` bash
       $ git clone https://github.com/apache/brpc.git
       $ mkdir build && cd build
