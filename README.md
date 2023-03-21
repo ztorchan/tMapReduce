@@ -17,7 +17,7 @@
     ``` bash
     $ sudo apt install libprotobuf-dev openssl libleveldb-dev libgflags-dev -y
     ```
-  1. Install **brpc**
+  2. Install **brpc**
       ``` bash
       $ git clone https://github.com/apache/brpc.git
       $ mkdir build && cd build
