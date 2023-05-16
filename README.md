@@ -53,7 +53,7 @@
 
   # Place the so file under the specified path
   mkdir ~/mrflib
-  cp ./libwordcount.so ~/wordcount.so
+  cp ./libwordcount.so ~/mrflib/wordcount.so
   ```
   Perform the test on a single machine. Start three terminals and enter the following commands respectively. One master and two workers will be running:
   ``` bash
@@ -64,7 +64,7 @@
   $ mr_worker_server --name=test_worker_1 --worker_port=9024 --master_address=127.0.0.1 --master_port=9023 --mrf_path=./mrflib
 
   # Terminal 3
-  $ mr_worker_server --name=test_worker_2 --worker_port=9025 --master_address=127.0.0.1 --master_port=9024 --mrf_path=./mrflib
+  $ mr_worker_server --name=test_worker_2 --worker_port=9025 --master_address=127.0.0.1 --master_port=9023 --mrf_path=./mrflib
   ```
   Start another terminal and run the client. If tMapReduce runs correctly, there will be result:  
   ```

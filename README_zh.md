@@ -51,7 +51,7 @@
 
   # 将编译好的so库放入路径指定路径下
   mkdir ~/mrflib
-  cp ./libwordcount.so ~/wordcount.so
+  cp ./libwordcount.so ~/mrflib/wordcount.so
   ```
   在单机上做测试，开启三个终端，分别输入如下命令，运行1个master和2个worker服务：
   ``` bash
@@ -62,7 +62,7 @@
   $ mr_worker_server --name=test_worker_1 --worker_port=9024 --master_address=127.0.0.1 --master_port=9023 --mrf_path=./mrflib
 
   # Terminal 3
-  $ mr_worker_server --name=test_worker_2 --worker_port=9025 --master_address=127.0.0.1 --master_port=9024 --mrf_path=./mrflib
+  $ mr_worker_server --name=test_worker_2 --worker_port=9025 --master_address=127.0.0.1 --master_port=9023 --mrf_path=./mrflib
   ```
   再开启一个终端，运行上述编译好的客户端client，若正确运行则有以下结果
   ```
@@ -233,4 +233,6 @@
 - 代码优化，模块化
 - master日志
 - 多master的raft备份容灾
+- etcd服务注册+容灾
+- master提供restful api
 - k8s自动化部署
