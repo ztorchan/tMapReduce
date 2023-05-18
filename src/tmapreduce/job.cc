@@ -4,9 +4,10 @@
 
 #include "mapreduce/job.h"
 
-namespace mapreduce {
+namespace tmapreduce {
 
 void Job::Partition() {
+  // Job should be in WAIT2MAP or WAIT2REDUCE when partition
   assert(stage_ == JobStage::WAIT2MAP || stage_ == JobStage::WAIT2REDUCE);
   subjobs_.clear();
   uint32_t subjob_seq_num = 0;
@@ -33,6 +34,7 @@ void Job::Partition() {
 }
 
 void Job::Merge() {
+  // Job should be in WAIT2MERGE when merge
   assert(stage_ == JobStage::WAIT2MERGE);
   stage_ = JobStage::MERGING;
   size_t total_size = 0;
@@ -58,8 +60,7 @@ void Job::Finish() {
   assert(stage_ == JobStage::WAIT2FINISH);
   size_t total_size = 0;
   for(const SubJob& subjob : subjobs_) {
-    std::vector<std::string>* reduce_result = 
-      reinterpret_cast<std::vector<std::string>*>(subjob.result_);
+    std::vector<std::string>* reduce_result =  reinterpret_cast<std::vector<std::string>*>(subjob.result_);
     results_.insert(results_.end(), reduce_result->begin(), reduce_result->end());
   }
 }

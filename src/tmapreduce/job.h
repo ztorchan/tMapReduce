@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <memory>
 
-namespace mapreduce{
+namespace tmapreduce{
 
 class SubJob;
 
@@ -22,16 +22,16 @@ using ReduceIns = std::vector<ReduceIn>;
 using ReduceOuts = ReduceOut;
 
 enum class JobStage {
-    INIT,
-    WAIT2MAP,
-    MAPPING,
-    WAIT2MERGE,
-    MERGING,
-    WAIT2REDUCE,
-    REDUCING,
-    WAIT2FINISH,
-    FINISHED
-  };
+  INIT,
+  WAIT2MAP,
+  MAPPING,
+  WAIT2MERGE,
+  MERGING,
+  WAIT2REDUCE,
+  REDUCING,
+  WAIT2FINISH,
+  FINISHED
+};
 
 class Job {
 public:
@@ -56,10 +56,8 @@ public:
 
   // Partition job in several subjobs which will be sent to worker
   void Partition();
-
   // Merge map result
   void Merge();
-
   // Finish job
   void Finish();
 
@@ -75,7 +73,7 @@ public:
   ReduceIns reduce_kvs_;
   ReduceOuts results_;
   
-  uint32_t unfinished_job_num_;
+  std::atomic_uint32_t unfinished_job_num_;
   std::vector<SubJob> subjobs_;
 
   std::mutex mtx_;
@@ -92,30 +90,30 @@ public:
     worker_id_(UINT32_MAX),
     finished_(false),
     result_(nullptr) {}
+  SubJob& operator=(const SubJob&) = delete;
 
   ~SubJob() {
     if(result_ != nullptr) {
-      if(is_map_)
+      if(is_map_){
         delete reinterpret_cast<MapOuts*>(result_);
-      else
+      }
+      else {
         delete reinterpret_cast<ReduceOuts*>(result_);
+      }
       result_ = nullptr;
     }
   }
 
-  SubJob& operator=(const SubJob&) = delete;
-
 public:
-  Job* job_ptr_;
-  uint32_t subjob_id_;
-  bool is_map_;
+  uint32_t subjob_id_;    // subjob id
+  Job* job_ptr_;          // job that belong to
+  uint32_t head_;         // the head index in job
+  uint32_t size_;         // kv number 
+  bool is_map_;           // it is a map subjob or a reduce subjob
 
-  uint32_t head_;
-  uint32_t size_;
-
-  uint32_t worker_id_;
-  bool finished_;
-  void* result_;
+  uint32_t worker_id_;    // id of worker the subjob has been distributed to
+  bool finished_;         // if subjob is completed
+  void* result_;          // subjob result
 };
 
 }

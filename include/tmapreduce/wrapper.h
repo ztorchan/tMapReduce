@@ -1,18 +1,27 @@
-#include <stdint.h>
-#include <vector>
-#include <string>
-#include <cstring>
+#ifndef _TMAPREDUCE_MRF_WRAPPER_H
+#define _TMAPREDUCE_MRF_WRAPPER_H
 
+#include <stdint.h>
 #include "mapreduce/job.h"
-#include "mapreduce/wrapper.h"
 #include "mapreduce/mrf.h"
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
+#define _OUT
+
+typedef void (*MAP_FUNC)(const char** input_keys, const char** input_values, const uint32_t input_size,
+                         _OUT char*** output_keys, _OUT char*** output_values, _OUT uint32_t* output_size);
+typedef void (*REDUCE_FUNC)(const char** input_keys, const char** input_values, const uint32_t* sizes, const uint32_t input_key_size,
+                            _OUT char*** output_values, _OUT uint32_t* output_size);
+
 void c_Map(const char** input_keys, const char** input_values, const uint32_t input_size,
-           char*** output_keys, char*** output_values, uint32_t* output_size) {
-  mapreduce::MapOuts map_results;
+           _OUT char*** output_keys, _OUT char*** output_values, _OUT uint32_t* output_size) {
+  tmapreduce::MapOuts map_results;
   for(uint32_t i = 0; i < input_size; i++) {
-    mapreduce::MapIn in_kv(input_keys[i], input_values[i]);
-    mapreduce::MapOut tmp_result = Map(in_kv);
+    tmapreduce::MapIn in_kv(input_keys[i], input_values[i]);
+    tmapreduce::MapOut tmp_result = Map(in_kv);
     map_results.insert(map_results.end(), tmp_result.begin(), tmp_result.end());
   }
   
@@ -31,15 +40,15 @@ void c_Map(const char** input_keys, const char** input_values, const uint32_t in
 }
 
 void c_Reduce(const char** input_keys, const char** input_values, const uint32_t* sizes, const uint32_t input_key_size,
-              char*** output_values, uint32_t* output_size) {
-  mapreduce::ReduceOuts reduce_results;
-  uint32_t input_values_index = 0;
+              _OUT char*** output_values, _OUT uint32_t* output_size) {
+  tmapreduce::ReduceOuts reduce_results;
+  tuint32_t input_values_index = 0;
   for(uint32_t i = 0; i < input_key_size; i++) {
-    mapreduce::ReduceIn in_kv(input_keys[i], std::vector<std::string>());
+    tmapreduce::ReduceIn in_kv(input_keys[i], std::vector<std::string>());
     for(uint32_t j = 0; j < sizes[i]; j++) {
       in_kv.second.push_back(input_values[input_values_index++]);
     }
-    mapreduce::ReduceOut tmp_result = Reduce(in_kv);
+    tmapreduce::ReduceOut tmp_result = Reduce(in_kv);
     reduce_results.insert(reduce_results.end(), tmp_result.begin(), tmp_result.end());
   }
 
@@ -53,3 +62,9 @@ void c_Reduce(const char** input_keys, const char** input_values, const uint32_t
 
   return ;
 }
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

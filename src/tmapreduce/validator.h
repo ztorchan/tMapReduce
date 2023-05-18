@@ -1,7 +1,11 @@
+#ifndef _MAPREDUCE_Validator_H
+#define _MAPREDUCE_Validator_H
+
+#include <string>
 #include <regex>
 #include <filesystem>
 
-#include "mapreduce/validator.h"
+#include <gflags/gflags.h>
 
 namespace mapreduce{
 
@@ -24,5 +28,6 @@ bool ValidateDirectory(const char* flagname, const std::string& path) {
 bool ValidateDirectoryOrEmpty(const char* flagname, const std::string& path) {
   return std::filesystem::is_directory(path) || path.empty();
 }
-
 }
+
+#endif
