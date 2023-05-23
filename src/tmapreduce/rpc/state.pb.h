@@ -55,7 +55,7 @@ struct TableStruct_state_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_state_2eproto;
 PROTOBUF_NAMESPACE_OPEN
 PROTOBUF_NAMESPACE_CLOSE
-namespace mapreduce {
+namespace tmapreduce {
 
 enum WorkerState : int {
   UNKNOWN = 0,
@@ -106,14 +106,14 @@ inline bool WorkerState_Parse(
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace mapreduce
+}  // namespace tmapreduce
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::mapreduce::WorkerState> : ::std::true_type {};
+template <> struct is_proto_enum< ::tmapreduce::WorkerState> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::mapreduce::WorkerState>() {
-  return ::mapreduce::WorkerState_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::tmapreduce::WorkerState>() {
+  return ::tmapreduce::WorkerState_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

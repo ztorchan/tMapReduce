@@ -56,60 +56,60 @@ struct TableStruct_master_5fservice_2eproto {
   static const ::PROTOBUF_NAMESPACE_ID::uint32 offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_master_5fservice_2eproto;
-namespace mapreduce {
+namespace tmapreduce {
+class CompleteMapMsg;
+class CompleteMapMsgDefaultTypeInternal;
+extern CompleteMapMsgDefaultTypeInternal _CompleteMapMsg_default_instance_;
+class CompleteMapMsg_KV;
+class CompleteMapMsg_KVDefaultTypeInternal;
+extern CompleteMapMsg_KVDefaultTypeInternal _CompleteMapMsg_KV_default_instance_;
+class CompleteReduceMsg;
+class CompleteReduceMsgDefaultTypeInternal;
+extern CompleteReduceMsgDefaultTypeInternal _CompleteReduceMsg_default_instance_;
 class GetResultMsg;
 class GetResultMsgDefaultTypeInternal;
 extern GetResultMsgDefaultTypeInternal _GetResultMsg_default_instance_;
 class GetResultReplyMsg;
 class GetResultReplyMsgDefaultTypeInternal;
 extern GetResultReplyMsgDefaultTypeInternal _GetResultReplyMsg_default_instance_;
-class JobMsg;
-class JobMsgDefaultTypeInternal;
-extern JobMsgDefaultTypeInternal _JobMsg_default_instance_;
-class JobMsg_KV;
-class JobMsg_KVDefaultTypeInternal;
-extern JobMsg_KVDefaultTypeInternal _JobMsg_KV_default_instance_;
+class LaunchMsg;
+class LaunchMsgDefaultTypeInternal;
+extern LaunchMsgDefaultTypeInternal _LaunchMsg_default_instance_;
+class LaunchMsg_KV;
+class LaunchMsg_KVDefaultTypeInternal;
+extern LaunchMsg_KVDefaultTypeInternal _LaunchMsg_KV_default_instance_;
 class LaunchReplyMsg;
 class LaunchReplyMsgDefaultTypeInternal;
 extern LaunchReplyMsgDefaultTypeInternal _LaunchReplyMsg_default_instance_;
-class MapResultMsg;
-class MapResultMsgDefaultTypeInternal;
-extern MapResultMsgDefaultTypeInternal _MapResultMsg_default_instance_;
-class MapResultMsg_KV;
-class MapResultMsg_KVDefaultTypeInternal;
-extern MapResultMsg_KVDefaultTypeInternal _MapResultMsg_KV_default_instance_;
 class MasterReplyMsg;
 class MasterReplyMsgDefaultTypeInternal;
 extern MasterReplyMsgDefaultTypeInternal _MasterReplyMsg_default_instance_;
-class ReduceResultMsg;
-class ReduceResultMsgDefaultTypeInternal;
-extern ReduceResultMsgDefaultTypeInternal _ReduceResultMsg_default_instance_;
 class RegisterMsg;
 class RegisterMsgDefaultTypeInternal;
 extern RegisterMsgDefaultTypeInternal _RegisterMsg_default_instance_;
 class RegisterReplyMsg;
 class RegisterReplyMsgDefaultTypeInternal;
 extern RegisterReplyMsgDefaultTypeInternal _RegisterReplyMsg_default_instance_;
-}  // namespace mapreduce
+}  // namespace tmapreduce
 PROTOBUF_NAMESPACE_OPEN
-template<> ::mapreduce::GetResultMsg* Arena::CreateMaybeMessage<::mapreduce::GetResultMsg>(Arena*);
-template<> ::mapreduce::GetResultReplyMsg* Arena::CreateMaybeMessage<::mapreduce::GetResultReplyMsg>(Arena*);
-template<> ::mapreduce::JobMsg* Arena::CreateMaybeMessage<::mapreduce::JobMsg>(Arena*);
-template<> ::mapreduce::JobMsg_KV* Arena::CreateMaybeMessage<::mapreduce::JobMsg_KV>(Arena*);
-template<> ::mapreduce::LaunchReplyMsg* Arena::CreateMaybeMessage<::mapreduce::LaunchReplyMsg>(Arena*);
-template<> ::mapreduce::MapResultMsg* Arena::CreateMaybeMessage<::mapreduce::MapResultMsg>(Arena*);
-template<> ::mapreduce::MapResultMsg_KV* Arena::CreateMaybeMessage<::mapreduce::MapResultMsg_KV>(Arena*);
-template<> ::mapreduce::MasterReplyMsg* Arena::CreateMaybeMessage<::mapreduce::MasterReplyMsg>(Arena*);
-template<> ::mapreduce::ReduceResultMsg* Arena::CreateMaybeMessage<::mapreduce::ReduceResultMsg>(Arena*);
-template<> ::mapreduce::RegisterMsg* Arena::CreateMaybeMessage<::mapreduce::RegisterMsg>(Arena*);
-template<> ::mapreduce::RegisterReplyMsg* Arena::CreateMaybeMessage<::mapreduce::RegisterReplyMsg>(Arena*);
+template<> ::tmapreduce::CompleteMapMsg* Arena::CreateMaybeMessage<::tmapreduce::CompleteMapMsg>(Arena*);
+template<> ::tmapreduce::CompleteMapMsg_KV* Arena::CreateMaybeMessage<::tmapreduce::CompleteMapMsg_KV>(Arena*);
+template<> ::tmapreduce::CompleteReduceMsg* Arena::CreateMaybeMessage<::tmapreduce::CompleteReduceMsg>(Arena*);
+template<> ::tmapreduce::GetResultMsg* Arena::CreateMaybeMessage<::tmapreduce::GetResultMsg>(Arena*);
+template<> ::tmapreduce::GetResultReplyMsg* Arena::CreateMaybeMessage<::tmapreduce::GetResultReplyMsg>(Arena*);
+template<> ::tmapreduce::LaunchMsg* Arena::CreateMaybeMessage<::tmapreduce::LaunchMsg>(Arena*);
+template<> ::tmapreduce::LaunchMsg_KV* Arena::CreateMaybeMessage<::tmapreduce::LaunchMsg_KV>(Arena*);
+template<> ::tmapreduce::LaunchReplyMsg* Arena::CreateMaybeMessage<::tmapreduce::LaunchReplyMsg>(Arena*);
+template<> ::tmapreduce::MasterReplyMsg* Arena::CreateMaybeMessage<::tmapreduce::MasterReplyMsg>(Arena*);
+template<> ::tmapreduce::RegisterMsg* Arena::CreateMaybeMessage<::tmapreduce::RegisterMsg>(Arena*);
+template<> ::tmapreduce::RegisterReplyMsg* Arena::CreateMaybeMessage<::tmapreduce::RegisterReplyMsg>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
-namespace mapreduce {
+namespace tmapreduce {
 
 // ===================================================================
 
 class MasterReplyMsg PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:mapreduce.MasterReplyMsg) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tmapreduce.MasterReplyMsg) */ {
  public:
   inline MasterReplyMsg() : MasterReplyMsg(nullptr) {};
   virtual ~MasterReplyMsg();
@@ -198,7 +198,7 @@ class MasterReplyMsg PROTOBUF_FINAL :
   void InternalSwap(MasterReplyMsg* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "mapreduce.MasterReplyMsg";
+    return "tmapreduce.MasterReplyMsg";
   }
   protected:
   explicit MasterReplyMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -222,6 +222,7 @@ class MasterReplyMsg PROTOBUF_FINAL :
 
   enum : int {
     kMsgFieldNumber = 2,
+    kRedirectFieldNumber = 3,
     kOkFieldNumber = 1,
   };
   // string msg = 2;
@@ -249,6 +250,31 @@ class MasterReplyMsg PROTOBUF_FINAL :
   std::string* _internal_mutable_msg();
   public:
 
+  // string redirect = 3;
+  void clear_redirect();
+  const std::string& redirect() const;
+  void set_redirect(const std::string& value);
+  void set_redirect(std::string&& value);
+  void set_redirect(const char* value);
+  void set_redirect(const char* value, size_t size);
+  std::string* mutable_redirect();
+  std::string* release_redirect();
+  void set_allocated_redirect(std::string* redirect);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_redirect();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_redirect(
+      std::string* redirect);
+  private:
+  const std::string& _internal_redirect() const;
+  void _internal_set_redirect(const std::string& value);
+  std::string* _internal_mutable_redirect();
+  public:
+
   // bool ok = 1;
   void clear_ok();
   bool ok() const;
@@ -258,7 +284,7 @@ class MasterReplyMsg PROTOBUF_FINAL :
   void _internal_set_ok(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:mapreduce.MasterReplyMsg)
+  // @@protoc_insertion_point(class_scope:tmapreduce.MasterReplyMsg)
  private:
   class _Internal;
 
@@ -266,6 +292,7 @@ class MasterReplyMsg PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr msg_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr redirect_;
   bool ok_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_master_5fservice_2eproto;
@@ -273,7 +300,7 @@ class MasterReplyMsg PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class RegisterMsg PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:mapreduce.RegisterMsg) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tmapreduce.RegisterMsg) */ {
  public:
   inline RegisterMsg() : RegisterMsg(nullptr) {};
   virtual ~RegisterMsg();
@@ -362,7 +389,7 @@ class RegisterMsg PROTOBUF_FINAL :
   void InternalSwap(RegisterMsg* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "mapreduce.RegisterMsg";
+    return "tmapreduce.RegisterMsg";
   }
   protected:
   explicit RegisterMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -422,7 +449,7 @@ class RegisterMsg PROTOBUF_FINAL :
   void _internal_set_port(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:mapreduce.RegisterMsg)
+  // @@protoc_insertion_point(class_scope:tmapreduce.RegisterMsg)
  private:
   class _Internal;
 
@@ -437,7 +464,7 @@ class RegisterMsg PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class RegisterReplyMsg PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:mapreduce.RegisterReplyMsg) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tmapreduce.RegisterReplyMsg) */ {
  public:
   inline RegisterReplyMsg() : RegisterReplyMsg(nullptr) {};
   virtual ~RegisterReplyMsg();
@@ -526,7 +553,7 @@ class RegisterReplyMsg PROTOBUF_FINAL :
   void InternalSwap(RegisterReplyMsg* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "mapreduce.RegisterReplyMsg";
+    return "tmapreduce.RegisterReplyMsg";
   }
   protected:
   explicit RegisterReplyMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -553,23 +580,23 @@ class RegisterReplyMsg PROTOBUF_FINAL :
     kWorkerIdFieldNumber = 2,
     kMasterIdFieldNumber = 3,
   };
-  // .mapreduce.MasterReplyMsg reply = 1;
+  // .tmapreduce.MasterReplyMsg reply = 1;
   bool has_reply() const;
   private:
   bool _internal_has_reply() const;
   public:
   void clear_reply();
-  const ::mapreduce::MasterReplyMsg& reply() const;
-  ::mapreduce::MasterReplyMsg* release_reply();
-  ::mapreduce::MasterReplyMsg* mutable_reply();
-  void set_allocated_reply(::mapreduce::MasterReplyMsg* reply);
+  const ::tmapreduce::MasterReplyMsg& reply() const;
+  ::tmapreduce::MasterReplyMsg* release_reply();
+  ::tmapreduce::MasterReplyMsg* mutable_reply();
+  void set_allocated_reply(::tmapreduce::MasterReplyMsg* reply);
   private:
-  const ::mapreduce::MasterReplyMsg& _internal_reply() const;
-  ::mapreduce::MasterReplyMsg* _internal_mutable_reply();
+  const ::tmapreduce::MasterReplyMsg& _internal_reply() const;
+  ::tmapreduce::MasterReplyMsg* _internal_mutable_reply();
   public:
   void unsafe_arena_set_allocated_reply(
-      ::mapreduce::MasterReplyMsg* reply);
-  ::mapreduce::MasterReplyMsg* unsafe_arena_release_reply();
+      ::tmapreduce::MasterReplyMsg* reply);
+  ::tmapreduce::MasterReplyMsg* unsafe_arena_release_reply();
 
   // uint32 worker_id = 2;
   void clear_worker_id();
@@ -589,14 +616,14 @@ class RegisterReplyMsg PROTOBUF_FINAL :
   void _internal_set_master_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:mapreduce.RegisterReplyMsg)
+  // @@protoc_insertion_point(class_scope:tmapreduce.RegisterReplyMsg)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::mapreduce::MasterReplyMsg* reply_;
+  ::tmapreduce::MasterReplyMsg* reply_;
   ::PROTOBUF_NAMESPACE_ID::uint32 worker_id_;
   ::PROTOBUF_NAMESPACE_ID::uint32 master_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -604,23 +631,23 @@ class RegisterReplyMsg PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
-class JobMsg_KV PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:mapreduce.JobMsg.KV) */ {
+class LaunchMsg_KV PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tmapreduce.LaunchMsg.KV) */ {
  public:
-  inline JobMsg_KV() : JobMsg_KV(nullptr) {};
-  virtual ~JobMsg_KV();
+  inline LaunchMsg_KV() : LaunchMsg_KV(nullptr) {};
+  virtual ~LaunchMsg_KV();
 
-  JobMsg_KV(const JobMsg_KV& from);
-  JobMsg_KV(JobMsg_KV&& from) noexcept
-    : JobMsg_KV() {
+  LaunchMsg_KV(const LaunchMsg_KV& from);
+  LaunchMsg_KV(LaunchMsg_KV&& from) noexcept
+    : LaunchMsg_KV() {
     *this = ::std::move(from);
   }
 
-  inline JobMsg_KV& operator=(const JobMsg_KV& from) {
+  inline LaunchMsg_KV& operator=(const LaunchMsg_KV& from) {
     CopyFrom(from);
     return *this;
   }
-  inline JobMsg_KV& operator=(JobMsg_KV&& from) noexcept {
+  inline LaunchMsg_KV& operator=(LaunchMsg_KV&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -638,20 +665,20 @@ class JobMsg_KV PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const JobMsg_KV& default_instance();
+  static const LaunchMsg_KV& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const JobMsg_KV* internal_default_instance() {
-    return reinterpret_cast<const JobMsg_KV*>(
-               &_JobMsg_KV_default_instance_);
+  static inline const LaunchMsg_KV* internal_default_instance() {
+    return reinterpret_cast<const LaunchMsg_KV*>(
+               &_LaunchMsg_KV_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     3;
 
-  friend void swap(JobMsg_KV& a, JobMsg_KV& b) {
+  friend void swap(LaunchMsg_KV& a, LaunchMsg_KV& b) {
     a.Swap(&b);
   }
-  inline void Swap(JobMsg_KV* other) {
+  inline void Swap(LaunchMsg_KV* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -659,7 +686,7 @@ class JobMsg_KV PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(JobMsg_KV* other) {
+  void UnsafeArenaSwap(LaunchMsg_KV* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -667,17 +694,17 @@ class JobMsg_KV PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline JobMsg_KV* New() const final {
-    return CreateMaybeMessage<JobMsg_KV>(nullptr);
+  inline LaunchMsg_KV* New() const final {
+    return CreateMaybeMessage<LaunchMsg_KV>(nullptr);
   }
 
-  JobMsg_KV* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<JobMsg_KV>(arena);
+  LaunchMsg_KV* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<LaunchMsg_KV>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const JobMsg_KV& from);
-  void MergeFrom(const JobMsg_KV& from);
+  void CopyFrom(const LaunchMsg_KV& from);
+  void MergeFrom(const LaunchMsg_KV& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -691,13 +718,13 @@ class JobMsg_KV PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(JobMsg_KV* other);
+  void InternalSwap(LaunchMsg_KV* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "mapreduce.JobMsg.KV";
+    return "tmapreduce.LaunchMsg.KV";
   }
   protected:
-  explicit JobMsg_KV(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit LaunchMsg_KV(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -770,7 +797,7 @@ class JobMsg_KV PROTOBUF_FINAL :
   std::string* _internal_mutable_value();
   public:
 
-  // @@protoc_insertion_point(class_scope:mapreduce.JobMsg.KV)
+  // @@protoc_insertion_point(class_scope:tmapreduce.LaunchMsg.KV)
  private:
   class _Internal;
 
@@ -784,23 +811,23 @@ class JobMsg_KV PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
-class JobMsg PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:mapreduce.JobMsg) */ {
+class LaunchMsg PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tmapreduce.LaunchMsg) */ {
  public:
-  inline JobMsg() : JobMsg(nullptr) {};
-  virtual ~JobMsg();
+  inline LaunchMsg() : LaunchMsg(nullptr) {};
+  virtual ~LaunchMsg();
 
-  JobMsg(const JobMsg& from);
-  JobMsg(JobMsg&& from) noexcept
-    : JobMsg() {
+  LaunchMsg(const LaunchMsg& from);
+  LaunchMsg(LaunchMsg&& from) noexcept
+    : LaunchMsg() {
     *this = ::std::move(from);
   }
 
-  inline JobMsg& operator=(const JobMsg& from) {
+  inline LaunchMsg& operator=(const LaunchMsg& from) {
     CopyFrom(from);
     return *this;
   }
-  inline JobMsg& operator=(JobMsg&& from) noexcept {
+  inline LaunchMsg& operator=(LaunchMsg&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -818,20 +845,20 @@ class JobMsg PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const JobMsg& default_instance();
+  static const LaunchMsg& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const JobMsg* internal_default_instance() {
-    return reinterpret_cast<const JobMsg*>(
-               &_JobMsg_default_instance_);
+  static inline const LaunchMsg* internal_default_instance() {
+    return reinterpret_cast<const LaunchMsg*>(
+               &_LaunchMsg_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     4;
 
-  friend void swap(JobMsg& a, JobMsg& b) {
+  friend void swap(LaunchMsg& a, LaunchMsg& b) {
     a.Swap(&b);
   }
-  inline void Swap(JobMsg* other) {
+  inline void Swap(LaunchMsg* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -839,7 +866,7 @@ class JobMsg PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(JobMsg* other) {
+  void UnsafeArenaSwap(LaunchMsg* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -847,17 +874,17 @@ class JobMsg PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline JobMsg* New() const final {
-    return CreateMaybeMessage<JobMsg>(nullptr);
+  inline LaunchMsg* New() const final {
+    return CreateMaybeMessage<LaunchMsg>(nullptr);
   }
 
-  JobMsg* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<JobMsg>(arena);
+  LaunchMsg* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<LaunchMsg>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const JobMsg& from);
-  void MergeFrom(const JobMsg& from);
+  void CopyFrom(const LaunchMsg& from);
+  void MergeFrom(const LaunchMsg& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -871,13 +898,13 @@ class JobMsg PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(JobMsg* other);
+  void InternalSwap(LaunchMsg* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "mapreduce.JobMsg";
+    return "tmapreduce.LaunchMsg";
   }
   protected:
-  explicit JobMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit LaunchMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -894,7 +921,7 @@ class JobMsg PROTOBUF_FINAL :
 
   // nested types ----------------------------------------------------
 
-  typedef JobMsg_KV KV;
+  typedef LaunchMsg_KV KV;
 
   // accessors -------------------------------------------------------
 
@@ -905,22 +932,22 @@ class JobMsg PROTOBUF_FINAL :
     kMapperNumFieldNumber = 3,
     kReducerNumFieldNumber = 4,
   };
-  // repeated .mapreduce.JobMsg.KV kvs = 5;
+  // repeated .tmapreduce.LaunchMsg.KV kvs = 5;
   int kvs_size() const;
   private:
   int _internal_kvs_size() const;
   public:
   void clear_kvs();
-  ::mapreduce::JobMsg_KV* mutable_kvs(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::mapreduce::JobMsg_KV >*
+  ::tmapreduce::LaunchMsg_KV* mutable_kvs(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tmapreduce::LaunchMsg_KV >*
       mutable_kvs();
   private:
-  const ::mapreduce::JobMsg_KV& _internal_kvs(int index) const;
-  ::mapreduce::JobMsg_KV* _internal_add_kvs();
+  const ::tmapreduce::LaunchMsg_KV& _internal_kvs(int index) const;
+  ::tmapreduce::LaunchMsg_KV* _internal_add_kvs();
   public:
-  const ::mapreduce::JobMsg_KV& kvs(int index) const;
-  ::mapreduce::JobMsg_KV* add_kvs();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::mapreduce::JobMsg_KV >&
+  const ::tmapreduce::LaunchMsg_KV& kvs(int index) const;
+  ::tmapreduce::LaunchMsg_KV* add_kvs();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tmapreduce::LaunchMsg_KV >&
       kvs() const;
 
   // string name = 1;
@@ -991,14 +1018,14 @@ class JobMsg PROTOBUF_FINAL :
   void _internal_set_reducer_num(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:mapreduce.JobMsg)
+  // @@protoc_insertion_point(class_scope:tmapreduce.LaunchMsg)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::mapreduce::JobMsg_KV > kvs_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tmapreduce::LaunchMsg_KV > kvs_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr type_;
   ::PROTOBUF_NAMESPACE_ID::uint32 mapper_num_;
@@ -1009,7 +1036,7 @@ class JobMsg PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class LaunchReplyMsg PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:mapreduce.LaunchReplyMsg) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tmapreduce.LaunchReplyMsg) */ {
  public:
   inline LaunchReplyMsg() : LaunchReplyMsg(nullptr) {};
   virtual ~LaunchReplyMsg();
@@ -1098,7 +1125,7 @@ class LaunchReplyMsg PROTOBUF_FINAL :
   void InternalSwap(LaunchReplyMsg* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "mapreduce.LaunchReplyMsg";
+    return "tmapreduce.LaunchReplyMsg";
   }
   protected:
   explicit LaunchReplyMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1122,25 +1149,35 @@ class LaunchReplyMsg PROTOBUF_FINAL :
 
   enum : int {
     kReplyFieldNumber = 1,
+    kJobSecretFieldNumber = 3,
     kJobIdFieldNumber = 2,
   };
-  // .mapreduce.MasterReplyMsg reply = 1;
+  // .tmapreduce.MasterReplyMsg reply = 1;
   bool has_reply() const;
   private:
   bool _internal_has_reply() const;
   public:
   void clear_reply();
-  const ::mapreduce::MasterReplyMsg& reply() const;
-  ::mapreduce::MasterReplyMsg* release_reply();
-  ::mapreduce::MasterReplyMsg* mutable_reply();
-  void set_allocated_reply(::mapreduce::MasterReplyMsg* reply);
+  const ::tmapreduce::MasterReplyMsg& reply() const;
+  ::tmapreduce::MasterReplyMsg* release_reply();
+  ::tmapreduce::MasterReplyMsg* mutable_reply();
+  void set_allocated_reply(::tmapreduce::MasterReplyMsg* reply);
   private:
-  const ::mapreduce::MasterReplyMsg& _internal_reply() const;
-  ::mapreduce::MasterReplyMsg* _internal_mutable_reply();
+  const ::tmapreduce::MasterReplyMsg& _internal_reply() const;
+  ::tmapreduce::MasterReplyMsg* _internal_mutable_reply();
   public:
   void unsafe_arena_set_allocated_reply(
-      ::mapreduce::MasterReplyMsg* reply);
-  ::mapreduce::MasterReplyMsg* unsafe_arena_release_reply();
+      ::tmapreduce::MasterReplyMsg* reply);
+  ::tmapreduce::MasterReplyMsg* unsafe_arena_release_reply();
+
+  // uint64 job_secret = 3;
+  void clear_job_secret();
+  ::PROTOBUF_NAMESPACE_ID::uint64 job_secret() const;
+  void set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_job_secret() const;
+  void _internal_set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
 
   // uint32 job_id = 2;
   void clear_job_id();
@@ -1151,37 +1188,38 @@ class LaunchReplyMsg PROTOBUF_FINAL :
   void _internal_set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:mapreduce.LaunchReplyMsg)
+  // @@protoc_insertion_point(class_scope:tmapreduce.LaunchReplyMsg)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::mapreduce::MasterReplyMsg* reply_;
+  ::tmapreduce::MasterReplyMsg* reply_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 job_secret_;
   ::PROTOBUF_NAMESPACE_ID::uint32 job_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_master_5fservice_2eproto;
 };
 // -------------------------------------------------------------------
 
-class MapResultMsg_KV PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:mapreduce.MapResultMsg.KV) */ {
+class CompleteMapMsg_KV PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tmapreduce.CompleteMapMsg.KV) */ {
  public:
-  inline MapResultMsg_KV() : MapResultMsg_KV(nullptr) {};
-  virtual ~MapResultMsg_KV();
+  inline CompleteMapMsg_KV() : CompleteMapMsg_KV(nullptr) {};
+  virtual ~CompleteMapMsg_KV();
 
-  MapResultMsg_KV(const MapResultMsg_KV& from);
-  MapResultMsg_KV(MapResultMsg_KV&& from) noexcept
-    : MapResultMsg_KV() {
+  CompleteMapMsg_KV(const CompleteMapMsg_KV& from);
+  CompleteMapMsg_KV(CompleteMapMsg_KV&& from) noexcept
+    : CompleteMapMsg_KV() {
     *this = ::std::move(from);
   }
 
-  inline MapResultMsg_KV& operator=(const MapResultMsg_KV& from) {
+  inline CompleteMapMsg_KV& operator=(const CompleteMapMsg_KV& from) {
     CopyFrom(from);
     return *this;
   }
-  inline MapResultMsg_KV& operator=(MapResultMsg_KV&& from) noexcept {
+  inline CompleteMapMsg_KV& operator=(CompleteMapMsg_KV&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1199,20 +1237,20 @@ class MapResultMsg_KV PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const MapResultMsg_KV& default_instance();
+  static const CompleteMapMsg_KV& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const MapResultMsg_KV* internal_default_instance() {
-    return reinterpret_cast<const MapResultMsg_KV*>(
-               &_MapResultMsg_KV_default_instance_);
+  static inline const CompleteMapMsg_KV* internal_default_instance() {
+    return reinterpret_cast<const CompleteMapMsg_KV*>(
+               &_CompleteMapMsg_KV_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     6;
 
-  friend void swap(MapResultMsg_KV& a, MapResultMsg_KV& b) {
+  friend void swap(CompleteMapMsg_KV& a, CompleteMapMsg_KV& b) {
     a.Swap(&b);
   }
-  inline void Swap(MapResultMsg_KV* other) {
+  inline void Swap(CompleteMapMsg_KV* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -1220,7 +1258,7 @@ class MapResultMsg_KV PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(MapResultMsg_KV* other) {
+  void UnsafeArenaSwap(CompleteMapMsg_KV* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -1228,17 +1266,17 @@ class MapResultMsg_KV PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline MapResultMsg_KV* New() const final {
-    return CreateMaybeMessage<MapResultMsg_KV>(nullptr);
+  inline CompleteMapMsg_KV* New() const final {
+    return CreateMaybeMessage<CompleteMapMsg_KV>(nullptr);
   }
 
-  MapResultMsg_KV* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<MapResultMsg_KV>(arena);
+  CompleteMapMsg_KV* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CompleteMapMsg_KV>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const MapResultMsg_KV& from);
-  void MergeFrom(const MapResultMsg_KV& from);
+  void CopyFrom(const CompleteMapMsg_KV& from);
+  void MergeFrom(const CompleteMapMsg_KV& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1252,13 +1290,13 @@ class MapResultMsg_KV PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(MapResultMsg_KV* other);
+  void InternalSwap(CompleteMapMsg_KV* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "mapreduce.MapResultMsg.KV";
+    return "tmapreduce.CompleteMapMsg.KV";
   }
   protected:
-  explicit MapResultMsg_KV(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit CompleteMapMsg_KV(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1331,7 +1369,7 @@ class MapResultMsg_KV PROTOBUF_FINAL :
   std::string* _internal_mutable_value();
   public:
 
-  // @@protoc_insertion_point(class_scope:mapreduce.MapResultMsg.KV)
+  // @@protoc_insertion_point(class_scope:tmapreduce.CompleteMapMsg.KV)
  private:
   class _Internal;
 
@@ -1345,23 +1383,23 @@ class MapResultMsg_KV PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
-class MapResultMsg PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:mapreduce.MapResultMsg) */ {
+class CompleteMapMsg PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tmapreduce.CompleteMapMsg) */ {
  public:
-  inline MapResultMsg() : MapResultMsg(nullptr) {};
-  virtual ~MapResultMsg();
+  inline CompleteMapMsg() : CompleteMapMsg(nullptr) {};
+  virtual ~CompleteMapMsg();
 
-  MapResultMsg(const MapResultMsg& from);
-  MapResultMsg(MapResultMsg&& from) noexcept
-    : MapResultMsg() {
+  CompleteMapMsg(const CompleteMapMsg& from);
+  CompleteMapMsg(CompleteMapMsg&& from) noexcept
+    : CompleteMapMsg() {
     *this = ::std::move(from);
   }
 
-  inline MapResultMsg& operator=(const MapResultMsg& from) {
+  inline CompleteMapMsg& operator=(const CompleteMapMsg& from) {
     CopyFrom(from);
     return *this;
   }
-  inline MapResultMsg& operator=(MapResultMsg&& from) noexcept {
+  inline CompleteMapMsg& operator=(CompleteMapMsg&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1379,20 +1417,20 @@ class MapResultMsg PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const MapResultMsg& default_instance();
+  static const CompleteMapMsg& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const MapResultMsg* internal_default_instance() {
-    return reinterpret_cast<const MapResultMsg*>(
-               &_MapResultMsg_default_instance_);
+  static inline const CompleteMapMsg* internal_default_instance() {
+    return reinterpret_cast<const CompleteMapMsg*>(
+               &_CompleteMapMsg_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     7;
 
-  friend void swap(MapResultMsg& a, MapResultMsg& b) {
+  friend void swap(CompleteMapMsg& a, CompleteMapMsg& b) {
     a.Swap(&b);
   }
-  inline void Swap(MapResultMsg* other) {
+  inline void Swap(CompleteMapMsg* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -1400,7 +1438,7 @@ class MapResultMsg PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(MapResultMsg* other) {
+  void UnsafeArenaSwap(CompleteMapMsg* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -1408,17 +1446,17 @@ class MapResultMsg PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline MapResultMsg* New() const final {
-    return CreateMaybeMessage<MapResultMsg>(nullptr);
+  inline CompleteMapMsg* New() const final {
+    return CreateMaybeMessage<CompleteMapMsg>(nullptr);
   }
 
-  MapResultMsg* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<MapResultMsg>(arena);
+  CompleteMapMsg* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CompleteMapMsg>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const MapResultMsg& from);
-  void MergeFrom(const MapResultMsg& from);
+  void CopyFrom(const CompleteMapMsg& from);
+  void MergeFrom(const CompleteMapMsg& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1432,13 +1470,13 @@ class MapResultMsg PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(MapResultMsg* other);
+  void InternalSwap(CompleteMapMsg* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "mapreduce.MapResultMsg";
+    return "tmapreduce.CompleteMapMsg";
   }
   protected:
-  explicit MapResultMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit CompleteMapMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1455,7 +1493,7 @@ class MapResultMsg PROTOBUF_FINAL :
 
   // nested types ----------------------------------------------------
 
-  typedef MapResultMsg_KV KV;
+  typedef CompleteMapMsg_KV KV;
 
   // accessors -------------------------------------------------------
 
@@ -1466,22 +1504,22 @@ class MapResultMsg PROTOBUF_FINAL :
     kWorkerIdFieldNumber = 3,
     kStateFieldNumber = 4,
   };
-  // repeated .mapreduce.MapResultMsg.KV map_result = 5;
+  // repeated .tmapreduce.CompleteMapMsg.KV map_result = 5;
   int map_result_size() const;
   private:
   int _internal_map_result_size() const;
   public:
   void clear_map_result();
-  ::mapreduce::MapResultMsg_KV* mutable_map_result(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::mapreduce::MapResultMsg_KV >*
+  ::tmapreduce::CompleteMapMsg_KV* mutable_map_result(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tmapreduce::CompleteMapMsg_KV >*
       mutable_map_result();
   private:
-  const ::mapreduce::MapResultMsg_KV& _internal_map_result(int index) const;
-  ::mapreduce::MapResultMsg_KV* _internal_add_map_result();
+  const ::tmapreduce::CompleteMapMsg_KV& _internal_map_result(int index) const;
+  ::tmapreduce::CompleteMapMsg_KV* _internal_add_map_result();
   public:
-  const ::mapreduce::MapResultMsg_KV& map_result(int index) const;
-  ::mapreduce::MapResultMsg_KV* add_map_result();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::mapreduce::MapResultMsg_KV >&
+  const ::tmapreduce::CompleteMapMsg_KV& map_result(int index) const;
+  ::tmapreduce::CompleteMapMsg_KV* add_map_result();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tmapreduce::CompleteMapMsg_KV >&
       map_result() const;
 
   // uint32 job_id = 1;
@@ -1511,23 +1549,23 @@ class MapResultMsg PROTOBUF_FINAL :
   void _internal_set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // .mapreduce.WorkerState state = 4;
+  // .tmapreduce.WorkerState state = 4;
   void clear_state();
-  ::mapreduce::WorkerState state() const;
-  void set_state(::mapreduce::WorkerState value);
+  ::tmapreduce::WorkerState state() const;
+  void set_state(::tmapreduce::WorkerState value);
   private:
-  ::mapreduce::WorkerState _internal_state() const;
-  void _internal_set_state(::mapreduce::WorkerState value);
+  ::tmapreduce::WorkerState _internal_state() const;
+  void _internal_set_state(::tmapreduce::WorkerState value);
   public:
 
-  // @@protoc_insertion_point(class_scope:mapreduce.MapResultMsg)
+  // @@protoc_insertion_point(class_scope:tmapreduce.CompleteMapMsg)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::mapreduce::MapResultMsg_KV > map_result_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tmapreduce::CompleteMapMsg_KV > map_result_;
   ::PROTOBUF_NAMESPACE_ID::uint32 job_id_;
   ::PROTOBUF_NAMESPACE_ID::uint32 subjob_id_;
   ::PROTOBUF_NAMESPACE_ID::uint32 worker_id_;
@@ -1537,23 +1575,23 @@ class MapResultMsg PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
-class ReduceResultMsg PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:mapreduce.ReduceResultMsg) */ {
+class CompleteReduceMsg PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tmapreduce.CompleteReduceMsg) */ {
  public:
-  inline ReduceResultMsg() : ReduceResultMsg(nullptr) {};
-  virtual ~ReduceResultMsg();
+  inline CompleteReduceMsg() : CompleteReduceMsg(nullptr) {};
+  virtual ~CompleteReduceMsg();
 
-  ReduceResultMsg(const ReduceResultMsg& from);
-  ReduceResultMsg(ReduceResultMsg&& from) noexcept
-    : ReduceResultMsg() {
+  CompleteReduceMsg(const CompleteReduceMsg& from);
+  CompleteReduceMsg(CompleteReduceMsg&& from) noexcept
+    : CompleteReduceMsg() {
     *this = ::std::move(from);
   }
 
-  inline ReduceResultMsg& operator=(const ReduceResultMsg& from) {
+  inline CompleteReduceMsg& operator=(const CompleteReduceMsg& from) {
     CopyFrom(from);
     return *this;
   }
-  inline ReduceResultMsg& operator=(ReduceResultMsg&& from) noexcept {
+  inline CompleteReduceMsg& operator=(CompleteReduceMsg&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1571,20 +1609,20 @@ class ReduceResultMsg PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const ReduceResultMsg& default_instance();
+  static const CompleteReduceMsg& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const ReduceResultMsg* internal_default_instance() {
-    return reinterpret_cast<const ReduceResultMsg*>(
-               &_ReduceResultMsg_default_instance_);
+  static inline const CompleteReduceMsg* internal_default_instance() {
+    return reinterpret_cast<const CompleteReduceMsg*>(
+               &_CompleteReduceMsg_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     8;
 
-  friend void swap(ReduceResultMsg& a, ReduceResultMsg& b) {
+  friend void swap(CompleteReduceMsg& a, CompleteReduceMsg& b) {
     a.Swap(&b);
   }
-  inline void Swap(ReduceResultMsg* other) {
+  inline void Swap(CompleteReduceMsg* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -1592,7 +1630,7 @@ class ReduceResultMsg PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(ReduceResultMsg* other) {
+  void UnsafeArenaSwap(CompleteReduceMsg* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -1600,17 +1638,17 @@ class ReduceResultMsg PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline ReduceResultMsg* New() const final {
-    return CreateMaybeMessage<ReduceResultMsg>(nullptr);
+  inline CompleteReduceMsg* New() const final {
+    return CreateMaybeMessage<CompleteReduceMsg>(nullptr);
   }
 
-  ReduceResultMsg* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<ReduceResultMsg>(arena);
+  CompleteReduceMsg* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CompleteReduceMsg>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const ReduceResultMsg& from);
-  void MergeFrom(const ReduceResultMsg& from);
+  void CopyFrom(const CompleteReduceMsg& from);
+  void MergeFrom(const CompleteReduceMsg& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1624,13 +1662,13 @@ class ReduceResultMsg PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ReduceResultMsg* other);
+  void InternalSwap(CompleteReduceMsg* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "mapreduce.ReduceResultMsg";
+    return "tmapreduce.CompleteReduceMsg";
   }
   protected:
-  explicit ReduceResultMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit CompleteReduceMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1707,16 +1745,16 @@ class ReduceResultMsg PROTOBUF_FINAL :
   void _internal_set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // .mapreduce.WorkerState state = 4;
+  // .tmapreduce.WorkerState state = 4;
   void clear_state();
-  ::mapreduce::WorkerState state() const;
-  void set_state(::mapreduce::WorkerState value);
+  ::tmapreduce::WorkerState state() const;
+  void set_state(::tmapreduce::WorkerState value);
   private:
-  ::mapreduce::WorkerState _internal_state() const;
-  void _internal_set_state(::mapreduce::WorkerState value);
+  ::tmapreduce::WorkerState _internal_state() const;
+  void _internal_set_state(::tmapreduce::WorkerState value);
   public:
 
-  // @@protoc_insertion_point(class_scope:mapreduce.ReduceResultMsg)
+  // @@protoc_insertion_point(class_scope:tmapreduce.CompleteReduceMsg)
  private:
   class _Internal;
 
@@ -1734,7 +1772,7 @@ class ReduceResultMsg PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class GetResultMsg PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:mapreduce.GetResultMsg) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tmapreduce.GetResultMsg) */ {
  public:
   inline GetResultMsg() : GetResultMsg(nullptr) {};
   virtual ~GetResultMsg();
@@ -1823,7 +1861,7 @@ class GetResultMsg PROTOBUF_FINAL :
   void InternalSwap(GetResultMsg* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "mapreduce.GetResultMsg";
+    return "tmapreduce.GetResultMsg";
   }
   protected:
   explicit GetResultMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1846,8 +1884,18 @@ class GetResultMsg PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kJobSecretFieldNumber = 2,
     kJobIdFieldNumber = 1,
   };
+  // uint64 job_secret = 2;
+  void clear_job_secret();
+  ::PROTOBUF_NAMESPACE_ID::uint64 job_secret() const;
+  void set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_job_secret() const;
+  void _internal_set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
   // uint32 job_id = 1;
   void clear_job_id();
   ::PROTOBUF_NAMESPACE_ID::uint32 job_id() const;
@@ -1857,13 +1905,14 @@ class GetResultMsg PROTOBUF_FINAL :
   void _internal_set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:mapreduce.GetResultMsg)
+  // @@protoc_insertion_point(class_scope:tmapreduce.GetResultMsg)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 job_secret_;
   ::PROTOBUF_NAMESPACE_ID::uint32 job_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_master_5fservice_2eproto;
@@ -1871,7 +1920,7 @@ class GetResultMsg PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class GetResultReplyMsg PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:mapreduce.GetResultReplyMsg) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tmapreduce.GetResultReplyMsg) */ {
  public:
   inline GetResultReplyMsg() : GetResultReplyMsg(nullptr) {};
   virtual ~GetResultReplyMsg();
@@ -1960,7 +2009,7 @@ class GetResultReplyMsg PROTOBUF_FINAL :
   void InternalSwap(GetResultReplyMsg* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "mapreduce.GetResultReplyMsg";
+    return "tmapreduce.GetResultReplyMsg";
   }
   protected:
   explicit GetResultReplyMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -2010,25 +2059,25 @@ class GetResultReplyMsg PROTOBUF_FINAL :
   std::string* _internal_add_results();
   public:
 
-  // .mapreduce.MasterReplyMsg reply = 1;
+  // .tmapreduce.MasterReplyMsg reply = 1;
   bool has_reply() const;
   private:
   bool _internal_has_reply() const;
   public:
   void clear_reply();
-  const ::mapreduce::MasterReplyMsg& reply() const;
-  ::mapreduce::MasterReplyMsg* release_reply();
-  ::mapreduce::MasterReplyMsg* mutable_reply();
-  void set_allocated_reply(::mapreduce::MasterReplyMsg* reply);
+  const ::tmapreduce::MasterReplyMsg& reply() const;
+  ::tmapreduce::MasterReplyMsg* release_reply();
+  ::tmapreduce::MasterReplyMsg* mutable_reply();
+  void set_allocated_reply(::tmapreduce::MasterReplyMsg* reply);
   private:
-  const ::mapreduce::MasterReplyMsg& _internal_reply() const;
-  ::mapreduce::MasterReplyMsg* _internal_mutable_reply();
+  const ::tmapreduce::MasterReplyMsg& _internal_reply() const;
+  ::tmapreduce::MasterReplyMsg* _internal_mutable_reply();
   public:
   void unsafe_arena_set_allocated_reply(
-      ::mapreduce::MasterReplyMsg* reply);
-  ::mapreduce::MasterReplyMsg* unsafe_arena_release_reply();
+      ::tmapreduce::MasterReplyMsg* reply);
+  ::tmapreduce::MasterReplyMsg* unsafe_arena_release_reply();
 
-  // @@protoc_insertion_point(class_scope:mapreduce.GetResultReplyMsg)
+  // @@protoc_insertion_point(class_scope:tmapreduce.GetResultReplyMsg)
  private:
   class _Internal;
 
@@ -2036,7 +2085,7 @@ class GetResultReplyMsg PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> results_;
-  ::mapreduce::MasterReplyMsg* reply_;
+  ::tmapreduce::MasterReplyMsg* reply_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_master_5fservice_2eproto;
 };
@@ -2056,24 +2105,24 @@ class MasterService : public ::PROTOBUF_NAMESPACE_ID::Service {
   static const ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor* descriptor();
 
   virtual void Register(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                       const ::mapreduce::RegisterMsg* request,
-                       ::mapreduce::RegisterReplyMsg* response,
+                       const ::tmapreduce::RegisterMsg* request,
+                       ::tmapreduce::RegisterReplyMsg* response,
                        ::google::protobuf::Closure* done);
   virtual void Launch(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                       const ::mapreduce::JobMsg* request,
-                       ::mapreduce::LaunchReplyMsg* response,
+                       const ::tmapreduce::LaunchMsg* request,
+                       ::tmapreduce::LaunchReplyMsg* response,
                        ::google::protobuf::Closure* done);
   virtual void CompleteMap(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                       const ::mapreduce::MapResultMsg* request,
-                       ::mapreduce::MasterReplyMsg* response,
+                       const ::tmapreduce::CompleteMapMsg* request,
+                       ::tmapreduce::MasterReplyMsg* response,
                        ::google::protobuf::Closure* done);
   virtual void CompleteReduce(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                       const ::mapreduce::ReduceResultMsg* request,
-                       ::mapreduce::MasterReplyMsg* response,
+                       const ::tmapreduce::CompleteReduceMsg* request,
+                       ::tmapreduce::MasterReplyMsg* response,
                        ::google::protobuf::Closure* done);
   virtual void GetResult(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                       const ::mapreduce::GetResultMsg* request,
-                       ::mapreduce::GetResultReplyMsg* response,
+                       const ::tmapreduce::GetResultMsg* request,
+                       ::tmapreduce::GetResultReplyMsg* response,
                        ::google::protobuf::Closure* done);
 
   // implements Service ----------------------------------------------
@@ -2105,24 +2154,24 @@ class MasterService_Stub : public MasterService {
   // implements MasterService ------------------------------------------
 
   void Register(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                       const ::mapreduce::RegisterMsg* request,
-                       ::mapreduce::RegisterReplyMsg* response,
+                       const ::tmapreduce::RegisterMsg* request,
+                       ::tmapreduce::RegisterReplyMsg* response,
                        ::google::protobuf::Closure* done);
   void Launch(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                       const ::mapreduce::JobMsg* request,
-                       ::mapreduce::LaunchReplyMsg* response,
+                       const ::tmapreduce::LaunchMsg* request,
+                       ::tmapreduce::LaunchReplyMsg* response,
                        ::google::protobuf::Closure* done);
   void CompleteMap(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                       const ::mapreduce::MapResultMsg* request,
-                       ::mapreduce::MasterReplyMsg* response,
+                       const ::tmapreduce::CompleteMapMsg* request,
+                       ::tmapreduce::MasterReplyMsg* response,
                        ::google::protobuf::Closure* done);
   void CompleteReduce(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                       const ::mapreduce::ReduceResultMsg* request,
-                       ::mapreduce::MasterReplyMsg* response,
+                       const ::tmapreduce::CompleteReduceMsg* request,
+                       ::tmapreduce::MasterReplyMsg* response,
                        ::google::protobuf::Closure* done);
   void GetResult(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                       const ::mapreduce::GetResultMsg* request,
-                       ::mapreduce::GetResultReplyMsg* response,
+                       const ::tmapreduce::GetResultMsg* request,
+                       ::tmapreduce::GetResultReplyMsg* response,
                        ::google::protobuf::Closure* done);
  private:
   ::PROTOBUF_NAMESPACE_ID::RpcChannel* channel_;
@@ -2150,7 +2199,7 @@ inline bool MasterReplyMsg::_internal_ok() const {
   return ok_;
 }
 inline bool MasterReplyMsg::ok() const {
-  // @@protoc_insertion_point(field_get:mapreduce.MasterReplyMsg.ok)
+  // @@protoc_insertion_point(field_get:tmapreduce.MasterReplyMsg.ok)
   return _internal_ok();
 }
 inline void MasterReplyMsg::_internal_set_ok(bool value) {
@@ -2159,7 +2208,7 @@ inline void MasterReplyMsg::_internal_set_ok(bool value) {
 }
 inline void MasterReplyMsg::set_ok(bool value) {
   _internal_set_ok(value);
-  // @@protoc_insertion_point(field_set:mapreduce.MasterReplyMsg.ok)
+  // @@protoc_insertion_point(field_set:tmapreduce.MasterReplyMsg.ok)
 }
 
 // string msg = 2;
@@ -2167,15 +2216,15 @@ inline void MasterReplyMsg::clear_msg() {
   msg_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& MasterReplyMsg::msg() const {
-  // @@protoc_insertion_point(field_get:mapreduce.MasterReplyMsg.msg)
+  // @@protoc_insertion_point(field_get:tmapreduce.MasterReplyMsg.msg)
   return _internal_msg();
 }
 inline void MasterReplyMsg::set_msg(const std::string& value) {
   _internal_set_msg(value);
-  // @@protoc_insertion_point(field_set:mapreduce.MasterReplyMsg.msg)
+  // @@protoc_insertion_point(field_set:tmapreduce.MasterReplyMsg.msg)
 }
 inline std::string* MasterReplyMsg::mutable_msg() {
-  // @@protoc_insertion_point(field_mutable:mapreduce.MasterReplyMsg.msg)
+  // @@protoc_insertion_point(field_mutable:tmapreduce.MasterReplyMsg.msg)
   return _internal_mutable_msg();
 }
 inline const std::string& MasterReplyMsg::_internal_msg() const {
@@ -2189,28 +2238,28 @@ inline void MasterReplyMsg::set_msg(std::string&& value) {
   
   msg_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:mapreduce.MasterReplyMsg.msg)
+  // @@protoc_insertion_point(field_set_rvalue:tmapreduce.MasterReplyMsg.msg)
 }
 inline void MasterReplyMsg::set_msg(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   msg_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:mapreduce.MasterReplyMsg.msg)
+  // @@protoc_insertion_point(field_set_char:tmapreduce.MasterReplyMsg.msg)
 }
 inline void MasterReplyMsg::set_msg(const char* value,
     size_t size) {
   
   msg_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:mapreduce.MasterReplyMsg.msg)
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.MasterReplyMsg.msg)
 }
 inline std::string* MasterReplyMsg::_internal_mutable_msg() {
   
   return msg_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* MasterReplyMsg::release_msg() {
-  // @@protoc_insertion_point(field_release:mapreduce.MasterReplyMsg.msg)
+  // @@protoc_insertion_point(field_release:tmapreduce.MasterReplyMsg.msg)
   return msg_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void MasterReplyMsg::set_allocated_msg(std::string* msg) {
@@ -2221,10 +2270,10 @@ inline void MasterReplyMsg::set_allocated_msg(std::string* msg) {
   }
   msg_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), msg,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:mapreduce.MasterReplyMsg.msg)
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.MasterReplyMsg.msg)
 }
 inline std::string* MasterReplyMsg::unsafe_arena_release_msg() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:mapreduce.MasterReplyMsg.msg)
+  // @@protoc_insertion_point(field_unsafe_arena_release:tmapreduce.MasterReplyMsg.msg)
   GOOGLE_DCHECK(GetArena() != nullptr);
   
   return msg_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
@@ -2240,7 +2289,88 @@ inline void MasterReplyMsg::unsafe_arena_set_allocated_msg(
   }
   msg_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       msg, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:mapreduce.MasterReplyMsg.msg)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.MasterReplyMsg.msg)
+}
+
+// string redirect = 3;
+inline void MasterReplyMsg::clear_redirect() {
+  redirect_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& MasterReplyMsg::redirect() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.MasterReplyMsg.redirect)
+  return _internal_redirect();
+}
+inline void MasterReplyMsg::set_redirect(const std::string& value) {
+  _internal_set_redirect(value);
+  // @@protoc_insertion_point(field_set:tmapreduce.MasterReplyMsg.redirect)
+}
+inline std::string* MasterReplyMsg::mutable_redirect() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.MasterReplyMsg.redirect)
+  return _internal_mutable_redirect();
+}
+inline const std::string& MasterReplyMsg::_internal_redirect() const {
+  return redirect_.Get();
+}
+inline void MasterReplyMsg::_internal_set_redirect(const std::string& value) {
+  
+  redirect_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void MasterReplyMsg::set_redirect(std::string&& value) {
+  
+  redirect_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:tmapreduce.MasterReplyMsg.redirect)
+}
+inline void MasterReplyMsg::set_redirect(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  redirect_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:tmapreduce.MasterReplyMsg.redirect)
+}
+inline void MasterReplyMsg::set_redirect(const char* value,
+    size_t size) {
+  
+  redirect_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.MasterReplyMsg.redirect)
+}
+inline std::string* MasterReplyMsg::_internal_mutable_redirect() {
+  
+  return redirect_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* MasterReplyMsg::release_redirect() {
+  // @@protoc_insertion_point(field_release:tmapreduce.MasterReplyMsg.redirect)
+  return redirect_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void MasterReplyMsg::set_allocated_redirect(std::string* redirect) {
+  if (redirect != nullptr) {
+    
+  } else {
+    
+  }
+  redirect_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), redirect,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.MasterReplyMsg.redirect)
+}
+inline std::string* MasterReplyMsg::unsafe_arena_release_redirect() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tmapreduce.MasterReplyMsg.redirect)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return redirect_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void MasterReplyMsg::unsafe_arena_set_allocated_redirect(
+    std::string* redirect) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (redirect != nullptr) {
+    
+  } else {
+    
+  }
+  redirect_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      redirect, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.MasterReplyMsg.redirect)
 }
 
 // -------------------------------------------------------------------
@@ -2252,15 +2382,15 @@ inline void RegisterMsg::clear_name() {
   name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline const std::string& RegisterMsg::name() const {
-  // @@protoc_insertion_point(field_get:mapreduce.RegisterMsg.name)
+  // @@protoc_insertion_point(field_get:tmapreduce.RegisterMsg.name)
   return _internal_name();
 }
 inline void RegisterMsg::set_name(const std::string& value) {
   _internal_set_name(value);
-  // @@protoc_insertion_point(field_set:mapreduce.RegisterMsg.name)
+  // @@protoc_insertion_point(field_set:tmapreduce.RegisterMsg.name)
 }
 inline std::string* RegisterMsg::mutable_name() {
-  // @@protoc_insertion_point(field_mutable:mapreduce.RegisterMsg.name)
+  // @@protoc_insertion_point(field_mutable:tmapreduce.RegisterMsg.name)
   return _internal_mutable_name();
 }
 inline const std::string& RegisterMsg::_internal_name() const {
@@ -2274,28 +2404,28 @@ inline void RegisterMsg::set_name(std::string&& value) {
   
   name_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:mapreduce.RegisterMsg.name)
+  // @@protoc_insertion_point(field_set_rvalue:tmapreduce.RegisterMsg.name)
 }
 inline void RegisterMsg::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:mapreduce.RegisterMsg.name)
+  // @@protoc_insertion_point(field_set_char:tmapreduce.RegisterMsg.name)
 }
 inline void RegisterMsg::set_name(const char* value,
     size_t size) {
   
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:mapreduce.RegisterMsg.name)
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.RegisterMsg.name)
 }
 inline std::string* RegisterMsg::_internal_mutable_name() {
   
   return name_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline std::string* RegisterMsg::release_name() {
-  // @@protoc_insertion_point(field_release:mapreduce.RegisterMsg.name)
+  // @@protoc_insertion_point(field_release:tmapreduce.RegisterMsg.name)
   return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void RegisterMsg::set_allocated_name(std::string* name) {
@@ -2306,10 +2436,10 @@ inline void RegisterMsg::set_allocated_name(std::string* name) {
   }
   name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:mapreduce.RegisterMsg.name)
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.RegisterMsg.name)
 }
 inline std::string* RegisterMsg::unsafe_arena_release_name() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:mapreduce.RegisterMsg.name)
+  // @@protoc_insertion_point(field_unsafe_arena_release:tmapreduce.RegisterMsg.name)
   GOOGLE_DCHECK(GetArena() != nullptr);
   
   return name_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
@@ -2325,7 +2455,7 @@ inline void RegisterMsg::unsafe_arena_set_allocated_name(
   }
   name_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       name, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:mapreduce.RegisterMsg.name)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.RegisterMsg.name)
 }
 
 // uint32 port = 2;
@@ -2336,7 +2466,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 RegisterMsg::_internal_port() const {
   return port_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 RegisterMsg::port() const {
-  // @@protoc_insertion_point(field_get:mapreduce.RegisterMsg.port)
+  // @@protoc_insertion_point(field_get:tmapreduce.RegisterMsg.port)
   return _internal_port();
 }
 inline void RegisterMsg::_internal_set_port(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -2345,14 +2475,14 @@ inline void RegisterMsg::_internal_set_port(::PROTOBUF_NAMESPACE_ID::uint32 valu
 }
 inline void RegisterMsg::set_port(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_port(value);
-  // @@protoc_insertion_point(field_set:mapreduce.RegisterMsg.port)
+  // @@protoc_insertion_point(field_set:tmapreduce.RegisterMsg.port)
 }
 
 // -------------------------------------------------------------------
 
 // RegisterReplyMsg
 
-// .mapreduce.MasterReplyMsg reply = 1;
+// .tmapreduce.MasterReplyMsg reply = 1;
 inline bool RegisterReplyMsg::_internal_has_reply() const {
   return this != internal_default_instance() && reply_ != nullptr;
 }
@@ -2365,17 +2495,17 @@ inline void RegisterReplyMsg::clear_reply() {
   }
   reply_ = nullptr;
 }
-inline const ::mapreduce::MasterReplyMsg& RegisterReplyMsg::_internal_reply() const {
-  const ::mapreduce::MasterReplyMsg* p = reply_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::mapreduce::MasterReplyMsg*>(
-      &::mapreduce::_MasterReplyMsg_default_instance_);
+inline const ::tmapreduce::MasterReplyMsg& RegisterReplyMsg::_internal_reply() const {
+  const ::tmapreduce::MasterReplyMsg* p = reply_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::tmapreduce::MasterReplyMsg*>(
+      &::tmapreduce::_MasterReplyMsg_default_instance_);
 }
-inline const ::mapreduce::MasterReplyMsg& RegisterReplyMsg::reply() const {
-  // @@protoc_insertion_point(field_get:mapreduce.RegisterReplyMsg.reply)
+inline const ::tmapreduce::MasterReplyMsg& RegisterReplyMsg::reply() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.RegisterReplyMsg.reply)
   return _internal_reply();
 }
 inline void RegisterReplyMsg::unsafe_arena_set_allocated_reply(
-    ::mapreduce::MasterReplyMsg* reply) {
+    ::tmapreduce::MasterReplyMsg* reply) {
   if (GetArena() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(reply_);
   }
@@ -2385,35 +2515,35 @@ inline void RegisterReplyMsg::unsafe_arena_set_allocated_reply(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:mapreduce.RegisterReplyMsg.reply)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.RegisterReplyMsg.reply)
 }
-inline ::mapreduce::MasterReplyMsg* RegisterReplyMsg::release_reply() {
+inline ::tmapreduce::MasterReplyMsg* RegisterReplyMsg::release_reply() {
   auto temp = unsafe_arena_release_reply();
   if (GetArena() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline ::mapreduce::MasterReplyMsg* RegisterReplyMsg::unsafe_arena_release_reply() {
-  // @@protoc_insertion_point(field_release:mapreduce.RegisterReplyMsg.reply)
+inline ::tmapreduce::MasterReplyMsg* RegisterReplyMsg::unsafe_arena_release_reply() {
+  // @@protoc_insertion_point(field_release:tmapreduce.RegisterReplyMsg.reply)
   
-  ::mapreduce::MasterReplyMsg* temp = reply_;
+  ::tmapreduce::MasterReplyMsg* temp = reply_;
   reply_ = nullptr;
   return temp;
 }
-inline ::mapreduce::MasterReplyMsg* RegisterReplyMsg::_internal_mutable_reply() {
+inline ::tmapreduce::MasterReplyMsg* RegisterReplyMsg::_internal_mutable_reply() {
   
   if (reply_ == nullptr) {
-    auto* p = CreateMaybeMessage<::mapreduce::MasterReplyMsg>(GetArena());
+    auto* p = CreateMaybeMessage<::tmapreduce::MasterReplyMsg>(GetArena());
     reply_ = p;
   }
   return reply_;
 }
-inline ::mapreduce::MasterReplyMsg* RegisterReplyMsg::mutable_reply() {
-  // @@protoc_insertion_point(field_mutable:mapreduce.RegisterReplyMsg.reply)
+inline ::tmapreduce::MasterReplyMsg* RegisterReplyMsg::mutable_reply() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.RegisterReplyMsg.reply)
   return _internal_mutable_reply();
 }
-inline void RegisterReplyMsg::set_allocated_reply(::mapreduce::MasterReplyMsg* reply) {
+inline void RegisterReplyMsg::set_allocated_reply(::tmapreduce::MasterReplyMsg* reply) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
     delete reply_;
@@ -2430,7 +2560,7 @@ inline void RegisterReplyMsg::set_allocated_reply(::mapreduce::MasterReplyMsg* r
     
   }
   reply_ = reply;
-  // @@protoc_insertion_point(field_set_allocated:mapreduce.RegisterReplyMsg.reply)
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.RegisterReplyMsg.reply)
 }
 
 // uint32 worker_id = 2;
@@ -2441,7 +2571,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 RegisterReplyMsg::_internal_worker_id() c
   return worker_id_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 RegisterReplyMsg::worker_id() const {
-  // @@protoc_insertion_point(field_get:mapreduce.RegisterReplyMsg.worker_id)
+  // @@protoc_insertion_point(field_get:tmapreduce.RegisterReplyMsg.worker_id)
   return _internal_worker_id();
 }
 inline void RegisterReplyMsg::_internal_set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -2450,7 +2580,7 @@ inline void RegisterReplyMsg::_internal_set_worker_id(::PROTOBUF_NAMESPACE_ID::u
 }
 inline void RegisterReplyMsg::set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_worker_id(value);
-  // @@protoc_insertion_point(field_set:mapreduce.RegisterReplyMsg.worker_id)
+  // @@protoc_insertion_point(field_set:tmapreduce.RegisterReplyMsg.worker_id)
 }
 
 // uint32 master_id = 3;
@@ -2461,7 +2591,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 RegisterReplyMsg::_internal_master_id() c
   return master_id_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 RegisterReplyMsg::master_id() const {
-  // @@protoc_insertion_point(field_get:mapreduce.RegisterReplyMsg.master_id)
+  // @@protoc_insertion_point(field_get:tmapreduce.RegisterReplyMsg.master_id)
   return _internal_master_id();
 }
 inline void RegisterReplyMsg::_internal_set_master_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -2470,65 +2600,65 @@ inline void RegisterReplyMsg::_internal_set_master_id(::PROTOBUF_NAMESPACE_ID::u
 }
 inline void RegisterReplyMsg::set_master_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_master_id(value);
-  // @@protoc_insertion_point(field_set:mapreduce.RegisterReplyMsg.master_id)
+  // @@protoc_insertion_point(field_set:tmapreduce.RegisterReplyMsg.master_id)
 }
 
 // -------------------------------------------------------------------
 
-// JobMsg_KV
+// LaunchMsg_KV
 
 // string key = 1;
-inline void JobMsg_KV::clear_key() {
+inline void LaunchMsg_KV::clear_key() {
   key_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline const std::string& JobMsg_KV::key() const {
-  // @@protoc_insertion_point(field_get:mapreduce.JobMsg.KV.key)
+inline const std::string& LaunchMsg_KV::key() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.LaunchMsg.KV.key)
   return _internal_key();
 }
-inline void JobMsg_KV::set_key(const std::string& value) {
+inline void LaunchMsg_KV::set_key(const std::string& value) {
   _internal_set_key(value);
-  // @@protoc_insertion_point(field_set:mapreduce.JobMsg.KV.key)
+  // @@protoc_insertion_point(field_set:tmapreduce.LaunchMsg.KV.key)
 }
-inline std::string* JobMsg_KV::mutable_key() {
-  // @@protoc_insertion_point(field_mutable:mapreduce.JobMsg.KV.key)
+inline std::string* LaunchMsg_KV::mutable_key() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.LaunchMsg.KV.key)
   return _internal_mutable_key();
 }
-inline const std::string& JobMsg_KV::_internal_key() const {
+inline const std::string& LaunchMsg_KV::_internal_key() const {
   return key_.Get();
 }
-inline void JobMsg_KV::_internal_set_key(const std::string& value) {
+inline void LaunchMsg_KV::_internal_set_key(const std::string& value) {
   
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void JobMsg_KV::set_key(std::string&& value) {
+inline void LaunchMsg_KV::set_key(std::string&& value) {
   
   key_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:mapreduce.JobMsg.KV.key)
+  // @@protoc_insertion_point(field_set_rvalue:tmapreduce.LaunchMsg.KV.key)
 }
-inline void JobMsg_KV::set_key(const char* value) {
+inline void LaunchMsg_KV::set_key(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:mapreduce.JobMsg.KV.key)
+  // @@protoc_insertion_point(field_set_char:tmapreduce.LaunchMsg.KV.key)
 }
-inline void JobMsg_KV::set_key(const char* value,
+inline void LaunchMsg_KV::set_key(const char* value,
     size_t size) {
   
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:mapreduce.JobMsg.KV.key)
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.LaunchMsg.KV.key)
 }
-inline std::string* JobMsg_KV::_internal_mutable_key() {
+inline std::string* LaunchMsg_KV::_internal_mutable_key() {
   
   return key_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline std::string* JobMsg_KV::release_key() {
-  // @@protoc_insertion_point(field_release:mapreduce.JobMsg.KV.key)
+inline std::string* LaunchMsg_KV::release_key() {
+  // @@protoc_insertion_point(field_release:tmapreduce.LaunchMsg.KV.key)
   return key_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void JobMsg_KV::set_allocated_key(std::string* key) {
+inline void LaunchMsg_KV::set_allocated_key(std::string* key) {
   if (key != nullptr) {
     
   } else {
@@ -2536,16 +2666,16 @@ inline void JobMsg_KV::set_allocated_key(std::string* key) {
   }
   key_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), key,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:mapreduce.JobMsg.KV.key)
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.LaunchMsg.KV.key)
 }
-inline std::string* JobMsg_KV::unsafe_arena_release_key() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:mapreduce.JobMsg.KV.key)
+inline std::string* LaunchMsg_KV::unsafe_arena_release_key() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tmapreduce.LaunchMsg.KV.key)
   GOOGLE_DCHECK(GetArena() != nullptr);
   
   return key_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
-inline void JobMsg_KV::unsafe_arena_set_allocated_key(
+inline void LaunchMsg_KV::unsafe_arena_set_allocated_key(
     std::string* key) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (key != nullptr) {
@@ -2555,61 +2685,61 @@ inline void JobMsg_KV::unsafe_arena_set_allocated_key(
   }
   key_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       key, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:mapreduce.JobMsg.KV.key)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.LaunchMsg.KV.key)
 }
 
 // string value = 2;
-inline void JobMsg_KV::clear_value() {
+inline void LaunchMsg_KV::clear_value() {
   value_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline const std::string& JobMsg_KV::value() const {
-  // @@protoc_insertion_point(field_get:mapreduce.JobMsg.KV.value)
+inline const std::string& LaunchMsg_KV::value() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.LaunchMsg.KV.value)
   return _internal_value();
 }
-inline void JobMsg_KV::set_value(const std::string& value) {
+inline void LaunchMsg_KV::set_value(const std::string& value) {
   _internal_set_value(value);
-  // @@protoc_insertion_point(field_set:mapreduce.JobMsg.KV.value)
+  // @@protoc_insertion_point(field_set:tmapreduce.LaunchMsg.KV.value)
 }
-inline std::string* JobMsg_KV::mutable_value() {
-  // @@protoc_insertion_point(field_mutable:mapreduce.JobMsg.KV.value)
+inline std::string* LaunchMsg_KV::mutable_value() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.LaunchMsg.KV.value)
   return _internal_mutable_value();
 }
-inline const std::string& JobMsg_KV::_internal_value() const {
+inline const std::string& LaunchMsg_KV::_internal_value() const {
   return value_.Get();
 }
-inline void JobMsg_KV::_internal_set_value(const std::string& value) {
+inline void LaunchMsg_KV::_internal_set_value(const std::string& value) {
   
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void JobMsg_KV::set_value(std::string&& value) {
+inline void LaunchMsg_KV::set_value(std::string&& value) {
   
   value_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:mapreduce.JobMsg.KV.value)
+  // @@protoc_insertion_point(field_set_rvalue:tmapreduce.LaunchMsg.KV.value)
 }
-inline void JobMsg_KV::set_value(const char* value) {
+inline void LaunchMsg_KV::set_value(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:mapreduce.JobMsg.KV.value)
+  // @@protoc_insertion_point(field_set_char:tmapreduce.LaunchMsg.KV.value)
 }
-inline void JobMsg_KV::set_value(const char* value,
+inline void LaunchMsg_KV::set_value(const char* value,
     size_t size) {
   
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:mapreduce.JobMsg.KV.value)
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.LaunchMsg.KV.value)
 }
-inline std::string* JobMsg_KV::_internal_mutable_value() {
+inline std::string* LaunchMsg_KV::_internal_mutable_value() {
   
   return value_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline std::string* JobMsg_KV::release_value() {
-  // @@protoc_insertion_point(field_release:mapreduce.JobMsg.KV.value)
+inline std::string* LaunchMsg_KV::release_value() {
+  // @@protoc_insertion_point(field_release:tmapreduce.LaunchMsg.KV.value)
   return value_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void JobMsg_KV::set_allocated_value(std::string* value) {
+inline void LaunchMsg_KV::set_allocated_value(std::string* value) {
   if (value != nullptr) {
     
   } else {
@@ -2617,16 +2747,16 @@ inline void JobMsg_KV::set_allocated_value(std::string* value) {
   }
   value_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:mapreduce.JobMsg.KV.value)
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.LaunchMsg.KV.value)
 }
-inline std::string* JobMsg_KV::unsafe_arena_release_value() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:mapreduce.JobMsg.KV.value)
+inline std::string* LaunchMsg_KV::unsafe_arena_release_value() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tmapreduce.LaunchMsg.KV.value)
   GOOGLE_DCHECK(GetArena() != nullptr);
   
   return value_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
-inline void JobMsg_KV::unsafe_arena_set_allocated_value(
+inline void LaunchMsg_KV::unsafe_arena_set_allocated_value(
     std::string* value) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (value != nullptr) {
@@ -2636,65 +2766,65 @@ inline void JobMsg_KV::unsafe_arena_set_allocated_value(
   }
   value_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       value, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:mapreduce.JobMsg.KV.value)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.LaunchMsg.KV.value)
 }
 
 // -------------------------------------------------------------------
 
-// JobMsg
+// LaunchMsg
 
 // string name = 1;
-inline void JobMsg::clear_name() {
+inline void LaunchMsg::clear_name() {
   name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline const std::string& JobMsg::name() const {
-  // @@protoc_insertion_point(field_get:mapreduce.JobMsg.name)
+inline const std::string& LaunchMsg::name() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.LaunchMsg.name)
   return _internal_name();
 }
-inline void JobMsg::set_name(const std::string& value) {
+inline void LaunchMsg::set_name(const std::string& value) {
   _internal_set_name(value);
-  // @@protoc_insertion_point(field_set:mapreduce.JobMsg.name)
+  // @@protoc_insertion_point(field_set:tmapreduce.LaunchMsg.name)
 }
-inline std::string* JobMsg::mutable_name() {
-  // @@protoc_insertion_point(field_mutable:mapreduce.JobMsg.name)
+inline std::string* LaunchMsg::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.LaunchMsg.name)
   return _internal_mutable_name();
 }
-inline const std::string& JobMsg::_internal_name() const {
+inline const std::string& LaunchMsg::_internal_name() const {
   return name_.Get();
 }
-inline void JobMsg::_internal_set_name(const std::string& value) {
+inline void LaunchMsg::_internal_set_name(const std::string& value) {
   
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void JobMsg::set_name(std::string&& value) {
+inline void LaunchMsg::set_name(std::string&& value) {
   
   name_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:mapreduce.JobMsg.name)
+  // @@protoc_insertion_point(field_set_rvalue:tmapreduce.LaunchMsg.name)
 }
-inline void JobMsg::set_name(const char* value) {
+inline void LaunchMsg::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:mapreduce.JobMsg.name)
+  // @@protoc_insertion_point(field_set_char:tmapreduce.LaunchMsg.name)
 }
-inline void JobMsg::set_name(const char* value,
+inline void LaunchMsg::set_name(const char* value,
     size_t size) {
   
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:mapreduce.JobMsg.name)
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.LaunchMsg.name)
 }
-inline std::string* JobMsg::_internal_mutable_name() {
+inline std::string* LaunchMsg::_internal_mutable_name() {
   
   return name_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline std::string* JobMsg::release_name() {
-  // @@protoc_insertion_point(field_release:mapreduce.JobMsg.name)
+inline std::string* LaunchMsg::release_name() {
+  // @@protoc_insertion_point(field_release:tmapreduce.LaunchMsg.name)
   return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void JobMsg::set_allocated_name(std::string* name) {
+inline void LaunchMsg::set_allocated_name(std::string* name) {
   if (name != nullptr) {
     
   } else {
@@ -2702,16 +2832,16 @@ inline void JobMsg::set_allocated_name(std::string* name) {
   }
   name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:mapreduce.JobMsg.name)
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.LaunchMsg.name)
 }
-inline std::string* JobMsg::unsafe_arena_release_name() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:mapreduce.JobMsg.name)
+inline std::string* LaunchMsg::unsafe_arena_release_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tmapreduce.LaunchMsg.name)
   GOOGLE_DCHECK(GetArena() != nullptr);
   
   return name_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
-inline void JobMsg::unsafe_arena_set_allocated_name(
+inline void LaunchMsg::unsafe_arena_set_allocated_name(
     std::string* name) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (name != nullptr) {
@@ -2721,61 +2851,61 @@ inline void JobMsg::unsafe_arena_set_allocated_name(
   }
   name_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       name, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:mapreduce.JobMsg.name)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.LaunchMsg.name)
 }
 
 // string type = 2;
-inline void JobMsg::clear_type() {
+inline void LaunchMsg::clear_type() {
   type_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline const std::string& JobMsg::type() const {
-  // @@protoc_insertion_point(field_get:mapreduce.JobMsg.type)
+inline const std::string& LaunchMsg::type() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.LaunchMsg.type)
   return _internal_type();
 }
-inline void JobMsg::set_type(const std::string& value) {
+inline void LaunchMsg::set_type(const std::string& value) {
   _internal_set_type(value);
-  // @@protoc_insertion_point(field_set:mapreduce.JobMsg.type)
+  // @@protoc_insertion_point(field_set:tmapreduce.LaunchMsg.type)
 }
-inline std::string* JobMsg::mutable_type() {
-  // @@protoc_insertion_point(field_mutable:mapreduce.JobMsg.type)
+inline std::string* LaunchMsg::mutable_type() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.LaunchMsg.type)
   return _internal_mutable_type();
 }
-inline const std::string& JobMsg::_internal_type() const {
+inline const std::string& LaunchMsg::_internal_type() const {
   return type_.Get();
 }
-inline void JobMsg::_internal_set_type(const std::string& value) {
+inline void LaunchMsg::_internal_set_type(const std::string& value) {
   
   type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void JobMsg::set_type(std::string&& value) {
+inline void LaunchMsg::set_type(std::string&& value) {
   
   type_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:mapreduce.JobMsg.type)
+  // @@protoc_insertion_point(field_set_rvalue:tmapreduce.LaunchMsg.type)
 }
-inline void JobMsg::set_type(const char* value) {
+inline void LaunchMsg::set_type(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:mapreduce.JobMsg.type)
+  // @@protoc_insertion_point(field_set_char:tmapreduce.LaunchMsg.type)
 }
-inline void JobMsg::set_type(const char* value,
+inline void LaunchMsg::set_type(const char* value,
     size_t size) {
   
   type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:mapreduce.JobMsg.type)
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.LaunchMsg.type)
 }
-inline std::string* JobMsg::_internal_mutable_type() {
+inline std::string* LaunchMsg::_internal_mutable_type() {
   
   return type_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline std::string* JobMsg::release_type() {
-  // @@protoc_insertion_point(field_release:mapreduce.JobMsg.type)
+inline std::string* LaunchMsg::release_type() {
+  // @@protoc_insertion_point(field_release:tmapreduce.LaunchMsg.type)
   return type_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void JobMsg::set_allocated_type(std::string* type) {
+inline void LaunchMsg::set_allocated_type(std::string* type) {
   if (type != nullptr) {
     
   } else {
@@ -2783,16 +2913,16 @@ inline void JobMsg::set_allocated_type(std::string* type) {
   }
   type_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), type,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:mapreduce.JobMsg.type)
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.LaunchMsg.type)
 }
-inline std::string* JobMsg::unsafe_arena_release_type() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:mapreduce.JobMsg.type)
+inline std::string* LaunchMsg::unsafe_arena_release_type() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tmapreduce.LaunchMsg.type)
   GOOGLE_DCHECK(GetArena() != nullptr);
   
   return type_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
-inline void JobMsg::unsafe_arena_set_allocated_type(
+inline void LaunchMsg::unsafe_arena_set_allocated_type(
     std::string* type) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (type != nullptr) {
@@ -2802,85 +2932,85 @@ inline void JobMsg::unsafe_arena_set_allocated_type(
   }
   type_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       type, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:mapreduce.JobMsg.type)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.LaunchMsg.type)
 }
 
 // uint32 mapper_num = 3;
-inline void JobMsg::clear_mapper_num() {
+inline void LaunchMsg::clear_mapper_num() {
   mapper_num_ = 0u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 JobMsg::_internal_mapper_num() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 LaunchMsg::_internal_mapper_num() const {
   return mapper_num_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 JobMsg::mapper_num() const {
-  // @@protoc_insertion_point(field_get:mapreduce.JobMsg.mapper_num)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 LaunchMsg::mapper_num() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.LaunchMsg.mapper_num)
   return _internal_mapper_num();
 }
-inline void JobMsg::_internal_set_mapper_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void LaunchMsg::_internal_set_mapper_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   
   mapper_num_ = value;
 }
-inline void JobMsg::set_mapper_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void LaunchMsg::set_mapper_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_mapper_num(value);
-  // @@protoc_insertion_point(field_set:mapreduce.JobMsg.mapper_num)
+  // @@protoc_insertion_point(field_set:tmapreduce.LaunchMsg.mapper_num)
 }
 
 // uint32 reducer_num = 4;
-inline void JobMsg::clear_reducer_num() {
+inline void LaunchMsg::clear_reducer_num() {
   reducer_num_ = 0u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 JobMsg::_internal_reducer_num() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 LaunchMsg::_internal_reducer_num() const {
   return reducer_num_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 JobMsg::reducer_num() const {
-  // @@protoc_insertion_point(field_get:mapreduce.JobMsg.reducer_num)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 LaunchMsg::reducer_num() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.LaunchMsg.reducer_num)
   return _internal_reducer_num();
 }
-inline void JobMsg::_internal_set_reducer_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void LaunchMsg::_internal_set_reducer_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   
   reducer_num_ = value;
 }
-inline void JobMsg::set_reducer_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void LaunchMsg::set_reducer_num(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_reducer_num(value);
-  // @@protoc_insertion_point(field_set:mapreduce.JobMsg.reducer_num)
+  // @@protoc_insertion_point(field_set:tmapreduce.LaunchMsg.reducer_num)
 }
 
-// repeated .mapreduce.JobMsg.KV kvs = 5;
-inline int JobMsg::_internal_kvs_size() const {
+// repeated .tmapreduce.LaunchMsg.KV kvs = 5;
+inline int LaunchMsg::_internal_kvs_size() const {
   return kvs_.size();
 }
-inline int JobMsg::kvs_size() const {
+inline int LaunchMsg::kvs_size() const {
   return _internal_kvs_size();
 }
-inline void JobMsg::clear_kvs() {
+inline void LaunchMsg::clear_kvs() {
   kvs_.Clear();
 }
-inline ::mapreduce::JobMsg_KV* JobMsg::mutable_kvs(int index) {
-  // @@protoc_insertion_point(field_mutable:mapreduce.JobMsg.kvs)
+inline ::tmapreduce::LaunchMsg_KV* LaunchMsg::mutable_kvs(int index) {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.LaunchMsg.kvs)
   return kvs_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::mapreduce::JobMsg_KV >*
-JobMsg::mutable_kvs() {
-  // @@protoc_insertion_point(field_mutable_list:mapreduce.JobMsg.kvs)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tmapreduce::LaunchMsg_KV >*
+LaunchMsg::mutable_kvs() {
+  // @@protoc_insertion_point(field_mutable_list:tmapreduce.LaunchMsg.kvs)
   return &kvs_;
 }
-inline const ::mapreduce::JobMsg_KV& JobMsg::_internal_kvs(int index) const {
+inline const ::tmapreduce::LaunchMsg_KV& LaunchMsg::_internal_kvs(int index) const {
   return kvs_.Get(index);
 }
-inline const ::mapreduce::JobMsg_KV& JobMsg::kvs(int index) const {
-  // @@protoc_insertion_point(field_get:mapreduce.JobMsg.kvs)
+inline const ::tmapreduce::LaunchMsg_KV& LaunchMsg::kvs(int index) const {
+  // @@protoc_insertion_point(field_get:tmapreduce.LaunchMsg.kvs)
   return _internal_kvs(index);
 }
-inline ::mapreduce::JobMsg_KV* JobMsg::_internal_add_kvs() {
+inline ::tmapreduce::LaunchMsg_KV* LaunchMsg::_internal_add_kvs() {
   return kvs_.Add();
 }
-inline ::mapreduce::JobMsg_KV* JobMsg::add_kvs() {
-  // @@protoc_insertion_point(field_add:mapreduce.JobMsg.kvs)
+inline ::tmapreduce::LaunchMsg_KV* LaunchMsg::add_kvs() {
+  // @@protoc_insertion_point(field_add:tmapreduce.LaunchMsg.kvs)
   return _internal_add_kvs();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::mapreduce::JobMsg_KV >&
-JobMsg::kvs() const {
-  // @@protoc_insertion_point(field_list:mapreduce.JobMsg.kvs)
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tmapreduce::LaunchMsg_KV >&
+LaunchMsg::kvs() const {
+  // @@protoc_insertion_point(field_list:tmapreduce.LaunchMsg.kvs)
   return kvs_;
 }
 
@@ -2888,7 +3018,7 @@ JobMsg::kvs() const {
 
 // LaunchReplyMsg
 
-// .mapreduce.MasterReplyMsg reply = 1;
+// .tmapreduce.MasterReplyMsg reply = 1;
 inline bool LaunchReplyMsg::_internal_has_reply() const {
   return this != internal_default_instance() && reply_ != nullptr;
 }
@@ -2901,17 +3031,17 @@ inline void LaunchReplyMsg::clear_reply() {
   }
   reply_ = nullptr;
 }
-inline const ::mapreduce::MasterReplyMsg& LaunchReplyMsg::_internal_reply() const {
-  const ::mapreduce::MasterReplyMsg* p = reply_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::mapreduce::MasterReplyMsg*>(
-      &::mapreduce::_MasterReplyMsg_default_instance_);
+inline const ::tmapreduce::MasterReplyMsg& LaunchReplyMsg::_internal_reply() const {
+  const ::tmapreduce::MasterReplyMsg* p = reply_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::tmapreduce::MasterReplyMsg*>(
+      &::tmapreduce::_MasterReplyMsg_default_instance_);
 }
-inline const ::mapreduce::MasterReplyMsg& LaunchReplyMsg::reply() const {
-  // @@protoc_insertion_point(field_get:mapreduce.LaunchReplyMsg.reply)
+inline const ::tmapreduce::MasterReplyMsg& LaunchReplyMsg::reply() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.LaunchReplyMsg.reply)
   return _internal_reply();
 }
 inline void LaunchReplyMsg::unsafe_arena_set_allocated_reply(
-    ::mapreduce::MasterReplyMsg* reply) {
+    ::tmapreduce::MasterReplyMsg* reply) {
   if (GetArena() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(reply_);
   }
@@ -2921,35 +3051,35 @@ inline void LaunchReplyMsg::unsafe_arena_set_allocated_reply(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:mapreduce.LaunchReplyMsg.reply)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.LaunchReplyMsg.reply)
 }
-inline ::mapreduce::MasterReplyMsg* LaunchReplyMsg::release_reply() {
+inline ::tmapreduce::MasterReplyMsg* LaunchReplyMsg::release_reply() {
   auto temp = unsafe_arena_release_reply();
   if (GetArena() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline ::mapreduce::MasterReplyMsg* LaunchReplyMsg::unsafe_arena_release_reply() {
-  // @@protoc_insertion_point(field_release:mapreduce.LaunchReplyMsg.reply)
+inline ::tmapreduce::MasterReplyMsg* LaunchReplyMsg::unsafe_arena_release_reply() {
+  // @@protoc_insertion_point(field_release:tmapreduce.LaunchReplyMsg.reply)
   
-  ::mapreduce::MasterReplyMsg* temp = reply_;
+  ::tmapreduce::MasterReplyMsg* temp = reply_;
   reply_ = nullptr;
   return temp;
 }
-inline ::mapreduce::MasterReplyMsg* LaunchReplyMsg::_internal_mutable_reply() {
+inline ::tmapreduce::MasterReplyMsg* LaunchReplyMsg::_internal_mutable_reply() {
   
   if (reply_ == nullptr) {
-    auto* p = CreateMaybeMessage<::mapreduce::MasterReplyMsg>(GetArena());
+    auto* p = CreateMaybeMessage<::tmapreduce::MasterReplyMsg>(GetArena());
     reply_ = p;
   }
   return reply_;
 }
-inline ::mapreduce::MasterReplyMsg* LaunchReplyMsg::mutable_reply() {
-  // @@protoc_insertion_point(field_mutable:mapreduce.LaunchReplyMsg.reply)
+inline ::tmapreduce::MasterReplyMsg* LaunchReplyMsg::mutable_reply() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.LaunchReplyMsg.reply)
   return _internal_mutable_reply();
 }
-inline void LaunchReplyMsg::set_allocated_reply(::mapreduce::MasterReplyMsg* reply) {
+inline void LaunchReplyMsg::set_allocated_reply(::tmapreduce::MasterReplyMsg* reply) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
     delete reply_;
@@ -2966,7 +3096,7 @@ inline void LaunchReplyMsg::set_allocated_reply(::mapreduce::MasterReplyMsg* rep
     
   }
   reply_ = reply;
-  // @@protoc_insertion_point(field_set_allocated:mapreduce.LaunchReplyMsg.reply)
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.LaunchReplyMsg.reply)
 }
 
 // uint32 job_id = 2;
@@ -2977,7 +3107,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 LaunchReplyMsg::_internal_job_id() const 
   return job_id_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 LaunchReplyMsg::job_id() const {
-  // @@protoc_insertion_point(field_get:mapreduce.LaunchReplyMsg.job_id)
+  // @@protoc_insertion_point(field_get:tmapreduce.LaunchReplyMsg.job_id)
   return _internal_job_id();
 }
 inline void LaunchReplyMsg::_internal_set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -2986,65 +3116,85 @@ inline void LaunchReplyMsg::_internal_set_job_id(::PROTOBUF_NAMESPACE_ID::uint32
 }
 inline void LaunchReplyMsg::set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_job_id(value);
-  // @@protoc_insertion_point(field_set:mapreduce.LaunchReplyMsg.job_id)
+  // @@protoc_insertion_point(field_set:tmapreduce.LaunchReplyMsg.job_id)
+}
+
+// uint64 job_secret = 3;
+inline void LaunchReplyMsg::clear_job_secret() {
+  job_secret_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 LaunchReplyMsg::_internal_job_secret() const {
+  return job_secret_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 LaunchReplyMsg::job_secret() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.LaunchReplyMsg.job_secret)
+  return _internal_job_secret();
+}
+inline void LaunchReplyMsg::_internal_set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  job_secret_ = value;
+}
+inline void LaunchReplyMsg::set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_job_secret(value);
+  // @@protoc_insertion_point(field_set:tmapreduce.LaunchReplyMsg.job_secret)
 }
 
 // -------------------------------------------------------------------
 
-// MapResultMsg_KV
+// CompleteMapMsg_KV
 
 // string key = 1;
-inline void MapResultMsg_KV::clear_key() {
+inline void CompleteMapMsg_KV::clear_key() {
   key_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline const std::string& MapResultMsg_KV::key() const {
-  // @@protoc_insertion_point(field_get:mapreduce.MapResultMsg.KV.key)
+inline const std::string& CompleteMapMsg_KV::key() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.CompleteMapMsg.KV.key)
   return _internal_key();
 }
-inline void MapResultMsg_KV::set_key(const std::string& value) {
+inline void CompleteMapMsg_KV::set_key(const std::string& value) {
   _internal_set_key(value);
-  // @@protoc_insertion_point(field_set:mapreduce.MapResultMsg.KV.key)
+  // @@protoc_insertion_point(field_set:tmapreduce.CompleteMapMsg.KV.key)
 }
-inline std::string* MapResultMsg_KV::mutable_key() {
-  // @@protoc_insertion_point(field_mutable:mapreduce.MapResultMsg.KV.key)
+inline std::string* CompleteMapMsg_KV::mutable_key() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.CompleteMapMsg.KV.key)
   return _internal_mutable_key();
 }
-inline const std::string& MapResultMsg_KV::_internal_key() const {
+inline const std::string& CompleteMapMsg_KV::_internal_key() const {
   return key_.Get();
 }
-inline void MapResultMsg_KV::_internal_set_key(const std::string& value) {
+inline void CompleteMapMsg_KV::_internal_set_key(const std::string& value) {
   
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void MapResultMsg_KV::set_key(std::string&& value) {
+inline void CompleteMapMsg_KV::set_key(std::string&& value) {
   
   key_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:mapreduce.MapResultMsg.KV.key)
+  // @@protoc_insertion_point(field_set_rvalue:tmapreduce.CompleteMapMsg.KV.key)
 }
-inline void MapResultMsg_KV::set_key(const char* value) {
+inline void CompleteMapMsg_KV::set_key(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:mapreduce.MapResultMsg.KV.key)
+  // @@protoc_insertion_point(field_set_char:tmapreduce.CompleteMapMsg.KV.key)
 }
-inline void MapResultMsg_KV::set_key(const char* value,
+inline void CompleteMapMsg_KV::set_key(const char* value,
     size_t size) {
   
   key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:mapreduce.MapResultMsg.KV.key)
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.CompleteMapMsg.KV.key)
 }
-inline std::string* MapResultMsg_KV::_internal_mutable_key() {
+inline std::string* CompleteMapMsg_KV::_internal_mutable_key() {
   
   return key_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline std::string* MapResultMsg_KV::release_key() {
-  // @@protoc_insertion_point(field_release:mapreduce.MapResultMsg.KV.key)
+inline std::string* CompleteMapMsg_KV::release_key() {
+  // @@protoc_insertion_point(field_release:tmapreduce.CompleteMapMsg.KV.key)
   return key_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void MapResultMsg_KV::set_allocated_key(std::string* key) {
+inline void CompleteMapMsg_KV::set_allocated_key(std::string* key) {
   if (key != nullptr) {
     
   } else {
@@ -3052,16 +3202,16 @@ inline void MapResultMsg_KV::set_allocated_key(std::string* key) {
   }
   key_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), key,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:mapreduce.MapResultMsg.KV.key)
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.CompleteMapMsg.KV.key)
 }
-inline std::string* MapResultMsg_KV::unsafe_arena_release_key() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:mapreduce.MapResultMsg.KV.key)
+inline std::string* CompleteMapMsg_KV::unsafe_arena_release_key() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tmapreduce.CompleteMapMsg.KV.key)
   GOOGLE_DCHECK(GetArena() != nullptr);
   
   return key_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
-inline void MapResultMsg_KV::unsafe_arena_set_allocated_key(
+inline void CompleteMapMsg_KV::unsafe_arena_set_allocated_key(
     std::string* key) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (key != nullptr) {
@@ -3071,61 +3221,61 @@ inline void MapResultMsg_KV::unsafe_arena_set_allocated_key(
   }
   key_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       key, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:mapreduce.MapResultMsg.KV.key)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.CompleteMapMsg.KV.key)
 }
 
 // string value = 2;
-inline void MapResultMsg_KV::clear_value() {
+inline void CompleteMapMsg_KV::clear_value() {
   value_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline const std::string& MapResultMsg_KV::value() const {
-  // @@protoc_insertion_point(field_get:mapreduce.MapResultMsg.KV.value)
+inline const std::string& CompleteMapMsg_KV::value() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.CompleteMapMsg.KV.value)
   return _internal_value();
 }
-inline void MapResultMsg_KV::set_value(const std::string& value) {
+inline void CompleteMapMsg_KV::set_value(const std::string& value) {
   _internal_set_value(value);
-  // @@protoc_insertion_point(field_set:mapreduce.MapResultMsg.KV.value)
+  // @@protoc_insertion_point(field_set:tmapreduce.CompleteMapMsg.KV.value)
 }
-inline std::string* MapResultMsg_KV::mutable_value() {
-  // @@protoc_insertion_point(field_mutable:mapreduce.MapResultMsg.KV.value)
+inline std::string* CompleteMapMsg_KV::mutable_value() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.CompleteMapMsg.KV.value)
   return _internal_mutable_value();
 }
-inline const std::string& MapResultMsg_KV::_internal_value() const {
+inline const std::string& CompleteMapMsg_KV::_internal_value() const {
   return value_.Get();
 }
-inline void MapResultMsg_KV::_internal_set_value(const std::string& value) {
+inline void CompleteMapMsg_KV::_internal_set_value(const std::string& value) {
   
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void MapResultMsg_KV::set_value(std::string&& value) {
+inline void CompleteMapMsg_KV::set_value(std::string&& value) {
   
   value_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:mapreduce.MapResultMsg.KV.value)
+  // @@protoc_insertion_point(field_set_rvalue:tmapreduce.CompleteMapMsg.KV.value)
 }
-inline void MapResultMsg_KV::set_value(const char* value) {
+inline void CompleteMapMsg_KV::set_value(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:mapreduce.MapResultMsg.KV.value)
+  // @@protoc_insertion_point(field_set_char:tmapreduce.CompleteMapMsg.KV.value)
 }
-inline void MapResultMsg_KV::set_value(const char* value,
+inline void CompleteMapMsg_KV::set_value(const char* value,
     size_t size) {
   
   value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:mapreduce.MapResultMsg.KV.value)
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.CompleteMapMsg.KV.value)
 }
-inline std::string* MapResultMsg_KV::_internal_mutable_value() {
+inline std::string* CompleteMapMsg_KV::_internal_mutable_value() {
   
   return value_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline std::string* MapResultMsg_KV::release_value() {
-  // @@protoc_insertion_point(field_release:mapreduce.MapResultMsg.KV.value)
+inline std::string* CompleteMapMsg_KV::release_value() {
+  // @@protoc_insertion_point(field_release:tmapreduce.CompleteMapMsg.KV.value)
   return value_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void MapResultMsg_KV::set_allocated_value(std::string* value) {
+inline void CompleteMapMsg_KV::set_allocated_value(std::string* value) {
   if (value != nullptr) {
     
   } else {
@@ -3133,16 +3283,16 @@ inline void MapResultMsg_KV::set_allocated_value(std::string* value) {
   }
   value_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:mapreduce.MapResultMsg.KV.value)
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.CompleteMapMsg.KV.value)
 }
-inline std::string* MapResultMsg_KV::unsafe_arena_release_value() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:mapreduce.MapResultMsg.KV.value)
+inline std::string* CompleteMapMsg_KV::unsafe_arena_release_value() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tmapreduce.CompleteMapMsg.KV.value)
   GOOGLE_DCHECK(GetArena() != nullptr);
   
   return value_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
-inline void MapResultMsg_KV::unsafe_arena_set_allocated_value(
+inline void CompleteMapMsg_KV::unsafe_arena_set_allocated_value(
     std::string* value) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (value != nullptr) {
@@ -3152,287 +3302,287 @@ inline void MapResultMsg_KV::unsafe_arena_set_allocated_value(
   }
   value_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       value, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:mapreduce.MapResultMsg.KV.value)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.CompleteMapMsg.KV.value)
 }
 
 // -------------------------------------------------------------------
 
-// MapResultMsg
+// CompleteMapMsg
 
 // uint32 job_id = 1;
-inline void MapResultMsg::clear_job_id() {
+inline void CompleteMapMsg::clear_job_id() {
   job_id_ = 0u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 MapResultMsg::_internal_job_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteMapMsg::_internal_job_id() const {
   return job_id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 MapResultMsg::job_id() const {
-  // @@protoc_insertion_point(field_get:mapreduce.MapResultMsg.job_id)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteMapMsg::job_id() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.CompleteMapMsg.job_id)
   return _internal_job_id();
 }
-inline void MapResultMsg::_internal_set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void CompleteMapMsg::_internal_set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   
   job_id_ = value;
 }
-inline void MapResultMsg::set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void CompleteMapMsg::set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_job_id(value);
-  // @@protoc_insertion_point(field_set:mapreduce.MapResultMsg.job_id)
+  // @@protoc_insertion_point(field_set:tmapreduce.CompleteMapMsg.job_id)
 }
 
 // uint32 subjob_id = 2;
-inline void MapResultMsg::clear_subjob_id() {
+inline void CompleteMapMsg::clear_subjob_id() {
   subjob_id_ = 0u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 MapResultMsg::_internal_subjob_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteMapMsg::_internal_subjob_id() const {
   return subjob_id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 MapResultMsg::subjob_id() const {
-  // @@protoc_insertion_point(field_get:mapreduce.MapResultMsg.subjob_id)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteMapMsg::subjob_id() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.CompleteMapMsg.subjob_id)
   return _internal_subjob_id();
 }
-inline void MapResultMsg::_internal_set_subjob_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void CompleteMapMsg::_internal_set_subjob_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   
   subjob_id_ = value;
 }
-inline void MapResultMsg::set_subjob_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void CompleteMapMsg::set_subjob_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_subjob_id(value);
-  // @@protoc_insertion_point(field_set:mapreduce.MapResultMsg.subjob_id)
+  // @@protoc_insertion_point(field_set:tmapreduce.CompleteMapMsg.subjob_id)
 }
 
 // uint32 worker_id = 3;
-inline void MapResultMsg::clear_worker_id() {
+inline void CompleteMapMsg::clear_worker_id() {
   worker_id_ = 0u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 MapResultMsg::_internal_worker_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteMapMsg::_internal_worker_id() const {
   return worker_id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 MapResultMsg::worker_id() const {
-  // @@protoc_insertion_point(field_get:mapreduce.MapResultMsg.worker_id)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteMapMsg::worker_id() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.CompleteMapMsg.worker_id)
   return _internal_worker_id();
 }
-inline void MapResultMsg::_internal_set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void CompleteMapMsg::_internal_set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   
   worker_id_ = value;
 }
-inline void MapResultMsg::set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void CompleteMapMsg::set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_worker_id(value);
-  // @@protoc_insertion_point(field_set:mapreduce.MapResultMsg.worker_id)
+  // @@protoc_insertion_point(field_set:tmapreduce.CompleteMapMsg.worker_id)
 }
 
-// .mapreduce.WorkerState state = 4;
-inline void MapResultMsg::clear_state() {
+// .tmapreduce.WorkerState state = 4;
+inline void CompleteMapMsg::clear_state() {
   state_ = 0;
 }
-inline ::mapreduce::WorkerState MapResultMsg::_internal_state() const {
-  return static_cast< ::mapreduce::WorkerState >(state_);
+inline ::tmapreduce::WorkerState CompleteMapMsg::_internal_state() const {
+  return static_cast< ::tmapreduce::WorkerState >(state_);
 }
-inline ::mapreduce::WorkerState MapResultMsg::state() const {
-  // @@protoc_insertion_point(field_get:mapreduce.MapResultMsg.state)
+inline ::tmapreduce::WorkerState CompleteMapMsg::state() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.CompleteMapMsg.state)
   return _internal_state();
 }
-inline void MapResultMsg::_internal_set_state(::mapreduce::WorkerState value) {
+inline void CompleteMapMsg::_internal_set_state(::tmapreduce::WorkerState value) {
   
   state_ = value;
 }
-inline void MapResultMsg::set_state(::mapreduce::WorkerState value) {
+inline void CompleteMapMsg::set_state(::tmapreduce::WorkerState value) {
   _internal_set_state(value);
-  // @@protoc_insertion_point(field_set:mapreduce.MapResultMsg.state)
+  // @@protoc_insertion_point(field_set:tmapreduce.CompleteMapMsg.state)
 }
 
-// repeated .mapreduce.MapResultMsg.KV map_result = 5;
-inline int MapResultMsg::_internal_map_result_size() const {
+// repeated .tmapreduce.CompleteMapMsg.KV map_result = 5;
+inline int CompleteMapMsg::_internal_map_result_size() const {
   return map_result_.size();
 }
-inline int MapResultMsg::map_result_size() const {
+inline int CompleteMapMsg::map_result_size() const {
   return _internal_map_result_size();
 }
-inline void MapResultMsg::clear_map_result() {
+inline void CompleteMapMsg::clear_map_result() {
   map_result_.Clear();
 }
-inline ::mapreduce::MapResultMsg_KV* MapResultMsg::mutable_map_result(int index) {
-  // @@protoc_insertion_point(field_mutable:mapreduce.MapResultMsg.map_result)
+inline ::tmapreduce::CompleteMapMsg_KV* CompleteMapMsg::mutable_map_result(int index) {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.CompleteMapMsg.map_result)
   return map_result_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::mapreduce::MapResultMsg_KV >*
-MapResultMsg::mutable_map_result() {
-  // @@protoc_insertion_point(field_mutable_list:mapreduce.MapResultMsg.map_result)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tmapreduce::CompleteMapMsg_KV >*
+CompleteMapMsg::mutable_map_result() {
+  // @@protoc_insertion_point(field_mutable_list:tmapreduce.CompleteMapMsg.map_result)
   return &map_result_;
 }
-inline const ::mapreduce::MapResultMsg_KV& MapResultMsg::_internal_map_result(int index) const {
+inline const ::tmapreduce::CompleteMapMsg_KV& CompleteMapMsg::_internal_map_result(int index) const {
   return map_result_.Get(index);
 }
-inline const ::mapreduce::MapResultMsg_KV& MapResultMsg::map_result(int index) const {
-  // @@protoc_insertion_point(field_get:mapreduce.MapResultMsg.map_result)
+inline const ::tmapreduce::CompleteMapMsg_KV& CompleteMapMsg::map_result(int index) const {
+  // @@protoc_insertion_point(field_get:tmapreduce.CompleteMapMsg.map_result)
   return _internal_map_result(index);
 }
-inline ::mapreduce::MapResultMsg_KV* MapResultMsg::_internal_add_map_result() {
+inline ::tmapreduce::CompleteMapMsg_KV* CompleteMapMsg::_internal_add_map_result() {
   return map_result_.Add();
 }
-inline ::mapreduce::MapResultMsg_KV* MapResultMsg::add_map_result() {
-  // @@protoc_insertion_point(field_add:mapreduce.MapResultMsg.map_result)
+inline ::tmapreduce::CompleteMapMsg_KV* CompleteMapMsg::add_map_result() {
+  // @@protoc_insertion_point(field_add:tmapreduce.CompleteMapMsg.map_result)
   return _internal_add_map_result();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::mapreduce::MapResultMsg_KV >&
-MapResultMsg::map_result() const {
-  // @@protoc_insertion_point(field_list:mapreduce.MapResultMsg.map_result)
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tmapreduce::CompleteMapMsg_KV >&
+CompleteMapMsg::map_result() const {
+  // @@protoc_insertion_point(field_list:tmapreduce.CompleteMapMsg.map_result)
   return map_result_;
 }
 
 // -------------------------------------------------------------------
 
-// ReduceResultMsg
+// CompleteReduceMsg
 
 // uint32 job_id = 1;
-inline void ReduceResultMsg::clear_job_id() {
+inline void CompleteReduceMsg::clear_job_id() {
   job_id_ = 0u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 ReduceResultMsg::_internal_job_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteReduceMsg::_internal_job_id() const {
   return job_id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 ReduceResultMsg::job_id() const {
-  // @@protoc_insertion_point(field_get:mapreduce.ReduceResultMsg.job_id)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteReduceMsg::job_id() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.CompleteReduceMsg.job_id)
   return _internal_job_id();
 }
-inline void ReduceResultMsg::_internal_set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void CompleteReduceMsg::_internal_set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   
   job_id_ = value;
 }
-inline void ReduceResultMsg::set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void CompleteReduceMsg::set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_job_id(value);
-  // @@protoc_insertion_point(field_set:mapreduce.ReduceResultMsg.job_id)
+  // @@protoc_insertion_point(field_set:tmapreduce.CompleteReduceMsg.job_id)
 }
 
 // uint32 subjob_id = 2;
-inline void ReduceResultMsg::clear_subjob_id() {
+inline void CompleteReduceMsg::clear_subjob_id() {
   subjob_id_ = 0u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 ReduceResultMsg::_internal_subjob_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteReduceMsg::_internal_subjob_id() const {
   return subjob_id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 ReduceResultMsg::subjob_id() const {
-  // @@protoc_insertion_point(field_get:mapreduce.ReduceResultMsg.subjob_id)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteReduceMsg::subjob_id() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.CompleteReduceMsg.subjob_id)
   return _internal_subjob_id();
 }
-inline void ReduceResultMsg::_internal_set_subjob_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void CompleteReduceMsg::_internal_set_subjob_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   
   subjob_id_ = value;
 }
-inline void ReduceResultMsg::set_subjob_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void CompleteReduceMsg::set_subjob_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_subjob_id(value);
-  // @@protoc_insertion_point(field_set:mapreduce.ReduceResultMsg.subjob_id)
+  // @@protoc_insertion_point(field_set:tmapreduce.CompleteReduceMsg.subjob_id)
 }
 
 // uint32 worker_id = 3;
-inline void ReduceResultMsg::clear_worker_id() {
+inline void CompleteReduceMsg::clear_worker_id() {
   worker_id_ = 0u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 ReduceResultMsg::_internal_worker_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteReduceMsg::_internal_worker_id() const {
   return worker_id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 ReduceResultMsg::worker_id() const {
-  // @@protoc_insertion_point(field_get:mapreduce.ReduceResultMsg.worker_id)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteReduceMsg::worker_id() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.CompleteReduceMsg.worker_id)
   return _internal_worker_id();
 }
-inline void ReduceResultMsg::_internal_set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void CompleteReduceMsg::_internal_set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   
   worker_id_ = value;
 }
-inline void ReduceResultMsg::set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void CompleteReduceMsg::set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_worker_id(value);
-  // @@protoc_insertion_point(field_set:mapreduce.ReduceResultMsg.worker_id)
+  // @@protoc_insertion_point(field_set:tmapreduce.CompleteReduceMsg.worker_id)
 }
 
-// .mapreduce.WorkerState state = 4;
-inline void ReduceResultMsg::clear_state() {
+// .tmapreduce.WorkerState state = 4;
+inline void CompleteReduceMsg::clear_state() {
   state_ = 0;
 }
-inline ::mapreduce::WorkerState ReduceResultMsg::_internal_state() const {
-  return static_cast< ::mapreduce::WorkerState >(state_);
+inline ::tmapreduce::WorkerState CompleteReduceMsg::_internal_state() const {
+  return static_cast< ::tmapreduce::WorkerState >(state_);
 }
-inline ::mapreduce::WorkerState ReduceResultMsg::state() const {
-  // @@protoc_insertion_point(field_get:mapreduce.ReduceResultMsg.state)
+inline ::tmapreduce::WorkerState CompleteReduceMsg::state() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.CompleteReduceMsg.state)
   return _internal_state();
 }
-inline void ReduceResultMsg::_internal_set_state(::mapreduce::WorkerState value) {
+inline void CompleteReduceMsg::_internal_set_state(::tmapreduce::WorkerState value) {
   
   state_ = value;
 }
-inline void ReduceResultMsg::set_state(::mapreduce::WorkerState value) {
+inline void CompleteReduceMsg::set_state(::tmapreduce::WorkerState value) {
   _internal_set_state(value);
-  // @@protoc_insertion_point(field_set:mapreduce.ReduceResultMsg.state)
+  // @@protoc_insertion_point(field_set:tmapreduce.CompleteReduceMsg.state)
 }
 
 // repeated string reduce_result = 5;
-inline int ReduceResultMsg::_internal_reduce_result_size() const {
+inline int CompleteReduceMsg::_internal_reduce_result_size() const {
   return reduce_result_.size();
 }
-inline int ReduceResultMsg::reduce_result_size() const {
+inline int CompleteReduceMsg::reduce_result_size() const {
   return _internal_reduce_result_size();
 }
-inline void ReduceResultMsg::clear_reduce_result() {
+inline void CompleteReduceMsg::clear_reduce_result() {
   reduce_result_.Clear();
 }
-inline std::string* ReduceResultMsg::add_reduce_result() {
-  // @@protoc_insertion_point(field_add_mutable:mapreduce.ReduceResultMsg.reduce_result)
+inline std::string* CompleteReduceMsg::add_reduce_result() {
+  // @@protoc_insertion_point(field_add_mutable:tmapreduce.CompleteReduceMsg.reduce_result)
   return _internal_add_reduce_result();
 }
-inline const std::string& ReduceResultMsg::_internal_reduce_result(int index) const {
+inline const std::string& CompleteReduceMsg::_internal_reduce_result(int index) const {
   return reduce_result_.Get(index);
 }
-inline const std::string& ReduceResultMsg::reduce_result(int index) const {
-  // @@protoc_insertion_point(field_get:mapreduce.ReduceResultMsg.reduce_result)
+inline const std::string& CompleteReduceMsg::reduce_result(int index) const {
+  // @@protoc_insertion_point(field_get:tmapreduce.CompleteReduceMsg.reduce_result)
   return _internal_reduce_result(index);
 }
-inline std::string* ReduceResultMsg::mutable_reduce_result(int index) {
-  // @@protoc_insertion_point(field_mutable:mapreduce.ReduceResultMsg.reduce_result)
+inline std::string* CompleteReduceMsg::mutable_reduce_result(int index) {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.CompleteReduceMsg.reduce_result)
   return reduce_result_.Mutable(index);
 }
-inline void ReduceResultMsg::set_reduce_result(int index, const std::string& value) {
-  // @@protoc_insertion_point(field_set:mapreduce.ReduceResultMsg.reduce_result)
+inline void CompleteReduceMsg::set_reduce_result(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:tmapreduce.CompleteReduceMsg.reduce_result)
   reduce_result_.Mutable(index)->assign(value);
 }
-inline void ReduceResultMsg::set_reduce_result(int index, std::string&& value) {
-  // @@protoc_insertion_point(field_set:mapreduce.ReduceResultMsg.reduce_result)
+inline void CompleteReduceMsg::set_reduce_result(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:tmapreduce.CompleteReduceMsg.reduce_result)
   reduce_result_.Mutable(index)->assign(std::move(value));
 }
-inline void ReduceResultMsg::set_reduce_result(int index, const char* value) {
+inline void CompleteReduceMsg::set_reduce_result(int index, const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   reduce_result_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:mapreduce.ReduceResultMsg.reduce_result)
+  // @@protoc_insertion_point(field_set_char:tmapreduce.CompleteReduceMsg.reduce_result)
 }
-inline void ReduceResultMsg::set_reduce_result(int index, const char* value, size_t size) {
+inline void CompleteReduceMsg::set_reduce_result(int index, const char* value, size_t size) {
   reduce_result_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:mapreduce.ReduceResultMsg.reduce_result)
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.CompleteReduceMsg.reduce_result)
 }
-inline std::string* ReduceResultMsg::_internal_add_reduce_result() {
+inline std::string* CompleteReduceMsg::_internal_add_reduce_result() {
   return reduce_result_.Add();
 }
-inline void ReduceResultMsg::add_reduce_result(const std::string& value) {
+inline void CompleteReduceMsg::add_reduce_result(const std::string& value) {
   reduce_result_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:mapreduce.ReduceResultMsg.reduce_result)
+  // @@protoc_insertion_point(field_add:tmapreduce.CompleteReduceMsg.reduce_result)
 }
-inline void ReduceResultMsg::add_reduce_result(std::string&& value) {
+inline void CompleteReduceMsg::add_reduce_result(std::string&& value) {
   reduce_result_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:mapreduce.ReduceResultMsg.reduce_result)
+  // @@protoc_insertion_point(field_add:tmapreduce.CompleteReduceMsg.reduce_result)
 }
-inline void ReduceResultMsg::add_reduce_result(const char* value) {
+inline void CompleteReduceMsg::add_reduce_result(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   reduce_result_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:mapreduce.ReduceResultMsg.reduce_result)
+  // @@protoc_insertion_point(field_add_char:tmapreduce.CompleteReduceMsg.reduce_result)
 }
-inline void ReduceResultMsg::add_reduce_result(const char* value, size_t size) {
+inline void CompleteReduceMsg::add_reduce_result(const char* value, size_t size) {
   reduce_result_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:mapreduce.ReduceResultMsg.reduce_result)
+  // @@protoc_insertion_point(field_add_pointer:tmapreduce.CompleteReduceMsg.reduce_result)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-ReduceResultMsg::reduce_result() const {
-  // @@protoc_insertion_point(field_list:mapreduce.ReduceResultMsg.reduce_result)
+CompleteReduceMsg::reduce_result() const {
+  // @@protoc_insertion_point(field_list:tmapreduce.CompleteReduceMsg.reduce_result)
   return reduce_result_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-ReduceResultMsg::mutable_reduce_result() {
-  // @@protoc_insertion_point(field_mutable_list:mapreduce.ReduceResultMsg.reduce_result)
+CompleteReduceMsg::mutable_reduce_result() {
+  // @@protoc_insertion_point(field_mutable_list:tmapreduce.CompleteReduceMsg.reduce_result)
   return &reduce_result_;
 }
 
@@ -3448,7 +3598,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 GetResultMsg::_internal_job_id() const {
   return job_id_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 GetResultMsg::job_id() const {
-  // @@protoc_insertion_point(field_get:mapreduce.GetResultMsg.job_id)
+  // @@protoc_insertion_point(field_get:tmapreduce.GetResultMsg.job_id)
   return _internal_job_id();
 }
 inline void GetResultMsg::_internal_set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -3457,14 +3607,34 @@ inline void GetResultMsg::_internal_set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 v
 }
 inline void GetResultMsg::set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_job_id(value);
-  // @@protoc_insertion_point(field_set:mapreduce.GetResultMsg.job_id)
+  // @@protoc_insertion_point(field_set:tmapreduce.GetResultMsg.job_id)
+}
+
+// uint64 job_secret = 2;
+inline void GetResultMsg::clear_job_secret() {
+  job_secret_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 GetResultMsg::_internal_job_secret() const {
+  return job_secret_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 GetResultMsg::job_secret() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.GetResultMsg.job_secret)
+  return _internal_job_secret();
+}
+inline void GetResultMsg::_internal_set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  job_secret_ = value;
+}
+inline void GetResultMsg::set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_job_secret(value);
+  // @@protoc_insertion_point(field_set:tmapreduce.GetResultMsg.job_secret)
 }
 
 // -------------------------------------------------------------------
 
 // GetResultReplyMsg
 
-// .mapreduce.MasterReplyMsg reply = 1;
+// .tmapreduce.MasterReplyMsg reply = 1;
 inline bool GetResultReplyMsg::_internal_has_reply() const {
   return this != internal_default_instance() && reply_ != nullptr;
 }
@@ -3477,17 +3647,17 @@ inline void GetResultReplyMsg::clear_reply() {
   }
   reply_ = nullptr;
 }
-inline const ::mapreduce::MasterReplyMsg& GetResultReplyMsg::_internal_reply() const {
-  const ::mapreduce::MasterReplyMsg* p = reply_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::mapreduce::MasterReplyMsg*>(
-      &::mapreduce::_MasterReplyMsg_default_instance_);
+inline const ::tmapreduce::MasterReplyMsg& GetResultReplyMsg::_internal_reply() const {
+  const ::tmapreduce::MasterReplyMsg* p = reply_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::tmapreduce::MasterReplyMsg*>(
+      &::tmapreduce::_MasterReplyMsg_default_instance_);
 }
-inline const ::mapreduce::MasterReplyMsg& GetResultReplyMsg::reply() const {
-  // @@protoc_insertion_point(field_get:mapreduce.GetResultReplyMsg.reply)
+inline const ::tmapreduce::MasterReplyMsg& GetResultReplyMsg::reply() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.GetResultReplyMsg.reply)
   return _internal_reply();
 }
 inline void GetResultReplyMsg::unsafe_arena_set_allocated_reply(
-    ::mapreduce::MasterReplyMsg* reply) {
+    ::tmapreduce::MasterReplyMsg* reply) {
   if (GetArena() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(reply_);
   }
@@ -3497,35 +3667,35 @@ inline void GetResultReplyMsg::unsafe_arena_set_allocated_reply(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:mapreduce.GetResultReplyMsg.reply)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.GetResultReplyMsg.reply)
 }
-inline ::mapreduce::MasterReplyMsg* GetResultReplyMsg::release_reply() {
+inline ::tmapreduce::MasterReplyMsg* GetResultReplyMsg::release_reply() {
   auto temp = unsafe_arena_release_reply();
   if (GetArena() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline ::mapreduce::MasterReplyMsg* GetResultReplyMsg::unsafe_arena_release_reply() {
-  // @@protoc_insertion_point(field_release:mapreduce.GetResultReplyMsg.reply)
+inline ::tmapreduce::MasterReplyMsg* GetResultReplyMsg::unsafe_arena_release_reply() {
+  // @@protoc_insertion_point(field_release:tmapreduce.GetResultReplyMsg.reply)
   
-  ::mapreduce::MasterReplyMsg* temp = reply_;
+  ::tmapreduce::MasterReplyMsg* temp = reply_;
   reply_ = nullptr;
   return temp;
 }
-inline ::mapreduce::MasterReplyMsg* GetResultReplyMsg::_internal_mutable_reply() {
+inline ::tmapreduce::MasterReplyMsg* GetResultReplyMsg::_internal_mutable_reply() {
   
   if (reply_ == nullptr) {
-    auto* p = CreateMaybeMessage<::mapreduce::MasterReplyMsg>(GetArena());
+    auto* p = CreateMaybeMessage<::tmapreduce::MasterReplyMsg>(GetArena());
     reply_ = p;
   }
   return reply_;
 }
-inline ::mapreduce::MasterReplyMsg* GetResultReplyMsg::mutable_reply() {
-  // @@protoc_insertion_point(field_mutable:mapreduce.GetResultReplyMsg.reply)
+inline ::tmapreduce::MasterReplyMsg* GetResultReplyMsg::mutable_reply() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.GetResultReplyMsg.reply)
   return _internal_mutable_reply();
 }
-inline void GetResultReplyMsg::set_allocated_reply(::mapreduce::MasterReplyMsg* reply) {
+inline void GetResultReplyMsg::set_allocated_reply(::tmapreduce::MasterReplyMsg* reply) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
     delete reply_;
@@ -3542,7 +3712,7 @@ inline void GetResultReplyMsg::set_allocated_reply(::mapreduce::MasterReplyMsg* 
     
   }
   reply_ = reply;
-  // @@protoc_insertion_point(field_set_allocated:mapreduce.GetResultReplyMsg.reply)
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.GetResultReplyMsg.reply)
 }
 
 // repeated string results = 2;
@@ -3556,66 +3726,66 @@ inline void GetResultReplyMsg::clear_results() {
   results_.Clear();
 }
 inline std::string* GetResultReplyMsg::add_results() {
-  // @@protoc_insertion_point(field_add_mutable:mapreduce.GetResultReplyMsg.results)
+  // @@protoc_insertion_point(field_add_mutable:tmapreduce.GetResultReplyMsg.results)
   return _internal_add_results();
 }
 inline const std::string& GetResultReplyMsg::_internal_results(int index) const {
   return results_.Get(index);
 }
 inline const std::string& GetResultReplyMsg::results(int index) const {
-  // @@protoc_insertion_point(field_get:mapreduce.GetResultReplyMsg.results)
+  // @@protoc_insertion_point(field_get:tmapreduce.GetResultReplyMsg.results)
   return _internal_results(index);
 }
 inline std::string* GetResultReplyMsg::mutable_results(int index) {
-  // @@protoc_insertion_point(field_mutable:mapreduce.GetResultReplyMsg.results)
+  // @@protoc_insertion_point(field_mutable:tmapreduce.GetResultReplyMsg.results)
   return results_.Mutable(index);
 }
 inline void GetResultReplyMsg::set_results(int index, const std::string& value) {
-  // @@protoc_insertion_point(field_set:mapreduce.GetResultReplyMsg.results)
+  // @@protoc_insertion_point(field_set:tmapreduce.GetResultReplyMsg.results)
   results_.Mutable(index)->assign(value);
 }
 inline void GetResultReplyMsg::set_results(int index, std::string&& value) {
-  // @@protoc_insertion_point(field_set:mapreduce.GetResultReplyMsg.results)
+  // @@protoc_insertion_point(field_set:tmapreduce.GetResultReplyMsg.results)
   results_.Mutable(index)->assign(std::move(value));
 }
 inline void GetResultReplyMsg::set_results(int index, const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   results_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:mapreduce.GetResultReplyMsg.results)
+  // @@protoc_insertion_point(field_set_char:tmapreduce.GetResultReplyMsg.results)
 }
 inline void GetResultReplyMsg::set_results(int index, const char* value, size_t size) {
   results_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:mapreduce.GetResultReplyMsg.results)
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.GetResultReplyMsg.results)
 }
 inline std::string* GetResultReplyMsg::_internal_add_results() {
   return results_.Add();
 }
 inline void GetResultReplyMsg::add_results(const std::string& value) {
   results_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:mapreduce.GetResultReplyMsg.results)
+  // @@protoc_insertion_point(field_add:tmapreduce.GetResultReplyMsg.results)
 }
 inline void GetResultReplyMsg::add_results(std::string&& value) {
   results_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:mapreduce.GetResultReplyMsg.results)
+  // @@protoc_insertion_point(field_add:tmapreduce.GetResultReplyMsg.results)
 }
 inline void GetResultReplyMsg::add_results(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   results_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:mapreduce.GetResultReplyMsg.results)
+  // @@protoc_insertion_point(field_add_char:tmapreduce.GetResultReplyMsg.results)
 }
 inline void GetResultReplyMsg::add_results(const char* value, size_t size) {
   results_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:mapreduce.GetResultReplyMsg.results)
+  // @@protoc_insertion_point(field_add_pointer:tmapreduce.GetResultReplyMsg.results)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
 GetResultReplyMsg::results() const {
-  // @@protoc_insertion_point(field_list:mapreduce.GetResultReplyMsg.results)
+  // @@protoc_insertion_point(field_list:tmapreduce.GetResultReplyMsg.results)
   return results_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 GetResultReplyMsg::mutable_results() {
-  // @@protoc_insertion_point(field_mutable_list:mapreduce.GetResultReplyMsg.results)
+  // @@protoc_insertion_point(field_mutable_list:tmapreduce.GetResultReplyMsg.results)
   return &results_;
 }
 
@@ -3645,7 +3815,7 @@ GetResultReplyMsg::mutable_results() {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace mapreduce
+}  // namespace tmapreduce
 
 // @@protoc_insertion_point(global_scope)
 

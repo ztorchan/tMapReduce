@@ -1,5 +1,5 @@
-#ifndef _MAPREDUCE_JOB_H
-#define _MAPREDUCE_JOB_H
+#ifndef _TMAPREDUCE_JOB_H
+#define _TMAPREDUCE_JOB_H
 
 #include <string>
 #include <vector>

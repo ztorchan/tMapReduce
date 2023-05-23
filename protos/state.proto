@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package mapreduce;
+package tmapreduce;
 
 option cc_generic_services = true;
 

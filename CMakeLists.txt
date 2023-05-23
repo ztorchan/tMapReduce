@@ -77,3 +77,9 @@ add_library(mrworker STATIC ${LIBWORKER_SRC})
 # install(
 #   DIRECTORY include/mapreduce DESTINATION include/
 # )
+
+
+# Tmp: user for C++ extension when develop
+file(GLOB ALL_HEADER src/tmapreduce/*.h)
+file(GLOB ALL_SRC src/tmapreduce/*.cc)
+add_library(tmp STATIC ${ALL_HEADER} ${ALL_SRC})

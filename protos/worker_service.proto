@@ -3,7 +3,7 @@ syntax = "proto3";
 import "google/protobuf/empty.proto";
 import "state.proto";
 
-package mapreduce;
+package tmapreduce;
 
 option cc_generic_services = true;
 

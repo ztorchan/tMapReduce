@@ -16,7 +16,7 @@
 #include <google/protobuf/port_def.inc>
 extern PROTOBUF_INTERNAL_EXPORT_worker_5fservice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_MapJobMsg_MapKV_worker_5fservice_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_worker_5fservice_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ReduceJobMsg_ReduceKV_worker_5fservice_2eproto;
-namespace mapreduce {
+namespace tmapreduce {
 class WorkerReplyMsgDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorkerReplyMsg> _instance;
@@ -37,16 +37,16 @@ class ReduceJobMsgDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ReduceJobMsg> _instance;
 } _ReduceJobMsg_default_instance_;
-}  // namespace mapreduce
+}  // namespace tmapreduce
 static void InitDefaultsscc_info_MapJobMsg_worker_5fservice_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::mapreduce::_MapJobMsg_default_instance_;
-    new (ptr) ::mapreduce::MapJobMsg();
+    void* ptr = &::tmapreduce::_MapJobMsg_default_instance_;
+    new (ptr) ::tmapreduce::MapJobMsg();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::mapreduce::MapJobMsg::InitAsDefaultInstance();
+  ::tmapreduce::MapJobMsg::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_MapJobMsg_worker_5fservice_2eproto =
@@ -57,11 +57,11 @@ static void InitDefaultsscc_info_MapJobMsg_MapKV_worker_5fservice_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::mapreduce::_MapJobMsg_MapKV_default_instance_;
-    new (ptr) ::mapreduce::MapJobMsg_MapKV();
+    void* ptr = &::tmapreduce::_MapJobMsg_MapKV_default_instance_;
+    new (ptr) ::tmapreduce::MapJobMsg_MapKV();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::mapreduce::MapJobMsg_MapKV::InitAsDefaultInstance();
+  ::tmapreduce::MapJobMsg_MapKV::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_MapJobMsg_MapKV_worker_5fservice_2eproto =
@@ -71,11 +71,11 @@ static void InitDefaultsscc_info_ReduceJobMsg_worker_5fservice_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::mapreduce::_ReduceJobMsg_default_instance_;
-    new (ptr) ::mapreduce::ReduceJobMsg();
+    void* ptr = &::tmapreduce::_ReduceJobMsg_default_instance_;
+    new (ptr) ::tmapreduce::ReduceJobMsg();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::mapreduce::ReduceJobMsg::InitAsDefaultInstance();
+  ::tmapreduce::ReduceJobMsg::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_ReduceJobMsg_worker_5fservice_2eproto =
@@ -86,11 +86,11 @@ static void InitDefaultsscc_info_ReduceJobMsg_ReduceKV_worker_5fservice_2eproto(
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::mapreduce::_ReduceJobMsg_ReduceKV_default_instance_;
-    new (ptr) ::mapreduce::ReduceJobMsg_ReduceKV();
+    void* ptr = &::tmapreduce::_ReduceJobMsg_ReduceKV_default_instance_;
+    new (ptr) ::tmapreduce::ReduceJobMsg_ReduceKV();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::mapreduce::ReduceJobMsg_ReduceKV::InitAsDefaultInstance();
+  ::tmapreduce::ReduceJobMsg_ReduceKV::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ReduceJobMsg_ReduceKV_worker_5fservice_2eproto =
@@ -100,11 +100,11 @@ static void InitDefaultsscc_info_WorkerReplyMsg_worker_5fservice_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::mapreduce::_WorkerReplyMsg_default_instance_;
-    new (ptr) ::mapreduce::WorkerReplyMsg();
+    void* ptr = &::tmapreduce::_WorkerReplyMsg_default_instance_;
+    new (ptr) ::tmapreduce::WorkerReplyMsg();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::mapreduce::WorkerReplyMsg::InitAsDefaultInstance();
+  ::tmapreduce::WorkerReplyMsg::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerReplyMsg_worker_5fservice_2eproto =
@@ -116,85 +116,85 @@ static const ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor* file_level_service_desc
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_worker_5fservice_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mapreduce::WorkerReplyMsg, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::WorkerReplyMsg, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::mapreduce::WorkerReplyMsg, ok_),
-  PROTOBUF_FIELD_OFFSET(::mapreduce::WorkerReplyMsg, msg_),
-  PROTOBUF_FIELD_OFFSET(::mapreduce::WorkerReplyMsg, state_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::WorkerReplyMsg, ok_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::WorkerReplyMsg, msg_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::WorkerReplyMsg, state_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mapreduce::MapJobMsg_MapKV, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::MapJobMsg_MapKV, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::mapreduce::MapJobMsg_MapKV, key_),
-  PROTOBUF_FIELD_OFFSET(::mapreduce::MapJobMsg_MapKV, value_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::MapJobMsg_MapKV, key_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::MapJobMsg_MapKV, value_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mapreduce::MapJobMsg, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::MapJobMsg, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::mapreduce::MapJobMsg, job_id_),
-  PROTOBUF_FIELD_OFFSET(::mapreduce::MapJobMsg, subjob_id_),
-  PROTOBUF_FIELD_OFFSET(::mapreduce::MapJobMsg, name_),
-  PROTOBUF_FIELD_OFFSET(::mapreduce::MapJobMsg, type_),
-  PROTOBUF_FIELD_OFFSET(::mapreduce::MapJobMsg, map_kvs_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::MapJobMsg, job_id_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::MapJobMsg, subjob_id_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::MapJobMsg, name_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::MapJobMsg, type_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::MapJobMsg, map_kvs_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mapreduce::ReduceJobMsg_ReduceKV, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::ReduceJobMsg_ReduceKV, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::mapreduce::ReduceJobMsg_ReduceKV, key_),
-  PROTOBUF_FIELD_OFFSET(::mapreduce::ReduceJobMsg_ReduceKV, value_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::ReduceJobMsg_ReduceKV, key_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::ReduceJobMsg_ReduceKV, value_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::mapreduce::ReduceJobMsg, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::ReduceJobMsg, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::mapreduce::ReduceJobMsg, job_id_),
-  PROTOBUF_FIELD_OFFSET(::mapreduce::ReduceJobMsg, subjob_id_),
-  PROTOBUF_FIELD_OFFSET(::mapreduce::ReduceJobMsg, name_),
-  PROTOBUF_FIELD_OFFSET(::mapreduce::ReduceJobMsg, type_),
-  PROTOBUF_FIELD_OFFSET(::mapreduce::ReduceJobMsg, reduce_kvs_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::ReduceJobMsg, job_id_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::ReduceJobMsg, subjob_id_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::ReduceJobMsg, name_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::ReduceJobMsg, type_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::ReduceJobMsg, reduce_kvs_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::mapreduce::WorkerReplyMsg)},
-  { 8, -1, sizeof(::mapreduce::MapJobMsg_MapKV)},
-  { 15, -1, sizeof(::mapreduce::MapJobMsg)},
-  { 25, -1, sizeof(::mapreduce::ReduceJobMsg_ReduceKV)},
-  { 32, -1, sizeof(::mapreduce::ReduceJobMsg)},
+  { 0, -1, sizeof(::tmapreduce::WorkerReplyMsg)},
+  { 8, -1, sizeof(::tmapreduce::MapJobMsg_MapKV)},
+  { 15, -1, sizeof(::tmapreduce::MapJobMsg)},
+  { 25, -1, sizeof(::tmapreduce::ReduceJobMsg_ReduceKV)},
+  { 32, -1, sizeof(::tmapreduce::ReduceJobMsg)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::mapreduce::_WorkerReplyMsg_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::mapreduce::_MapJobMsg_MapKV_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::mapreduce::_MapJobMsg_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::mapreduce::_ReduceJobMsg_ReduceKV_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::mapreduce::_ReduceJobMsg_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::tmapreduce::_WorkerReplyMsg_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::tmapreduce::_MapJobMsg_MapKV_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::tmapreduce::_MapJobMsg_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::tmapreduce::_ReduceJobMsg_ReduceKV_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::tmapreduce::_ReduceJobMsg_default_instance_),
 };
 
 const char descriptor_table_protodef_worker_5fservice_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\024worker_service.proto\022\tmapreduce\032\033googl"
-  "e/protobuf/empty.proto\032\013state.proto\"P\n\016W"
-  "orkerReplyMsg\022\n\n\002ok\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\022%"
-  "\n\005state\030\003 \001(\0162\026.mapreduce.WorkerState\"\234\001"
-  "\n\tMapJobMsg\022\016\n\006job_id\030\001 \001(\r\022\021\n\tsubjob_id"
-  "\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\022+\n\007ma"
-  "p_kvs\030\005 \003(\0132\032.mapreduce.MapJobMsg.MapKV\032"
-  "#\n\005MapKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\253\001\n"
-  "\014ReduceJobMsg\022\016\n\006job_id\030\001 \001(\r\022\021\n\tsubjob_"
-  "id\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\0224\n\n"
-  "reduce_kvs\030\005 \003(\0132 .mapreduce.ReduceJobMs"
-  "g.ReduceKV\032&\n\010ReduceKV\022\013\n\003key\030\001 \001(\t\022\r\n\005v"
-  "alue\030\002 \003(\t2\222\002\n\rWorkerService\022;\n\004Beat\022\026.g"
-  "oogle.protobuf.Empty\032\031.mapreduce.WorkerR"
-  "eplyMsg\"\000\022\?\n\nPrepareMap\022\024.mapreduce.MapJ"
-  "obMsg\032\031.mapreduce.WorkerReplyMsg\"\000\022E\n\rPr"
-  "epareReduce\022\027.mapreduce.ReduceJobMsg\032\031.m"
-  "apreduce.WorkerReplyMsg\"\000\022<\n\005Start\022\026.goo"
-  "gle.protobuf.Empty\032\031.mapreduce.WorkerRep"
-  "lyMsg\"\000B\003\200\001\001b\006proto3"
+  "\n\024worker_service.proto\022\ntmapreduce\032\033goog"
+  "le/protobuf/empty.proto\032\013state.proto\"Q\n\016"
+  "WorkerReplyMsg\022\n\n\002ok\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\022"
+  "&\n\005state\030\003 \001(\0162\027.tmapreduce.WorkerState\""
+  "\235\001\n\tMapJobMsg\022\016\n\006job_id\030\001 \001(\r\022\021\n\tsubjob_"
+  "id\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\022,\n\007"
+  "map_kvs\030\005 \003(\0132\033.tmapreduce.MapJobMsg.Map"
+  "KV\032#\n\005MapKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\""
+  "\254\001\n\014ReduceJobMsg\022\016\n\006job_id\030\001 \001(\r\022\021\n\tsubj"
+  "ob_id\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\022"
+  "5\n\nreduce_kvs\030\005 \003(\0132!.tmapreduce.ReduceJ"
+  "obMsg.ReduceKV\032&\n\010ReduceKV\022\013\n\003key\030\001 \001(\t\022"
+  "\r\n\005value\030\002 \003(\t2\230\002\n\rWorkerService\022<\n\004Beat"
+  "\022\026.google.protobuf.Empty\032\032.tmapreduce.Wo"
+  "rkerReplyMsg\"\000\022A\n\nPrepareMap\022\025.tmapreduc"
+  "e.MapJobMsg\032\032.tmapreduce.WorkerReplyMsg\""
+  "\000\022G\n\rPrepareReduce\022\030.tmapreduce.ReduceJo"
+  "bMsg\032\032.tmapreduce.WorkerReplyMsg\"\000\022=\n\005St"
+  "art\022\026.google.protobuf.Empty\032\032.tmapreduce"
+  ".WorkerReplyMsg\"\000B\003\200\001\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_worker_5fservice_2eproto_deps[2] = {
   &::descriptor_table_google_2fprotobuf_2fempty_2eproto,
@@ -209,7 +209,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_wor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_worker_5fservice_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_worker_5fservice_2eproto = {
-  false, false, descriptor_table_protodef_worker_5fservice_2eproto, "worker_service.proto", 780,
+  false, false, descriptor_table_protodef_worker_5fservice_2eproto, "worker_service.proto", 790,
   &descriptor_table_worker_5fservice_2eproto_once, descriptor_table_worker_5fservice_2eproto_sccs, descriptor_table_worker_5fservice_2eproto_deps, 5, 2,
   schemas, file_default_instances, TableStruct_worker_5fservice_2eproto::offsets,
   file_level_metadata_worker_5fservice_2eproto, 5, file_level_enum_descriptors_worker_5fservice_2eproto, file_level_service_descriptors_worker_5fservice_2eproto,
@@ -217,7 +217,7 @@ const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_worker
 
 // Force running AddDescriptors() at dynamic initialization time.
 static bool dynamic_init_dummy_worker_5fservice_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_worker_5fservice_2eproto)), true);
-namespace mapreduce {
+namespace tmapreduce {
 
 // ===================================================================
 
@@ -231,7 +231,7 @@ WorkerReplyMsg::WorkerReplyMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:mapreduce.WorkerReplyMsg)
+  // @@protoc_insertion_point(arena_constructor:tmapreduce.WorkerReplyMsg)
 }
 WorkerReplyMsg::WorkerReplyMsg(const WorkerReplyMsg& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -244,7 +244,7 @@ WorkerReplyMsg::WorkerReplyMsg(const WorkerReplyMsg& from)
   ::memcpy(&ok_, &from.ok_,
     static_cast<size_t>(reinterpret_cast<char*>(&state_) -
     reinterpret_cast<char*>(&ok_)) + sizeof(state_));
-  // @@protoc_insertion_point(copy_constructor:mapreduce.WorkerReplyMsg)
+  // @@protoc_insertion_point(copy_constructor:tmapreduce.WorkerReplyMsg)
 }
 
 void WorkerReplyMsg::SharedCtor() {
@@ -256,7 +256,7 @@ void WorkerReplyMsg::SharedCtor() {
 }
 
 WorkerReplyMsg::~WorkerReplyMsg() {
-  // @@protoc_insertion_point(destructor:mapreduce.WorkerReplyMsg)
+  // @@protoc_insertion_point(destructor:tmapreduce.WorkerReplyMsg)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -282,7 +282,7 @@ const WorkerReplyMsg& WorkerReplyMsg::default_instance() {
 
 
 void WorkerReplyMsg::Clear() {
-// @@protoc_insertion_point(message_clear_start:mapreduce.WorkerReplyMsg)
+// @@protoc_insertion_point(message_clear_start:tmapreduce.WorkerReplyMsg)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -314,16 +314,16 @@ const char* WorkerReplyMsg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_msg();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "mapreduce.WorkerReplyMsg.msg"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tmapreduce.WorkerReplyMsg.msg"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .mapreduce.WorkerState state = 3;
+      // .tmapreduce.WorkerState state = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
           ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          _internal_set_state(static_cast<::mapreduce::WorkerState>(val));
+          _internal_set_state(static_cast<::tmapreduce::WorkerState>(val));
         } else goto handle_unusual;
         continue;
       default: {
@@ -350,7 +350,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* WorkerReplyMsg::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:mapreduce.WorkerReplyMsg)
+  // @@protoc_insertion_point(serialize_to_array_start:tmapreduce.WorkerReplyMsg)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -365,12 +365,12 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_msg().data(), static_cast<int>(this->_internal_msg().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.WorkerReplyMsg.msg");
+      "tmapreduce.WorkerReplyMsg.msg");
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_msg(), target);
   }
 
-  // .mapreduce.WorkerState state = 3;
+  // .tmapreduce.WorkerState state = 3;
   if (this->state() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
@@ -381,12 +381,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:mapreduce.WorkerReplyMsg)
+  // @@protoc_insertion_point(serialize_to_array_end:tmapreduce.WorkerReplyMsg)
   return target;
 }
 
 size_t WorkerReplyMsg::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:mapreduce.WorkerReplyMsg)
+// @@protoc_insertion_point(message_byte_size_start:tmapreduce.WorkerReplyMsg)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -405,7 +405,7 @@ size_t WorkerReplyMsg::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  // .mapreduce.WorkerState state = 3;
+  // .tmapreduce.WorkerState state = 3;
   if (this->state() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_state());
@@ -421,22 +421,22 @@ size_t WorkerReplyMsg::ByteSizeLong() const {
 }
 
 void WorkerReplyMsg::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:mapreduce.WorkerReplyMsg)
+// @@protoc_insertion_point(generalized_merge_from_start:tmapreduce.WorkerReplyMsg)
   GOOGLE_DCHECK_NE(&from, this);
   const WorkerReplyMsg* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<WorkerReplyMsg>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mapreduce.WorkerReplyMsg)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tmapreduce.WorkerReplyMsg)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:mapreduce.WorkerReplyMsg)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tmapreduce.WorkerReplyMsg)
     MergeFrom(*source);
   }
 }
 
 void WorkerReplyMsg::MergeFrom(const WorkerReplyMsg& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:mapreduce.WorkerReplyMsg)
+// @@protoc_insertion_point(class_specific_merge_from_start:tmapreduce.WorkerReplyMsg)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -454,14 +454,14 @@ void WorkerReplyMsg::MergeFrom(const WorkerReplyMsg& from) {
 }
 
 void WorkerReplyMsg::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:mapreduce.WorkerReplyMsg)
+// @@protoc_insertion_point(generalized_copy_from_start:tmapreduce.WorkerReplyMsg)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void WorkerReplyMsg::CopyFrom(const WorkerReplyMsg& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:mapreduce.WorkerReplyMsg)
+// @@protoc_insertion_point(class_specific_copy_from_start:tmapreduce.WorkerReplyMsg)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -500,7 +500,7 @@ MapJobMsg_MapKV::MapJobMsg_MapKV(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:mapreduce.MapJobMsg.MapKV)
+  // @@protoc_insertion_point(arena_constructor:tmapreduce.MapJobMsg.MapKV)
 }
 MapJobMsg_MapKV::MapJobMsg_MapKV(const MapJobMsg_MapKV& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -515,7 +515,7 @@ MapJobMsg_MapKV::MapJobMsg_MapKV(const MapJobMsg_MapKV& from)
     value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_value(),
       GetArena());
   }
-  // @@protoc_insertion_point(copy_constructor:mapreduce.MapJobMsg.MapKV)
+  // @@protoc_insertion_point(copy_constructor:tmapreduce.MapJobMsg.MapKV)
 }
 
 void MapJobMsg_MapKV::SharedCtor() {
@@ -525,7 +525,7 @@ void MapJobMsg_MapKV::SharedCtor() {
 }
 
 MapJobMsg_MapKV::~MapJobMsg_MapKV() {
-  // @@protoc_insertion_point(destructor:mapreduce.MapJobMsg.MapKV)
+  // @@protoc_insertion_point(destructor:tmapreduce.MapJobMsg.MapKV)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -552,7 +552,7 @@ const MapJobMsg_MapKV& MapJobMsg_MapKV::default_instance() {
 
 
 void MapJobMsg_MapKV::Clear() {
-// @@protoc_insertion_point(message_clear_start:mapreduce.MapJobMsg.MapKV)
+// @@protoc_insertion_point(message_clear_start:tmapreduce.MapJobMsg.MapKV)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -575,7 +575,7 @@ const char* MapJobMsg_MapKV::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_key();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "mapreduce.MapJobMsg.MapKV.key"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tmapreduce.MapJobMsg.MapKV.key"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -584,7 +584,7 @@ const char* MapJobMsg_MapKV::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_value();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "mapreduce.MapJobMsg.MapKV.value"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tmapreduce.MapJobMsg.MapKV.value"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -612,7 +612,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* MapJobMsg_MapKV::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:mapreduce.MapJobMsg.MapKV)
+  // @@protoc_insertion_point(serialize_to_array_start:tmapreduce.MapJobMsg.MapKV)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -621,7 +621,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_key().data(), static_cast<int>(this->_internal_key().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.MapJobMsg.MapKV.key");
+      "tmapreduce.MapJobMsg.MapKV.key");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_key(), target);
   }
@@ -631,7 +631,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_value().data(), static_cast<int>(this->_internal_value().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.MapJobMsg.MapKV.value");
+      "tmapreduce.MapJobMsg.MapKV.value");
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_value(), target);
   }
@@ -640,12 +640,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:mapreduce.MapJobMsg.MapKV)
+  // @@protoc_insertion_point(serialize_to_array_end:tmapreduce.MapJobMsg.MapKV)
   return target;
 }
 
 size_t MapJobMsg_MapKV::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:mapreduce.MapJobMsg.MapKV)
+// @@protoc_insertion_point(message_byte_size_start:tmapreduce.MapJobMsg.MapKV)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -676,22 +676,22 @@ size_t MapJobMsg_MapKV::ByteSizeLong() const {
 }
 
 void MapJobMsg_MapKV::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:mapreduce.MapJobMsg.MapKV)
+// @@protoc_insertion_point(generalized_merge_from_start:tmapreduce.MapJobMsg.MapKV)
   GOOGLE_DCHECK_NE(&from, this);
   const MapJobMsg_MapKV* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<MapJobMsg_MapKV>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mapreduce.MapJobMsg.MapKV)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tmapreduce.MapJobMsg.MapKV)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:mapreduce.MapJobMsg.MapKV)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tmapreduce.MapJobMsg.MapKV)
     MergeFrom(*source);
   }
 }
 
 void MapJobMsg_MapKV::MergeFrom(const MapJobMsg_MapKV& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:mapreduce.MapJobMsg.MapKV)
+// @@protoc_insertion_point(class_specific_merge_from_start:tmapreduce.MapJobMsg.MapKV)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -706,14 +706,14 @@ void MapJobMsg_MapKV::MergeFrom(const MapJobMsg_MapKV& from) {
 }
 
 void MapJobMsg_MapKV::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:mapreduce.MapJobMsg.MapKV)
+// @@protoc_insertion_point(generalized_copy_from_start:tmapreduce.MapJobMsg.MapKV)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void MapJobMsg_MapKV::CopyFrom(const MapJobMsg_MapKV& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:mapreduce.MapJobMsg.MapKV)
+// @@protoc_insertion_point(class_specific_copy_from_start:tmapreduce.MapJobMsg.MapKV)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -748,7 +748,7 @@ MapJobMsg::MapJobMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   map_kvs_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:mapreduce.MapJobMsg)
+  // @@protoc_insertion_point(arena_constructor:tmapreduce.MapJobMsg)
 }
 MapJobMsg::MapJobMsg(const MapJobMsg& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -767,7 +767,7 @@ MapJobMsg::MapJobMsg(const MapJobMsg& from)
   ::memcpy(&job_id_, &from.job_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&subjob_id_) -
     reinterpret_cast<char*>(&job_id_)) + sizeof(subjob_id_));
-  // @@protoc_insertion_point(copy_constructor:mapreduce.MapJobMsg)
+  // @@protoc_insertion_point(copy_constructor:tmapreduce.MapJobMsg)
 }
 
 void MapJobMsg::SharedCtor() {
@@ -780,7 +780,7 @@ void MapJobMsg::SharedCtor() {
 }
 
 MapJobMsg::~MapJobMsg() {
-  // @@protoc_insertion_point(destructor:mapreduce.MapJobMsg)
+  // @@protoc_insertion_point(destructor:tmapreduce.MapJobMsg)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -807,7 +807,7 @@ const MapJobMsg& MapJobMsg::default_instance() {
 
 
 void MapJobMsg::Clear() {
-// @@protoc_insertion_point(message_clear_start:mapreduce.MapJobMsg)
+// @@protoc_insertion_point(message_clear_start:tmapreduce.MapJobMsg)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -848,7 +848,7 @@ const char* MapJobMsg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "mapreduce.MapJobMsg.name"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tmapreduce.MapJobMsg.name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -857,11 +857,11 @@ const char* MapJobMsg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           auto str = _internal_mutable_type();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "mapreduce.MapJobMsg.type"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tmapreduce.MapJobMsg.type"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated .mapreduce.MapJobMsg.MapKV map_kvs = 5;
+      // repeated .tmapreduce.MapJobMsg.MapKV map_kvs = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
           ptr -= 1;
@@ -897,7 +897,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* MapJobMsg::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:mapreduce.MapJobMsg)
+  // @@protoc_insertion_point(serialize_to_array_start:tmapreduce.MapJobMsg)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -918,7 +918,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.MapJobMsg.name");
+      "tmapreduce.MapJobMsg.name");
     target = stream->WriteStringMaybeAliased(
         3, this->_internal_name(), target);
   }
@@ -928,12 +928,12 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_type().data(), static_cast<int>(this->_internal_type().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.MapJobMsg.type");
+      "tmapreduce.MapJobMsg.type");
     target = stream->WriteStringMaybeAliased(
         4, this->_internal_type(), target);
   }
 
-  // repeated .mapreduce.MapJobMsg.MapKV map_kvs = 5;
+  // repeated .tmapreduce.MapJobMsg.MapKV map_kvs = 5;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_map_kvs_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
@@ -945,19 +945,19 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:mapreduce.MapJobMsg)
+  // @@protoc_insertion_point(serialize_to_array_end:tmapreduce.MapJobMsg)
   return target;
 }
 
 size_t MapJobMsg::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:mapreduce.MapJobMsg)
+// @@protoc_insertion_point(message_byte_size_start:tmapreduce.MapJobMsg)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .mapreduce.MapJobMsg.MapKV map_kvs = 5;
+  // repeated .tmapreduce.MapJobMsg.MapKV map_kvs = 5;
   total_size += 1UL * this->_internal_map_kvs_size();
   for (const auto& msg : this->map_kvs_) {
     total_size +=
@@ -1002,22 +1002,22 @@ size_t MapJobMsg::ByteSizeLong() const {
 }
 
 void MapJobMsg::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:mapreduce.MapJobMsg)
+// @@protoc_insertion_point(generalized_merge_from_start:tmapreduce.MapJobMsg)
   GOOGLE_DCHECK_NE(&from, this);
   const MapJobMsg* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<MapJobMsg>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mapreduce.MapJobMsg)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tmapreduce.MapJobMsg)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:mapreduce.MapJobMsg)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tmapreduce.MapJobMsg)
     MergeFrom(*source);
   }
 }
 
 void MapJobMsg::MergeFrom(const MapJobMsg& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:mapreduce.MapJobMsg)
+// @@protoc_insertion_point(class_specific_merge_from_start:tmapreduce.MapJobMsg)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1039,14 +1039,14 @@ void MapJobMsg::MergeFrom(const MapJobMsg& from) {
 }
 
 void MapJobMsg::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:mapreduce.MapJobMsg)
+// @@protoc_insertion_point(generalized_copy_from_start:tmapreduce.MapJobMsg)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void MapJobMsg::CopyFrom(const MapJobMsg& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:mapreduce.MapJobMsg)
+// @@protoc_insertion_point(class_specific_copy_from_start:tmapreduce.MapJobMsg)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1088,7 +1088,7 @@ ReduceJobMsg_ReduceKV::ReduceJobMsg_ReduceKV(::PROTOBUF_NAMESPACE_ID::Arena* are
   value_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:mapreduce.ReduceJobMsg.ReduceKV)
+  // @@protoc_insertion_point(arena_constructor:tmapreduce.ReduceJobMsg.ReduceKV)
 }
 ReduceJobMsg_ReduceKV::ReduceJobMsg_ReduceKV(const ReduceJobMsg_ReduceKV& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -1099,7 +1099,7 @@ ReduceJobMsg_ReduceKV::ReduceJobMsg_ReduceKV(const ReduceJobMsg_ReduceKV& from)
     key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_key(),
       GetArena());
   }
-  // @@protoc_insertion_point(copy_constructor:mapreduce.ReduceJobMsg.ReduceKV)
+  // @@protoc_insertion_point(copy_constructor:tmapreduce.ReduceJobMsg.ReduceKV)
 }
 
 void ReduceJobMsg_ReduceKV::SharedCtor() {
@@ -1108,7 +1108,7 @@ void ReduceJobMsg_ReduceKV::SharedCtor() {
 }
 
 ReduceJobMsg_ReduceKV::~ReduceJobMsg_ReduceKV() {
-  // @@protoc_insertion_point(destructor:mapreduce.ReduceJobMsg.ReduceKV)
+  // @@protoc_insertion_point(destructor:tmapreduce.ReduceJobMsg.ReduceKV)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1134,7 +1134,7 @@ const ReduceJobMsg_ReduceKV& ReduceJobMsg_ReduceKV::default_instance() {
 
 
 void ReduceJobMsg_ReduceKV::Clear() {
-// @@protoc_insertion_point(message_clear_start:mapreduce.ReduceJobMsg.ReduceKV)
+// @@protoc_insertion_point(message_clear_start:tmapreduce.ReduceJobMsg.ReduceKV)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1157,7 +1157,7 @@ const char* ReduceJobMsg_ReduceKV::_InternalParse(const char* ptr, ::PROTOBUF_NA
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_key();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "mapreduce.ReduceJobMsg.ReduceKV.key"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tmapreduce.ReduceJobMsg.ReduceKV.key"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1169,7 +1169,7 @@ const char* ReduceJobMsg_ReduceKV::_InternalParse(const char* ptr, ::PROTOBUF_NA
             ptr += 1;
             auto str = _internal_add_value();
             ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "mapreduce.ReduceJobMsg.ReduceKV.value"));
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tmapreduce.ReduceJobMsg.ReduceKV.value"));
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
@@ -1199,7 +1199,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* ReduceJobMsg_ReduceKV::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:mapreduce.ReduceJobMsg.ReduceKV)
+  // @@protoc_insertion_point(serialize_to_array_start:tmapreduce.ReduceJobMsg.ReduceKV)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1208,7 +1208,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_key().data(), static_cast<int>(this->_internal_key().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.ReduceJobMsg.ReduceKV.key");
+      "tmapreduce.ReduceJobMsg.ReduceKV.key");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_key(), target);
   }
@@ -1219,7 +1219,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       s.data(), static_cast<int>(s.length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.ReduceJobMsg.ReduceKV.value");
+      "tmapreduce.ReduceJobMsg.ReduceKV.value");
     target = stream->WriteString(2, s, target);
   }
 
@@ -1227,12 +1227,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:mapreduce.ReduceJobMsg.ReduceKV)
+  // @@protoc_insertion_point(serialize_to_array_end:tmapreduce.ReduceJobMsg.ReduceKV)
   return target;
 }
 
 size_t ReduceJobMsg_ReduceKV::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:mapreduce.ReduceJobMsg.ReduceKV)
+// @@protoc_insertion_point(message_byte_size_start:tmapreduce.ReduceJobMsg.ReduceKV)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1264,22 +1264,22 @@ size_t ReduceJobMsg_ReduceKV::ByteSizeLong() const {
 }
 
 void ReduceJobMsg_ReduceKV::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:mapreduce.ReduceJobMsg.ReduceKV)
+// @@protoc_insertion_point(generalized_merge_from_start:tmapreduce.ReduceJobMsg.ReduceKV)
   GOOGLE_DCHECK_NE(&from, this);
   const ReduceJobMsg_ReduceKV* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ReduceJobMsg_ReduceKV>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mapreduce.ReduceJobMsg.ReduceKV)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tmapreduce.ReduceJobMsg.ReduceKV)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:mapreduce.ReduceJobMsg.ReduceKV)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tmapreduce.ReduceJobMsg.ReduceKV)
     MergeFrom(*source);
   }
 }
 
 void ReduceJobMsg_ReduceKV::MergeFrom(const ReduceJobMsg_ReduceKV& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:mapreduce.ReduceJobMsg.ReduceKV)
+// @@protoc_insertion_point(class_specific_merge_from_start:tmapreduce.ReduceJobMsg.ReduceKV)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1292,14 +1292,14 @@ void ReduceJobMsg_ReduceKV::MergeFrom(const ReduceJobMsg_ReduceKV& from) {
 }
 
 void ReduceJobMsg_ReduceKV::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:mapreduce.ReduceJobMsg.ReduceKV)
+// @@protoc_insertion_point(generalized_copy_from_start:tmapreduce.ReduceJobMsg.ReduceKV)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void ReduceJobMsg_ReduceKV::CopyFrom(const ReduceJobMsg_ReduceKV& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:mapreduce.ReduceJobMsg.ReduceKV)
+// @@protoc_insertion_point(class_specific_copy_from_start:tmapreduce.ReduceJobMsg.ReduceKV)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1334,7 +1334,7 @@ ReduceJobMsg::ReduceJobMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   reduce_kvs_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:mapreduce.ReduceJobMsg)
+  // @@protoc_insertion_point(arena_constructor:tmapreduce.ReduceJobMsg)
 }
 ReduceJobMsg::ReduceJobMsg(const ReduceJobMsg& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -1353,7 +1353,7 @@ ReduceJobMsg::ReduceJobMsg(const ReduceJobMsg& from)
   ::memcpy(&job_id_, &from.job_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&subjob_id_) -
     reinterpret_cast<char*>(&job_id_)) + sizeof(subjob_id_));
-  // @@protoc_insertion_point(copy_constructor:mapreduce.ReduceJobMsg)
+  // @@protoc_insertion_point(copy_constructor:tmapreduce.ReduceJobMsg)
 }
 
 void ReduceJobMsg::SharedCtor() {
@@ -1366,7 +1366,7 @@ void ReduceJobMsg::SharedCtor() {
 }
 
 ReduceJobMsg::~ReduceJobMsg() {
-  // @@protoc_insertion_point(destructor:mapreduce.ReduceJobMsg)
+  // @@protoc_insertion_point(destructor:tmapreduce.ReduceJobMsg)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1393,7 +1393,7 @@ const ReduceJobMsg& ReduceJobMsg::default_instance() {
 
 
 void ReduceJobMsg::Clear() {
-// @@protoc_insertion_point(message_clear_start:mapreduce.ReduceJobMsg)
+// @@protoc_insertion_point(message_clear_start:tmapreduce.ReduceJobMsg)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1434,7 +1434,7 @@ const char* ReduceJobMsg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "mapreduce.ReduceJobMsg.name"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tmapreduce.ReduceJobMsg.name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1443,11 +1443,11 @@ const char* ReduceJobMsg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           auto str = _internal_mutable_type();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "mapreduce.ReduceJobMsg.type"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tmapreduce.ReduceJobMsg.type"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated .mapreduce.ReduceJobMsg.ReduceKV reduce_kvs = 5;
+      // repeated .tmapreduce.ReduceJobMsg.ReduceKV reduce_kvs = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
           ptr -= 1;
@@ -1483,7 +1483,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* ReduceJobMsg::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:mapreduce.ReduceJobMsg)
+  // @@protoc_insertion_point(serialize_to_array_start:tmapreduce.ReduceJobMsg)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1504,7 +1504,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.ReduceJobMsg.name");
+      "tmapreduce.ReduceJobMsg.name");
     target = stream->WriteStringMaybeAliased(
         3, this->_internal_name(), target);
   }
@@ -1514,12 +1514,12 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_type().data(), static_cast<int>(this->_internal_type().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "mapreduce.ReduceJobMsg.type");
+      "tmapreduce.ReduceJobMsg.type");
     target = stream->WriteStringMaybeAliased(
         4, this->_internal_type(), target);
   }
 
-  // repeated .mapreduce.ReduceJobMsg.ReduceKV reduce_kvs = 5;
+  // repeated .tmapreduce.ReduceJobMsg.ReduceKV reduce_kvs = 5;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_reduce_kvs_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
@@ -1531,19 +1531,19 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:mapreduce.ReduceJobMsg)
+  // @@protoc_insertion_point(serialize_to_array_end:tmapreduce.ReduceJobMsg)
   return target;
 }
 
 size_t ReduceJobMsg::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:mapreduce.ReduceJobMsg)
+// @@protoc_insertion_point(message_byte_size_start:tmapreduce.ReduceJobMsg)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .mapreduce.ReduceJobMsg.ReduceKV reduce_kvs = 5;
+  // repeated .tmapreduce.ReduceJobMsg.ReduceKV reduce_kvs = 5;
   total_size += 1UL * this->_internal_reduce_kvs_size();
   for (const auto& msg : this->reduce_kvs_) {
     total_size +=
@@ -1588,22 +1588,22 @@ size_t ReduceJobMsg::ByteSizeLong() const {
 }
 
 void ReduceJobMsg::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:mapreduce.ReduceJobMsg)
+// @@protoc_insertion_point(generalized_merge_from_start:tmapreduce.ReduceJobMsg)
   GOOGLE_DCHECK_NE(&from, this);
   const ReduceJobMsg* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ReduceJobMsg>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:mapreduce.ReduceJobMsg)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tmapreduce.ReduceJobMsg)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:mapreduce.ReduceJobMsg)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tmapreduce.ReduceJobMsg)
     MergeFrom(*source);
   }
 }
 
 void ReduceJobMsg::MergeFrom(const ReduceJobMsg& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:mapreduce.ReduceJobMsg)
+// @@protoc_insertion_point(class_specific_merge_from_start:tmapreduce.ReduceJobMsg)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1625,14 +1625,14 @@ void ReduceJobMsg::MergeFrom(const ReduceJobMsg& from) {
 }
 
 void ReduceJobMsg::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:mapreduce.ReduceJobMsg)
+// @@protoc_insertion_point(generalized_copy_from_start:tmapreduce.ReduceJobMsg)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void ReduceJobMsg::CopyFrom(const ReduceJobMsg& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:mapreduce.ReduceJobMsg)
+// @@protoc_insertion_point(class_specific_copy_from_start:tmapreduce.ReduceJobMsg)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1676,23 +1676,23 @@ const ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor* WorkerService::GetDescriptor()
 
 void WorkerService::Beat(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
                          const PROTOBUF_NAMESPACE_ID::Empty*,
-                         ::mapreduce::WorkerReplyMsg*,
+                         ::tmapreduce::WorkerReplyMsg*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method Beat() not implemented.");
   done->Run();
 }
 
 void WorkerService::PrepareMap(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                         const ::mapreduce::MapJobMsg*,
-                         ::mapreduce::WorkerReplyMsg*,
+                         const ::tmapreduce::MapJobMsg*,
+                         ::tmapreduce::WorkerReplyMsg*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method PrepareMap() not implemented.");
   done->Run();
 }
 
 void WorkerService::PrepareReduce(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                         const ::mapreduce::ReduceJobMsg*,
-                         ::mapreduce::WorkerReplyMsg*,
+                         const ::tmapreduce::ReduceJobMsg*,
+                         ::tmapreduce::WorkerReplyMsg*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method PrepareReduce() not implemented.");
   done->Run();
@@ -1700,7 +1700,7 @@ void WorkerService::PrepareReduce(::PROTOBUF_NAMESPACE_ID::RpcController* contro
 
 void WorkerService::Start(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
                          const PROTOBUF_NAMESPACE_ID::Empty*,
-                         ::mapreduce::WorkerReplyMsg*,
+                         ::tmapreduce::WorkerReplyMsg*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method Start() not implemented.");
   done->Run();
@@ -1717,23 +1717,23 @@ void WorkerService::CallMethod(const ::PROTOBUF_NAMESPACE_ID::MethodDescriptor* 
       Beat(controller,
              ::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PROTOBUF_NAMESPACE_ID::Empty*>(
                  request),
-             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<::mapreduce::WorkerReplyMsg*>(
+             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<::tmapreduce::WorkerReplyMsg*>(
                  response),
              done);
       break;
     case 1:
       PrepareMap(controller,
-             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ::mapreduce::MapJobMsg*>(
+             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ::tmapreduce::MapJobMsg*>(
                  request),
-             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<::mapreduce::WorkerReplyMsg*>(
+             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<::tmapreduce::WorkerReplyMsg*>(
                  response),
              done);
       break;
     case 2:
       PrepareReduce(controller,
-             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ::mapreduce::ReduceJobMsg*>(
+             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ::tmapreduce::ReduceJobMsg*>(
                  request),
-             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<::mapreduce::WorkerReplyMsg*>(
+             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<::tmapreduce::WorkerReplyMsg*>(
                  response),
              done);
       break;
@@ -1741,7 +1741,7 @@ void WorkerService::CallMethod(const ::PROTOBUF_NAMESPACE_ID::MethodDescriptor* 
       Start(controller,
              ::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PROTOBUF_NAMESPACE_ID::Empty*>(
                  request),
-             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<::mapreduce::WorkerReplyMsg*>(
+             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<::tmapreduce::WorkerReplyMsg*>(
                  response),
              done);
       break;
@@ -1758,9 +1758,9 @@ const ::PROTOBUF_NAMESPACE_ID::Message& WorkerService::GetRequestPrototype(
     case 0:
       return PROTOBUF_NAMESPACE_ID::Empty::default_instance();
     case 1:
-      return ::mapreduce::MapJobMsg::default_instance();
+      return ::tmapreduce::MapJobMsg::default_instance();
     case 2:
-      return ::mapreduce::ReduceJobMsg::default_instance();
+      return ::tmapreduce::ReduceJobMsg::default_instance();
     case 3:
       return PROTOBUF_NAMESPACE_ID::Empty::default_instance();
     default:
@@ -1775,13 +1775,13 @@ const ::PROTOBUF_NAMESPACE_ID::Message& WorkerService::GetResponsePrototype(
   GOOGLE_DCHECK_EQ(method->service(), descriptor());
   switch(method->index()) {
     case 0:
-      return ::mapreduce::WorkerReplyMsg::default_instance();
+      return ::tmapreduce::WorkerReplyMsg::default_instance();
     case 1:
-      return ::mapreduce::WorkerReplyMsg::default_instance();
+      return ::tmapreduce::WorkerReplyMsg::default_instance();
     case 2:
-      return ::mapreduce::WorkerReplyMsg::default_instance();
+      return ::tmapreduce::WorkerReplyMsg::default_instance();
     case 3:
-      return ::mapreduce::WorkerReplyMsg::default_instance();
+      return ::tmapreduce::WorkerReplyMsg::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *::PROTOBUF_NAMESPACE_ID::MessageFactory::generated_factory()
@@ -1802,50 +1802,50 @@ WorkerService_Stub::~WorkerService_Stub() {
 
 void WorkerService_Stub::Beat(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
                               const PROTOBUF_NAMESPACE_ID::Empty* request,
-                              ::mapreduce::WorkerReplyMsg* response,
+                              ::tmapreduce::WorkerReplyMsg* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(0),
                        controller, request, response, done);
 }
 void WorkerService_Stub::PrepareMap(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                              const ::mapreduce::MapJobMsg* request,
-                              ::mapreduce::WorkerReplyMsg* response,
+                              const ::tmapreduce::MapJobMsg* request,
+                              ::tmapreduce::WorkerReplyMsg* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(1),
                        controller, request, response, done);
 }
 void WorkerService_Stub::PrepareReduce(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
-                              const ::mapreduce::ReduceJobMsg* request,
-                              ::mapreduce::WorkerReplyMsg* response,
+                              const ::tmapreduce::ReduceJobMsg* request,
+                              ::tmapreduce::WorkerReplyMsg* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(2),
                        controller, request, response, done);
 }
 void WorkerService_Stub::Start(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
                               const PROTOBUF_NAMESPACE_ID::Empty* request,
-                              ::mapreduce::WorkerReplyMsg* response,
+                              ::tmapreduce::WorkerReplyMsg* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(3),
                        controller, request, response, done);
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace mapreduce
+}  // namespace tmapreduce
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::mapreduce::WorkerReplyMsg* Arena::CreateMaybeMessage< ::mapreduce::WorkerReplyMsg >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::mapreduce::WorkerReplyMsg >(arena);
+template<> PROTOBUF_NOINLINE ::tmapreduce::WorkerReplyMsg* Arena::CreateMaybeMessage< ::tmapreduce::WorkerReplyMsg >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::tmapreduce::WorkerReplyMsg >(arena);
 }
-template<> PROTOBUF_NOINLINE ::mapreduce::MapJobMsg_MapKV* Arena::CreateMaybeMessage< ::mapreduce::MapJobMsg_MapKV >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::mapreduce::MapJobMsg_MapKV >(arena);
+template<> PROTOBUF_NOINLINE ::tmapreduce::MapJobMsg_MapKV* Arena::CreateMaybeMessage< ::tmapreduce::MapJobMsg_MapKV >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::tmapreduce::MapJobMsg_MapKV >(arena);
 }
-template<> PROTOBUF_NOINLINE ::mapreduce::MapJobMsg* Arena::CreateMaybeMessage< ::mapreduce::MapJobMsg >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::mapreduce::MapJobMsg >(arena);
+template<> PROTOBUF_NOINLINE ::tmapreduce::MapJobMsg* Arena::CreateMaybeMessage< ::tmapreduce::MapJobMsg >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::tmapreduce::MapJobMsg >(arena);
 }
-template<> PROTOBUF_NOINLINE ::mapreduce::ReduceJobMsg_ReduceKV* Arena::CreateMaybeMessage< ::mapreduce::ReduceJobMsg_ReduceKV >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::mapreduce::ReduceJobMsg_ReduceKV >(arena);
+template<> PROTOBUF_NOINLINE ::tmapreduce::ReduceJobMsg_ReduceKV* Arena::CreateMaybeMessage< ::tmapreduce::ReduceJobMsg_ReduceKV >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::tmapreduce::ReduceJobMsg_ReduceKV >(arena);
 }
-template<> PROTOBUF_NOINLINE ::mapreduce::ReduceJobMsg* Arena::CreateMaybeMessage< ::mapreduce::ReduceJobMsg >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::mapreduce::ReduceJobMsg >(arena);
+template<> PROTOBUF_NOINLINE ::tmapreduce::ReduceJobMsg* Arena::CreateMaybeMessage< ::tmapreduce::ReduceJobMsg >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::tmapreduce::ReduceJobMsg >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

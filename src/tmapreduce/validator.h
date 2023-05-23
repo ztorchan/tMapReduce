@@ -1,5 +1,5 @@
-#ifndef _MAPREDUCE_Validator_H
-#define _MAPREDUCE_Validator_H
+#ifndef _TMAPREDUCE_Validator_H
+#define _TMAPREDUCE_Validator_H
 
 #include <string>
 #include <regex>
@@ -7,7 +7,7 @@
 
 #include <gflags/gflags.h>
 
-namespace mapreduce{
+namespace tmapreduce{
 
 bool ValidateIPv4(const char* flagname, const std::string& ipv4_address) {
   std::regex reg(R"(^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$)");
