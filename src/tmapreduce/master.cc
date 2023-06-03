@@ -4,6 +4,7 @@
 #include <random>
 
 #include <butil/sys_byteorder.h>
+#include <butil/endpoint.h>
 #include <brpc/controller.h>
 #include <brpc/server.h>
 #include <braft/raft.h>
@@ -12,10 +13,13 @@
 #include <spdlog/spdlog.h>
 #include <boost/uuid/uuid.hpp>
 #include <cpr/cpr.h>
+#include <rapidjson/rapidjson.h>
+#include <rapidjson/document.h>
 
 #include "tmapreduce/status.h"
 #include "tmapreduce/closure.h"
 #include "tmapreduce/master.h"
+#include "tmapreduce/base64.h"
 
 namespace tmapreduce
 {
@@ -200,25 +204,106 @@ void Master::redirect(OpType op_type, google::protobuf::Message* response) {
   }
 }
 
-int64_t Master::etcd_put(std::string key, std::string value) {
-  std::string etcd_url = std::string("http://") + butil::endpoint2str(etcd_ep_) + "/v3/kv/put";
+Status Master::etcd_add_type_worker(std::string type, std::string worker_name, butil::EndPoint worker_ep) {
+  std::string etcd_url = std::string("http://") + butil::endpoint2str(etcd_ep_).c_str() + "/v3/kv/put";
+  std::string post_body, key, value;
+  cpr::Response r;
+  // (1) types/{type} = {}
+  key = std::string("types/") + type;
+  value = "";
+  post_body = std::string()
+              + "{"
+              + "\"key\": \"" + tmapreduce::to_base64(key) + "\", "
+              + "\"value\": \"" + tmapreduce::to_base64(value) + "\""
+              + "}";
+  if(cpr::Post(cpr::Url{etcd_url}, cpr::Body{post_body}).status_code != 200) {
+    return Status::Error("Fail to add type to etcd");
+  }
+  
+  // (2) {type}/{worker name}={worker endpoint}
+  key = type + "/" + worker_name;
+  value = butil::endpoint2str(worker_ep).c_str();
+  post_body = std::string()
+              + "{"
+              + "\"key\": \"" + tmapreduce::to_base64(key) + "\", "
+              + "\"value\": \"" + tmapreduce::to_base64(value) + "\""
+              + "}";
+  if(cpr::Post(cpr::Url{etcd_url}, cpr::Body{post_body}).status_code != 200) {
+    return Status::Error("Fail to add worker to etcd");
+  }
+
+  return Status::Ok("");
+}
+
+Status Master::etcd_get_type_worker(std::string type, _OUT std::unordered_map<std::string, butil::EndPoint>& workers) {
+  std::string etcd_url = std::string("http://") + butil::endpoint2str(etcd_ep_).c_str() + "/v3/kv/range";
   std::string post_body = std::string("")
-                                + "{"
-                                + "\"key\": \"" + key + "\","
-                                + "\"value\": \"" + value + "\""
-                                + "}";
-  cpr::Response r = cpr::Post(cpr::Url{etcd_url},
-                              cpr::Body{post_body},
-                              cpr::Header{{"Content-Type", "application/json"}});
-  return r.status_code();
+                          + "{"
+                          + "\"key\": \"" + tmapreduce::to_base64(type + "/") + "\", "
+                          + "\"range_end\": \"" + tmapreduce::to_base64(type + "/\xff") + "\""
+                          + "}";
+  cpr::Response r = cpr::Post(cpr::Url{etcd_url}, cpr::Body{post_body});
+  if(r.status_code != 200) {
+    return Status::Error("Fail to find type workers from etcd");
+  }
+
+  // Parse
+  workers.clear();
+  rapidjson::Document doc;
+  doc.Parse(r.text.c_str());
+  if(doc.HasMember("kvs")) {
+    auto kvs = doc["kvs"].GetArray();
+    for(uint32_t i = 0; i < kvs.Size(); i++) {
+      auto kv = kvs[i].GetObject();
+      std::string key = tmapreduce::from_base64(kv["key"].GetString());
+      std::string value = tmapreduce::from_base64(kv["value"].GetString());
+      std::string worker_name(key.c_str() + type.size() + 1);   // get worker_name from {type}/{worker_name}
+      butil::EndPoint worker_ep;
+      butil::str2endpoint(value.c_str(), &worker_ep);
+      workers[worker_name] = worker_ep;
+    }
+  }
+  return Status::Ok("");             
 }
 
-int64_t Master::etcd_get(std::string key) {
-
+Status Master::etcd_delete_type_worker(std::string type, std::string worker_name) {
+  std::string etcd_url = std::string("http://") + butil::endpoint2str(etcd_ep_).c_str() + "/v3/kv/deleterange";
+  std::string post_body = std::string("")
+                          + "{"
+                          + "\"key\": \"" + tmapreduce::to_base64(type + "/" + worker_name) + "\""
+                          + "}";
+  if(cpr::Post(cpr::Url{etcd_url}, cpr::Body{post_body}).status_code != 200) {
+    return Status::Error("Fail to delete worker in etcd");
+  }
+  return Status::Ok("");
 }
 
-int64_t Master::etcd_delete(std::string key) {
+Status Master::etcd_get_all_types(_OUT std::vector<std::string> types) {
+  std::string etcd_url = std::string("http://") + butil::endpoint2str(etcd_ep_).c_str() + "/v3/kv/range";
+  std::string post_body = std::string("")
+                          + "{"
+                          + "\"key\": \"" + tmapreduce::to_base64("types/") + "\", "
+                          + "\"range_end\": \"" + tmapreduce::to_base64("types/\xff") + "\""
+                          + "}";
+  cpr::Response r = cpr::Post(cpr::Url{etcd_url}, cpr::Body{post_body});
+  if(r.status_code != 200) {
+    return Status::Error("Fail to get all types from etcd");
+  }
 
+  // Parse
+  types.clear();
+  rapidjson::Document doc;
+  doc.Parse(r.text.c_str());
+  if(doc.HasMember("kvs")) {
+    auto kvs = doc["kvs"].GetArray();
+    for(uint32_t i = 0; i < kvs.Size(); i++) {
+      auto kv = kvs[i].GetObject();
+      std::string key = tmapreduce::from_base64(kv["key"].GetString());
+      std::string type(key.c_str() + 6);   // get worker_name from {type}/{worker_name}
+      types.push_back(type);
+    }
+  }
+  return Status::Ok("");  
 }
 
 void Master::set_reply_ok(OpType op_type, google::protobuf::Message* response, bool ok) {

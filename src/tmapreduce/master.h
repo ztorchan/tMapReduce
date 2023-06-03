@@ -132,9 +132,10 @@ private:
   void redirect(OpType op_type, google::protobuf::Message* response);
 
   // util function
-  int64_t etcd_put(std::string key, std::string value);
-  int64_t etcd_get(std::string key);
-  int64_t etcd_delete(std::string key);
+  Status etcd_add_type_worker(std::string type, std::string worker_name, butil::EndPoint worker_ep);
+  Status etcd_get_type_worker(std::string type, _OUT std::unordered_map<std::string, butil::EndPoint>& workers);
+  Status etcd_delete_type_worker(std::string type, std::string worker_name);
+  Status etcd_get_all_types(_OUT std::vector<std::string> types);
   void set_reply_ok(OpType op_type, google::protobuf::Message* response, bool ok);
   void set_reply_msg(OpType op_type, google::protobuf::Message* response, std::string msg);
   void set_reply_redirect(OpType op_type, google::protobuf::Message* response, std::string redirect);

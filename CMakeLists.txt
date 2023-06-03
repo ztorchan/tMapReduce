@@ -11,11 +11,6 @@ if(NOT CMAKE_INSTALL_PREFIX)
   set(CMAKE_INSTALL_PREFIX /usr/local)
 endif()
 
-include(FetchContent)
-FetchContent_Declare(cpr GIT_REPOSITORY https://github.com/libcpr/cpr.git
-                         GIT_TAG 2553fc41450301cd09a9271c8d2c3e0cf3546b73) # The commit hash for 1.9.0. Replace with the latest from: https://github.com/libcpr/cpr/releases
-FetchContent_MakeAvailable(cpr)
-
 include(FindProtobuf)
 file(GLOB_RECURSE PROTO_FILE_LIST ${CMAKE_SOURCE_DIR}/protos/*.proto)
 set(PROTO_OUT_DIR ${CMAKE_SOURCE_DIR}/src/tmapreduce/rpc/)
@@ -31,13 +26,14 @@ endforeach()
 include_directories(${CMAKE_SOURCE_DIR}/include/)
 include_directories(${CMAKE_SOURCE_DIR}/src/)
 include_directories(${CMAKE_SOURCE_DIR}/third-party/spdlog/include)
-include_directories(${CMAKE_BINARY_DIR}/_deps/cpr-src/include)
+include_directories(${CMAKE_SOURCE_DIR}/third-party/rapidjson/include)
 
 find_package(gflags REQUIRED)
 find_package(OpenSSL)
 find_package(Threads)
 find_library(BRPC_LIB NAMES libbrpc.a brpc)
 find_library(LEVELDB_LIB NAMES leveldb)
+find_package(cpr REQUIRED)
 
 set(LIBMASTER_SRC 
   src/tmapreduce/master.cc
@@ -88,6 +84,9 @@ add_library(mrworker STATIC ${LIBWORKER_SRC})
 
 
 # Tmp: user for C++ extension when develop
-file(GLOB ALL_HEADER src/tmapreduce/*.h)
-file(GLOB ALL_SRC src/tmapreduce/*.cc)
-add_library(tmp STATIC ${ALL_HEADER} ${ALL_SRC})
+# file(GLOB ALL_HEADER src/tmapreduce/*.h)
+# file(GLOB ALL_SRC src/tmapreduce/*.cc)
+# add_library(tmp STATIC ${ALL_HEADER} ${ALL_SRC})
+
+add_executable(test test.cc)
+target_link_libraries(test ${DEPENDENCIES})
