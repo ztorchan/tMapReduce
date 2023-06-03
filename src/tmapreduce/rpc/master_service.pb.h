@@ -412,9 +412,35 @@ class RegisterMsg PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kAcceptableJobTypeFieldNumber = 4,
     kNameFieldNumber = 1,
-    kPortFieldNumber = 2,
+    kAddressFieldNumber = 2,
+    kPortFieldNumber = 3,
   };
+  // repeated string acceptable_job_type = 4;
+  int acceptable_job_type_size() const;
+  private:
+  int _internal_acceptable_job_type_size() const;
+  public:
+  void clear_acceptable_job_type();
+  const std::string& acceptable_job_type(int index) const;
+  std::string* mutable_acceptable_job_type(int index);
+  void set_acceptable_job_type(int index, const std::string& value);
+  void set_acceptable_job_type(int index, std::string&& value);
+  void set_acceptable_job_type(int index, const char* value);
+  void set_acceptable_job_type(int index, const char* value, size_t size);
+  std::string* add_acceptable_job_type();
+  void add_acceptable_job_type(const std::string& value);
+  void add_acceptable_job_type(std::string&& value);
+  void add_acceptable_job_type(const char* value);
+  void add_acceptable_job_type(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& acceptable_job_type() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_acceptable_job_type();
+  private:
+  const std::string& _internal_acceptable_job_type(int index) const;
+  std::string* _internal_add_acceptable_job_type();
+  public:
+
   // string name = 1;
   void clear_name();
   const std::string& name() const;
@@ -440,7 +466,32 @@ class RegisterMsg PROTOBUF_FINAL :
   std::string* _internal_mutable_name();
   public:
 
-  // uint32 port = 2;
+  // string address = 2;
+  void clear_address();
+  const std::string& address() const;
+  void set_address(const std::string& value);
+  void set_address(std::string&& value);
+  void set_address(const char* value);
+  void set_address(const char* value, size_t size);
+  std::string* mutable_address();
+  std::string* release_address();
+  void set_allocated_address(std::string* address);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_address();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_address(
+      std::string* address);
+  private:
+  const std::string& _internal_address() const;
+  void _internal_set_address(const std::string& value);
+  std::string* _internal_mutable_address();
+  public:
+
+  // uint32 port = 3;
   void clear_port();
   ::PROTOBUF_NAMESPACE_ID::uint32 port() const;
   void set_port(::PROTOBUF_NAMESPACE_ID::uint32 value);
@@ -456,7 +507,9 @@ class RegisterMsg PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> acceptable_job_type_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr address_;
   ::PROTOBUF_NAMESPACE_ID::uint32 port_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_master_5fservice_2eproto;
@@ -1148,10 +1201,35 @@ class LaunchReplyMsg PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kJobTokenFieldNumber = 3,
     kReplyFieldNumber = 1,
-    kJobSecretFieldNumber = 3,
     kJobIdFieldNumber = 2,
   };
+  // string job_token = 3;
+  void clear_job_token();
+  const std::string& job_token() const;
+  void set_job_token(const std::string& value);
+  void set_job_token(std::string&& value);
+  void set_job_token(const char* value);
+  void set_job_token(const char* value, size_t size);
+  std::string* mutable_job_token();
+  std::string* release_job_token();
+  void set_allocated_job_token(std::string* job_token);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_job_token();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_job_token(
+      std::string* job_token);
+  private:
+  const std::string& _internal_job_token() const;
+  void _internal_set_job_token(const std::string& value);
+  std::string* _internal_mutable_job_token();
+  public:
+
   // .tmapreduce.MasterReplyMsg reply = 1;
   bool has_reply() const;
   private:
@@ -1170,15 +1248,6 @@ class LaunchReplyMsg PROTOBUF_FINAL :
       ::tmapreduce::MasterReplyMsg* reply);
   ::tmapreduce::MasterReplyMsg* unsafe_arena_release_reply();
 
-  // uint64 job_secret = 3;
-  void clear_job_secret();
-  ::PROTOBUF_NAMESPACE_ID::uint64 job_secret() const;
-  void set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_job_secret() const;
-  void _internal_set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value);
-  public:
-
   // uint32 job_id = 2;
   void clear_job_id();
   ::PROTOBUF_NAMESPACE_ID::uint32 job_id() const;
@@ -1195,8 +1264,8 @@ class LaunchReplyMsg PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr job_token_;
   ::tmapreduce::MasterReplyMsg* reply_;
-  ::PROTOBUF_NAMESPACE_ID::uint64 job_secret_;
   ::PROTOBUF_NAMESPACE_ID::uint32 job_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_master_5fservice_2eproto;
@@ -2458,7 +2527,88 @@ inline void RegisterMsg::unsafe_arena_set_allocated_name(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.RegisterMsg.name)
 }
 
-// uint32 port = 2;
+// string address = 2;
+inline void RegisterMsg::clear_address() {
+  address_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& RegisterMsg::address() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.RegisterMsg.address)
+  return _internal_address();
+}
+inline void RegisterMsg::set_address(const std::string& value) {
+  _internal_set_address(value);
+  // @@protoc_insertion_point(field_set:tmapreduce.RegisterMsg.address)
+}
+inline std::string* RegisterMsg::mutable_address() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.RegisterMsg.address)
+  return _internal_mutable_address();
+}
+inline const std::string& RegisterMsg::_internal_address() const {
+  return address_.Get();
+}
+inline void RegisterMsg::_internal_set_address(const std::string& value) {
+  
+  address_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void RegisterMsg::set_address(std::string&& value) {
+  
+  address_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:tmapreduce.RegisterMsg.address)
+}
+inline void RegisterMsg::set_address(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  address_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:tmapreduce.RegisterMsg.address)
+}
+inline void RegisterMsg::set_address(const char* value,
+    size_t size) {
+  
+  address_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.RegisterMsg.address)
+}
+inline std::string* RegisterMsg::_internal_mutable_address() {
+  
+  return address_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* RegisterMsg::release_address() {
+  // @@protoc_insertion_point(field_release:tmapreduce.RegisterMsg.address)
+  return address_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RegisterMsg::set_allocated_address(std::string* address) {
+  if (address != nullptr) {
+    
+  } else {
+    
+  }
+  address_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), address,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.RegisterMsg.address)
+}
+inline std::string* RegisterMsg::unsafe_arena_release_address() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tmapreduce.RegisterMsg.address)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return address_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void RegisterMsg::unsafe_arena_set_allocated_address(
+    std::string* address) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (address != nullptr) {
+    
+  } else {
+    
+  }
+  address_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      address, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.RegisterMsg.address)
+}
+
+// uint32 port = 3;
 inline void RegisterMsg::clear_port() {
   port_ = 0u;
 }
@@ -2476,6 +2626,80 @@ inline void RegisterMsg::_internal_set_port(::PROTOBUF_NAMESPACE_ID::uint32 valu
 inline void RegisterMsg::set_port(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_port(value);
   // @@protoc_insertion_point(field_set:tmapreduce.RegisterMsg.port)
+}
+
+// repeated string acceptable_job_type = 4;
+inline int RegisterMsg::_internal_acceptable_job_type_size() const {
+  return acceptable_job_type_.size();
+}
+inline int RegisterMsg::acceptable_job_type_size() const {
+  return _internal_acceptable_job_type_size();
+}
+inline void RegisterMsg::clear_acceptable_job_type() {
+  acceptable_job_type_.Clear();
+}
+inline std::string* RegisterMsg::add_acceptable_job_type() {
+  // @@protoc_insertion_point(field_add_mutable:tmapreduce.RegisterMsg.acceptable_job_type)
+  return _internal_add_acceptable_job_type();
+}
+inline const std::string& RegisterMsg::_internal_acceptable_job_type(int index) const {
+  return acceptable_job_type_.Get(index);
+}
+inline const std::string& RegisterMsg::acceptable_job_type(int index) const {
+  // @@protoc_insertion_point(field_get:tmapreduce.RegisterMsg.acceptable_job_type)
+  return _internal_acceptable_job_type(index);
+}
+inline std::string* RegisterMsg::mutable_acceptable_job_type(int index) {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.RegisterMsg.acceptable_job_type)
+  return acceptable_job_type_.Mutable(index);
+}
+inline void RegisterMsg::set_acceptable_job_type(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:tmapreduce.RegisterMsg.acceptable_job_type)
+  acceptable_job_type_.Mutable(index)->assign(value);
+}
+inline void RegisterMsg::set_acceptable_job_type(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:tmapreduce.RegisterMsg.acceptable_job_type)
+  acceptable_job_type_.Mutable(index)->assign(std::move(value));
+}
+inline void RegisterMsg::set_acceptable_job_type(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  acceptable_job_type_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:tmapreduce.RegisterMsg.acceptable_job_type)
+}
+inline void RegisterMsg::set_acceptable_job_type(int index, const char* value, size_t size) {
+  acceptable_job_type_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.RegisterMsg.acceptable_job_type)
+}
+inline std::string* RegisterMsg::_internal_add_acceptable_job_type() {
+  return acceptable_job_type_.Add();
+}
+inline void RegisterMsg::add_acceptable_job_type(const std::string& value) {
+  acceptable_job_type_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:tmapreduce.RegisterMsg.acceptable_job_type)
+}
+inline void RegisterMsg::add_acceptable_job_type(std::string&& value) {
+  acceptable_job_type_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:tmapreduce.RegisterMsg.acceptable_job_type)
+}
+inline void RegisterMsg::add_acceptable_job_type(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  acceptable_job_type_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:tmapreduce.RegisterMsg.acceptable_job_type)
+}
+inline void RegisterMsg::add_acceptable_job_type(const char* value, size_t size) {
+  acceptable_job_type_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:tmapreduce.RegisterMsg.acceptable_job_type)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+RegisterMsg::acceptable_job_type() const {
+  // @@protoc_insertion_point(field_list:tmapreduce.RegisterMsg.acceptable_job_type)
+  return acceptable_job_type_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+RegisterMsg::mutable_acceptable_job_type() {
+  // @@protoc_insertion_point(field_mutable_list:tmapreduce.RegisterMsg.acceptable_job_type)
+  return &acceptable_job_type_;
 }
 
 // -------------------------------------------------------------------
@@ -3119,24 +3343,85 @@ inline void LaunchReplyMsg::set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   // @@protoc_insertion_point(field_set:tmapreduce.LaunchReplyMsg.job_id)
 }
 
-// uint64 job_secret = 3;
-inline void LaunchReplyMsg::clear_job_secret() {
-  job_secret_ = PROTOBUF_ULONGLONG(0);
+// string job_token = 3;
+inline void LaunchReplyMsg::clear_job_token() {
+  job_token_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 LaunchReplyMsg::_internal_job_secret() const {
-  return job_secret_;
+inline const std::string& LaunchReplyMsg::job_token() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.LaunchReplyMsg.job_token)
+  return _internal_job_token();
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 LaunchReplyMsg::job_secret() const {
-  // @@protoc_insertion_point(field_get:tmapreduce.LaunchReplyMsg.job_secret)
-  return _internal_job_secret();
+inline void LaunchReplyMsg::set_job_token(const std::string& value) {
+  _internal_set_job_token(value);
+  // @@protoc_insertion_point(field_set:tmapreduce.LaunchReplyMsg.job_token)
 }
-inline void LaunchReplyMsg::_internal_set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline std::string* LaunchReplyMsg::mutable_job_token() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.LaunchReplyMsg.job_token)
+  return _internal_mutable_job_token();
+}
+inline const std::string& LaunchReplyMsg::_internal_job_token() const {
+  return job_token_.Get();
+}
+inline void LaunchReplyMsg::_internal_set_job_token(const std::string& value) {
   
-  job_secret_ = value;
+  job_token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void LaunchReplyMsg::set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value) {
-  _internal_set_job_secret(value);
-  // @@protoc_insertion_point(field_set:tmapreduce.LaunchReplyMsg.job_secret)
+inline void LaunchReplyMsg::set_job_token(std::string&& value) {
+  
+  job_token_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:tmapreduce.LaunchReplyMsg.job_token)
+}
+inline void LaunchReplyMsg::set_job_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  job_token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:tmapreduce.LaunchReplyMsg.job_token)
+}
+inline void LaunchReplyMsg::set_job_token(const char* value,
+    size_t size) {
+  
+  job_token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.LaunchReplyMsg.job_token)
+}
+inline std::string* LaunchReplyMsg::_internal_mutable_job_token() {
+  
+  return job_token_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* LaunchReplyMsg::release_job_token() {
+  // @@protoc_insertion_point(field_release:tmapreduce.LaunchReplyMsg.job_token)
+  return job_token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void LaunchReplyMsg::set_allocated_job_token(std::string* job_token) {
+  if (job_token != nullptr) {
+    
+  } else {
+    
+  }
+  job_token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), job_token,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.LaunchReplyMsg.job_token)
+}
+inline std::string* LaunchReplyMsg::unsafe_arena_release_job_token() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tmapreduce.LaunchReplyMsg.job_token)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return job_token_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void LaunchReplyMsg::unsafe_arena_set_allocated_job_token(
+    std::string* job_token) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (job_token != nullptr) {
+    
+  } else {
+    
+  }
+  job_token_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      job_token, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.LaunchReplyMsg.job_token)
 }
 
 // -------------------------------------------------------------------

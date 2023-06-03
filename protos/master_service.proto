@@ -15,7 +15,9 @@ message MasterReplyMsg {
 /* Register */
 message RegisterMsg {
   string name = 1;
-  uint32 port = 2;
+  string address = 2;
+  uint32 port = 3;
+  repeated string acceptable_job_type = 4;
 }
 message RegisterReplyMsg {
   MasterReplyMsg reply = 1;
@@ -38,7 +40,7 @@ message LaunchMsg {
 message LaunchReplyMsg {
   MasterReplyMsg reply = 1;
   uint32 job_id = 2;
-  uint64 job_secret = 3;
+  string job_token = 3;
 }
 
 /* MapResult */

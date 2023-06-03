@@ -10,6 +10,7 @@
 
 namespace tmapreduce{
 
+class Master;
 class SubJob;
 
 using MapIn = std::pair<std::string, std::string>;
@@ -35,13 +36,14 @@ enum class JobStage {
 
 class Job {
 public:
-  Job(uint32_t id, std::string name, std::string type, int map_worker_num, int reduce_worker_num,
+  Job(uint32_t id, std::string name, std::string type, std::string secret, int map_worker_num, int reduce_worker_num,
       MapIns&& map_kvs) : 
       id_(id),
       name_(name),
       type_(type),
       map_worker_num_(map_worker_num),
       reduce_worker_num_(reduce_worker_num),
+      secret_(secret),
       stage_(JobStage::INIT),
       map_kvs_(std::forward<MapIns>(map_kvs)),
       reduce_kvs_(),
@@ -61,12 +63,14 @@ public:
   // Finish job
   void Finish();
 
-public:
+  friend class Master;
+private:
   const uint32_t id_;
   const std::string name_;
   const std::string type_;
-  const int map_worker_num_ = 0;
-  const int reduce_worker_num_ = 0;
+  const std::string secret_;
+  const int map_worker_num_;
+  const int reduce_worker_num_;
 
   JobStage stage_;
   MapIns map_kvs_;
@@ -77,6 +81,8 @@ public:
   std::vector<SubJob> subjobs_;
 
   std::mutex mtx_;
+
+  bool check_secret(const std::string& s) const { return s == secret_; }
 };
 
 class SubJob {

@@ -11,6 +11,11 @@ if(NOT CMAKE_INSTALL_PREFIX)
   set(CMAKE_INSTALL_PREFIX /usr/local)
 endif()
 
+include(FetchContent)
+FetchContent_Declare(cpr GIT_REPOSITORY https://github.com/libcpr/cpr.git
+                         GIT_TAG 2553fc41450301cd09a9271c8d2c3e0cf3546b73) # The commit hash for 1.9.0. Replace with the latest from: https://github.com/libcpr/cpr/releases
+FetchContent_MakeAvailable(cpr)
+
 include(FindProtobuf)
 file(GLOB_RECURSE PROTO_FILE_LIST ${CMAKE_SOURCE_DIR}/protos/*.proto)
 set(PROTO_OUT_DIR ${CMAKE_SOURCE_DIR}/src/tmapreduce/rpc/)
@@ -25,6 +30,8 @@ endforeach()
 
 include_directories(${CMAKE_SOURCE_DIR}/include/)
 include_directories(${CMAKE_SOURCE_DIR}/src/)
+include_directories(${CMAKE_SOURCE_DIR}/third-party/spdlog/include)
+include_directories(${CMAKE_BINARY_DIR}/_deps/cpr-src/include)
 
 find_package(gflags REQUIRED)
 find_package(OpenSSL)
@@ -57,6 +64,7 @@ set(DEPENDENCIES
   gflags
   dl
   stdc++fs
+  cpr::cpr
 )
 
 add_library(mrmaster STATIC ${LIBMASTER_SRC})

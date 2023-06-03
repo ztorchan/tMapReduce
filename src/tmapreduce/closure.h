@@ -1,5 +1,5 @@
-#ifndef _TMAPREDUCE_JOB_H
-#define _TMAPREDUCE_JOB_H
+#ifndef _TMAPREDUCE_CLOSURE_H
+#define _TMAPREDUCE_CLOSURE_H
 
 #include "braft/raft.h"
 #include "tmapreduce/rpc/master_service.pb.h"
