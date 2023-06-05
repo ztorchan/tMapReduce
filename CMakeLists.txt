@@ -84,9 +84,9 @@ add_library(mrworker STATIC ${LIBWORKER_SRC})
 
 
 # Tmp: user for C++ extension when develop
-# file(GLOB ALL_HEADER src/tmapreduce/*.h)
-# file(GLOB ALL_SRC src/tmapreduce/*.cc)
-# add_library(tmp STATIC ${ALL_HEADER} ${ALL_SRC})
+file(GLOB ALL_HEADER src/tmapreduce/*.h)
+file(GLOB ALL_SRC src/tmapreduce/*.cc)
+add_library(tmp STATIC ${ALL_HEADER} ${ALL_SRC})
 
 add_executable(test test.cc)
 target_link_libraries(test ${DEPENDENCIES})

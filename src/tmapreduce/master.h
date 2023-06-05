@@ -45,25 +45,18 @@ class GetResultClosure;
 
 class Slaver {
 public:
-  Slaver(uint32_t id, std::string name, butil::EndPoint endpoint);
-  ~Slaver() {
-    if(stub_ != nullptr) {
-      delete stub_;
-    }
-  }
+  Slaver(std::string name, butil::EndPoint endpoint);
+  ~Slaver();
 
   friend class Master;
 private:
   // identifier releated
-  const uint32_t id_;
   const std::string name_;
-
   // connection releated
   const butil::EndPoint endpoint_;
-  brpc::Channel channel_;
+  brpc::Channel* channel_;
   WorkerService_Stub* stub_;
   uint32_t beat_retry_times_;
-
   // state releated
   WorkerState state_;
   std::uint32_t cur_job_;
@@ -100,19 +93,18 @@ public:
   static void BGBeater(Master* master);
 
 private:
-  enum OpType {
+  enum OpType : uint8_t {
     OP_UNKNOWN = 0,
-    OP_REGISTER = 1,        // worker register. Log format: rpc
-    OP_LAUNCH = 2,          // user launch a job. 
-    OP_DISTRIBUTE = 3,      // master distribute a subjob
-    OP_CANCEL= 4,           // cancel a subjob on a worker and back to waiting list
-    OP_COMPLETEMAP = 5,     // a worker complete a map subjob
-    OP_COMPLETEREDUCE = 6,  // a worker complete a reduce subjob
-    OP_DELETEJOB = 7,       // master delete a job
+    OP_LAUNCH = 1,          // user launch a job. 
+    OP_DISTRIBUTE = 2,      // master distribute a subjob
+    OP_CANCEL= 3,           // cancel a subjob on a worker and back to waiting list
+    OP_COMPLETEMAP = 4,     // a worker complete a map subjob
+    OP_COMPLETEREDUCE = 5,  // a worker complete a reduce subjob
+    OP_DELETEJOB = 6,       // master delete a job
   };
   // log handler
   // Principle: handler should be deterministic operation, communication with workers should not be involved
-  Status handle_register(std::string name, butil::EndPoint ep, const std::vector<std::string> acceptable_job_type, _OUT uint32_t* slaver_id);
+  Status handle_register(std::string name, butil::EndPoint ep, const std::vector<std::string> acceptable_job_type);
   Status handle_launch(const std::string& name, const std::string& type, const std::string& token, uint32_t map_worker_num, uint32_t reduce_worker_num, MapIns& map_kvs, _OUT uint32_t* job_id);
   Status handle_distribute();
   Status handle_cancel();
@@ -148,30 +140,25 @@ private:
   friend class GetResultClosure;
 
 private:
-  uint32_t new_slaver_id() { return ++slaver_seq_num_; }
   uint32_t new_job_id() { return ++job_seq_num_; }
 
 private:
   // master attribute
   const uint32_t id_;       // master id
   const std::string name_;  // master name
-  std::atomic_uint32_t slaver_seq_num_; // slaver no sequence
   std::atomic_uint32_t job_seq_num_;    // job no sequence
   butil::EndPoint etcd_ep_;
   // slavers list
-  std::unordered_map<uint32_t, Slaver*> slavers_;     // slavers
+  std::unordered_map<std::string, Slaver*> slavers_;     // slavers
   // jobs list
-  std::unordered_map<uint32_t, Job*> jobs_;                       // job id to job pointer
+  std::map<uint32_t, Job*> jobs_;                       // job id to job pointer
   std::deque<std::pair<uint32_t, uint32_t>> jobs_waiting_dist_;   // <job id, subjob id> queue that waiting to distribute
-  std::deque<uint32_t> jobs_waiting_merge_;                       // job id queue that waiting to merge
   std::unordered_set<uint32_t> jobs_finished_;                    // job id set that has been finished
   // mutex and condition variable
   std::mutex slavers_mtx_;
   std::mutex jobs_mtx_;
   std::mutex dist_mtx_;
-  std::mutex merge_mtx_;
   std::condition_variable dist_cv_;
-  std::condition_variable merge_cv_;
   // raft state machine related
   braft::Node* volatile raft_node_;
   butil::atomic<int64_t> raft_leader_term_; 
@@ -179,6 +166,33 @@ private:
   bool end_;
 };
 
+class MasterServiceImpl : public MasterService {
+public:
+  MasterServiceImpl();
+  ~MasterServiceImpl();
+  void Register(::google::protobuf::RpcController* controller,
+                const ::tmapreduce::RegisterMsg* request,
+                ::tmapreduce::RegisterReplyMsg* response,
+                ::google::protobuf::Closure* done) override;
+  void Launch(::google::protobuf::RpcController* controller,
+              const ::tmapreduce::LaunchMsg* request,
+              ::tmapreduce::LaunchReplyMsg* response,
+              ::google::protobuf::Closure* done) override; 
+  void CompleteMap(::google::protobuf::RpcController* controller,
+                   const ::tmapreduce::CompleteMapMsg* request,
+                   ::tmapreduce::MasterReplyMsg* response,
+                   ::google::protobuf::Closure* done) override;
+  void CompleteReduce(::google::protobuf::RpcController* controller,
+                      const ::tmapreduce::CompleteReduceMsg* request,
+                      ::tmapreduce::MasterReplyMsg* response,
+                      ::google::protobuf::Closure* done) override;
+  void GetResult(::google::protobuf::RpcController* controller,
+                 const ::tmapreduce::GetResultMsg* request,
+                 ::tmapreduce::GetResultReplyMsg* response,
+                 ::google::protobuf::Closure* done) override;
+private:
+  Master* master_;
+};
 
 
 } // namespace tmapreduce

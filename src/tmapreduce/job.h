@@ -24,6 +24,9 @@ using ReduceOuts = ReduceOut;
 
 enum class JobStage {
   INIT,
+  WAIT2PARTITION4MAP,
+  WAIT2PARTITION4REDUCE,
+  PARTITIONING,
   WAIT2MAP,
   MAPPING,
   WAIT2MERGE,
@@ -34,16 +37,21 @@ enum class JobStage {
   FINISHED
 };
 
+enum class SubJobType {
+  MAP,
+  REDUCE
+};
+
 class Job {
 public:
-  Job(uint32_t id, std::string name, std::string type, std::string secret, int map_worker_num, int reduce_worker_num,
+  Job(uint32_t id, std::string name, std::string type, std::string token, int map_worker_num, int reduce_worker_num,
       MapIns&& map_kvs) : 
       id_(id),
       name_(name),
       type_(type),
       map_worker_num_(map_worker_num),
       reduce_worker_num_(reduce_worker_num),
-      secret_(secret),
+      token_(token),
       stage_(JobStage::INIT),
       map_kvs_(std::forward<MapIns>(map_kvs)),
       reduce_kvs_(),
@@ -68,7 +76,7 @@ private:
   const uint32_t id_;
   const std::string name_;
   const std::string type_;
-  const std::string secret_;
+  const std::string token_;
   const int map_worker_num_;
   const int reduce_worker_num_;
 
@@ -82,15 +90,15 @@ private:
 
   std::mutex mtx_;
 
-  bool check_secret(const std::string& s) const { return s == secret_; }
+  bool check_token(const std::string& t) const { return t == token_; }
 };
 
 class SubJob {
 public:
-  SubJob(Job* job_ptr, const uint32_t subjob_id, const uint32_t head, const uint32_t size, bool is_map) :
-    job_ptr_(job_ptr),
+  SubJob(Job* job_ptr, const uint32_t subjob_id, const uint32_t head, const uint32_t size, SubJobType type) :
     subjob_id_(subjob_id),
-    is_map_(is_map),
+    job_ptr_(job_ptr),
+    type_(type),
     head_(head),
     size_(size),
     worker_id_(UINT32_MAX),
@@ -100,7 +108,7 @@ public:
 
   ~SubJob() {
     if(result_ != nullptr) {
-      if(is_map_){
+      if(type_ == SubJobType::MAP){
         delete reinterpret_cast<MapOuts*>(result_);
       }
       else {
@@ -113,9 +121,9 @@ public:
 public:
   uint32_t subjob_id_;    // subjob id
   Job* job_ptr_;          // job that belong to
+  SubJobType type_;       // it is a map subjob or a reduce subjob
   uint32_t head_;         // the head index in job
   uint32_t size_;         // kv number 
-  bool is_map_;           // it is a map subjob or a reduce subjob
 
   uint32_t worker_id_;    // id of worker the subjob has been distributed to
   bool finished_;         // if subjob is completed

@@ -21,6 +21,10 @@ class WorkerReplyMsgDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorkerReplyMsg> _instance;
 } _WorkerReplyMsg_default_instance_;
+class PrepareMsgDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<PrepareMsg> _instance;
+} _PrepareMsg_default_instance_;
 class MapJobMsg_MapKVDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<MapJobMsg_MapKV> _instance;
@@ -67,6 +71,20 @@ static void InitDefaultsscc_info_MapJobMsg_MapKV_worker_5fservice_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_MapJobMsg_MapKV_worker_5fservice_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_MapJobMsg_MapKV_worker_5fservice_2eproto}, {}};
 
+static void InitDefaultsscc_info_PrepareMsg_worker_5fservice_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::tmapreduce::_PrepareMsg_default_instance_;
+    new (ptr) ::tmapreduce::PrepareMsg();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::tmapreduce::PrepareMsg::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_PrepareMsg_worker_5fservice_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_PrepareMsg_worker_5fservice_2eproto}, {}};
+
 static void InitDefaultsscc_info_ReduceJobMsg_worker_5fservice_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -110,7 +128,7 @@ static void InitDefaultsscc_info_WorkerReplyMsg_worker_5fservice_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerReplyMsg_worker_5fservice_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WorkerReplyMsg_worker_5fservice_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_worker_5fservice_2eproto[5];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_worker_5fservice_2eproto[6];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_worker_5fservice_2eproto = nullptr;
 static const ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor* file_level_service_descriptors_worker_5fservice_2eproto[1];
 
@@ -123,6 +141,13 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_worker_5fservice_2eproto::offs
   PROTOBUF_FIELD_OFFSET(::tmapreduce::WorkerReplyMsg, ok_),
   PROTOBUF_FIELD_OFFSET(::tmapreduce::WorkerReplyMsg, msg_),
   PROTOBUF_FIELD_OFFSET(::tmapreduce::WorkerReplyMsg, state_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::PrepareMsg, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::PrepareMsg, master_id_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::PrepareMsg, job_type_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::tmapreduce::MapJobMsg_MapKV, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -160,14 +185,16 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_worker_5fservice_2eproto::offs
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::tmapreduce::WorkerReplyMsg)},
-  { 8, -1, sizeof(::tmapreduce::MapJobMsg_MapKV)},
-  { 15, -1, sizeof(::tmapreduce::MapJobMsg)},
-  { 25, -1, sizeof(::tmapreduce::ReduceJobMsg_ReduceKV)},
-  { 32, -1, sizeof(::tmapreduce::ReduceJobMsg)},
+  { 8, -1, sizeof(::tmapreduce::PrepareMsg)},
+  { 15, -1, sizeof(::tmapreduce::MapJobMsg_MapKV)},
+  { 22, -1, sizeof(::tmapreduce::MapJobMsg)},
+  { 32, -1, sizeof(::tmapreduce::ReduceJobMsg_ReduceKV)},
+  { 39, -1, sizeof(::tmapreduce::ReduceJobMsg)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::tmapreduce::_WorkerReplyMsg_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::tmapreduce::_PrepareMsg_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::tmapreduce::_MapJobMsg_MapKV_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::tmapreduce::_MapJobMsg_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::tmapreduce::_ReduceJobMsg_ReduceKV_default_instance_),
@@ -179,40 +206,44 @@ const char descriptor_table_protodef_worker_5fservice_2eproto[] PROTOBUF_SECTION
   "le/protobuf/empty.proto\032\013state.proto\"Q\n\016"
   "WorkerReplyMsg\022\n\n\002ok\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\022"
   "&\n\005state\030\003 \001(\0162\027.tmapreduce.WorkerState\""
-  "\235\001\n\tMapJobMsg\022\016\n\006job_id\030\001 \001(\r\022\021\n\tsubjob_"
-  "id\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\022,\n\007"
-  "map_kvs\030\005 \003(\0132\033.tmapreduce.MapJobMsg.Map"
-  "KV\032#\n\005MapKV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\""
-  "\254\001\n\014ReduceJobMsg\022\016\n\006job_id\030\001 \001(\r\022\021\n\tsubj"
-  "ob_id\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004type\030\004 \001(\t\022"
-  "5\n\nreduce_kvs\030\005 \003(\0132!.tmapreduce.ReduceJ"
-  "obMsg.ReduceKV\032&\n\010ReduceKV\022\013\n\003key\030\001 \001(\t\022"
-  "\r\n\005value\030\002 \003(\t2\230\002\n\rWorkerService\022<\n\004Beat"
-  "\022\026.google.protobuf.Empty\032\032.tmapreduce.Wo"
-  "rkerReplyMsg\"\000\022A\n\nPrepareMap\022\025.tmapreduc"
-  "e.MapJobMsg\032\032.tmapreduce.WorkerReplyMsg\""
-  "\000\022G\n\rPrepareReduce\022\030.tmapreduce.ReduceJo"
-  "bMsg\032\032.tmapreduce.WorkerReplyMsg\"\000\022=\n\005St"
-  "art\022\026.google.protobuf.Empty\032\032.tmapreduce"
-  ".WorkerReplyMsg\"\000B\003\200\001\001b\006proto3"
+  "1\n\nPrepareMsg\022\021\n\tmaster_id\030\001 \001(\r\022\020\n\010job_"
+  "type\030\002 \001(\t\"\235\001\n\tMapJobMsg\022\016\n\006job_id\030\001 \001(\r"
+  "\022\021\n\tsubjob_id\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004typ"
+  "e\030\004 \001(\t\022,\n\007map_kvs\030\005 \003(\0132\033.tmapreduce.Ma"
+  "pJobMsg.MapKV\032#\n\005MapKV\022\013\n\003key\030\001 \001(\t\022\r\n\005v"
+  "alue\030\002 \001(\t\"\254\001\n\014ReduceJobMsg\022\016\n\006job_id\030\001 "
+  "\001(\r\022\021\n\tsubjob_id\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\022\014\n\004"
+  "type\030\004 \001(\t\0225\n\nreduce_kvs\030\005 \003(\0132!.tmapred"
+  "uce.ReduceJobMsg.ReduceKV\032&\n\010ReduceKV\022\013\n"
+  "\003key\030\001 \001(\t\022\r\n\005value\030\002 \003(\t2\331\002\n\rWorkerServ"
+  "ice\022<\n\004Beat\022\026.google.protobuf.Empty\032\032.tm"
+  "apreduce.WorkerReplyMsg\"\000\022\?\n\007Prepare\022\026.t"
+  "mapreduce.PrepareMsg\032\032.tmapreduce.Worker"
+  "ReplyMsg\"\000\022A\n\nPrepareMap\022\025.tmapreduce.Ma"
+  "pJobMsg\032\032.tmapreduce.WorkerReplyMsg\"\000\022G\n"
+  "\rPrepareReduce\022\030.tmapreduce.ReduceJobMsg"
+  "\032\032.tmapreduce.WorkerReplyMsg\"\000\022=\n\005Start\022"
+  "\026.google.protobuf.Empty\032\032.tmapreduce.Wor"
+  "kerReplyMsg\"\000B\003\200\001\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_worker_5fservice_2eproto_deps[2] = {
   &::descriptor_table_google_2fprotobuf_2fempty_2eproto,
   &::descriptor_table_state_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_worker_5fservice_2eproto_sccs[5] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_worker_5fservice_2eproto_sccs[6] = {
   &scc_info_MapJobMsg_worker_5fservice_2eproto.base,
   &scc_info_MapJobMsg_MapKV_worker_5fservice_2eproto.base,
+  &scc_info_PrepareMsg_worker_5fservice_2eproto.base,
   &scc_info_ReduceJobMsg_worker_5fservice_2eproto.base,
   &scc_info_ReduceJobMsg_ReduceKV_worker_5fservice_2eproto.base,
   &scc_info_WorkerReplyMsg_worker_5fservice_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_worker_5fservice_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_worker_5fservice_2eproto = {
-  false, false, descriptor_table_protodef_worker_5fservice_2eproto, "worker_service.proto", 790,
-  &descriptor_table_worker_5fservice_2eproto_once, descriptor_table_worker_5fservice_2eproto_sccs, descriptor_table_worker_5fservice_2eproto_deps, 5, 2,
+  false, false, descriptor_table_protodef_worker_5fservice_2eproto, "worker_service.proto", 906,
+  &descriptor_table_worker_5fservice_2eproto_once, descriptor_table_worker_5fservice_2eproto_sccs, descriptor_table_worker_5fservice_2eproto_deps, 6, 2,
   schemas, file_default_instances, TableStruct_worker_5fservice_2eproto::offsets,
-  file_level_metadata_worker_5fservice_2eproto, 5, file_level_enum_descriptors_worker_5fservice_2eproto, file_level_service_descriptors_worker_5fservice_2eproto,
+  file_level_metadata_worker_5fservice_2eproto, 6, file_level_enum_descriptors_worker_5fservice_2eproto, file_level_service_descriptors_worker_5fservice_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -484,6 +515,242 @@ void WorkerReplyMsg::InternalSwap(WorkerReplyMsg* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata WorkerReplyMsg::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void PrepareMsg::InitAsDefaultInstance() {
+}
+class PrepareMsg::_Internal {
+ public:
+};
+
+PrepareMsg::PrepareMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:tmapreduce.PrepareMsg)
+}
+PrepareMsg::PrepareMsg(const PrepareMsg& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  job_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_job_type().empty()) {
+    job_type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_job_type(),
+      GetArena());
+  }
+  master_id_ = from.master_id_;
+  // @@protoc_insertion_point(copy_constructor:tmapreduce.PrepareMsg)
+}
+
+void PrepareMsg::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_PrepareMsg_worker_5fservice_2eproto.base);
+  job_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  master_id_ = 0u;
+}
+
+PrepareMsg::~PrepareMsg() {
+  // @@protoc_insertion_point(destructor:tmapreduce.PrepareMsg)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void PrepareMsg::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  job_type_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void PrepareMsg::ArenaDtor(void* object) {
+  PrepareMsg* _this = reinterpret_cast< PrepareMsg* >(object);
+  (void)_this;
+}
+void PrepareMsg::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void PrepareMsg::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const PrepareMsg& PrepareMsg::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_PrepareMsg_worker_5fservice_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void PrepareMsg::Clear() {
+// @@protoc_insertion_point(message_clear_start:tmapreduce.PrepareMsg)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  job_type_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  master_id_ = 0u;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* PrepareMsg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // uint32 master_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          master_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string job_type = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_job_type();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tmapreduce.PrepareMsg.job_type"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* PrepareMsg::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:tmapreduce.PrepareMsg)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 master_id = 1;
+  if (this->master_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_master_id(), target);
+  }
+
+  // string job_type = 2;
+  if (this->job_type().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_job_type().data(), static_cast<int>(this->_internal_job_type().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "tmapreduce.PrepareMsg.job_type");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_job_type(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:tmapreduce.PrepareMsg)
+  return target;
+}
+
+size_t PrepareMsg::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:tmapreduce.PrepareMsg)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string job_type = 2;
+  if (this->job_type().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_job_type());
+  }
+
+  // uint32 master_id = 1;
+  if (this->master_id() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+        this->_internal_master_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void PrepareMsg::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:tmapreduce.PrepareMsg)
+  GOOGLE_DCHECK_NE(&from, this);
+  const PrepareMsg* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<PrepareMsg>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:tmapreduce.PrepareMsg)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:tmapreduce.PrepareMsg)
+    MergeFrom(*source);
+  }
+}
+
+void PrepareMsg::MergeFrom(const PrepareMsg& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tmapreduce.PrepareMsg)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.job_type().size() > 0) {
+    _internal_set_job_type(from._internal_job_type());
+  }
+  if (from.master_id() != 0) {
+    _internal_set_master_id(from._internal_master_id());
+  }
+}
+
+void PrepareMsg::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:tmapreduce.PrepareMsg)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void PrepareMsg::CopyFrom(const PrepareMsg& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tmapreduce.PrepareMsg)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PrepareMsg::IsInitialized() const {
+  return true;
+}
+
+void PrepareMsg::InternalSwap(PrepareMsg* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  job_type_.Swap(&other->job_type_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  swap(master_id_, other->master_id_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata PrepareMsg::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -1682,6 +1949,14 @@ void WorkerService::Beat(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
   done->Run();
 }
 
+void WorkerService::Prepare(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                         const ::tmapreduce::PrepareMsg*,
+                         ::tmapreduce::WorkerReplyMsg*,
+                         ::google::protobuf::Closure* done) {
+  controller->SetFailed("Method Prepare() not implemented.");
+  done->Run();
+}
+
 void WorkerService::PrepareMap(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
                          const ::tmapreduce::MapJobMsg*,
                          ::tmapreduce::WorkerReplyMsg*,
@@ -1722,6 +1997,14 @@ void WorkerService::CallMethod(const ::PROTOBUF_NAMESPACE_ID::MethodDescriptor* 
              done);
       break;
     case 1:
+      Prepare(controller,
+             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ::tmapreduce::PrepareMsg*>(
+                 request),
+             ::PROTOBUF_NAMESPACE_ID::internal::DownCast<::tmapreduce::WorkerReplyMsg*>(
+                 response),
+             done);
+      break;
+    case 2:
       PrepareMap(controller,
              ::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ::tmapreduce::MapJobMsg*>(
                  request),
@@ -1729,7 +2012,7 @@ void WorkerService::CallMethod(const ::PROTOBUF_NAMESPACE_ID::MethodDescriptor* 
                  response),
              done);
       break;
-    case 2:
+    case 3:
       PrepareReduce(controller,
              ::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ::tmapreduce::ReduceJobMsg*>(
                  request),
@@ -1737,7 +2020,7 @@ void WorkerService::CallMethod(const ::PROTOBUF_NAMESPACE_ID::MethodDescriptor* 
                  response),
              done);
       break;
-    case 3:
+    case 4:
       Start(controller,
              ::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PROTOBUF_NAMESPACE_ID::Empty*>(
                  request),
@@ -1758,10 +2041,12 @@ const ::PROTOBUF_NAMESPACE_ID::Message& WorkerService::GetRequestPrototype(
     case 0:
       return PROTOBUF_NAMESPACE_ID::Empty::default_instance();
     case 1:
-      return ::tmapreduce::MapJobMsg::default_instance();
+      return ::tmapreduce::PrepareMsg::default_instance();
     case 2:
-      return ::tmapreduce::ReduceJobMsg::default_instance();
+      return ::tmapreduce::MapJobMsg::default_instance();
     case 3:
+      return ::tmapreduce::ReduceJobMsg::default_instance();
+    case 4:
       return PROTOBUF_NAMESPACE_ID::Empty::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
@@ -1781,6 +2066,8 @@ const ::PROTOBUF_NAMESPACE_ID::Message& WorkerService::GetResponsePrototype(
     case 2:
       return ::tmapreduce::WorkerReplyMsg::default_instance();
     case 3:
+      return ::tmapreduce::WorkerReplyMsg::default_instance();
+    case 4:
       return ::tmapreduce::WorkerReplyMsg::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
@@ -1807,25 +2094,32 @@ void WorkerService_Stub::Beat(::PROTOBUF_NAMESPACE_ID::RpcController* controller
   channel_->CallMethod(descriptor()->method(0),
                        controller, request, response, done);
 }
+void WorkerService_Stub::Prepare(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                              const ::tmapreduce::PrepareMsg* request,
+                              ::tmapreduce::WorkerReplyMsg* response,
+                              ::google::protobuf::Closure* done) {
+  channel_->CallMethod(descriptor()->method(1),
+                       controller, request, response, done);
+}
 void WorkerService_Stub::PrepareMap(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
                               const ::tmapreduce::MapJobMsg* request,
                               ::tmapreduce::WorkerReplyMsg* response,
                               ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(1),
+  channel_->CallMethod(descriptor()->method(2),
                        controller, request, response, done);
 }
 void WorkerService_Stub::PrepareReduce(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
                               const ::tmapreduce::ReduceJobMsg* request,
                               ::tmapreduce::WorkerReplyMsg* response,
                               ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(2),
+  channel_->CallMethod(descriptor()->method(3),
                        controller, request, response, done);
 }
 void WorkerService_Stub::Start(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
                               const PROTOBUF_NAMESPACE_ID::Empty* request,
                               ::tmapreduce::WorkerReplyMsg* response,
                               ::google::protobuf::Closure* done) {
-  channel_->CallMethod(descriptor()->method(3),
+  channel_->CallMethod(descriptor()->method(4),
                        controller, request, response, done);
 }
 
@@ -1834,6 +2128,9 @@ void WorkerService_Stub::Start(::PROTOBUF_NAMESPACE_ID::RpcController* controlle
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::tmapreduce::WorkerReplyMsg* Arena::CreateMaybeMessage< ::tmapreduce::WorkerReplyMsg >(Arena* arena) {
   return Arena::CreateMessageInternal< ::tmapreduce::WorkerReplyMsg >(arena);
+}
+template<> PROTOBUF_NOINLINE ::tmapreduce::PrepareMsg* Arena::CreateMaybeMessage< ::tmapreduce::PrepareMsg >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::tmapreduce::PrepareMsg >(arena);
 }
 template<> PROTOBUF_NOINLINE ::tmapreduce::MapJobMsg_MapKV* Arena::CreateMaybeMessage< ::tmapreduce::MapJobMsg_MapKV >(Arena* arena) {
   return Arena::CreateMessageInternal< ::tmapreduce::MapJobMsg_MapKV >(arena);
