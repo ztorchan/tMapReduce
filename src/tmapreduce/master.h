@@ -125,7 +125,8 @@ private:
 
   // util function
   Status etcd_add_type_worker(std::string type, std::string worker_name, butil::EndPoint worker_ep);
-  Status etcd_get_type_worker(std::string type, _OUT std::unordered_map<std::string, butil::EndPoint>& workers);
+  Status etcd_get_type_worker(std::string type, std::string worker_name, _OUT butil::EndPoint& worker_ep);
+  Status etcd_get_workers_from_type(std::string type, _OUT std::unordered_map<std::string, butil::EndPoint>& workers);
   Status etcd_delete_type_worker(std::string type, std::string worker_name);
   Status etcd_get_all_types(_OUT std::vector<std::string> types);
   void set_reply_ok(OpType op_type, google::protobuf::Message* response, bool ok);
@@ -149,7 +150,7 @@ private:
   std::atomic_uint32_t job_seq_num_;    // job no sequence
   butil::EndPoint etcd_ep_;
   // slavers list
-  std::unordered_map<std::string, Slaver*> slavers_;     // slavers
+  std::unordered_map<std::string, std::unique_ptr<Slaver>> slavers_;     // slavers
   // jobs list
   std::map<uint32_t, Job*> jobs_;                       // job id to job pointer
   std::deque<std::pair<uint32_t, uint32_t>> jobs_waiting_dist_;   // <job id, subjob id> queue that waiting to distribute

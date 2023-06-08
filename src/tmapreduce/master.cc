@@ -2,6 +2,7 @@
 #include <fcntl.h>
 #include <ctime>
 #include <random>
+#include <algorithm>
 
 #include <butil/sys_byteorder.h>
 #include <butil/endpoint.h>
@@ -128,7 +129,7 @@ void Master::BGDistributor(Master* master) {
   while(!master->end_) {
     std::unique_lock<std::mutex> dist_lck(master->dist_mtx_);
     master->dist_cv_.wait(dist_lck, [&] { 
-      return (!jobs_waiting_dist.empty() || master->end_) && master->raft_node_->is_leader(); 
+      return (!jobs_waiting_dist.empty() && master->raft_node_->is_leader()) || master->end_; 
     });
     if(master->end_) {
       break;
@@ -137,21 +138,28 @@ void Master::BGDistributor(Master* master) {
     // get job
     uint32_t job_id = jobs_waiting_dist.front().first;
     uint32_t subjob_id = jobs_waiting_dist.front().second;
+    jobs_waiting_dist.pop_front();
     Job* job = master->jobs_[job_id];
+    SubJob& subjob = job->subjobs_[subjob_id];
     spdlog::info("[bgdistributor] try to distribute job {} subjob {}", job_id, subjob_id);
 
     // get job type and find worker
     std::unordered_map<std::string, butil::EndPoint> workers;
-    Status s = master->etcd_get_type_worker(job->type_, workers);
+    Status s = master->etcd_get_workers_from_type(job->type_, workers);
     if(!s.ok()) {
       spdlog::info("[bgdistributor] fail to find workers that can process \"{}\" job", job->type_.c_str());
+      jobs_waiting_dist.emplace_back(job_id, subjob_id);
       continue;
     }
 
     // try to distribute
     spdlog::info("[bgdistributor] find {} workers", workers.size());
+    std::random_shuffle(workers.begin(), workers.end());
     bool success_dist = false;
     for(const auto& w : workers) {
+      if(master->slavers_.count(w.first) != 0) {
+        continue;
+      }
       spdlog::info("[bgdistributor] try to distribute subjob to woker@{}[{}]", w.first.c_str(), butil::endpoint2str(w.second).c_str());
       
       // build brpc channel
@@ -168,11 +176,11 @@ void Master::BGDistributor(Master* master) {
 
       // Prepare
       cntl.Reset();
-      PrepareMsg request;
+      PrepareMsg prepare_request;
       WorkerReplyMsg response;
-      request.set_master_id(master->id_);
-      request.set_job_type(job->type_);
-      stub->Prepare(&cntl, &request, &response, NULL);
+      prepare_request.set_master_id(master->id_);
+      prepare_request.set_job_type(job->type_);
+      stub->Prepare(&cntl, &prepare_request, &response, NULL);
       if(cntl.Failed()) {
         spdlog::info("[bgdistributor] fail to prepare: connect worker error");
         delete stub;
@@ -192,9 +200,86 @@ void Master::BGDistributor(Master* master) {
       response.Clear();
       if(job->stage_ == JobStage::WAIT2MAP || job->stage_ == JobStage::MAPPING) {
         // transfer map key-values to worker
-        
+        MapJobMsg map_request;
+        map_request.set_job_id(job_id);
+        map_request.set_subjob_id(subjob_id);
+        map_request.set_name(job->name_);
+        map_request.set_type(job->type_);
+        for(size_t i = 0; i < subjob.size_; i++) {
+          const MapIn& kv = job->map_kvs_[subjob.head_ + i];
+          auto rpc_kv = map_request.add_map_kvs();
+          rpc_kv->set_key(kv.first);
+          rpc_kv->set_value(kv.second);
+        }
+        stub->PrepareMap(&cntl, &map_request, &response, NULL);
+      } else if(job->stage_ == JobStage::WAIT2REDUCE || job->stage_ == JobStage::REDUCING) {
+        ReduceJobMsg reduce_request;
+        reduce_request.set_job_id(job_id);
+        reduce_request.set_subjob_id(subjob_id);
+        reduce_request.set_name(job->name_);
+        reduce_request.set_type(job->type_);
+        for(size_t i = 0; i < subjob.size_; i++) {
+          const ReduceIn& kv = job->reduce_kvs_[subjob.head_ + i];
+          auto rpc_kv = reduce_request.add_reduce_kvs();
+          rpc_kv->set_key(kv.first);
+          for(size_t j = 0; j < kv.second.size(); j++) {
+            rpc_kv->add_value(kv.second[j]);
+          }
+        }
+        stub->PrepareReduce(&cntl, &reduce_request, &response, NULL);
       }
-      
+      if(cntl.Failed()) {
+        spdlog::info("[bgdistributor] fail to transfer job data: connect worker error");
+        delete stub;
+        delete chan;
+        continue;
+      } 
+      if(!response.ok()) {
+        spdlog::info("[bgdistributor] fail to transfer job data: {}", response.msg());
+        delete stub;
+        delete chan;
+        continue;
+      }
+
+      // successfully transfer job data
+      // add slaver
+      spdlog::info("[bgdistributor] successfully transfer job data");
+      std::unique_ptr<Slaver> new_slaver = std::make_unique<Slaver>(w.first, w.second);
+      new_slaver->channel_ = chan;
+      new_slaver->stub_ = stub;
+      new_slaver->state_ = response.state();
+      new_slaver->cur_job_ = job_id;
+      new_slaver->cur_job_ = subjob_id;
+      std::unique_lock<std::mutex> slavers_lck(master->slavers_mtx_);
+      master->slavers_[w.first] = std::move(new_slaver);
+      slavers_lck.unlock();
+      success_dist = true;
+
+      // raft log 
+      butil::IOBuf log;
+      braft::Task task;
+      log.push_back(OP_DISTRIBUTE);
+      log.append(&job_id, sizeof(uint32_t));
+      log.append(&subjob_id, sizeof(uint32_t));
+      log.append(w.first);
+      task.data = &log;
+      if(FLAGS_check_term) {
+        // avoid ABA
+        task.expected_term = master->raft_leader_term_.load(butil::memory_order_acquire);
+      }
+      master->raft_node_->apply(task);
+
+      // try to start job
+      google::protobuf::Empty start_request;
+      cntl.Reset();
+      stub->Start(&cntl, &start_request, &response, NULL);
+      break;
+    }
+
+    if(!success_dist) {
+      spdlog::info("[bgdistributor] fail to distribute job {} subjob {}", job_id, subjob_id);
+      jobs_waiting_dist.emplace_back(job_id, subjob_id);
+      continue;
     }
   }
 }
@@ -350,15 +435,57 @@ void Master::on_apply(braft::Iterator& iter) {
 }
 
 void Master::on_leader_start(int64_t term) {
+  spdlog::info("[on_leader_start] leader start, term {}", term);
   raft_leader_term_.store(term, butil::memory_order_acquire);
-  // recovery the waiting and slavers
-  for(const auto& [_, job] : jobs_) {
-    for(const SubJob& subjob : job->subjobs_) {
-      if(!subjob.finished_) {
-        if(subjob.worker_id_ == UINT32_MAX) {
+  // recover the waiting list and slavers
 
+  spdlog::info("[on_leader_start] scan jobs and recovery");
+  for(const auto& [_, job] : jobs_) {
+    for(SubJob& subjob : job->subjobs_) {
+      if(!subjob.finished_) {
+        // unfinished subjob
+        if(subjob.worker_name_.empty()) {
+          // subjobs that waiting for distributing, recover waiting list
+          spdlog::info("[on_leader_start] push job {} subjob {} in distribution waiting list", job->id_, subjob.subjob_id_);
+          std::unique_lock<std::mutex> dist_lck(dist_mtx_);
+          jobs_waiting_dist_.emplace_back(job->id_, subjob.subjob_id_);
         } else {
-          
+          // subjobs that have been dirstributed, recover slaver
+          spdlog::info("[on_leader_start] job {} subjob {} has been distributed to worker {}, add slaver", job->id_, subjob.subjob_id_, subjob.worker_name_.c_str());
+          butil::EndPoint ep;
+          Status s = etcd_get_type_worker(job->type_, subjob.worker_name_, ep);
+          if(!s.ok()) {
+            // failed to get worker endpoint, push into waiting list and redistribute
+            spdlog::info("[on_leader_start] fail to get worker endpoint, push subjob into waiting list and redistribute");
+            subjob.worker_name_.clear();
+            std::unique_lock<std::mutex> dist_lck(dist_mtx_);
+            jobs_waiting_dist_.emplace_back(job->id_, subjob.subjob_id_);
+            continue;
+          }
+
+          // build channel
+          brpc::Channel* chan = new brpc::Channel;
+          brpc::ChannelOptions chan_options;
+          chan_options.protocol = brpc::PROTOCOL_BAIDU_STD;
+          chan_options.timeout_ms = 3000;
+          if(chan->Init(ep, &chan_options) != 0) {
+            spdlog::info("[on_leader_start] fail to initial channel, push subjob into waiting list and redistribute");
+            delete chan;
+            subjob.worker_name_.clear();
+            std::unique_lock<std::mutex> dist_lck(dist_mtx_);
+            jobs_waiting_dist_.emplace_back(job->id_, subjob.subjob_id_);
+            continue;
+          }
+          WorkerService_Stub* stub = new WorkerService_Stub(chan);
+
+          // add slaver
+          std::unique_ptr<Slaver> new_slaver = std::make_unique<Slaver>(subjob.worker_name_, ep);
+          new_slaver->channel_ = chan;
+          new_slaver->stub_ = stub;
+          new_slaver->cur_job_ = job->id_;
+          new_slaver->cur_subjob_ = subjob.subjob_id_;
+          std::unique_lock<std::mutex> slavers_lck(slavers_mtx_);
+          slavers_[new_slaver->name_] = std::move(new_slaver);
         }
       }
     }
@@ -412,7 +539,32 @@ Status Master::etcd_add_type_worker(std::string type, std::string worker_name, b
   return Status::Ok("");
 }
 
-Status Master::etcd_get_type_worker(std::string type, _OUT std::unordered_map<std::string, butil::EndPoint>& workers) {
+Status Master::etcd_get_type_worker(std::string type, std::string worker_name, _OUT butil::EndPoint& worker_ep) {
+  std::string etcd_url = std::string("http://") + butil::endpoint2str(etcd_ep_).c_str() + "/v3/kv/range";
+  std::string post_body = std::string("")
+                          + "{"
+                          + "\"key\": \"" + tmapreduce::to_base64(type + "/" + worker_name) + "\", "
+                          + "}";
+  cpr::Response r = cpr::Post(cpr::Url{etcd_url}, cpr::Body{post_body});
+  if(r.status_code != 200) {
+    return Status::Error("Fail to find worker from etcd");
+  }
+
+  // Parse
+  rapidjson::Document doc;
+  doc.Parse(r.text.c_str());
+  if(doc.HasMember("kvs")) {
+    auto kv = doc["kvs"].GetArray()[0].GetObject();
+    std::string value = tmapreduce::from_base64(kv["value"].GetString());
+    worker_ep.reset();
+    butil::str2endpoint(value.c_str(), &worker_ep);
+  } else {
+    return Status::Error("Fail to find worker from etcd");
+  }
+  return Status::Ok("");
+}
+
+Status Master::etcd_get_workers_from_type(std::string type, _OUT std::unordered_map<std::string, butil::EndPoint>& workers) {
   std::string etcd_url = std::string("http://") + butil::endpoint2str(etcd_ep_).c_str() + "/v3/kv/range";
   std::string post_body = std::string("")
                           + "{"

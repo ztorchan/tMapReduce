@@ -101,7 +101,7 @@ public:
     type_(type),
     head_(head),
     size_(size),
-    worker_id_(UINT32_MAX),
+    worker_name_(),
     finished_(false),
     result_(nullptr) {}
   SubJob& operator=(const SubJob&) = delete;
@@ -125,7 +125,7 @@ public:
   uint32_t head_;         // the head index in job
   uint32_t size_;         // kv number 
 
-  uint32_t worker_id_;    // id of worker the subjob has been distributed to
+  std::string worker_name_;// id of worker the subjob has been distributed to
   bool finished_;         // if subjob is completed
   void* result_;          // subjob result
 };
