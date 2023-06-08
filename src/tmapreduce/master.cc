@@ -284,6 +284,90 @@ void Master::BGDistributor(Master* master) {
   }
 }
 
+void Master::BGBeater(Master* master) {
+  spdlog::info("[bgbeater] beater start");
+
+  brpc::Controller cntl;
+  google::protobuf::Empty beat_request;
+  WorkerReplyMsg beat_response;
+  while(!master->end_) {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::unique_lock<std::mutex> slavers_lck(master->slavers_mtx_);
+    master->beat_cv_.wait(slavers_lck, [&] {
+      return (!master->slavers_.empty() && master->raft_node_->is_leader() || master->end_);
+    });
+    if(master->end_) {
+      break;
+    }
+
+    std::vector<std::string> error_slavers;
+    for(auto& [_, slaver] : master->slavers_) {
+      cntl.Reset();
+      slaver->stub_->Beat(&cntl, &beat_request, &beat_response, NULL);
+      if(cntl.Failed()) {
+        slaver->state_ = WorkerState::UNKNOWN;
+        slaver->beat_retry_times_--;
+        if(slaver->beat_retry_times_ == 0) {
+          // abandon the slaver and cancel the job
+          butil::IOBuf log;
+          braft::Task task;
+          log.push_back(OP_CANCEL);
+          log.append(&(slaver->cur_job_), sizeof(uint32_t));
+          log.append(&(slaver->cur_subjob_), sizeof(uint32_t));
+          log.append(slaver->name_);
+          task.data = &log;
+          if(FLAGS_check_term) {
+            // avoid ABA
+            task.expected_term = master->raft_leader_term_.load(butil::memory_order_acquire);
+          }
+          master->raft_node_->apply(task);
+          error_slavers.push_back(slaver->name_);
+        }
+      } else if(!beat_response.ok()) {
+        // it is not slaver
+        butil::IOBuf log;
+        braft::Task task;
+        log.push_back(OP_CANCEL);
+        log.append(&(slaver->cur_job_), sizeof(uint32_t));
+        log.append(&(slaver->cur_subjob_), sizeof(uint32_t));
+        log.append(slaver->name_);
+        task.data = &log;
+        if(FLAGS_check_term) {
+          // avoid ABA
+          task.expected_term = master->raft_leader_term_.load(butil::memory_order_acquire);
+        }
+        master->raft_node_->apply(task);
+        error_slavers.push_back(slaver->name_);
+      } else {
+        slaver->state_ = beat_response.state();
+        if(slaver->state_ == WorkerState::CLOSE) {
+          butil::IOBuf log;
+          braft::Task task;
+          log.push_back(OP_CANCEL);
+          log.append(&(slaver->cur_job_), sizeof(uint32_t));
+          log.append(&(slaver->cur_subjob_), sizeof(uint32_t));
+          log.append(slaver->name_);
+          task.data = &log;
+          if(FLAGS_check_term) {
+            // avoid ABA
+            task.expected_term = master->raft_leader_term_.load(butil::memory_order_acquire);
+          }
+          master->raft_node_->apply(task);
+          error_slavers.push_back(slaver->name_);
+        } else if(slaver->state_ == WorkerState::WAIT2MAP || slaver->state_ == WorkerState::WAIT2REDUCE) {
+          google::protobuf::Empty start_request;
+          WorkerReplyMsg start_response;
+          cntl.Reset();
+          slaver->stub_->Start(&cntl, &start_request, &start_response, NULL);
+        }
+      }
+    }
+    for(const std::string& worker_name : error_slavers) {
+      master->slavers_.erase(worker_name);
+    }
+  }
+}
+
 void Master::apply_from_rpc(OpType op_type, 
                             const google::protobuf::Message* request, 
                             google::protobuf::Message* response, 
@@ -356,6 +440,17 @@ Status Master::handle_launch(const std::string& name, const std::string& type,
   return Status::Ok("");
 }
 
+Status Master::handle_distribute(const uint32_t job_id, const uint32_t subjob_id, const std::string& worker_name) {
+  std::unique_lock<std::mutex> jobs_lck(jobs_mtx_);
+  if(jobs_.count(job_id) != 0 && jobs_[job_id]->subjobs_.size() > subjob_id) {
+    spdlog::info("[apply : distribute] distribute job {} subjob {} to worker {}", job_id, subjob_id, worker_name.c_str());
+    jobs_[job_id]->subjobs_[subjob_id].worker_name_ = worker_name;
+  } else {
+    return Status::Error("no such job or subjob");
+  }
+  return Status::Ok("");
+}
+
 void Master::on_apply(braft::Iterator& iter) {
   for(; iter.valid(); iter.next()) {
     // async invoke iter.done()->Run(0)
@@ -369,9 +464,8 @@ void Master::on_apply(braft::Iterator& iter) {
       // task is applied by this node
       spdlog::info("[on_apply] get log applied by this node");
       switch(op_type) {
-      // launch task
-      case OP_LAUNCH:
-      {
+      // launch job
+      case OP_LAUNCH: {
         uint32_t job_id;
         MapIns map_kvs;
         LaunchClosure* c = dynamic_cast<LaunchClosure*>(iter.done());
@@ -396,17 +490,18 @@ void Master::on_apply(braft::Iterator& iter) {
         }
       }
         break;
+      // distribute job
+      case OP_DISTRIBUTE: {
 
-      case OP_DISTRIBUTE:
+      }
         break;
       }
     } else {
       // task is applied by others
       spdlog::info("[on_apply] get log applied by other node");
       switch(op_type) {
-
-      case OP_LAUNCH:
-      {
+      // launch job
+      case OP_LAUNCH: {
         uint32_t job_id;
         MapIns map_kvs;
         LaunchMsg request;
@@ -425,6 +520,23 @@ void Master::on_apply(braft::Iterator& iter) {
           spdlog::info("[apply : launch] successfully launch a job");
         } else {
           spdlog::info("[apply : launch] fail to launch a job: {}", s.msg_);
+        }
+      }
+        break;
+      // distribute job
+      case OP_DISTRIBUTE: {
+        // get info
+        uint32_t job_id;
+        uint32_t subjob_id;
+        std::string worker_name;
+        data.cutn(&job_id, sizeof(uint32_t));
+        data.cutn(&subjob_id, sizeof(uint32_t));
+        worker_name = data.to_string();
+        Status s = handle_distribute(job_id, subjob_id, worker_name);
+        if(s.ok()) {
+          spdlog::info("[apply : distribute] distribute job {} subjob {} to worker {}", job_id, subjob_id, worker_name.c_str());
+        } else {
+          spdlog::info("[apply : distribute] fail to distribute job {} subjob {} to worker {} : {}", job_id, subjob_id, worker_name.c_str(), s.msg_.c_str());
         }
       }
         break;
