@@ -50,7 +50,7 @@ message CompleteMapMsg {
   }
   uint32 job_id = 1;
   uint32 subjob_id = 2;
-  uint32 worker_id = 3;
+  string worker_name = 3;
   WorkerState state = 4;
   repeated KV map_result = 5;
 }
@@ -59,7 +59,7 @@ message CompleteMapMsg {
 message CompleteReduceMsg {
   uint32 job_id = 1;
   uint32 subjob_id = 2;
-  uint32 worker_id = 3;
+  string worker_name = 3;
   WorkerState state = 4;
   repeated string reduce_result = 5;
 }

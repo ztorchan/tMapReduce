@@ -57,8 +57,7 @@ public:
       reduce_kvs_(),
       results_(),
       unfinished_job_num_(0),
-      subjobs_(),
-      mtx_() {}
+      subjobs_() {}
   Job(const Job&) = delete;
   ~Job() {}
 
@@ -87,8 +86,6 @@ private:
   
   std::atomic_uint32_t unfinished_job_num_;
   std::vector<SubJob> subjobs_;
-
-  std::mutex mtx_;
 
   bool check_token(const std::string& t) const { return t == token_; }
 };

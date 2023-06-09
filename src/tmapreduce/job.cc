@@ -72,6 +72,7 @@ void Job::Finish() {
     std::vector<std::string>* reduce_result =  reinterpret_cast<std::vector<std::string>*>(subjob.result_);
     results_.insert(results_.end(), reduce_result->begin(), reduce_result->end());
   }
+  stage_ = JobStage::FINISHED;
 }
 
 }

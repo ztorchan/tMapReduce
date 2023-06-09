@@ -104,12 +104,12 @@ private:
   };
   // log handler
   // Principle: handler should be deterministic operation, communication with workers should not be involved
-  Status handle_register(std::string name, butil::EndPoint ep, const std::vector<std::string> acceptable_job_type);
+  Status handle_register(const std::string name, const butil::EndPoint ep, const std::vector<std::string> acceptable_job_type);
   Status handle_launch(const std::string& name, const std::string& type, const std::string& token, uint32_t map_worker_num, uint32_t reduce_worker_num, MapIns& map_kvs, _OUT uint32_t* job_id);
   Status handle_distribute(const uint32_t job_id, const uint32_t subjob_id, const std::string& worker_name);
-  Status handle_cancel();
-  Status handle_complete_map(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id, WorkerState worker_state, MapOuts& map_result);
-  Status handle_complete_reduce(uint32_t job_id, uint32_t subjob_id, uint32_t worker_id, WorkerState worker_state, ReduceOuts& reduce_result);
+  Status handle_cancel(const uint32_t job_id, const uint32_t subjob_id);
+  Status handle_complete_map(const uint32_t job_id, const uint32_t subjob_id, const std::string worker_name, MapOuts& map_result);
+  Status handle_complete_reduce(const uint32_t job_id, const uint32_t subjob_id, const std::string worker_name, ReduceOuts& reduce_result);
   Status handle_delete_job(uint32_t job_id, uint64_t token, _OUT ReduceOuts* result);
 
   // raft state machine related
@@ -118,7 +118,7 @@ private:
                       google::protobuf::Message* response, 
                       google::protobuf::Closure* done);
   void on_apply(braft::Iterator& iter) override;
-  void on_shutdown() override;
+  // void on_shutdown() override;
   void on_leader_start(int64_t term) override;
   void on_leader_stop(const butil::Status& status) override;
   void redirect(OpType op_type, google::protobuf::Message* response);

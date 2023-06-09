@@ -290,7 +290,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_master_5fservice_2eproto::offs
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::tmapreduce::CompleteMapMsg, job_id_),
   PROTOBUF_FIELD_OFFSET(::tmapreduce::CompleteMapMsg, subjob_id_),
-  PROTOBUF_FIELD_OFFSET(::tmapreduce::CompleteMapMsg, worker_id_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::CompleteMapMsg, worker_name_),
   PROTOBUF_FIELD_OFFSET(::tmapreduce::CompleteMapMsg, state_),
   PROTOBUF_FIELD_OFFSET(::tmapreduce::CompleteMapMsg, map_result_),
   ~0u,  // no _has_bits_
@@ -300,7 +300,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_master_5fservice_2eproto::offs
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::tmapreduce::CompleteReduceMsg, job_id_),
   PROTOBUF_FIELD_OFFSET(::tmapreduce::CompleteReduceMsg, subjob_id_),
-  PROTOBUF_FIELD_OFFSET(::tmapreduce::CompleteReduceMsg, worker_id_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::CompleteReduceMsg, worker_name_),
   PROTOBUF_FIELD_OFFSET(::tmapreduce::CompleteReduceMsg, state_),
   PROTOBUF_FIELD_OFFSET(::tmapreduce::CompleteReduceMsg, reduce_result_),
   ~0u,  // no _has_bits_
@@ -360,28 +360,28 @@ const char descriptor_table_protodef_master_5fservice_2eproto[] PROTOBUF_SECTION
   "uce.LaunchMsg.KV\032 \n\002KV\022\013\n\003key\030\001 \001(\t\022\r\n\005v"
   "alue\030\002 \001(\t\"K\n\016LaunchReplyMsg\022)\n\005reply\030\001 "
   "\001(\0132\032.tmapreduce.MasterReplyMsg\022\016\n\006job_i"
-  "d\030\002 \001(\r\"\303\001\n\016CompleteMapMsg\022\016\n\006job_id\030\001 \001"
-  "(\r\022\021\n\tsubjob_id\030\002 \001(\r\022\021\n\tworker_id\030\003 \001(\r"
-  "\022&\n\005state\030\004 \001(\0162\027.tmapreduce.WorkerState"
-  "\0221\n\nmap_result\030\005 \003(\0132\035.tmapreduce.Comple"
-  "teMapMsg.KV\032 \n\002KV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030"
-  "\002 \001(\t\"\210\001\n\021CompleteReduceMsg\022\016\n\006job_id\030\001 "
-  "\001(\r\022\021\n\tsubjob_id\030\002 \001(\r\022\021\n\tworker_id\030\003 \001("
-  "\r\022&\n\005state\030\004 \001(\0162\027.tmapreduce.WorkerStat"
-  "e\022\025\n\rreduce_result\030\005 \003(\t\"2\n\014GetResultMsg"
-  "\022\016\n\006job_id\030\001 \001(\r\022\022\n\njob_secret\030\002 \001(\004\"O\n\021"
-  "GetResultReplyMsg\022)\n\005reply\030\001 \001(\0132\032.tmapr"
-  "educe.MasterReplyMsg\022\017\n\007results\030\002 \003(\t2\363\002"
-  "\n\rMasterService\022C\n\010Register\022\027.tmapreduce"
-  ".RegisterMsg\032\034.tmapreduce.RegisterReplyM"
-  "sg\"\000\022=\n\006Launch\022\025.tmapreduce.LaunchMsg\032\032."
-  "tmapreduce.LaunchReplyMsg\"\000\022G\n\013CompleteM"
-  "ap\022\032.tmapreduce.CompleteMapMsg\032\032.tmapred"
-  "uce.MasterReplyMsg\"\000\022M\n\016CompleteReduce\022\035"
-  ".tmapreduce.CompleteReduceMsg\032\032.tmapredu"
-  "ce.MasterReplyMsg\"\000\022F\n\tGetResult\022\030.tmapr"
-  "educe.GetResultMsg\032\035.tmapreduce.GetResul"
-  "tReplyMsg\"\000B\003\200\001\001b\006proto3"
+  "d\030\002 \001(\r\"\305\001\n\016CompleteMapMsg\022\016\n\006job_id\030\001 \001"
+  "(\r\022\021\n\tsubjob_id\030\002 \001(\r\022\023\n\013worker_name\030\003 \001"
+  "(\t\022&\n\005state\030\004 \001(\0162\027.tmapreduce.WorkerSta"
+  "te\0221\n\nmap_result\030\005 \003(\0132\035.tmapreduce.Comp"
+  "leteMapMsg.KV\032 \n\002KV\022\013\n\003key\030\001 \001(\t\022\r\n\005valu"
+  "e\030\002 \001(\t\"\212\001\n\021CompleteReduceMsg\022\016\n\006job_id\030"
+  "\001 \001(\r\022\021\n\tsubjob_id\030\002 \001(\r\022\023\n\013worker_name\030"
+  "\003 \001(\t\022&\n\005state\030\004 \001(\0162\027.tmapreduce.Worker"
+  "State\022\025\n\rreduce_result\030\005 \003(\t\"2\n\014GetResul"
+  "tMsg\022\016\n\006job_id\030\001 \001(\r\022\022\n\njob_secret\030\002 \001(\004"
+  "\"O\n\021GetResultReplyMsg\022)\n\005reply\030\001 \001(\0132\032.t"
+  "mapreduce.MasterReplyMsg\022\017\n\007results\030\002 \003("
+  "\t2\363\002\n\rMasterService\022C\n\010Register\022\027.tmapre"
+  "duce.RegisterMsg\032\034.tmapreduce.RegisterRe"
+  "plyMsg\"\000\022=\n\006Launch\022\025.tmapreduce.LaunchMs"
+  "g\032\032.tmapreduce.LaunchReplyMsg\"\000\022G\n\013Compl"
+  "eteMap\022\032.tmapreduce.CompleteMapMsg\032\032.tma"
+  "preduce.MasterReplyMsg\"\000\022M\n\016CompleteRedu"
+  "ce\022\035.tmapreduce.CompleteReduceMsg\032\032.tmap"
+  "reduce.MasterReplyMsg\"\000\022F\n\tGetResult\022\030.t"
+  "mapreduce.GetResultMsg\032\035.tmapreduce.GetR"
+  "esultReplyMsg\"\000B\003\200\001\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_master_5fservice_2eproto_deps[1] = {
   &::descriptor_table_state_2eproto,
@@ -401,7 +401,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_mas
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_master_5fservice_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_master_5fservice_2eproto = {
-  false, false, descriptor_table_protodef_master_5fservice_2eproto, "master_service.proto", 1384,
+  false, false, descriptor_table_protodef_master_5fservice_2eproto, "master_service.proto", 1388,
   &descriptor_table_master_5fservice_2eproto_once, descriptor_table_master_5fservice_2eproto_sccs, descriptor_table_master_5fservice_2eproto_deps, 11, 1,
   schemas, file_default_instances, TableStruct_master_5fservice_2eproto::offsets,
   file_level_metadata_master_5fservice_2eproto, 11, file_level_enum_descriptors_master_5fservice_2eproto, file_level_service_descriptors_master_5fservice_2eproto,
@@ -2379,6 +2379,11 @@ CompleteMapMsg::CompleteMapMsg(const CompleteMapMsg& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       map_result_(from.map_result_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  worker_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_worker_name().empty()) {
+    worker_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_worker_name(),
+      GetArena());
+  }
   ::memcpy(&job_id_, &from.job_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&state_) -
     reinterpret_cast<char*>(&job_id_)) + sizeof(state_));
@@ -2387,6 +2392,7 @@ CompleteMapMsg::CompleteMapMsg(const CompleteMapMsg& from)
 
 void CompleteMapMsg::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_CompleteMapMsg_master_5fservice_2eproto.base);
+  worker_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   ::memset(&job_id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&state_) -
       reinterpret_cast<char*>(&job_id_)) + sizeof(state_));
@@ -2400,6 +2406,7 @@ CompleteMapMsg::~CompleteMapMsg() {
 
 void CompleteMapMsg::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
+  worker_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void CompleteMapMsg::ArenaDtor(void* object) {
@@ -2424,6 +2431,7 @@ void CompleteMapMsg::Clear() {
   (void) cached_has_bits;
 
   map_result_.Clear();
+  worker_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::memset(&job_id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&state_) -
       reinterpret_cast<char*>(&job_id_)) + sizeof(state_));
@@ -2452,10 +2460,12 @@ const char* CompleteMapMsg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 worker_id = 3;
+      // string worker_name = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          worker_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_worker_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tmapreduce.CompleteMapMsg.worker_name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -2519,10 +2529,14 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_subjob_id(), target);
   }
 
-  // uint32 worker_id = 3;
-  if (this->worker_id() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_worker_id(), target);
+  // string worker_name = 3;
+  if (this->worker_name().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_worker_name().data(), static_cast<int>(this->_internal_worker_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "tmapreduce.CompleteMapMsg.worker_name");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_worker_name(), target);
   }
 
   // .tmapreduce.WorkerState state = 4;
@@ -2563,6 +2577,13 @@ size_t CompleteMapMsg::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // string worker_name = 3;
+  if (this->worker_name().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_worker_name());
+  }
+
   // uint32 job_id = 1;
   if (this->job_id() != 0) {
     total_size += 1 +
@@ -2575,13 +2596,6 @@ size_t CompleteMapMsg::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
         this->_internal_subjob_id());
-  }
-
-  // uint32 worker_id = 3;
-  if (this->worker_id() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-        this->_internal_worker_id());
   }
 
   // .tmapreduce.WorkerState state = 4;
@@ -2622,14 +2636,14 @@ void CompleteMapMsg::MergeFrom(const CompleteMapMsg& from) {
   (void) cached_has_bits;
 
   map_result_.MergeFrom(from.map_result_);
+  if (from.worker_name().size() > 0) {
+    _internal_set_worker_name(from._internal_worker_name());
+  }
   if (from.job_id() != 0) {
     _internal_set_job_id(from._internal_job_id());
   }
   if (from.subjob_id() != 0) {
     _internal_set_subjob_id(from._internal_subjob_id());
-  }
-  if (from.worker_id() != 0) {
-    _internal_set_worker_id(from._internal_worker_id());
   }
   if (from.state() != 0) {
     _internal_set_state(from._internal_state());
@@ -2658,6 +2672,7 @@ void CompleteMapMsg::InternalSwap(CompleteMapMsg* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   map_result_.InternalSwap(&other->map_result_);
+  worker_name_.Swap(&other->worker_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(CompleteMapMsg, state_)
       + sizeof(CompleteMapMsg::state_)
@@ -2690,6 +2705,11 @@ CompleteReduceMsg::CompleteReduceMsg(const CompleteReduceMsg& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       reduce_result_(from.reduce_result_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  worker_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_worker_name().empty()) {
+    worker_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_worker_name(),
+      GetArena());
+  }
   ::memcpy(&job_id_, &from.job_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&state_) -
     reinterpret_cast<char*>(&job_id_)) + sizeof(state_));
@@ -2698,6 +2718,7 @@ CompleteReduceMsg::CompleteReduceMsg(const CompleteReduceMsg& from)
 
 void CompleteReduceMsg::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_CompleteReduceMsg_master_5fservice_2eproto.base);
+  worker_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   ::memset(&job_id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&state_) -
       reinterpret_cast<char*>(&job_id_)) + sizeof(state_));
@@ -2711,6 +2732,7 @@ CompleteReduceMsg::~CompleteReduceMsg() {
 
 void CompleteReduceMsg::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
+  worker_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void CompleteReduceMsg::ArenaDtor(void* object) {
@@ -2735,6 +2757,7 @@ void CompleteReduceMsg::Clear() {
   (void) cached_has_bits;
 
   reduce_result_.Clear();
+  worker_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::memset(&job_id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&state_) -
       reinterpret_cast<char*>(&job_id_)) + sizeof(state_));
@@ -2763,10 +2786,12 @@ const char* CompleteReduceMsg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 worker_id = 3;
+      // string worker_name = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          worker_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_worker_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tmapreduce.CompleteReduceMsg.worker_name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -2832,10 +2857,14 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_subjob_id(), target);
   }
 
-  // uint32 worker_id = 3;
-  if (this->worker_id() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_worker_id(), target);
+  // string worker_name = 3;
+  if (this->worker_name().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_worker_name().data(), static_cast<int>(this->_internal_worker_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "tmapreduce.CompleteReduceMsg.worker_name");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_worker_name(), target);
   }
 
   // .tmapreduce.WorkerState state = 4;
@@ -2879,6 +2908,13 @@ size_t CompleteReduceMsg::ByteSizeLong() const {
       reduce_result_.Get(i));
   }
 
+  // string worker_name = 3;
+  if (this->worker_name().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_worker_name());
+  }
+
   // uint32 job_id = 1;
   if (this->job_id() != 0) {
     total_size += 1 +
@@ -2891,13 +2927,6 @@ size_t CompleteReduceMsg::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
         this->_internal_subjob_id());
-  }
-
-  // uint32 worker_id = 3;
-  if (this->worker_id() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-        this->_internal_worker_id());
   }
 
   // .tmapreduce.WorkerState state = 4;
@@ -2938,14 +2967,14 @@ void CompleteReduceMsg::MergeFrom(const CompleteReduceMsg& from) {
   (void) cached_has_bits;
 
   reduce_result_.MergeFrom(from.reduce_result_);
+  if (from.worker_name().size() > 0) {
+    _internal_set_worker_name(from._internal_worker_name());
+  }
   if (from.job_id() != 0) {
     _internal_set_job_id(from._internal_job_id());
   }
   if (from.subjob_id() != 0) {
     _internal_set_subjob_id(from._internal_subjob_id());
-  }
-  if (from.worker_id() != 0) {
-    _internal_set_worker_id(from._internal_worker_id());
   }
   if (from.state() != 0) {
     _internal_set_state(from._internal_state());
@@ -2974,6 +3003,7 @@ void CompleteReduceMsg::InternalSwap(CompleteReduceMsg* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   reduce_result_.InternalSwap(&other->reduce_result_);
+  worker_name_.Swap(&other->worker_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(CompleteReduceMsg, state_)
       + sizeof(CompleteReduceMsg::state_)

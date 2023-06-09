@@ -1557,9 +1557,9 @@ class CompleteMapMsg PROTOBUF_FINAL :
 
   enum : int {
     kMapResultFieldNumber = 5,
+    kWorkerNameFieldNumber = 3,
     kJobIdFieldNumber = 1,
     kSubjobIdFieldNumber = 2,
-    kWorkerIdFieldNumber = 3,
     kStateFieldNumber = 4,
   };
   // repeated .tmapreduce.CompleteMapMsg.KV map_result = 5;
@@ -1580,6 +1580,31 @@ class CompleteMapMsg PROTOBUF_FINAL :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tmapreduce::CompleteMapMsg_KV >&
       map_result() const;
 
+  // string worker_name = 3;
+  void clear_worker_name();
+  const std::string& worker_name() const;
+  void set_worker_name(const std::string& value);
+  void set_worker_name(std::string&& value);
+  void set_worker_name(const char* value);
+  void set_worker_name(const char* value, size_t size);
+  std::string* mutable_worker_name();
+  std::string* release_worker_name();
+  void set_allocated_worker_name(std::string* worker_name);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_worker_name();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_worker_name(
+      std::string* worker_name);
+  private:
+  const std::string& _internal_worker_name() const;
+  void _internal_set_worker_name(const std::string& value);
+  std::string* _internal_mutable_worker_name();
+  public:
+
   // uint32 job_id = 1;
   void clear_job_id();
   ::PROTOBUF_NAMESPACE_ID::uint32 job_id() const;
@@ -1596,15 +1621,6 @@ class CompleteMapMsg PROTOBUF_FINAL :
   private:
   ::PROTOBUF_NAMESPACE_ID::uint32 _internal_subjob_id() const;
   void _internal_set_subjob_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  public:
-
-  // uint32 worker_id = 3;
-  void clear_worker_id();
-  ::PROTOBUF_NAMESPACE_ID::uint32 worker_id() const;
-  void set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_worker_id() const;
-  void _internal_set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
   // .tmapreduce.WorkerState state = 4;
@@ -1624,9 +1640,9 @@ class CompleteMapMsg PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tmapreduce::CompleteMapMsg_KV > map_result_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr worker_name_;
   ::PROTOBUF_NAMESPACE_ID::uint32 job_id_;
   ::PROTOBUF_NAMESPACE_ID::uint32 subjob_id_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 worker_id_;
   int state_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_master_5fservice_2eproto;
@@ -1747,9 +1763,9 @@ class CompleteReduceMsg PROTOBUF_FINAL :
 
   enum : int {
     kReduceResultFieldNumber = 5,
+    kWorkerNameFieldNumber = 3,
     kJobIdFieldNumber = 1,
     kSubjobIdFieldNumber = 2,
-    kWorkerIdFieldNumber = 3,
     kStateFieldNumber = 4,
   };
   // repeated string reduce_result = 5;
@@ -1776,6 +1792,31 @@ class CompleteReduceMsg PROTOBUF_FINAL :
   std::string* _internal_add_reduce_result();
   public:
 
+  // string worker_name = 3;
+  void clear_worker_name();
+  const std::string& worker_name() const;
+  void set_worker_name(const std::string& value);
+  void set_worker_name(std::string&& value);
+  void set_worker_name(const char* value);
+  void set_worker_name(const char* value, size_t size);
+  std::string* mutable_worker_name();
+  std::string* release_worker_name();
+  void set_allocated_worker_name(std::string* worker_name);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_worker_name();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_worker_name(
+      std::string* worker_name);
+  private:
+  const std::string& _internal_worker_name() const;
+  void _internal_set_worker_name(const std::string& value);
+  std::string* _internal_mutable_worker_name();
+  public:
+
   // uint32 job_id = 1;
   void clear_job_id();
   ::PROTOBUF_NAMESPACE_ID::uint32 job_id() const;
@@ -1792,15 +1833,6 @@ class CompleteReduceMsg PROTOBUF_FINAL :
   private:
   ::PROTOBUF_NAMESPACE_ID::uint32 _internal_subjob_id() const;
   void _internal_set_subjob_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  public:
-
-  // uint32 worker_id = 3;
-  void clear_worker_id();
-  ::PROTOBUF_NAMESPACE_ID::uint32 worker_id() const;
-  void set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_worker_id() const;
-  void _internal_set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
   // .tmapreduce.WorkerState state = 4;
@@ -1820,9 +1852,9 @@ class CompleteReduceMsg PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> reduce_result_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr worker_name_;
   ::PROTOBUF_NAMESPACE_ID::uint32 job_id_;
   ::PROTOBUF_NAMESPACE_ID::uint32 subjob_id_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 worker_id_;
   int state_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_master_5fservice_2eproto;
@@ -3603,24 +3635,85 @@ inline void CompleteMapMsg::set_subjob_id(::PROTOBUF_NAMESPACE_ID::uint32 value)
   // @@protoc_insertion_point(field_set:tmapreduce.CompleteMapMsg.subjob_id)
 }
 
-// uint32 worker_id = 3;
-inline void CompleteMapMsg::clear_worker_id() {
-  worker_id_ = 0u;
+// string worker_name = 3;
+inline void CompleteMapMsg::clear_worker_name() {
+  worker_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteMapMsg::_internal_worker_id() const {
-  return worker_id_;
+inline const std::string& CompleteMapMsg::worker_name() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.CompleteMapMsg.worker_name)
+  return _internal_worker_name();
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteMapMsg::worker_id() const {
-  // @@protoc_insertion_point(field_get:tmapreduce.CompleteMapMsg.worker_id)
-  return _internal_worker_id();
+inline void CompleteMapMsg::set_worker_name(const std::string& value) {
+  _internal_set_worker_name(value);
+  // @@protoc_insertion_point(field_set:tmapreduce.CompleteMapMsg.worker_name)
 }
-inline void CompleteMapMsg::_internal_set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline std::string* CompleteMapMsg::mutable_worker_name() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.CompleteMapMsg.worker_name)
+  return _internal_mutable_worker_name();
+}
+inline const std::string& CompleteMapMsg::_internal_worker_name() const {
+  return worker_name_.Get();
+}
+inline void CompleteMapMsg::_internal_set_worker_name(const std::string& value) {
   
-  worker_id_ = value;
+  worker_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void CompleteMapMsg::set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_worker_id(value);
-  // @@protoc_insertion_point(field_set:tmapreduce.CompleteMapMsg.worker_id)
+inline void CompleteMapMsg::set_worker_name(std::string&& value) {
+  
+  worker_name_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:tmapreduce.CompleteMapMsg.worker_name)
+}
+inline void CompleteMapMsg::set_worker_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  worker_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:tmapreduce.CompleteMapMsg.worker_name)
+}
+inline void CompleteMapMsg::set_worker_name(const char* value,
+    size_t size) {
+  
+  worker_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.CompleteMapMsg.worker_name)
+}
+inline std::string* CompleteMapMsg::_internal_mutable_worker_name() {
+  
+  return worker_name_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* CompleteMapMsg::release_worker_name() {
+  // @@protoc_insertion_point(field_release:tmapreduce.CompleteMapMsg.worker_name)
+  return worker_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void CompleteMapMsg::set_allocated_worker_name(std::string* worker_name) {
+  if (worker_name != nullptr) {
+    
+  } else {
+    
+  }
+  worker_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), worker_name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.CompleteMapMsg.worker_name)
+}
+inline std::string* CompleteMapMsg::unsafe_arena_release_worker_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tmapreduce.CompleteMapMsg.worker_name)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return worker_name_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void CompleteMapMsg::unsafe_arena_set_allocated_worker_name(
+    std::string* worker_name) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (worker_name != nullptr) {
+    
+  } else {
+    
+  }
+  worker_name_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      worker_name, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.CompleteMapMsg.worker_name)
 }
 
 // .tmapreduce.WorkerState state = 4;
@@ -3726,24 +3819,85 @@ inline void CompleteReduceMsg::set_subjob_id(::PROTOBUF_NAMESPACE_ID::uint32 val
   // @@protoc_insertion_point(field_set:tmapreduce.CompleteReduceMsg.subjob_id)
 }
 
-// uint32 worker_id = 3;
-inline void CompleteReduceMsg::clear_worker_id() {
-  worker_id_ = 0u;
+// string worker_name = 3;
+inline void CompleteReduceMsg::clear_worker_name() {
+  worker_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteReduceMsg::_internal_worker_id() const {
-  return worker_id_;
+inline const std::string& CompleteReduceMsg::worker_name() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.CompleteReduceMsg.worker_name)
+  return _internal_worker_name();
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 CompleteReduceMsg::worker_id() const {
-  // @@protoc_insertion_point(field_get:tmapreduce.CompleteReduceMsg.worker_id)
-  return _internal_worker_id();
+inline void CompleteReduceMsg::set_worker_name(const std::string& value) {
+  _internal_set_worker_name(value);
+  // @@protoc_insertion_point(field_set:tmapreduce.CompleteReduceMsg.worker_name)
 }
-inline void CompleteReduceMsg::_internal_set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline std::string* CompleteReduceMsg::mutable_worker_name() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.CompleteReduceMsg.worker_name)
+  return _internal_mutable_worker_name();
+}
+inline const std::string& CompleteReduceMsg::_internal_worker_name() const {
+  return worker_name_.Get();
+}
+inline void CompleteReduceMsg::_internal_set_worker_name(const std::string& value) {
   
-  worker_id_ = value;
+  worker_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void CompleteReduceMsg::set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_worker_id(value);
-  // @@protoc_insertion_point(field_set:tmapreduce.CompleteReduceMsg.worker_id)
+inline void CompleteReduceMsg::set_worker_name(std::string&& value) {
+  
+  worker_name_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:tmapreduce.CompleteReduceMsg.worker_name)
+}
+inline void CompleteReduceMsg::set_worker_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  worker_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:tmapreduce.CompleteReduceMsg.worker_name)
+}
+inline void CompleteReduceMsg::set_worker_name(const char* value,
+    size_t size) {
+  
+  worker_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.CompleteReduceMsg.worker_name)
+}
+inline std::string* CompleteReduceMsg::_internal_mutable_worker_name() {
+  
+  return worker_name_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* CompleteReduceMsg::release_worker_name() {
+  // @@protoc_insertion_point(field_release:tmapreduce.CompleteReduceMsg.worker_name)
+  return worker_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void CompleteReduceMsg::set_allocated_worker_name(std::string* worker_name) {
+  if (worker_name != nullptr) {
+    
+  } else {
+    
+  }
+  worker_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), worker_name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.CompleteReduceMsg.worker_name)
+}
+inline std::string* CompleteReduceMsg::unsafe_arena_release_worker_name() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tmapreduce.CompleteReduceMsg.worker_name)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return worker_name_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void CompleteReduceMsg::unsafe_arena_set_allocated_worker_name(
+    std::string* worker_name) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (worker_name != nullptr) {
+    
+  } else {
+    
+  }
+  worker_name_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      worker_name, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.CompleteReduceMsg.worker_name)
 }
 
 // .tmapreduce.WorkerState state = 4;
