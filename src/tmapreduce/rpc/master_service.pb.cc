@@ -309,7 +309,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_master_5fservice_2eproto::offs
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::tmapreduce::GetResultMsg, job_id_),
-  PROTOBUF_FIELD_OFFSET(::tmapreduce::GetResultMsg, job_secret_),
+  PROTOBUF_FIELD_OFFSET(::tmapreduce::GetResultMsg, token_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::tmapreduce::GetResultReplyMsg, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -368,20 +368,20 @@ const char descriptor_table_protodef_master_5fservice_2eproto[] PROTOBUF_SECTION
   "e\030\002 \001(\t\"\212\001\n\021CompleteReduceMsg\022\016\n\006job_id\030"
   "\001 \001(\r\022\021\n\tsubjob_id\030\002 \001(\r\022\023\n\013worker_name\030"
   "\003 \001(\t\022&\n\005state\030\004 \001(\0162\027.tmapreduce.Worker"
-  "State\022\025\n\rreduce_result\030\005 \003(\t\"2\n\014GetResul"
-  "tMsg\022\016\n\006job_id\030\001 \001(\r\022\022\n\njob_secret\030\002 \001(\004"
-  "\"O\n\021GetResultReplyMsg\022)\n\005reply\030\001 \001(\0132\032.t"
-  "mapreduce.MasterReplyMsg\022\017\n\007results\030\002 \003("
-  "\t2\363\002\n\rMasterService\022C\n\010Register\022\027.tmapre"
-  "duce.RegisterMsg\032\034.tmapreduce.RegisterRe"
-  "plyMsg\"\000\022=\n\006Launch\022\025.tmapreduce.LaunchMs"
-  "g\032\032.tmapreduce.LaunchReplyMsg\"\000\022G\n\013Compl"
-  "eteMap\022\032.tmapreduce.CompleteMapMsg\032\032.tma"
-  "preduce.MasterReplyMsg\"\000\022M\n\016CompleteRedu"
-  "ce\022\035.tmapreduce.CompleteReduceMsg\032\032.tmap"
-  "reduce.MasterReplyMsg\"\000\022F\n\tGetResult\022\030.t"
-  "mapreduce.GetResultMsg\032\035.tmapreduce.GetR"
-  "esultReplyMsg\"\000B\003\200\001\001b\006proto3"
+  "State\022\025\n\rreduce_result\030\005 \003(\t\"-\n\014GetResul"
+  "tMsg\022\016\n\006job_id\030\001 \001(\r\022\r\n\005token\030\002 \001(\t\"O\n\021G"
+  "etResultReplyMsg\022)\n\005reply\030\001 \001(\0132\032.tmapre"
+  "duce.MasterReplyMsg\022\017\n\007results\030\002 \003(\t2\363\002\n"
+  "\rMasterService\022C\n\010Register\022\027.tmapreduce."
+  "RegisterMsg\032\034.tmapreduce.RegisterReplyMs"
+  "g\"\000\022=\n\006Launch\022\025.tmapreduce.LaunchMsg\032\032.t"
+  "mapreduce.LaunchReplyMsg\"\000\022G\n\013CompleteMa"
+  "p\022\032.tmapreduce.CompleteMapMsg\032\032.tmapredu"
+  "ce.MasterReplyMsg\"\000\022M\n\016CompleteReduce\022\035."
+  "tmapreduce.CompleteReduceMsg\032\032.tmapreduc"
+  "e.MasterReplyMsg\"\000\022F\n\tGetResult\022\030.tmapre"
+  "duce.GetResultMsg\032\035.tmapreduce.GetResult"
+  "ReplyMsg\"\000B\003\200\001\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_master_5fservice_2eproto_deps[1] = {
   &::descriptor_table_state_2eproto,
@@ -401,7 +401,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_mas
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_master_5fservice_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_master_5fservice_2eproto = {
-  false, false, descriptor_table_protodef_master_5fservice_2eproto, "master_service.proto", 1388,
+  false, false, descriptor_table_protodef_master_5fservice_2eproto, "master_service.proto", 1383,
   &descriptor_table_master_5fservice_2eproto_once, descriptor_table_master_5fservice_2eproto_sccs, descriptor_table_master_5fservice_2eproto_deps, 11, 1,
   schemas, file_default_instances, TableStruct_master_5fservice_2eproto::offsets,
   file_level_metadata_master_5fservice_2eproto, 11, file_level_enum_descriptors_master_5fservice_2eproto, file_level_service_descriptors_master_5fservice_2eproto,
@@ -3034,16 +3034,19 @@ GetResultMsg::GetResultMsg(::PROTOBUF_NAMESPACE_ID::Arena* arena)
 GetResultMsg::GetResultMsg(const GetResultMsg& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&job_secret_, &from.job_secret_,
-    static_cast<size_t>(reinterpret_cast<char*>(&job_id_) -
-    reinterpret_cast<char*>(&job_secret_)) + sizeof(job_id_));
+  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_token().empty()) {
+    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_token(),
+      GetArena());
+  }
+  job_id_ = from.job_id_;
   // @@protoc_insertion_point(copy_constructor:tmapreduce.GetResultMsg)
 }
 
 void GetResultMsg::SharedCtor() {
-  ::memset(&job_secret_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&job_id_) -
-      reinterpret_cast<char*>(&job_secret_)) + sizeof(job_id_));
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_GetResultMsg_master_5fservice_2eproto.base);
+  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  job_id_ = 0u;
 }
 
 GetResultMsg::~GetResultMsg() {
@@ -3054,6 +3057,7 @@ GetResultMsg::~GetResultMsg() {
 
 void GetResultMsg::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
+  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void GetResultMsg::ArenaDtor(void* object) {
@@ -3077,9 +3081,8 @@ void GetResultMsg::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&job_secret_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&job_id_) -
-      reinterpret_cast<char*>(&job_secret_)) + sizeof(job_id_));
+  token_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  job_id_ = 0u;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -3098,10 +3101,12 @@ const char* GetResultMsg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint64 job_secret = 2;
+      // string token = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          job_secret_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_token();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tmapreduce.GetResultMsg.token"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -3139,10 +3144,14 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_job_id(), target);
   }
 
-  // uint64 job_secret = 2;
-  if (this->job_secret() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_job_secret(), target);
+  // string token = 2;
+  if (this->token().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_token().data(), static_cast<int>(this->_internal_token().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "tmapreduce.GetResultMsg.token");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_token(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3161,11 +3170,11 @@ size_t GetResultMsg::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // uint64 job_secret = 2;
-  if (this->job_secret() != 0) {
+  // string token = 2;
+  if (this->token().size() > 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
-        this->_internal_job_secret());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_token());
   }
 
   // uint32 job_id = 1;
@@ -3206,8 +3215,8 @@ void GetResultMsg::MergeFrom(const GetResultMsg& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.job_secret() != 0) {
-    _internal_set_job_secret(from._internal_job_secret());
+  if (from.token().size() > 0) {
+    _internal_set_token(from._internal_token());
   }
   if (from.job_id() != 0) {
     _internal_set_job_id(from._internal_job_id());
@@ -3235,12 +3244,8 @@ bool GetResultMsg::IsInitialized() const {
 void GetResultMsg::InternalSwap(GetResultMsg* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetResultMsg, job_id_)
-      + sizeof(GetResultMsg::job_id_)
-      - PROTOBUF_FIELD_OFFSET(GetResultMsg, job_secret_)>(
-          reinterpret_cast<char*>(&job_secret_),
-          reinterpret_cast<char*>(&other->job_secret_));
+  token_.Swap(&other->token_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  swap(job_id_, other->job_id_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata GetResultMsg::GetMetadata() const {

@@ -21,6 +21,10 @@
 #include "tmapreduce/rpc/master_service.pb.h"
 
 #define _OUT
+#define BEAT_PERIOD_SECOND 1
+#define SCAN_PERIOD_SECOND 10
+#define SUBJOB_WORKING_TIMEOUT_SECOND 60
+#define JOB_RESULT_TIMEOUT_SECOND 60 * 60 
 
 DEFINE_bool(check_term, true, "Check if the leader changed to another term");
 DEFINE_bool(disable_cli, false, "Don't allow raft_cli access this node");
@@ -65,7 +69,7 @@ private:
 
 class Master : public braft::StateMachine {
 public:
-  Master();
+  Master(const uint32_t id, const std::string& name, const butil::EndPoint& etcd_ep);
   ~Master() noexcept;
   Master(const Master&) = delete;
   Master& operator=(const Master&) = delete;
@@ -89,8 +93,8 @@ public:
                  google::protobuf::Closure* done);
   
   static void BGDistributor(Master* master);
-
   static void BGBeater(Master* master);
+  static void BGScaner(Master* master);
 
 private:
   enum OpType : uint8_t {
@@ -110,7 +114,8 @@ private:
   Status handle_cancel(const uint32_t job_id, const uint32_t subjob_id);
   Status handle_complete_map(const uint32_t job_id, const uint32_t subjob_id, const std::string worker_name, MapOuts& map_result);
   Status handle_complete_reduce(const uint32_t job_id, const uint32_t subjob_id, const std::string worker_name, ReduceOuts& reduce_result);
-  Status handle_delete_job(uint32_t job_id, uint64_t token, _OUT ReduceOuts* result);
+  Status handle_get_result(const uint32_t job_id, const std::string token, _OUT ReduceOuts& result);
+  Status handle_delete_job(uint32_t job_id);
 
   // raft state machine related
   void apply_from_rpc(OpType op_type, 
@@ -161,6 +166,7 @@ private:
   std::mutex dist_mtx_;
   std::condition_variable dist_cv_;
   std::condition_variable beat_cv_;
+  std::condition_variable scan_cv_;
   // raft state machine related
   braft::Node* volatile raft_node_;
   butil::atomic<int64_t> raft_leader_term_; 

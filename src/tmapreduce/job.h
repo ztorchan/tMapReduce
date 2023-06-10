@@ -5,6 +5,7 @@
 #include <vector>
 #include <mutex>
 #include <atomic>
+#include <ctime>
 #include <cstdint>
 #include <memory>
 
@@ -49,9 +50,10 @@ public:
       id_(id),
       name_(name),
       type_(type),
+      token_(token),
       map_worker_num_(map_worker_num),
       reduce_worker_num_(reduce_worker_num),
-      token_(token),
+      ftime(-1),
       stage_(JobStage::INIT),
       map_kvs_(std::forward<MapIns>(map_kvs)),
       reduce_kvs_(),
@@ -78,6 +80,7 @@ private:
   const std::string token_;
   const int map_worker_num_;
   const int reduce_worker_num_;
+  time_t ftime;
 
   JobStage stage_;
   MapIns map_kvs_;
@@ -99,6 +102,7 @@ public:
     head_(head),
     size_(size),
     worker_name_(),
+    dtime(-1),
     finished_(false),
     result_(nullptr) {}
   SubJob& operator=(const SubJob&) = delete;
@@ -123,6 +127,7 @@ public:
   uint32_t size_;         // kv number 
 
   std::string worker_name_;// id of worker the subjob has been distributed to
+  time_t dtime;           // distribute time
   bool finished_;         // if subjob is completed
   void* result_;          // subjob result
 };

@@ -44,6 +44,32 @@ Slaver::~Slaver() {
   }
 }
 
+Master::Master(const uint32_t id, const std::string& name, const butil::EndPoint& etcd_ep)
+  : id_(id)
+  , name_(name)
+  , job_seq_num_(0)
+  , etcd_ep_(etcd_ep)
+  , slavers_()
+  , jobs_()
+  , jobs_waiting_dist_()
+  , jobs_finished_()
+  , slavers_mtx_()
+  , jobs_mtx_()
+  , dist_mtx_()
+  , dist_cv_()
+  , beat_cv_()
+  , scan_cv_()
+  , raft_node_(nullptr)
+  , raft_leader_term_(-1)
+  , end_(false) {
+  std::thread job_distributor(Master::BGDistributor, this);
+  job_distributor.detach();
+  std::thread beater(Master::BGBeater, this);
+  beater.detach();
+  std::thread scaner(Master::BGScaner, this);
+  scaner.detach();
+}
+
 int Master::Start() {
   butil::EndPoint addr(butil::my_ip(), FLAGS_port);
   braft::NodeOptions node_options;
@@ -117,7 +143,17 @@ void Master::CompleteReduce(const CompleteReduceMsg* request,
 void Master::GetResult(const GetResultMsg* request,
                        GetResultReplyMsg* response,
                        google::protobuf::Closure* done) {
-  apply_from_rpc(OP_DELETEJOB, request, response, done);
+  brpc::ClosureGuard done_guard(done);
+  uint32_t job_id = request->job_id();
+  std::string token = request->token();
+  ReduceOuts results;
+  Status s = handle_get_result(job_id, token, results);
+  for(std::string& r : results) {
+    response->add_results(std::move(r));
+  }
+  response->mutable_reply()->set_ok(s.ok());
+  response->mutable_reply()->set_msg(s.msg_);
+  return ;
 }
 
 void Master::BGDistributor(Master* master) {
@@ -291,7 +327,7 @@ void Master::BGBeater(Master* master) {
   google::protobuf::Empty beat_request;
   WorkerReplyMsg beat_response;
   while(!master->end_) {
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::this_thread::sleep_for(std::chrono::seconds(BEAT_PERIOD_SECOND));
     std::unique_lock<std::mutex> slavers_lck(master->slavers_mtx_);
     master->beat_cv_.wait(slavers_lck, [&] {
       return (!master->slavers_.empty() && master->raft_node_->is_leader() || master->end_);
@@ -365,6 +401,59 @@ void Master::BGBeater(Master* master) {
     }
     for(const std::string& worker_name : error_slavers) {
       master->slavers_.erase(worker_name);
+    }
+  }
+}
+
+void Master::BGScaner(Master* master) {
+  spdlog::info("[bgscaner] scaner start");
+
+  while(!master->end_) {
+    std::this_thread::sleep_for(std::chrono::seconds(SCAN_PERIOD_SECOND));
+    std::unique_lock<std::mutex> scan_lck(master->dist_mtx_);
+    master->scan_cv_.wait(scan_lck, [&] {
+      return (!master->jobs_.empty() && master->raft_node_->is_leader()) || master->end_;
+    });
+    if(master->end_) {
+      break;
+    }
+
+    for(auto& [job_id, job] : master->jobs_) {
+      // check result timeout
+      if(job->stage_ == JobStage::FINISHED) {
+        if(time(NULL) - job->ftime > JOB_RESULT_TIMEOUT_SECOND) {
+          butil::IOBuf log;
+          braft::Task task;
+          log.push_back(OP_DELETEJOB);
+          log.append(&job_id, sizeof(uint32_t));
+          task.data = &log;
+          if(FLAGS_check_term) {
+            // avoid ABA
+            task.expected_term = master->raft_leader_term_.load(butil::memory_order_acquire);
+          }
+          master->raft_node_->apply(task);
+        }
+      } else {
+        // check subjob working timeout
+        for(SubJob& subjob : job->subjobs_) {
+          if(subjob.dtime != -1 && time(NULL) - subjob.dtime > SUBJOB_WORKING_TIMEOUT_SECOND) {
+            std::unique_lock<std::mutex> slavers_lck(master->slavers_mtx_);
+            master->slavers_.erase(subjob.worker_name_);
+            slavers_lck.unlock();
+            butil::IOBuf log;
+            braft::Task task;
+            log.push_back(OP_CANCEL);
+            log.append(&job_id, sizeof(uint32_t));
+            log.append(&(subjob.subjob_id_), sizeof(uint32_t));
+            task.data = &log;
+            if(FLAGS_check_term) {
+              // avoid ABA
+              task.expected_term = master->raft_leader_term_.load(butil::memory_order_acquire);
+            }
+            master->raft_node_->apply(task);
+          }
+        }
+      }
     }
   }
 }
@@ -445,6 +534,7 @@ Status Master::handle_distribute(const uint32_t job_id, const uint32_t subjob_id
   std::unique_lock<std::mutex> jobs_lck(jobs_mtx_);
   if(jobs_.count(job_id) != 0 && jobs_[job_id]->subjobs_.size() > subjob_id) {
     jobs_[job_id]->subjobs_[subjob_id].worker_name_ = worker_name;
+    jobs_[job_id]->subjobs_[subjob_id].dtime = time(NULL);
   } else {
     return Status::Error("no such job or subjob");
   }
@@ -455,6 +545,7 @@ Status Master::handle_cancel(const uint32_t job_id, const uint32_t subjob_id) {
   std::unique_lock<std::mutex> jobs_lck(jobs_mtx_);
   if(jobs_.count(job_id) != 0 && jobs_[job_id]->subjobs_.size() > subjob_id && !jobs_[job_id]->subjobs_[subjob_id].finished_) {
     jobs_[job_id]->subjobs_[subjob_id].worker_name_.clear();
+    jobs_[job_id]->subjobs_[subjob_id].dtime = -1;
     jobs_lck.unlock();
     std::unique_lock<std::mutex> dist_lck(dist_mtx_);
     jobs_waiting_dist_.emplace_front(job_id, subjob_id);
@@ -557,6 +648,33 @@ Status Master::handle_complete_reduce(const uint32_t job_id, const uint32_t subj
       std::unique_lock<std::mutex> slavers_lck(slavers_mtx_);
       slavers_.erase(worker_name);
     }
+  }
+  return Status::Ok("");
+}
+
+Status Master::handle_get_result(const uint32_t job_id, const std::string token, _OUT ReduceOuts& result) {
+  std::unique_lock<std::mutex> jobs_lck(jobs_mtx_);
+  if(jobs_.count(job_id) == 0) {
+    return Status::Error("not such job");
+  }
+  Job* job = jobs_[job_id];
+  if(!job->check_token(token)) {
+    return Status::Error("error token");
+  }
+  if(job->stage_ != JobStage::FINISHED) {
+    return Status::Error("job has not been finished");
+  }
+  result = job->results_;
+  return Status::Ok("");
+}
+
+Status Master::handle_delete_job(uint32_t job_id) {
+  std::unique_lock<std::mutex> jobs_lck(jobs_mtx_);
+  if(jobs_.count(job_id) != 0) {
+    delete jobs_[job_id];
+    jobs_.erase(job_id);
+  } else {
+    return Status::Error("no such job");
   }
   return Status::Ok("");
 }
@@ -734,9 +852,20 @@ void Master::on_apply(braft::Iterator& iter) {
         }
       }
         break;
+      // delete job
+      case OP_DELETEJOB: {
+        uint32_t job_id;
+        data.cutn(&job_id, sizeof(uint32_t));
+        Status s = handle_delete_job(job_id);
+        if(s.ok()) {
+          spdlog::info("[apply : deletejob] delete job {}", job_id);
+        } else {
+          spdlog::info("[apply : deletejob] failed to delete job {}", job_id);
+        }
+      }
+        break;
       }
     }
-
   }
 }
 
@@ -1020,6 +1149,13 @@ void MasterServiceImpl::CompleteMap(::google::protobuf::RpcController* controlle
                                     ::tmapreduce::MasterReplyMsg* response,
                                     ::google::protobuf::Closure* done) {
   return master_->CompleteMap(request, response, done);
+}
+
+void MasterServiceImpl::GetResult(::google::protobuf::RpcController* controller,
+                                  const ::tmapreduce::GetResultMsg* request,
+                                  ::tmapreduce::GetResultReplyMsg* response,
+                                  ::google::protobuf::Closure* done) {
+  return master_->GetResult(request, response, done);
 }
 
 } // namespace tmapreduce

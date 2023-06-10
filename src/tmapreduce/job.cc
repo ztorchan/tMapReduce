@@ -73,6 +73,7 @@ void Job::Finish() {
     results_.insert(results_.end(), reduce_result->begin(), reduce_result->end());
   }
   stage_ = JobStage::FINISHED;
+  ftime = time(NULL);
 }
 
 }

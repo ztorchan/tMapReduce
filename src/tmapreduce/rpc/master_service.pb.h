@@ -1974,16 +1974,32 @@ class GetResultMsg PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kJobSecretFieldNumber = 2,
+    kTokenFieldNumber = 2,
     kJobIdFieldNumber = 1,
   };
-  // uint64 job_secret = 2;
-  void clear_job_secret();
-  ::PROTOBUF_NAMESPACE_ID::uint64 job_secret() const;
-  void set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  // string token = 2;
+  void clear_token();
+  const std::string& token() const;
+  void set_token(const std::string& value);
+  void set_token(std::string&& value);
+  void set_token(const char* value);
+  void set_token(const char* value, size_t size);
+  std::string* mutable_token();
+  std::string* release_token();
+  void set_allocated_token(std::string* token);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_token();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_token(
+      std::string* token);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_job_secret() const;
-  void _internal_set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  const std::string& _internal_token() const;
+  void _internal_set_token(const std::string& value);
+  std::string* _internal_mutable_token();
   public:
 
   // uint32 job_id = 1;
@@ -2002,7 +2018,7 @@ class GetResultMsg PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::uint64 job_secret_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
   ::PROTOBUF_NAMESPACE_ID::uint32 job_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_master_5fservice_2eproto;
@@ -4018,24 +4034,85 @@ inline void GetResultMsg::set_job_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   // @@protoc_insertion_point(field_set:tmapreduce.GetResultMsg.job_id)
 }
 
-// uint64 job_secret = 2;
-inline void GetResultMsg::clear_job_secret() {
-  job_secret_ = PROTOBUF_ULONGLONG(0);
+// string token = 2;
+inline void GetResultMsg::clear_token() {
+  token_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 GetResultMsg::_internal_job_secret() const {
-  return job_secret_;
+inline const std::string& GetResultMsg::token() const {
+  // @@protoc_insertion_point(field_get:tmapreduce.GetResultMsg.token)
+  return _internal_token();
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 GetResultMsg::job_secret() const {
-  // @@protoc_insertion_point(field_get:tmapreduce.GetResultMsg.job_secret)
-  return _internal_job_secret();
+inline void GetResultMsg::set_token(const std::string& value) {
+  _internal_set_token(value);
+  // @@protoc_insertion_point(field_set:tmapreduce.GetResultMsg.token)
 }
-inline void GetResultMsg::_internal_set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline std::string* GetResultMsg::mutable_token() {
+  // @@protoc_insertion_point(field_mutable:tmapreduce.GetResultMsg.token)
+  return _internal_mutable_token();
+}
+inline const std::string& GetResultMsg::_internal_token() const {
+  return token_.Get();
+}
+inline void GetResultMsg::_internal_set_token(const std::string& value) {
   
-  job_secret_ = value;
+  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void GetResultMsg::set_job_secret(::PROTOBUF_NAMESPACE_ID::uint64 value) {
-  _internal_set_job_secret(value);
-  // @@protoc_insertion_point(field_set:tmapreduce.GetResultMsg.job_secret)
+inline void GetResultMsg::set_token(std::string&& value) {
+  
+  token_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:tmapreduce.GetResultMsg.token)
+}
+inline void GetResultMsg::set_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:tmapreduce.GetResultMsg.token)
+}
+inline void GetResultMsg::set_token(const char* value,
+    size_t size) {
+  
+  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:tmapreduce.GetResultMsg.token)
+}
+inline std::string* GetResultMsg::_internal_mutable_token() {
+  
+  return token_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* GetResultMsg::release_token() {
+  // @@protoc_insertion_point(field_release:tmapreduce.GetResultMsg.token)
+  return token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void GetResultMsg::set_allocated_token(std::string* token) {
+  if (token != nullptr) {
+    
+  } else {
+    
+  }
+  token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), token,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:tmapreduce.GetResultMsg.token)
+}
+inline std::string* GetResultMsg::unsafe_arena_release_token() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:tmapreduce.GetResultMsg.token)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return token_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void GetResultMsg::unsafe_arena_set_allocated_token(
+    std::string* token) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (token != nullptr) {
+    
+  } else {
+    
+  }
+  token_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      token, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tmapreduce.GetResultMsg.token)
 }
 
 // -------------------------------------------------------------------
