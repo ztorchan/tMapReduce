@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16.0)
-project(tmapduce C CXX)
+project(tmapduce CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -32,12 +32,14 @@ find_package(gflags REQUIRED)
 find_package(OpenSSL)
 find_package(Threads)
 find_library(BRPC_LIB NAMES libbrpc.a brpc)
+find_library(BRAFT_LIB NAMES libbraft.a braft)
 find_library(LEVELDB_LIB NAMES leveldb)
 find_package(cpr REQUIRED)
 
 set(LIBMASTER_SRC 
   src/tmapreduce/master.cc
   src/tmapreduce/job.cc
+  src/tmapreduce/closure.cc
   ${PROTO_CXX}
   ${PROTO_H}
 )
@@ -52,6 +54,7 @@ set(LIBWORKER_SRC
 
 set(DEPENDENCIES
   ${BRPC_LIB}
+  ${BRAFT_LIB}
   ${PROTOBUF_LIBRARIES}
   ${OPENSSL_SSL_LIBRARY}
   ${OPENSSL_CRYPTO_LIBRARY}
@@ -64,11 +67,11 @@ set(DEPENDENCIES
 )
 
 add_library(mrmaster STATIC ${LIBMASTER_SRC})
-# add_executable(mr_master_server server/master_server.cc server/validator.cc)
-# add_dependencies(mr_master_server mrmaster)
-# target_link_libraries(mr_master_server mrmaster ${DEPENDENCIES})
+add_executable(mr_master_server src/tmapreduce/master_server.cc)
+add_dependencies(mr_master_server mrmaster)
+target_link_libraries(mr_master_server mrmaster ${DEPENDENCIES})
 
-add_library(mrworker STATIC ${LIBWORKER_SRC})
+# add_library(mrworker STATIC ${LIBWORKER_SRC})
 # add_executable(mr_worker_server server/worker_server.cc server/validator.cc)
 # add_dependencies(mr_worker_server mrworker)
 # target_link_libraries(mr_worker_server mrworker ${DEPENDENCIES})
@@ -84,9 +87,9 @@ add_library(mrworker STATIC ${LIBWORKER_SRC})
 
 
 # Tmp: user for C++ extension when develop
-file(GLOB ALL_HEADER src/tmapreduce/*.h)
-file(GLOB ALL_SRC src/tmapreduce/*.cc)
-add_library(tmp STATIC ${ALL_HEADER} ${ALL_SRC})
+# file(GLOB ALL_HEADER src/tmapreduce/*.h)
+# file(GLOB ALL_SRC src/tmapreduce/*.cc)
+# add_library(tmp STATIC ${ALL_HEADER} ${ALL_SRC})
 
-add_executable(test test.cc)
-target_link_libraries(test ${DEPENDENCIES})
+# add_executable(test test.cc)
+# target_link_libraries(test ${DEPENDENCIES})

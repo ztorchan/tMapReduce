@@ -9,27 +9,27 @@ namespace tmapreduce
 
 class Master;
 
-class RegisterClosure : public braft::Closure {
-public: 
-  RegisterClosure(Master* master, 
-                  const RegisterMsg* request, 
-                  RegisterReplyMsg* response, 
-                  google::protobuf::Closure* done) 
-    : master_(master)
-    , request_(request)
-    , response_(response)
-    , done_(done) {}
-  ~RegisterClosure() {}
+// class RegisterClosure : public braft::Closure {
+// public: 
+//   RegisterClosure(Master* master, 
+//                   const RegisterMsg* request, 
+//                   RegisterReplyMsg* response, 
+//                   google::protobuf::Closure* done) 
+//     : master_(master)
+//     , request_(request)
+//     , response_(response)
+//     , done_(done) {}
+//   ~RegisterClosure() {}
 
-  const RegisterMsg* request() { return request_; }
-  RegisterReplyMsg* response() { return response_; }
-  void Run();
-private:
-  Master* master_;
-  const RegisterMsg* request_;
-  RegisterReplyMsg* response_;
-  google::protobuf::Closure* done_;
-};
+//   const RegisterMsg* request() { return request_; }
+//   RegisterReplyMsg* response() { return response_; }
+//   void Run();
+// private:
+//   Master* master_;
+//   const RegisterMsg* request_;
+//   RegisterReplyMsg* response_;
+//   google::protobuf::Closure* done_;
+// };
 
 class LaunchClosure : public braft::Closure {
 public: 
@@ -97,27 +97,27 @@ private:
   google::protobuf::Closure* done_;
 };
 
-class GetResultClosure : public braft::Closure {
-public: 
-  GetResultClosure(Master* master, 
-                   const GetResultMsg* request, 
-                   GetResultReplyMsg* response, 
-                   google::protobuf::Closure* done) 
-    : master_(master)
-    , request_(request)
-    , response_(response)
-    , done_(done) {}
-  ~GetResultClosure() {}
+// class GetResultClosure : public braft::Closure {
+// public: 
+//   GetResultClosure(Master* master, 
+//                    const GetResultMsg* request, 
+//                    GetResultReplyMsg* response, 
+//                    google::protobuf::Closure* done) 
+//     : master_(master)
+//     , request_(request)
+//     , response_(response)
+//     , done_(done) {}
+//   ~GetResultClosure() {}
 
-  const GetResultMsg* request() { return request_; }
-  GetResultReplyMsg* response() { return response_; }
-  void Run();
-private:
-  Master* master_;
-  const GetResultMsg* request_;
-  GetResultReplyMsg* response_;
-  google::protobuf::Closure* done_;
-};
+//   const GetResultMsg* request() { return request_; }
+//   GetResultReplyMsg* response() { return response_; }
+//   void Run();
+// private:
+//   Master* master_;
+//   const GetResultMsg* request_;
+//   GetResultReplyMsg* response_;
+//   google::protobuf::Closure* done_;
+// };
 
 } // namespace tmapreduce
 

@@ -25,6 +25,17 @@
 namespace tmapreduce
 {
 
+DEFINE_bool(check_term, true, "Check if the leader changed to another term");
+DEFINE_bool(disable_cli, false, "Don't allow raft_cli access this node");
+DEFINE_bool(log_applied_task, false, "Print notice log when a task is applied");
+DEFINE_int32(election_timeout_ms, 5000, 
+            "Start election in such milliseconds if disconnect with the leader");
+DEFINE_int32(port, 8100, "Listen port of this peer");
+DEFINE_int32(snapshot_interval, 30, "Interval between each snapshot");
+DEFINE_string(conf, "", "Initial configuration of the replication group");
+DEFINE_string(data_path, "./data", "Path of data stored on");
+DEFINE_string(group, "tMapReduce", "Id of the replication group");
+
 Slaver::Slaver(std::string name, butil::EndPoint endpoint) 
   : name_(name)
   , endpoint_(endpoint)
@@ -44,7 +55,7 @@ Slaver::~Slaver() {
   }
 }
 
-Master::Master(const uint32_t id, const std::string& name, const butil::EndPoint& etcd_ep)
+Master::Master(uint32_t id, std::string name, butil::EndPoint etcd_ep)
   : id_(id)
   , name_(name)
   , job_seq_num_(0)
@@ -70,7 +81,7 @@ Master::Master(const uint32_t id, const std::string& name, const butil::EndPoint
   scaner.detach();
 }
 
-int Master::Start() {
+int Master::start() {
   butil::EndPoint addr(butil::my_ip(), FLAGS_port);
   braft::NodeOptions node_options;
   if(node_options.initial_conf.parse_from(FLAGS_conf) != 0) {
@@ -190,9 +201,10 @@ void Master::BGDistributor(Master* master) {
 
     // try to distribute
     spdlog::info("[bgdistributor] find {} workers", workers.size());
-    std::random_shuffle(workers.begin(), workers.end());
+    std::vector<std::pair<std::string, butil::EndPoint>> workers_vec(workers.begin(), workers.end());
+    std::random_shuffle(workers_vec.begin(), workers_vec.end());
     bool success_dist = false;
-    for(const auto& w : workers) {
+    for(const auto& w : workers_vec) {
       if(master->slavers_.count(w.first) != 0) {
         continue;
       }
@@ -376,7 +388,7 @@ void Master::BGBeater(Master* master) {
         master->raft_node_->apply(task);
         error_slavers.push_back(slaver->name_);
       } else {
-        spdlog::info("[bgbeater] successfully beat, worker state: {}", beat_response.state());
+        spdlog::info("[bgbeater] successfully beat, worker state: {}", (int)beat_response.state());
         slaver->state_ = beat_response.state();
         if(slaver->state_ == WorkerState::CLOSE) {
           butil::IOBuf log;
@@ -507,7 +519,7 @@ Status Master::handle_launch(const std::string& name, const std::string& type,
   }
 
   Job* new_job = new Job(new_job_id(), name, type, token, map_worker_num, reduce_worker_num, std::move(map_kvs));
-  spdlog::info("[handle launch] create a new job {}", job_id);
+  spdlog::info("[handle launch] create a new job {}", new_job->id_);
   new_job->stage_ = JobStage::WAIT2PARTITION4MAP;
   new_job->Partition();
   // add new job to set
@@ -869,6 +881,10 @@ void Master::on_apply(braft::Iterator& iter) {
   }
 }
 
+void Master::on_shutdown() {
+  return ;
+}
+
 void Master::on_leader_start(int64_t term) {
   spdlog::info("[on_leader_start] leader start, term {}", term);
   raft_leader_term_.store(term, butil::memory_order_acquire);
@@ -1074,11 +1090,11 @@ Status Master::etcd_get_all_types(_OUT std::vector<std::string> types) {
 
 void Master::set_reply_ok(OpType op_type, google::protobuf::Message* response, bool ok) {
   switch(op_type) {
+    case OP_REGISTER:
+      reinterpret_cast<RegisterReplyMsg*>(response)->mutable_reply()->set_ok(ok);
+      break;
     case OP_LAUNCH:
       reinterpret_cast<LaunchReplyMsg*>(response)->mutable_reply()->set_ok(ok);
-      break;
-    case OP_DELETEJOB:
-      reinterpret_cast<GetResultReplyMsg*>(response)->mutable_reply()->set_ok(ok);
       break;
     case OP_COMPLETEMAP: case OP_COMPLETEREDUCE:
       reinterpret_cast<MasterReplyMsg*>(response)->set_ok(ok);
@@ -1091,6 +1107,9 @@ void Master::set_reply_ok(OpType op_type, google::protobuf::Message* response, b
 
 void Master::set_reply_msg(OpType op_type, google::protobuf::Message* response, std::string msg) {
   switch(op_type) {
+    case OP_REGISTER:
+      reinterpret_cast<RegisterReplyMsg*>(response)->mutable_reply()->set_msg(msg);
+      break;
     case OP_LAUNCH:
       reinterpret_cast<LaunchReplyMsg*>(response)->mutable_reply()->set_msg(msg);
       break;
@@ -1105,6 +1124,9 @@ void Master::set_reply_msg(OpType op_type, google::protobuf::Message* response, 
 
 void Master::set_reply_redirect(OpType op_type, google::protobuf::Message* response, std::string redirect) {
   switch(op_type) {
+    case OP_REGISTER:
+      reinterpret_cast<RegisterReplyMsg*>(response)->mutable_reply()->set_redirect(redirect);
+      break;
     case OP_LAUNCH:
       reinterpret_cast<LaunchReplyMsg*>(response)->mutable_reply()->set_redirect(redirect);
       break;
@@ -1130,6 +1152,15 @@ braft::Closure* Master::get_closure(OpType op_type, const google::protobuf::Mess
   }
 }
 
+MasterServiceImpl::MasterServiceImpl(uint32_t id, std::string name, butil::EndPoint etcd_ep)
+  : master_(new Master(id, name, etcd_ep)) {}
+
+MasterServiceImpl::~MasterServiceImpl() {
+  if(master_ != nullptr) {
+    delete master_;
+  }
+}
+
 void MasterServiceImpl::Register(::google::protobuf::RpcController* controller,
                                  const ::tmapreduce::RegisterMsg* request,
                                  ::tmapreduce::RegisterReplyMsg* response,
@@ -1149,6 +1180,13 @@ void MasterServiceImpl::CompleteMap(::google::protobuf::RpcController* controlle
                                     ::tmapreduce::MasterReplyMsg* response,
                                     ::google::protobuf::Closure* done) {
   return master_->CompleteMap(request, response, done);
+}
+
+void MasterServiceImpl::CompleteReduce(::google::protobuf::RpcController* controller,
+                                       const ::tmapreduce::CompleteReduceMsg* request,
+                                       ::tmapreduce::MasterReplyMsg* response,
+                                       ::google::protobuf::Closure* done) {
+  return master_->CompleteReduce(request, response, done);
 }
 
 void MasterServiceImpl::GetResult(::google::protobuf::RpcController* controller,

@@ -26,17 +26,6 @@
 #define SUBJOB_WORKING_TIMEOUT_SECOND 60
 #define JOB_RESULT_TIMEOUT_SECOND 60 * 60 
 
-DEFINE_bool(check_term, true, "Check if the leader changed to another term");
-DEFINE_bool(disable_cli, false, "Don't allow raft_cli access this node");
-DEFINE_bool(log_applied_task, false, "Print notice log when a task is applied");
-DEFINE_int32(election_timeout_ms, 5000, 
-            "Start election in such milliseconds if disconnect with the leader");
-DEFINE_int32(port, 8100, "Listen port of this peer");
-DEFINE_int32(snapshot_interval, 30, "Interval between each snapshot");
-DEFINE_string(conf, "", "Initial configuration of the replication group");
-DEFINE_string(data_path, "./data", "Path of data stored on");
-DEFINE_string(group, "tMapReduce", "Id of the replication group");
-
 namespace tmapreduce
 {
 
@@ -69,12 +58,18 @@ private:
 
 class Master : public braft::StateMachine {
 public:
-  Master(const uint32_t id, const std::string& name, const butil::EndPoint& etcd_ep);
+  Master(uint32_t id, std::string name, butil::EndPoint etcd_ep);
   ~Master() noexcept;
   Master(const Master&) = delete;
   Master& operator=(const Master&) = delete;
   
-  int Start();
+  int start();
+  void end() { 
+    end_ = true; 
+    dist_cv_.notify_all();
+    beat_cv_.notify_all();
+    scan_cv_.notify_all();
+  }
   // mapreduce master related
   void Register(const RegisterMsg* request,
                 RegisterReplyMsg* response,
@@ -99,12 +94,13 @@ public:
 private:
   enum OpType : uint8_t {
     OP_UNKNOWN = 0,
-    OP_LAUNCH = 1,          // user launch a job. 
-    OP_DISTRIBUTE = 2,      // master distribute a subjob
-    OP_CANCEL= 3,           // cancel a subjob on a worker and back to waiting list
-    OP_COMPLETEMAP = 4,     // a worker complete a map subjob
-    OP_COMPLETEREDUCE = 5,  // a worker complete a reduce subjob
-    OP_DELETEJOB = 6,       // master delete a job
+    OP_REGISTER = 1,
+    OP_LAUNCH = 2,          // user launch a job. 
+    OP_DISTRIBUTE = 3,      // master distribute a subjob
+    OP_CANCEL= 4,           // cancel a subjob on a worker and back to waiting list
+    OP_COMPLETEMAP = 5,     // a worker complete a map subjob
+    OP_COMPLETEREDUCE = 6,  // a worker complete a reduce subjob
+    OP_DELETEJOB = 7,       // master delete a job
   };
   // log handler
   // Principle: handler should be deterministic operation, communication with workers should not be involved
@@ -123,7 +119,7 @@ private:
                       google::protobuf::Message* response, 
                       google::protobuf::Closure* done);
   void on_apply(braft::Iterator& iter) override;
-  // void on_shutdown() override;
+  void on_shutdown() override;
   void on_leader_start(int64_t term) override;
   void on_leader_stop(const butil::Status& status) override;
   void redirect(OpType op_type, google::protobuf::Message* response);
@@ -176,7 +172,7 @@ private:
 
 class MasterServiceImpl : public MasterService {
 public:
-  MasterServiceImpl();
+  MasterServiceImpl(uint32_t id, std::string name, butil::EndPoint etcd_ep);
   ~MasterServiceImpl();
   void Register(::google::protobuf::RpcController* controller,
                 const ::tmapreduce::RegisterMsg* request,
@@ -198,6 +194,11 @@ public:
                  const ::tmapreduce::GetResultMsg* request,
                  ::tmapreduce::GetResultReplyMsg* response,
                  ::google::protobuf::Closure* done) override;
+  
+  int start() { return master_->start(); }
+
+  void end() { master_->end(); }
+
 private:
   Master* master_;
 };

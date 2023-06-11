@@ -9,7 +9,7 @@ namespace tmapreduce {
 
 void Job::Partition() {
   // Job should be in WAIT2PARTITION when partition
-  spdlog::debug("[Job::Partition] now job stage: {}", stage_);
+  spdlog::debug("[Job::Partition] now job stage: {}", (int)stage_);
   assert(stage_ == JobStage::WAIT2PARTITION4MAP || stage_ == JobStage::WAIT2PARTITION4REDUCE);
   subjobs_.clear();
   uint32_t subjob_seq_num = 0;
