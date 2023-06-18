@@ -619,7 +619,6 @@ class RegisterReplyMsg PROTOBUF_FINAL :
 
   enum : int {
     kReplyFieldNumber = 1,
-    kWorkerIdFieldNumber = 2,
     kMasterIdFieldNumber = 3,
   };
   // .tmapreduce.MasterReplyMsg reply = 1;
@@ -640,15 +639,6 @@ class RegisterReplyMsg PROTOBUF_FINAL :
       ::tmapreduce::MasterReplyMsg* reply);
   ::tmapreduce::MasterReplyMsg* unsafe_arena_release_reply();
 
-  // uint32 worker_id = 2;
-  void clear_worker_id();
-  ::PROTOBUF_NAMESPACE_ID::uint32 worker_id() const;
-  void set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_worker_id() const;
-  void _internal_set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  public:
-
   // uint32 master_id = 3;
   void clear_master_id();
   ::PROTOBUF_NAMESPACE_ID::uint32 master_id() const;
@@ -666,7 +656,6 @@ class RegisterReplyMsg PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::tmapreduce::MasterReplyMsg* reply_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 worker_id_;
   ::PROTOBUF_NAMESPACE_ID::uint32 master_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_master_5fservice_2eproto;
@@ -2802,26 +2791,6 @@ inline void RegisterReplyMsg::set_allocated_reply(::tmapreduce::MasterReplyMsg* 
   }
   reply_ = reply;
   // @@protoc_insertion_point(field_set_allocated:tmapreduce.RegisterReplyMsg.reply)
-}
-
-// uint32 worker_id = 2;
-inline void RegisterReplyMsg::clear_worker_id() {
-  worker_id_ = 0u;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 RegisterReplyMsg::_internal_worker_id() const {
-  return worker_id_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::uint32 RegisterReplyMsg::worker_id() const {
-  // @@protoc_insertion_point(field_get:tmapreduce.RegisterReplyMsg.worker_id)
-  return _internal_worker_id();
-}
-inline void RegisterReplyMsg::_internal_set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  
-  worker_id_ = value;
-}
-inline void RegisterReplyMsg::set_worker_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_worker_id(value);
-  // @@protoc_insertion_point(field_set:tmapreduce.RegisterReplyMsg.worker_id)
 }
 
 // uint32 master_id = 3;

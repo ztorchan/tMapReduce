@@ -26,6 +26,17 @@
 #define SUBJOB_WORKING_TIMEOUT_SECOND 60
 #define JOB_RESULT_TIMEOUT_SECOND 60 * 60 
 
+DECLARE_bool(check_term);
+DECLARE_bool(disable_cli);
+DECLARE_bool(log_applied_task);
+DECLARE_int32(election_timeout_ms);
+DECLARE_int32(port);
+DECLARE_int32(snapshot_interval);
+DECLARE_string(conf);
+DECLARE_string(data_path);
+DECLARE_string(group);
+DECLARE_string(this_endpoint);
+
 namespace tmapreduce
 {
 

@@ -22,19 +22,20 @@
 #include "tmapreduce/master.h"
 #include "tmapreduce/base64.h"
 
-namespace tmapreduce
-{
-
 DEFINE_bool(check_term, true, "Check if the leader changed to another term");
 DEFINE_bool(disable_cli, false, "Don't allow raft_cli access this node");
 DEFINE_bool(log_applied_task, false, "Print notice log when a task is applied");
 DEFINE_int32(election_timeout_ms, 5000, 
             "Start election in such milliseconds if disconnect with the leader");
-DEFINE_int32(port, 8100, "Listen port of this peer");
+DEFINE_int32(port, 2333, "Listen port of this peer");
 DEFINE_int32(snapshot_interval, 30, "Interval between each snapshot");
 DEFINE_string(conf, "", "Initial configuration of the replication group");
-DEFINE_string(data_path, "./data", "Path of data stored on");
+DEFINE_string(data_path, "/data", "Path of data stored on");
 DEFINE_string(group, "tMapReduce", "Id of the replication group");
+DEFINE_string(this_endpoint, "", "Endpoint of this node");
+
+namespace tmapreduce
+{
 
 Slaver::Slaver(std::string name, butil::EndPoint endpoint) 
   : name_(name)
@@ -81,8 +82,16 @@ Master::Master(uint32_t id, std::string name, butil::EndPoint etcd_ep)
   scaner.detach();
 }
 
+Master::~Master() {
+  for(auto& [_, job] : jobs_) {
+    delete job;
+    job = nullptr;
+  }
+}
+
 int Master::start() {
-  butil::EndPoint addr(butil::my_ip(), FLAGS_port);
+  butil::EndPoint addr;
+  butil::str2endpoint(FLAGS_this_endpoint.c_str(), &addr);
   braft::NodeOptions node_options;
   if(node_options.initial_conf.parse_from(FLAGS_conf) != 0) {
       spdlog::error("[start] failed to parse configuration from {} ", FLAGS_conf.c_str());

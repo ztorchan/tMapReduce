@@ -249,7 +249,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_master_5fservice_2eproto::offs
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::tmapreduce::RegisterReplyMsg, reply_),
-  PROTOBUF_FIELD_OFFSET(::tmapreduce::RegisterReplyMsg, worker_id_),
   PROTOBUF_FIELD_OFFSET(::tmapreduce::RegisterReplyMsg, master_id_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::tmapreduce::LaunchMsg_KV, _internal_metadata_),
@@ -322,14 +321,14 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 0, -1, sizeof(::tmapreduce::MasterReplyMsg)},
   { 8, -1, sizeof(::tmapreduce::RegisterMsg)},
   { 16, -1, sizeof(::tmapreduce::RegisterReplyMsg)},
-  { 24, -1, sizeof(::tmapreduce::LaunchMsg_KV)},
-  { 31, -1, sizeof(::tmapreduce::LaunchMsg)},
-  { 42, -1, sizeof(::tmapreduce::LaunchReplyMsg)},
-  { 49, -1, sizeof(::tmapreduce::CompleteMapMsg_KV)},
-  { 56, -1, sizeof(::tmapreduce::CompleteMapMsg)},
-  { 66, -1, sizeof(::tmapreduce::CompleteReduceMsg)},
-  { 76, -1, sizeof(::tmapreduce::GetResultMsg)},
-  { 83, -1, sizeof(::tmapreduce::GetResultReplyMsg)},
+  { 23, -1, sizeof(::tmapreduce::LaunchMsg_KV)},
+  { 30, -1, sizeof(::tmapreduce::LaunchMsg)},
+  { 41, -1, sizeof(::tmapreduce::LaunchReplyMsg)},
+  { 48, -1, sizeof(::tmapreduce::CompleteMapMsg_KV)},
+  { 55, -1, sizeof(::tmapreduce::CompleteMapMsg)},
+  { 65, -1, sizeof(::tmapreduce::CompleteReduceMsg)},
+  { 75, -1, sizeof(::tmapreduce::GetResultMsg)},
+  { 82, -1, sizeof(::tmapreduce::GetResultReplyMsg)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -351,37 +350,37 @@ const char descriptor_table_protodef_master_5fservice_2eproto[] PROTOBUF_SECTION
   "e.proto\";\n\016MasterReplyMsg\022\n\n\002ok\030\001 \001(\010\022\013\n"
   "\003msg\030\002 \001(\t\022\020\n\010redirect\030\003 \001(\t\"D\n\013Register"
   "Msg\022\014\n\004name\030\001 \001(\t\022\n\n\002ep\030\002 \001(\t\022\033\n\023accepta"
-  "ble_job_type\030\004 \003(\t\"c\n\020RegisterReplyMsg\022)"
+  "ble_job_type\030\004 \003(\t\"P\n\020RegisterReplyMsg\022)"
   "\n\005reply\030\001 \001(\0132\032.tmapreduce.MasterReplyMs"
-  "g\022\021\n\tworker_id\030\002 \001(\r\022\021\n\tmaster_id\030\003 \001(\r\""
-  "\250\001\n\tLaunchMsg\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001("
-  "\t\022\022\n\nmapper_num\030\003 \001(\r\022\023\n\013reducer_num\030\004 \001"
-  "(\r\022\r\n\005token\030\005 \001(\t\022%\n\003kvs\030\006 \003(\0132\030.tmapred"
-  "uce.LaunchMsg.KV\032 \n\002KV\022\013\n\003key\030\001 \001(\t\022\r\n\005v"
-  "alue\030\002 \001(\t\"K\n\016LaunchReplyMsg\022)\n\005reply\030\001 "
-  "\001(\0132\032.tmapreduce.MasterReplyMsg\022\016\n\006job_i"
-  "d\030\002 \001(\r\"\305\001\n\016CompleteMapMsg\022\016\n\006job_id\030\001 \001"
-  "(\r\022\021\n\tsubjob_id\030\002 \001(\r\022\023\n\013worker_name\030\003 \001"
-  "(\t\022&\n\005state\030\004 \001(\0162\027.tmapreduce.WorkerSta"
-  "te\0221\n\nmap_result\030\005 \003(\0132\035.tmapreduce.Comp"
-  "leteMapMsg.KV\032 \n\002KV\022\013\n\003key\030\001 \001(\t\022\r\n\005valu"
-  "e\030\002 \001(\t\"\212\001\n\021CompleteReduceMsg\022\016\n\006job_id\030"
-  "\001 \001(\r\022\021\n\tsubjob_id\030\002 \001(\r\022\023\n\013worker_name\030"
-  "\003 \001(\t\022&\n\005state\030\004 \001(\0162\027.tmapreduce.Worker"
-  "State\022\025\n\rreduce_result\030\005 \003(\t\"-\n\014GetResul"
-  "tMsg\022\016\n\006job_id\030\001 \001(\r\022\r\n\005token\030\002 \001(\t\"O\n\021G"
-  "etResultReplyMsg\022)\n\005reply\030\001 \001(\0132\032.tmapre"
-  "duce.MasterReplyMsg\022\017\n\007results\030\002 \003(\t2\363\002\n"
-  "\rMasterService\022C\n\010Register\022\027.tmapreduce."
-  "RegisterMsg\032\034.tmapreduce.RegisterReplyMs"
-  "g\"\000\022=\n\006Launch\022\025.tmapreduce.LaunchMsg\032\032.t"
-  "mapreduce.LaunchReplyMsg\"\000\022G\n\013CompleteMa"
-  "p\022\032.tmapreduce.CompleteMapMsg\032\032.tmapredu"
-  "ce.MasterReplyMsg\"\000\022M\n\016CompleteReduce\022\035."
-  "tmapreduce.CompleteReduceMsg\032\032.tmapreduc"
-  "e.MasterReplyMsg\"\000\022F\n\tGetResult\022\030.tmapre"
-  "duce.GetResultMsg\032\035.tmapreduce.GetResult"
-  "ReplyMsg\"\000B\003\200\001\001b\006proto3"
+  "g\022\021\n\tmaster_id\030\003 \001(\r\"\250\001\n\tLaunchMsg\022\014\n\004na"
+  "me\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022\022\n\nmapper_num\030\003 \001"
+  "(\r\022\023\n\013reducer_num\030\004 \001(\r\022\r\n\005token\030\005 \001(\t\022%"
+  "\n\003kvs\030\006 \003(\0132\030.tmapreduce.LaunchMsg.KV\032 \n"
+  "\002KV\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"K\n\016Launc"
+  "hReplyMsg\022)\n\005reply\030\001 \001(\0132\032.tmapreduce.Ma"
+  "sterReplyMsg\022\016\n\006job_id\030\002 \001(\r\"\305\001\n\016Complet"
+  "eMapMsg\022\016\n\006job_id\030\001 \001(\r\022\021\n\tsubjob_id\030\002 \001"
+  "(\r\022\023\n\013worker_name\030\003 \001(\t\022&\n\005state\030\004 \001(\0162\027"
+  ".tmapreduce.WorkerState\0221\n\nmap_result\030\005 "
+  "\003(\0132\035.tmapreduce.CompleteMapMsg.KV\032 \n\002KV"
+  "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\212\001\n\021Complet"
+  "eReduceMsg\022\016\n\006job_id\030\001 \001(\r\022\021\n\tsubjob_id\030"
+  "\002 \001(\r\022\023\n\013worker_name\030\003 \001(\t\022&\n\005state\030\004 \001("
+  "\0162\027.tmapreduce.WorkerState\022\025\n\rreduce_res"
+  "ult\030\005 \003(\t\"-\n\014GetResultMsg\022\016\n\006job_id\030\001 \001("
+  "\r\022\r\n\005token\030\002 \001(\t\"O\n\021GetResultReplyMsg\022)\n"
+  "\005reply\030\001 \001(\0132\032.tmapreduce.MasterReplyMsg"
+  "\022\017\n\007results\030\002 \003(\t2\363\002\n\rMasterService\022C\n\010R"
+  "egister\022\027.tmapreduce.RegisterMsg\032\034.tmapr"
+  "educe.RegisterReplyMsg\"\000\022=\n\006Launch\022\025.tma"
+  "preduce.LaunchMsg\032\032.tmapreduce.LaunchRep"
+  "lyMsg\"\000\022G\n\013CompleteMap\022\032.tmapreduce.Comp"
+  "leteMapMsg\032\032.tmapreduce.MasterReplyMsg\"\000"
+  "\022M\n\016CompleteReduce\022\035.tmapreduce.Complete"
+  "ReduceMsg\032\032.tmapreduce.MasterReplyMsg\"\000\022"
+  "F\n\tGetResult\022\030.tmapreduce.GetResultMsg\032\035"
+  ".tmapreduce.GetResultReplyMsg\"\000B\003\200\001\001b\006pr"
+  "oto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_master_5fservice_2eproto_deps[1] = {
   &::descriptor_table_state_2eproto,
@@ -401,7 +400,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_mas
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_master_5fservice_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_master_5fservice_2eproto = {
-  false, false, descriptor_table_protodef_master_5fservice_2eproto, "master_service.proto", 1383,
+  false, false, descriptor_table_protodef_master_5fservice_2eproto, "master_service.proto", 1364,
   &descriptor_table_master_5fservice_2eproto_once, descriptor_table_master_5fservice_2eproto_sccs, descriptor_table_master_5fservice_2eproto_deps, 11, 1,
   schemas, file_default_instances, TableStruct_master_5fservice_2eproto::offsets,
   file_level_metadata_master_5fservice_2eproto, 11, file_level_enum_descriptors_master_5fservice_2eproto, file_level_service_descriptors_master_5fservice_2eproto,
@@ -996,9 +995,7 @@ RegisterReplyMsg::RegisterReplyMsg(const RegisterReplyMsg& from)
   } else {
     reply_ = nullptr;
   }
-  ::memcpy(&worker_id_, &from.worker_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&master_id_) -
-    reinterpret_cast<char*>(&worker_id_)) + sizeof(master_id_));
+  master_id_ = from.master_id_;
   // @@protoc_insertion_point(copy_constructor:tmapreduce.RegisterReplyMsg)
 }
 
@@ -1045,9 +1042,7 @@ void RegisterReplyMsg::Clear() {
     delete reply_;
   }
   reply_ = nullptr;
-  ::memset(&worker_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&master_id_) -
-      reinterpret_cast<char*>(&worker_id_)) + sizeof(master_id_));
+  master_id_ = 0u;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1063,13 +1058,6 @@ const char* RegisterReplyMsg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_reply(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // uint32 worker_id = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          worker_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1116,12 +1104,6 @@ failure:
         1, _Internal::reply(this), target, stream);
   }
 
-  // uint32 worker_id = 2;
-  if (this->worker_id() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_worker_id(), target);
-  }
-
   // uint32 master_id = 3;
   if (this->master_id() != 0) {
     target = stream->EnsureSpace(target);
@@ -1149,13 +1131,6 @@ size_t RegisterReplyMsg::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *reply_);
-  }
-
-  // uint32 worker_id = 2;
-  if (this->worker_id() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-        this->_internal_worker_id());
   }
 
   // uint32 master_id = 3;
@@ -1198,9 +1173,6 @@ void RegisterReplyMsg::MergeFrom(const RegisterReplyMsg& from) {
 
   if (from.has_reply()) {
     _internal_mutable_reply()->::tmapreduce::MasterReplyMsg::MergeFrom(from._internal_reply());
-  }
-  if (from.worker_id() != 0) {
-    _internal_set_worker_id(from._internal_worker_id());
   }
   if (from.master_id() != 0) {
     _internal_set_master_id(from._internal_master_id());

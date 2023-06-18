@@ -7,7 +7,6 @@
 
 DEFINE_uint64(id, 0, "Master ID");
 DEFINE_string(name, "", "Master name");
-DEFINE_uint64(master_port, 0, "Listen port of the master rpc");
 DEFINE_string(etcd_ep, "127.0.0.1:2379", "Etcd endpoint");
 DEFINE_string(log_path, "","Log path. Default: empty, which means the logs will only be output as standard stream.");
 
@@ -24,13 +23,13 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  butil::EndPoint point = butil::EndPoint(butil::IP_ANY, FLAGS_master_port);
+  butil::EndPoint point = butil::EndPoint(butil::IP_ANY, FLAGS_port);
   brpc::ServerOptions options;
   if(master_server.Start(point, &options) != 0) {
     spdlog::info("[master server] fail to start server");
     return -1;
   } else {
-    spdlog::info("[master server] server start: [id] {}, [name] {}, [port] {}", FLAGS_id, FLAGS_name.c_str(), FLAGS_master_port);
+    spdlog::info("[master server] server start: [id] {}, [name] {}, [port] {}", FLAGS_id, FLAGS_name.c_str(), FLAGS_port);
   }
 
   if (master_service.start() != 0) {

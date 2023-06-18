@@ -20,7 +20,6 @@ message RegisterMsg {
 }
 message RegisterReplyMsg {
   MasterReplyMsg reply = 1;
-  uint32 worker_id = 2;
   uint32 master_id = 3;
 }
 
