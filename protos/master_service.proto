@@ -2,27 +2,29 @@ syntax = "proto3";
 
 import "state.proto";
 
-package mapreduce;
+package tmapreduce;
 
 option cc_generic_services = true;
 
 message MasterReplyMsg {
   bool ok = 1;
   string msg = 2;
+  string redirect = 3;
 }
 
+/* Register */
 message RegisterMsg {
   string name = 1;
-  uint32 port = 2;
+  string ep = 2;
+  repeated string acceptable_job_type = 4;
 }
-
 message RegisterReplyMsg {
   MasterReplyMsg reply = 1;
-  uint32 worker_id = 2;
   uint32 master_id = 3;
 }
 
-message JobMsg {
+/* Launch */
+message LaunchMsg {
   message KV {
     string key = 1;
     string value = 2;
@@ -31,38 +33,41 @@ message JobMsg {
   string type = 2;
   uint32 mapper_num = 3;
   uint32 reducer_num = 4;
-  repeated KV kvs = 5;
+  string token = 5;
+  repeated KV kvs = 6;
 }
-
 message LaunchReplyMsg {
   MasterReplyMsg reply = 1;
   uint32 job_id = 2;
 }
 
-message MapResultMsg {
+/* MapResult */
+message CompleteMapMsg {
   message KV {
     string key = 1;
     string value = 2;
   }
   uint32 job_id = 1;
   uint32 subjob_id = 2;
-  uint32 worker_id = 3;
+  string worker_name = 3;
   WorkerState state = 4;
   repeated KV map_result = 5;
 }
 
-message ReduceResultMsg {
+/* ReduceResult */
+message CompleteReduceMsg {
   uint32 job_id = 1;
   uint32 subjob_id = 2;
-  uint32 worker_id = 3;
+  string worker_name = 3;
   WorkerState state = 4;
   repeated string reduce_result = 5;
 }
 
+/* GetResult */
 message GetResultMsg {
   uint32 job_id = 1;
+  string token = 2;
 }
-
 message GetResultReplyMsg {
   MasterReplyMsg reply = 1;
   repeated string results = 2;
@@ -70,9 +75,9 @@ message GetResultReplyMsg {
 
 service MasterService {
   rpc Register(RegisterMsg) returns (RegisterReplyMsg) {}
-  rpc Launch(JobMsg) returns (LaunchReplyMsg) {}
-  rpc CompleteMap(MapResultMsg) returns (MasterReplyMsg) {}
-  rpc CompleteReduce(ReduceResultMsg) returns (MasterReplyMsg) {}
-  // TODO: Get result, check job stage and deny subjob
+  rpc Launch(LaunchMsg) returns (LaunchReplyMsg) {}
+  rpc CompleteMap(CompleteMapMsg) returns (MasterReplyMsg) {}
+  rpc CompleteReduce(CompleteReduceMsg) returns (MasterReplyMsg) {}
   rpc GetResult(GetResultMsg) returns (GetResultReplyMsg) {}
+  // TODO: check job stage and deny subjob
 }

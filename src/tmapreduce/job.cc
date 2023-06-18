@@ -1,38 +1,49 @@
 #include <cassert>
 #include <map>
 #include <algorithm>
+#include <spdlog/spdlog.h>
 
-#include "mapreduce/job.h"
+#include "tmapreduce/job.h"
 
-namespace mapreduce {
+namespace tmapreduce {
 
 void Job::Partition() {
-  assert(stage_ == JobStage::WAIT2MAP || stage_ == JobStage::WAIT2REDUCE);
+  // Job should be in WAIT2PARTITION when partition
+  spdlog::debug("[Job::Partition] now job stage: {}", (int)stage_);
+  assert(stage_ == JobStage::WAIT2PARTITION4MAP || stage_ == JobStage::WAIT2PARTITION4REDUCE);
   subjobs_.clear();
   uint32_t subjob_seq_num = 0;
-  if(stage_ == JobStage::WAIT2MAP) {
+  if(stage_ == JobStage::WAIT2PARTITION4MAP) {
+    spdlog::debug("[Job::Partition] partitioning map job {}", id_);
+    stage_ = JobStage::PARTITIONING;
     subjobs_.reserve(map_worker_num_ + 1);
     uint32_t base_kvs_per_worker = map_kvs_.size() / map_worker_num_;
     int rest_kvs = map_kvs_.size() % map_worker_num_;
     for(uint32_t head = 0; head < map_kvs_.size(); ) {
       uint32_t size = (rest_kvs-- > 0 ? base_kvs_per_worker + 1 : base_kvs_per_worker);
-      subjobs_.emplace_back(this, subjob_seq_num++, head, size, true);
+      subjobs_.emplace_back(this, subjob_seq_num++, head, size, SubJobType::MAP);
       head += size; 
     }
-  } else if (stage_ == JobStage::WAIT2REDUCE) {
+    spdlog::debug("[Job::Partition] successfully partition job to {} subjobs, change job stage", subjobs_.size());
+    stage_ = JobStage::WAIT2MAP;
+  } else if (stage_ == JobStage::WAIT2PARTITION4REDUCE) {
+    spdlog::debug("[Job::Partition] partitioning reduce job {}", id_);
     subjobs_.reserve(reduce_worker_num_ + 1);
     uint32_t base_kvs_per_worker = reduce_kvs_.size() / reduce_worker_num_;
     int rest_kvs = reduce_kvs_.size() % reduce_worker_num_;
     for(uint32_t head = 0; head < reduce_kvs_.size(); ) {
       uint32_t size = (rest_kvs-- > 0 ? base_kvs_per_worker + 1 : base_kvs_per_worker);
-      subjobs_.emplace_back(this, subjob_seq_num++, head, size, false);
+      subjobs_.emplace_back(this, subjob_seq_num++, head, size, SubJobType::REDUCE);
       head += size; 
     }
+    spdlog::debug("[Job::Partition] successfully partition job to {} subjobs, change job stage", subjobs_.size());
+    stage_ = JobStage::WAIT2REDUCE;
   }
   unfinished_job_num_ = subjobs_.size();
 }
 
 void Job::Merge() {
+  // Job should be in WAIT2MERGE when merge
   assert(stage_ == JobStage::WAIT2MERGE);
   stage_ = JobStage::MERGING;
   size_t total_size = 0;
@@ -58,10 +69,11 @@ void Job::Finish() {
   assert(stage_ == JobStage::WAIT2FINISH);
   size_t total_size = 0;
   for(const SubJob& subjob : subjobs_) {
-    std::vector<std::string>* reduce_result = 
-      reinterpret_cast<std::vector<std::string>*>(subjob.result_);
+    std::vector<std::string>* reduce_result =  reinterpret_cast<std::vector<std::string>*>(subjob.result_);
     results_.insert(results_.end(), reduce_result->begin(), reduce_result->end());
   }
+  stage_ = JobStage::FINISHED;
+  ftime = time(NULL);
 }
 
 }

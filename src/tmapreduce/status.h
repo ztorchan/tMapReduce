@@ -1,9 +1,9 @@
-#ifndef _MAPREDUCE_STATUS_H
-#define _MAPREDUCE_STATUS_H
+#ifndef _TMAPREDUCE_STATUS_H
+#define _TMAPREDUCE_STATUS_H
 
 #include <string>
 
-namespace mapreduce{
+namespace tmapreduce{
 
 enum class Code {
     OK = 0x0,

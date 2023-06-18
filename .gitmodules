@@ -1,0 +1,12 @@
+[submodule "third-party/Crow"]
+	path = third-party/Crow
+	url = https://github.com/CrowCpp/Crow.git
+[submodule "third-party/cpr"]
+	path = third-party/cpr
+	url = https://github.com/libcpr/cpr.git
+[submodule "third-party/rapidjson"]
+	path = third-party/rapidjson
+	url = https://github.com/Tencent/rapidjson.git
+[submodule "third-party/spdlog"]
+	path = third-party/spdlog
+	url = https://github.com/gabime/spdlog.git

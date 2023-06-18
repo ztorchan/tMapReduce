@@ -3,7 +3,7 @@ syntax = "proto3";
 import "google/protobuf/empty.proto";
 import "state.proto";
 
-package mapreduce;
+package tmapreduce;
 
 option cc_generic_services = true;
 
@@ -11,6 +11,11 @@ message WorkerReplyMsg {
   bool ok = 1;
   string msg = 2;
   WorkerState state = 3;
+}
+
+message PrepareMsg {
+  uint32 master_id = 1;
+  string job_type = 2;
 }
 
 message MapJobMsg {
@@ -40,6 +45,7 @@ message ReduceJobMsg {
 
 service WorkerService {
   rpc Beat(google.protobuf.Empty) returns (WorkerReplyMsg) {}
+  rpc Prepare(PrepareMsg) returns (WorkerReplyMsg) {}
   rpc PrepareMap(MapJobMsg) returns (WorkerReplyMsg) {}
   rpc PrepareReduce(ReduceJobMsg) returns (WorkerReplyMsg) {}
   rpc Start(google.protobuf.Empty) returns (WorkerReplyMsg) {}
