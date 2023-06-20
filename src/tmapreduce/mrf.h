@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-#include "mapreduce/job.h"
+#include "tmapreduce/job.h"
 
 tmapreduce::MapOut Map(const tmapreduce::MapIn&);
 

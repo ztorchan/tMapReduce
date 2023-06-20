@@ -47,14 +47,13 @@ set(LIBMASTER_SRC
 set(LIBWORKER_SRC 
   src/tmapreduce/worker.cc
   src/tmapreduce/job.cc
-  src/tmapreduce/wrapper.cc
   ${PROTO_CXX}
   ${PROTO_H}
 )
 
 set(DEPENDENCIES
-  ${BRPC_LIB}
   ${BRAFT_LIB}
+  ${BRPC_LIB}
   ${PROTOBUF_LIBRARIES}
   ${OPENSSL_SSL_LIBRARY}
   ${OPENSSL_CRYPTO_LIBRARY}
@@ -66,15 +65,17 @@ set(DEPENDENCIES
   cpr::cpr
 )
 
-add_library(mrmaster STATIC ${LIBMASTER_SRC})
-add_executable(mr_master_server src/tmapreduce/master_server.cc)
-add_dependencies(mr_master_server mrmaster)
-target_link_libraries(mr_master_server mrmaster ${DEPENDENCIES})
+add_executable(tmrmaster src/tmapreduce/master_server.cc ${LIBMASTER_SRC})
+target_link_libraries(tmrmaster ${DEPENDENCIES})
 
+add_executable(tmrworker src/tmapreduce/worker_server.cc ${LIBWORKER_SRC})
+target_link_libraries(tmrworker ${DEPENDENCIES})
 # add_library(mrworker STATIC ${LIBWORKER_SRC})
 # add_executable(mr_worker_server server/worker_server.cc server/validator.cc)
 # add_dependencies(mr_worker_server mrworker)
 # target_link_libraries(mr_worker_server mrworker ${DEPENDENCIES})
+
+add_library(tmrwrapper STATIC src/tmapreduce/wrapper.cc)
 
 # install(
 #   TARGETS mrmaster mrworker mr_master_server mr_worker_server

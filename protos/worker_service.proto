@@ -15,7 +15,9 @@ message WorkerReplyMsg {
 
 message PrepareMsg {
   uint32 master_id = 1;
-  string job_type = 2;
+  string master_group = 2;
+  string master_conf = 3;
+  string job_type = 4;
 }
 
 message MapJobMsg {
@@ -23,11 +25,12 @@ message MapJobMsg {
     string key = 1;
     string value = 2;
   }
-  uint32 job_id = 1;
-  uint32 subjob_id = 2;
-  string name = 3;
-  string type = 4;
-  repeated MapKV map_kvs = 5;
+  uint32 master_id = 1;
+  uint32 job_id = 2;
+  uint32 subjob_id = 3;
+  string name = 4;
+  string type = 5;
+  repeated MapKV map_kvs = 6;
 }
 
 message ReduceJobMsg {
@@ -35,11 +38,12 @@ message ReduceJobMsg {
     string key = 1;
     repeated string value = 2;
   }
-  uint32 job_id = 1;
-  uint32 subjob_id = 2;
-  string name = 3;
-  string type = 4;
-  repeated ReduceKV reduce_kvs = 5;
+  uint32 master_id = 1;
+  uint32 job_id = 2;
+  uint32 subjob_id = 3;
+  string name = 4;
+  string type = 5;
+  repeated ReduceKV reduce_kvs = 6;
 }
 
 
