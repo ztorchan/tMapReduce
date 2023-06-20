@@ -65,7 +65,9 @@ enum WorkerState : int {
   MAPPING = 4,
   WAIT2REDUCE = 5,
   REDUCING = 6,
-  CLOSE = 7,
+  WAIT2SUBMITMAP = 7,
+  WAIT2SUBMITREDUCE = 8,
+  CLOSE = 9,
   WorkerState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   WorkerState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };

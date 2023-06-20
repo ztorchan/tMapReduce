@@ -30,7 +30,6 @@ DECLARE_bool(check_term);
 DECLARE_bool(disable_cli);
 DECLARE_bool(log_applied_task);
 DECLARE_int32(election_timeout_ms);
-DECLARE_int32(port);
 DECLARE_int32(snapshot_interval);
 DECLARE_string(conf);
 DECLARE_string(data_path);

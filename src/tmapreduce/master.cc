@@ -27,7 +27,6 @@ DEFINE_bool(disable_cli, false, "Don't allow raft_cli access this node");
 DEFINE_bool(log_applied_task, false, "Print notice log when a task is applied");
 DEFINE_int32(election_timeout_ms, 5000, 
             "Start election in such milliseconds if disconnect with the leader");
-DEFINE_int32(port, 2333, "Listen port of this peer");
 DEFINE_int32(snapshot_interval, 30, "Interval between each snapshot");
 DEFINE_string(conf, "", "Initial configuration of the replication group");
 DEFINE_string(data_path, "/data", "Path of data stored on");
@@ -236,6 +235,8 @@ void Master::BGDistributor(Master* master) {
       PrepareMsg prepare_request;
       WorkerReplyMsg response;
       prepare_request.set_master_id(master->id_);
+      prepare_request.set_master_group(FLAGS_group);
+      prepare_request.set_master_conf(FLAGS_conf);
       prepare_request.set_job_type(job->type_);
       stub->Prepare(&cntl, &prepare_request, &response, NULL);
       if(cntl.Failed()) {
@@ -258,6 +259,7 @@ void Master::BGDistributor(Master* master) {
       if(job->stage_ == JobStage::WAIT2MAP || job->stage_ == JobStage::MAPPING) {
         // transfer map key-values to worker
         MapJobMsg map_request;
+        map_request.set_master_id(master->id_);
         map_request.set_job_id(job_id);
         map_request.set_subjob_id(subjob_id);
         map_request.set_name(job->name_);
@@ -271,6 +273,7 @@ void Master::BGDistributor(Master* master) {
         stub->PrepareMap(&cntl, &map_request, &response, NULL);
       } else if(job->stage_ == JobStage::WAIT2REDUCE || job->stage_ == JobStage::REDUCING) {
         ReduceJobMsg reduce_request;
+        reduce_request.set_master_id(master->id_);
         reduce_request.set_job_id(job_id);
         reduce_request.set_subjob_id(subjob_id);
         reduce_request.set_name(job->name_);

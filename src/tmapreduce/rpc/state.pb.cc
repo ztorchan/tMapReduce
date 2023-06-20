@@ -24,10 +24,11 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema* schemas = n
 static constexpr ::PROTOBUF_NAMESPACE_ID::Message* const* file_default_instances = nullptr;
 
 const char descriptor_table_protodef_state_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\013state.proto\022\ntmapreduce*s\n\013WorkerState"
-  "\022\013\n\007UNKNOWN\020\000\022\010\n\004INIT\020\001\022\010\n\004IDLE\020\002\022\014\n\010WAI"
-  "T2MAP\020\003\022\013\n\007MAPPING\020\004\022\017\n\013WAIT2REDUCE\020\005\022\014\n"
-  "\010REDUCING\020\006\022\t\n\005CLOSE\020\007B\003\200\001\001b\006proto3"
+  "\n\013state.proto\022\ntmapreduce*\236\001\n\013WorkerStat"
+  "e\022\013\n\007UNKNOWN\020\000\022\010\n\004INIT\020\001\022\010\n\004IDLE\020\002\022\014\n\010WA"
+  "IT2MAP\020\003\022\013\n\007MAPPING\020\004\022\017\n\013WAIT2REDUCE\020\005\022\014"
+  "\n\010REDUCING\020\006\022\022\n\016WAIT2SUBMITMAP\020\007\022\025\n\021WAIT"
+  "2SUBMITREDUCE\020\010\022\t\n\005CLOSE\020\tB\003\200\001\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_state_2eproto_deps[1] = {
 };
@@ -35,7 +36,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_sta
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_state_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_state_2eproto = {
-  false, false, descriptor_table_protodef_state_2eproto, "state.proto", 155,
+  false, false, descriptor_table_protodef_state_2eproto, "state.proto", 199,
   &descriptor_table_state_2eproto_once, descriptor_table_state_2eproto_sccs, descriptor_table_state_2eproto_deps, 0, 0,
   schemas, file_default_instances, TableStruct_state_2eproto::offsets,
   file_level_metadata_state_2eproto, 0, file_level_enum_descriptors_state_2eproto, file_level_service_descriptors_state_2eproto,
@@ -58,6 +59,8 @@ bool WorkerState_IsValid(int value) {
     case 5:
     case 6:
     case 7:
+    case 8:
+    case 9:
       return true;
     default:
       return false;

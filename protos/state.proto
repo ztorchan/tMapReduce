@@ -12,5 +12,7 @@ enum WorkerState {
   MAPPING = 4;
   WAIT2REDUCE = 5;
   REDUCING = 6;
-  CLOSE = 7;
+  WAIT2SUBMITMAP = 7;
+  WAIT2SUBMITREDUCE = 8;
+  CLOSE = 9;
 }

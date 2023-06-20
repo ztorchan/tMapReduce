@@ -7,6 +7,7 @@
 
 DEFINE_uint64(id, 0, "Master ID");
 DEFINE_string(name, "", "Master name");
+DEFINE_int32(port, 2333, "Listen port of this master");
 DEFINE_string(etcd_ep, "127.0.0.1:2379", "Etcd endpoint");
 DEFINE_string(log_path, "","Log path. Default: empty, which means the logs will only be output as standard stream.");
 
