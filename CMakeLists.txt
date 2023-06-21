@@ -25,6 +25,7 @@ endforeach()
 
 include_directories(${CMAKE_SOURCE_DIR}/include/)
 include_directories(${CMAKE_SOURCE_DIR}/src/)
+include_directories(${CMAKE_SOURCE_DIR}/third-party)
 include_directories(${CMAKE_SOURCE_DIR}/third-party/spdlog/include)
 include_directories(${CMAKE_SOURCE_DIR}/third-party/rapidjson/include)
 
@@ -76,6 +77,9 @@ target_link_libraries(tmrworker ${DEPENDENCIES})
 # target_link_libraries(mr_worker_server mrworker ${DEPENDENCIES})
 
 add_library(tmrwrapper STATIC src/tmapreduce/wrapper.cc)
+
+add_executable(tmrgateway src/tmapreduce/gateway.cc ${LIBMASTER_SRC})
+target_link_libraries(tmrgateway ${DEPENDENCIES})
 
 # install(
 #   TARGETS mrmaster mrworker mr_master_server mr_worker_server
