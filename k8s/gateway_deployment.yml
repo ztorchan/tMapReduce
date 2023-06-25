@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: tmrgateway
+spec:
+  selector:
+    matchLabels:
+      app: tmrgateway
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: tmrgateway
+    spec:
+      containers:
+      - name: tmrgateway
+        image: ztorchan/tmrgateway:latest
+        ports:
+        - containerPort: 2335
+          name: gateway
+        command: []
+        env:
+        - name: TMRGATEWAY_MASTER_GROUP
+          value: tmrmaster-test
+        - name: TMRGATEWAY_MASTER_CONF
+          value: tmrmaster-0.tmrmaster.default.svc.cluster.local:2333:0,tmrmaster-1.tmrmaster.default.svc.cluster.local:2333:0,tmrmaster-2.tmrmaster.default.svc.cluster.local:2333:0,
+        - name: tmrmaster-test
+          value: 2335
