@@ -1,4 +1,4 @@
-#include "mapreduce/mrf.h"
+#include "tmapreduce/mrf.h"
 
 #include <unordered_map>
 
@@ -6,8 +6,8 @@ bool isLetterOrNum(const char& c) {
   return (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9'); 
 }
 
-mapreduce::MapOut Map(const mapreduce::MapIn& map_kv) {
-  mapreduce::MapOut result;
+tmapreduce::MapOut Map(const tmapreduce::MapIn& map_kv) {
+  tmapreduce::MapOut result;
   std::unordered_map<char, int> counter;
   for(const char& c : map_kv.second) {
     if(isLetterOrNum(c))
@@ -21,8 +21,8 @@ mapreduce::MapOut Map(const mapreduce::MapIn& map_kv) {
   return result;
 }
 
-mapreduce::ReduceOut Reduce(const mapreduce::ReduceIn& reduce_kv) {
-  mapreduce::ReduceOut result;
+tmapreduce::ReduceOut Reduce(const tmapreduce::ReduceIn& reduce_kv) {
+  tmapreduce::ReduceOut result;
   int total = 0;
   result.push_back(reduce_kv.first);
   for(const auto& v : reduce_kv.second) {
