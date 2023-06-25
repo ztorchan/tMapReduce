@@ -4,7 +4,7 @@ project(tmapduce CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE ReLWithDebInfo)
+  set(CMAKE_BUILD_TYPE Debug)
 endif()
 
 if(NOT CMAKE_INSTALL_PREFIX)
