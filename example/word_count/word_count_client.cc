@@ -43,8 +43,9 @@ int main(int argc, char* argv[]) {
   }
   launch_body.pop_back();
   launch_body = launch_body + "]}";
+  std::cout << std::endl << "Launch url: " << launch_url << std::endl;
   cpr::Response launch_r = cpr::Post(cpr::Url{launch_url}, cpr::Body{launch_body});
-  std::cout << launch_r.text << std::endl;
+  std::cout <<  std::endl << "Launch response: " << launch_r.text << std::endl;
   rapidjson::Document doc;
   doc.Parse(launch_r.text.c_str());
   uint32_t job_id = doc["job_id"].GetUint();
@@ -52,10 +53,13 @@ int main(int argc, char* argv[]) {
   // get result
   std::this_thread::sleep_for(std::chrono::seconds(2));
   std::string get_url = std::string("http://") + FLAGS_gateway + "/getresult?" + "job_id=" + std::to_string(job_id) + "&token=ztorchan";
+  std::cout << std::endl << "Get result url: " << get_url << std::endl; 
   cpr::Response get_r = cpr::Get(cpr::Url{get_url});
-  std::cout << get_r.text << std::endl;
+  std::cout << std::endl << "Get result response: " << get_r.text << std::endl;
   doc.Parse(get_r.text.c_str());
   auto result = doc["result"].GetArray();
+
+  std::cout << std::endl << "Job result" << std::endl;
   for(size_t i = 0; i < result.Size(); i += 2) {
     std::cout << result[i].GetString() << " : " << result[i+1].GetString() << std::endl;
   }

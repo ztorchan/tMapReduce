@@ -218,7 +218,7 @@ void Master::BGDistributor(Master* master) {
       if(master->slavers_.count(w.first) != 0) {
         continue;
       }
-      spdlog::info("[bgdistributor] try to distribute subjob to woker@{}[{}]", w.first.c_str(), butil::endpoint2str(w.second).c_str());
+      spdlog::info("[bgdistributor] try to distribute subjob to worker@{}[{}]", w.first.c_str(), butil::endpoint2str(w.second).c_str());
       
       // build brpc channel
       brpc::Channel* chan = new brpc::Channel;
@@ -797,7 +797,7 @@ void Master::on_apply(braft::Iterator& iter) {
         uint32_t job_id;
         MapIns map_kvs;
         LaunchMsg request;
-        butil::IOBufAsZeroCopyInputStream wrapper(iter.data());
+        butil::IOBufAsZeroCopyInputStream wrapper(data);
         request.ParseFromZeroCopyStream(&wrapper);
         for(size_t i = 0; i < request.kvs_size(); i++) {
           // get map key-values
@@ -852,7 +852,7 @@ void Master::on_apply(braft::Iterator& iter) {
       case OP_COMPLETEMAP: {
         CompleteMapMsg request;
         MapOuts map_result;
-        butil::IOBufAsZeroCopyInputStream wrapper(iter.data());
+        butil::IOBufAsZeroCopyInputStream wrapper(data);
         request.ParseFromZeroCopyStream(&wrapper);
         for(size_t i = 0; i < request.map_result_size(); ++i) {
           const auto& kv = request.map_result(i);
@@ -870,7 +870,7 @@ void Master::on_apply(braft::Iterator& iter) {
       case OP_COMPLETEREDUCE: {
         CompleteReduceMsg request;
         ReduceOuts reduce_result;
-        butil::IOBufAsZeroCopyInputStream wrapper(iter.data());
+        butil::IOBufAsZeroCopyInputStream wrapper(data);
         request.ParseFromZeroCopyStream(&wrapper);
         for(size_t i = 0; i < request.reduce_result_size(); ++i) {
           reduce_result.emplace_back(request.reduce_result(i));
