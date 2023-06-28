@@ -73,12 +73,6 @@ Master::Master(uint32_t id, std::string name, butil::EndPoint etcd_ep)
   , raft_node_(nullptr)
   , raft_leader_term_(-1)
   , end_(false) {
-  std::thread job_distributor(Master::BGDistributor, this);
-  job_distributor.detach();
-  std::thread beater(Master::BGBeater, this);
-  beater.detach();
-  std::thread scaner(Master::BGScaner, this);
-  scaner.detach();
 }
 
 Master::~Master() {
@@ -112,6 +106,14 @@ int Master::start() {
       return -1;
   }
   raft_node_ = node;
+
+  std::thread job_distributor(Master::BGDistributor, this);
+  job_distributor.detach();
+  std::thread beater(Master::BGBeater, this);
+  beater.detach();
+  std::thread scaner(Master::BGScaner, this);
+  scaner.detach();
+
   return 0;
 }
 
@@ -132,7 +134,7 @@ void Master::Register(const RegisterMsg* request,
 
   Status s = handle_register(name, ep, acceptable_job_type);
   if(s.ok()) {
-    spdlog::info("[register] successfully register worker to etcd");
+    spdlog::info("[register] successfully register worker {}[{}] to etcd", name.c_str(), ep_str.c_str());
     response->mutable_reply()->set_ok(true);
   } else {
     spdlog::info("[register] fail to register worker to etcd : {}", s.msg_.c_str());
@@ -216,7 +218,7 @@ void Master::BGDistributor(Master* master) {
       if(master->slavers_.count(w.first) != 0) {
         continue;
       }
-      spdlog::info("[bgdistributor] try to distribute subjob to woker@{}[{}]", w.first.c_str(), butil::endpoint2str(w.second).c_str());
+      spdlog::info("[bgdistributor] try to distribute subjob to worker@{}[{}]", w.first.c_str(), butil::endpoint2str(w.second).c_str());
       
       // build brpc channel
       brpc::Channel* chan = new brpc::Channel;
@@ -258,6 +260,7 @@ void Master::BGDistributor(Master* master) {
       response.Clear();
       if(job->stage_ == JobStage::WAIT2MAP || job->stage_ == JobStage::MAPPING) {
         // transfer map key-values to worker
+        job->stage_ = JobStage::MAPPING;
         MapJobMsg map_request;
         map_request.set_master_id(master->id_);
         map_request.set_job_id(job_id);
@@ -272,6 +275,7 @@ void Master::BGDistributor(Master* master) {
         }
         stub->PrepareMap(&cntl, &map_request, &response, NULL);
       } else if(job->stage_ == JobStage::WAIT2REDUCE || job->stage_ == JobStage::REDUCING) {
+        job->stage_ = JobStage::REDUCING;
         ReduceJobMsg reduce_request;
         reduce_request.set_master_id(master->id_);
         reduce_request.set_job_id(job_id);
@@ -354,7 +358,7 @@ void Master::BGBeater(Master* master) {
     std::this_thread::sleep_for(std::chrono::seconds(BEAT_PERIOD_SECOND));
     std::unique_lock<std::mutex> slavers_lck(master->slavers_mtx_);
     master->beat_cv_.wait(slavers_lck, [&] {
-      return (!master->slavers_.empty() && master->raft_node_->is_leader() || master->end_);
+      return (master->raft_node_->is_leader() || master->end_);
     });
     if(master->end_) {
       break;
@@ -607,6 +611,11 @@ Status Master::handle_complete_map(const uint32_t job_id, const uint32_t subjob_
   job->subjobs_[subjob_id].finished_ = true;
   job->unfinished_job_num_--;
   jobs_lck.unlock();
+  if(raft_node_->is_leader()) {
+    std::unique_lock<std::mutex> slavers_lck(slavers_mtx_);
+    slavers_.erase(worker_name);
+    slavers_lck.unlock();
+  }
   if(job->unfinished_job_num_ == 0) {
     // merge
     spdlog::info("[handle complete map] all subjobs have been finished, start merge and partition");
@@ -619,9 +628,6 @@ Status Master::handle_complete_map(const uint32_t job_id, const uint32_t subjob_
       job->stage_ = JobStage::WAIT2PARTITION4REDUCE;
       job->Partition();
       if(raft_node_->is_leader()) {
-        std::unique_lock<std::mutex> slavers_lck(slavers_mtx_);
-        slavers_.erase(worker_name);
-        slavers_lck.unlock();
         std::unique_lock<std::mutex> dist_lck(jobs_mtx_);
         for(size_t i = 0; i < job->subjobs_.size(); i++) {
           jobs_waiting_dist_.emplace_back(job->id_, i);
@@ -642,8 +648,8 @@ Status Master::handle_complete_reduce(const uint32_t job_id, const uint32_t subj
   std::unique_lock<std::mutex> jobs_lck(jobs_mtx_);
   Job* job = jobs_[job_id];
   // check job state
-  if(job->stage_ != JobStage::MAPPING) {
-    return Status::Error("job is not in MAPPING stage");
+  if(job->stage_ != JobStage::REDUCING) {
+    return Status::Error("job is not in REDUCING stage");
   }
   // check subjob is legal
   if(job->subjobs_.size() <= subjob_id) {
@@ -662,16 +668,16 @@ Status Master::handle_complete_reduce(const uint32_t job_id, const uint32_t subj
   job->subjobs_[subjob_id].finished_ = true;
   job->unfinished_job_num_--;
   jobs_lck.unlock();
+  if(raft_node_->is_leader()) {
+    std::unique_lock<std::mutex> slavers_lck(slavers_mtx_);
+    slavers_.erase(worker_name);
+  }
   if(job->unfinished_job_num_ == 0) {
     // merge
     spdlog::info("[handle map map] all subjobs have been finished, finish job");
     job->stage_ = JobStage::WAIT2FINISH;
     job->Finish();
     jobs_finished_.insert(job->id_);
-    if(raft_node_->is_leader()) {
-      std::unique_lock<std::mutex> slavers_lck(slavers_mtx_);
-      slavers_.erase(worker_name);
-    }
   }
   return Status::Ok("");
 }
@@ -735,6 +741,7 @@ void Master::on_apply(braft::Iterator& iter) {
         if(s.ok()) {
           spdlog::info("[apply : launch] successfully launch a job");
           set_reply_ok(OP_LAUNCH, c->response(), true);
+          c->response()->set_job_id(job_id);
         } else {
           spdlog::info("[apply : launch] fail to launch a job: {}", s.msg_);
           set_reply_ok(OP_LAUNCH, c->response(), false);
@@ -756,7 +763,7 @@ void Master::on_apply(braft::Iterator& iter) {
           spdlog::info("[apply : completemap] successfully complete job {} subjob {} from worker {}", request->job_id(), request->subjob_id(), request->worker_name());
           set_reply_ok(OP_COMPLETEMAP, c->response(), true);
         } else {
-          spdlog::info("[apply : completemap] fail to complete job {} subjob {} from worker {}", request->job_id(), request->subjob_id(), request->worker_name());
+          spdlog::info("[apply : completemap] fail to complete job {} subjob {} from worker {}: {}", request->job_id(), request->subjob_id(), request->worker_name(), s.msg_.c_str());
           set_reply_ok(OP_COMPLETEMAP, c->response(), false);
           set_reply_msg(OP_COMPLETEMAP, c->response(), s.msg_);
         }
@@ -790,7 +797,7 @@ void Master::on_apply(braft::Iterator& iter) {
         uint32_t job_id;
         MapIns map_kvs;
         LaunchMsg request;
-        butil::IOBufAsZeroCopyInputStream wrapper(iter.data());
+        butil::IOBufAsZeroCopyInputStream wrapper(data);
         request.ParseFromZeroCopyStream(&wrapper);
         for(size_t i = 0; i < request.kvs_size(); i++) {
           // get map key-values
@@ -845,7 +852,7 @@ void Master::on_apply(braft::Iterator& iter) {
       case OP_COMPLETEMAP: {
         CompleteMapMsg request;
         MapOuts map_result;
-        butil::IOBufAsZeroCopyInputStream wrapper(iter.data());
+        butil::IOBufAsZeroCopyInputStream wrapper(data);
         request.ParseFromZeroCopyStream(&wrapper);
         for(size_t i = 0; i < request.map_result_size(); ++i) {
           const auto& kv = request.map_result(i);
@@ -863,7 +870,7 @@ void Master::on_apply(braft::Iterator& iter) {
       case OP_COMPLETEREDUCE: {
         CompleteReduceMsg request;
         ReduceOuts reduce_result;
-        butil::IOBufAsZeroCopyInputStream wrapper(iter.data());
+        butil::IOBufAsZeroCopyInputStream wrapper(data);
         request.ParseFromZeroCopyStream(&wrapper);
         for(size_t i = 0; i < request.reduce_result_size(); ++i) {
           reduce_result.emplace_back(request.reduce_result(i));

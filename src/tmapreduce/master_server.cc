@@ -24,6 +24,11 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
+  if(braft::add_service(&master_server, FLAGS_port) != 0) {
+    spdlog::info("[master server] fail to add raft service");
+    return -1;
+  }
+
   butil::EndPoint point = butil::EndPoint(butil::IP_ANY, FLAGS_port);
   brpc::ServerOptions options;
   if(master_server.Start(point, &options) != 0) {

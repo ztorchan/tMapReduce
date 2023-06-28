@@ -50,13 +50,18 @@ bool check_launch_request(const rapidjson::Document& doc) {
   return true;
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   crow::SimpleApp app;
   if(braft::rtb::update_configuration(FLAGS_master_group, FLAGS_master_conf) != 0) {
     spdlog::error("Fail to update braft route table");
     return -1;
   }
+
+  CROW_ROUTE(app, "/helloworld")([](){
+    return "Hello world.";
+  });
 
   CROW_ROUTE(app, "/launch")
   .methods("POST"_method)
@@ -91,7 +96,7 @@ int main() {
     request.set_type(doc["type"].GetString());
     request.set_mapper_num(doc["mapper_num"].GetUint());
     request.set_reducer_num(doc["reducer_num"].GetUint());
-    request.set_token(doc["toker"].GetString());
+    request.set_token(doc["token"].GetString());
     const auto& kvs = doc["kvs"].GetArray();
     for(auto it = kvs.begin(); it != kvs.end(); it++) {
       auto kv = it->GetObject();

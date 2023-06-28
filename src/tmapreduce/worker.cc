@@ -23,7 +23,7 @@ Worker::Worker(std::string name, butil::EndPoint ep, std::string mrf_path)
   , state_mtx_()
   , cur_job_id_(UINT32_MAX)
   , cur_subjob_id_(UINT32_MAX)
-  ,  cur_job_name_("")
+  , cur_job_name_("")
   , cur_job_type_("")
   , map_kvs_()
   , map_result_()
@@ -85,7 +85,7 @@ void Worker::InitRegister(std::vector<butil::EndPoint> master_eps, std::vector<s
     request.Clear();
     response.Clear();
     request.set_name(name_);
-    request.set_ep(butil::endpoint2str(ep).c_str());
+    request.set_ep(butil::endpoint2str(ep_).c_str());
     for(const std::string& type : acceptable_job_types) {
       request.add_acceptable_job_type(type);
     }
@@ -96,7 +96,7 @@ void Worker::InitRegister(std::vector<butil::EndPoint> master_eps, std::vector<s
 Status Worker::Prepare(uint32_t master_id, std::string master_group, std::string master_conf, std::string job_type) {
   std::unique_lock<std::mutex> lck(state_mtx_);
   // check
-  if(master_id != UINT32_MAX) {
+  if(cur_master_id_ != UINT32_MAX) {
     return Status::Error("The worker already has a master");
   }
   std::string so_path = mrf_path_ + job_type + ".so";
@@ -115,6 +115,7 @@ Status Worker::Prepare(uint32_t master_id, std::string master_group, std::string
     return Status::Error("Fail to update braft configuration");
   }
   cur_master_id_ = master_id;
+  cur_master_group_ = master_group;
   mrf_type_ = job_type;
   return Status::Ok("");
 }
@@ -240,7 +241,7 @@ void Worker::BGExecutor(Worker* worker) {
       delete []input_values;
       delete []output_keys;
       delete []output_values;
-    } else if(worker->state_ == WorkerState::WAIT2MAP) {
+    } else if(worker->state_ == WorkerState::WAIT2REDUCE) {
       assert(reduce_kvs.size() != 0);
       worker->state_ = WorkerState::REDUCING;
       uint32_t output_size;
@@ -260,7 +261,7 @@ void Worker::BGExecutor(Worker* worker) {
       input_values = new const char*[total_input_values_size];
       uint32_t sizes_ptr = 0;
       for(size_t i = 0; i < reduce_kvs.size(); i++) {
-        for(size_t j = 0; j < sizes[j]; j++) {
+        for(size_t j = 0; j < sizes[i]; j++) {
           input_values[sizes_ptr++] = reduce_kvs[i].second[j].c_str();
         }
       }

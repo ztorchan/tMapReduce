@@ -1,75 +1,67 @@
 #include <iostream>
 #include <fstream>
 #include <filesystem>
+#include <gflags/gflags.h>
+#include <cpr/cpr.h>
+#include <chrono>
+#include <rapidjson/rapidjson.h>
+#include <rapidjson/document.h>
 
-#include "mapreduce/master.h"
 
-std::string dir_path = "../text/";
+DEFINE_string(txt_path, "", "Text path");
+DEFINE_string(gateway, "", "The endpoint of gateway");
 
-int main() {
-  brpc::ChannelOptions options;
-  options.protocol = "baidu_std";
-  options.timeout_ms = 1000;
-  options.max_retry = 3;
+bool isLetterOrNum(const char& c) {
+  return (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9'); 
+}
 
-  brpc::Channel channel;
-  if(channel.Init("127.0.0.1", 9023, &options) != 0) {
-    std::cout << "Channel initial failed." << std::endl;
-    exit(1);
-  }
-  mapreduce::MasterService_Stub stub(&channel);
+int main(int argc, char* argv[]) {
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-  brpc::Controller cntl;
-  mapreduce::JobMsg launch_request;
-  mapreduce::LaunchReplyMsg launch_response;
-  launch_request.set_name("test_word_count");
-  launch_request.set_type("wordcount");
-  launch_request.set_mapper_num(2);
-  launch_request.set_reducer_num(2);
-  
-  for(auto& p : std::filesystem::directory_iterator(dir_path)) {
+  std::string launch_url = std::string("http://") + FLAGS_gateway + "/launch";
+  std::string launch_body = std::string("")
+                            + "{"
+                            + "\"name\": \"wc-test\","
+                            + "\"type\": \"wordcount\","
+                            + "\"mapper_num\": 2,"
+                            + "\"reducer_num\": 2,"
+                            + "\"token\": \"ztorchan\","
+                            + "\"kvs\": [";
+  for(auto& p : std::filesystem::directory_iterator(FLAGS_txt_path)) {
     std::ifstream in_file(p.path());
     std::ostringstream buf;
     char ch;
     while(buf && in_file.get(ch)) {
-      buf.put(ch);
+      if(isLetterOrNum(ch))
+        buf.put(ch);
     }
-
-    auto new_kv = launch_request.add_kvs();
-    new_kv->set_key(p.path());
-    new_kv->set_value(buf.str());
+    launch_body = launch_body
+                  +"{"
+                  + "\"key\":\"" + p.path().c_str() + "\","
+                  + "\"value\":\"" + buf.str() + "\""
+                  + "},";
   }
+  launch_body.pop_back();
+  launch_body = launch_body + "]}";
+  std::cout << std::endl << "Launch url: " << launch_url << std::endl;
+  cpr::Response launch_r = cpr::Post(cpr::Url{launch_url}, cpr::Body{launch_body});
+  std::cout <<  std::endl << "Launch response: " << launch_r.text << std::endl;
+  rapidjson::Document doc;
+  doc.Parse(launch_r.text.c_str());
+  uint32_t job_id = doc["job_id"].GetUint();
 
-  uint32_t job_id;
-  stub.Launch(&cntl, &launch_request, &launch_response, NULL);
-  if(!cntl.Failed() && launch_response.reply().ok()) {
-    std::cout << "Successfully launch job." << std::endl;
-    job_id = launch_response.job_id();
-  } else if(cntl.Failed()) {
-    std::cout << "Failed to launch: Connection error." << std::endl;
-  } else {
-    std::cout << "Failed to launch: " << launch_response.reply().msg() << std::endl;
-  }
+  // get result
+  std::this_thread::sleep_for(std::chrono::seconds(2));
+  std::string get_url = std::string("http://") + FLAGS_gateway + "/getresult?" + "job_id=" + std::to_string(job_id) + "&token=ztorchan";
+  std::cout << std::endl << "Get result url: " << get_url << std::endl; 
+  cpr::Response get_r = cpr::Get(cpr::Url{get_url});
+  std::cout << std::endl << "Get result response: " << get_r.text << std::endl;
+  doc.Parse(get_r.text.c_str());
+  auto result = doc["result"].GetArray();
 
-  bool finished = false;
-  mapreduce::ReduceOuts results;
-  while(!finished) {
-    mapreduce::GetResultMsg results_request;
-    mapreduce::GetResultReplyMsg results_response;
-    results_request.set_job_id(launch_response.job_id());
-
-    cntl.Reset();
-    stub.GetResult(&cntl, &results_request, &results_response, NULL);
-    if(!cntl.Failed() && results_response.reply().ok()) {
-      finished = true;
-      for(int i = 0; i < results_response.results_size(); i += 2) {
-        std::cout << results_response.results(i) << " : " << results_response.results(i+1) << std::endl;
-      }
-    } else if(cntl.Failed()) {
-      std::cout << "Failed to get result: Connection error." << std::endl;
-    } else {
-      std::cout << "Failed to get result: " << launch_response.reply().msg() << std::endl;
-    }
+  std::cout << std::endl << "Job result" << std::endl;
+  for(size_t i = 0; i < result.Size(); i += 2) {
+    std::cout << result[i].GetString() << " : " << result[i+1].GetString() << std::endl;
   }
 
   return 0;

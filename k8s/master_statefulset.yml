@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: 
+  name: tmrmaster
+spec:
+  serviceName: "tmrmaster"
+  replicas: 3
+  selector: 
+    matchLabels:
+      app: tmrmaster
+  template:
+    metadata:
+      labels:
+        app: tmrmaster
+    spec:
+      containers:
+      # master container
+      - name: tmrmaster
+        image: ztorchan/tmrmaster:latest
+        ports:
+        - containerPort: 2333
+          name: rpc
+        command: ["/bin/bash", "/home/run_master.sh"]
+        env:
+        - name: STATEFULSET_NAME
+          value: tmrmaster
+        - name: SVC_NAME
+          value: tmrmaster
+        - name: NAMESPACE
+          value: default
+        - name: TMRMASTER_ID
+          value: "0"
+        - name: TMRMASTER_NAME
+          value: tmrmaster-test
+        - name: TMRMASTER_PORT
+          value: "2333"
+        - name: TMRMASTER_ETCD_EP
+          value: 127.0.0.1:2379
+        - name: TMRMASTER_GROUP
+          value: tmrmaster-test
+        - name: TMRMASTER_DATA_PATH
+          value: /data/
+        - name: TMRMASTER_REPLICAS
+          value: "3"
+        volumeMounts:
+        - name: data
+          mountPath: /data
+      # etcd container
+      - name: etcd
+        image: ztorchan/tmretcd:latest
+        ports:
+        - containerPort: 2379
+          name: etcd-port
+        command: ["/bin/bash", "/home/run_etcd.sh"]
+        env:
+        - name: STATEFULSET_NAME
+          value: tmrmaster
+        - name: SVC_NAME
+          value: tmrmaster
+        - name: NAMESPACE
+          value: default
+        - name: TMRETCD_PORT
+          value: "2379"
+        - name: TMRETCD_LISTEN_PEERS_PORT
+          value: "2380"
+        - name: TMRMASTER_REPLICAS
+          value: "3"
+        volumeMounts:
+        - name: data
+          mountPath: /data
+      # volumes
+      volumes:
+      - name: data
+        emptyDir: {}
